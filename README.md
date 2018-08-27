@@ -1,8 +1,8 @@
 # HyperLearn
 
-A Faster Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in replacement. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.
+Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in substitute. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.
 
-HyperLearn is written entirely in Python, PyTorch, Nogil Numba, Numpy and Pandas, and mirrors (mostly) Scikit Learn.
+HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
 ## Key Methodologies and Aims
@@ -35,13 +35,29 @@ All functions are optimized as much as possible, using the following methodologi
   * Matrix Completion algorithms - Non Negative Least Squares, NNMF
   * Batch Similarity Latent Dirichelt Allocation (BS-LDA)
   * Correlation Regression
+  * Feasible Generalized Least Squares FGLS
+  * Outlier Tolerant Regression
+  * Multidimensional Spline Regression
   * Generalized MICE (any model drop in replacement)
   * Using Uber's Pyro for Bayesian Deep Learning
 
 A work in progress, HyperLearn aims to follow these development milestones:
 
+## Goals & Development Schedule
+
+### Will Focus on & why:
+1. Singular Value Decomposition & QR Decomposition
+ * SVD/QR is the backbone for many algorithms including:
+   * Linear & Ridge Regression (Regression)
+   * Statistical Inference for Regression methods (Inference)
+   * Principal Component Analysis (Dimensionality Reduction)
+   * Linear & Quadratic Discriminant Analysis (Classification & Dimensionality Reduction)
+   * Pseudoinverse, Truncated SVD (Linear Algebra)
+   * Latent Semantic Indexing LSI (NLP)
+   * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
+
 1. Port all important Numpy functions to faster alternatives (ONGOING)
-  a. Singular Value Decomposition (50% Complete)
-    i. Uses PyTorch
+  * Singular Value Decomposition (50% Complete)
+    *
 2. 
 
