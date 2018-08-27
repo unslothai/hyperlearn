@@ -6,10 +6,10 @@ HyperLearn is written entirely in Python, PyTorch, Nogil Numba, Numpy and Pandas
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
 All functions are optimized as much as possible, using the following methodologies that I am currenlty researching on:
-1. # Parallelism
+1. Parallelism
   a. Including Memory Sharing, Memory Management
   b. CUDA Parallelism through PyTorch & Numba
-2. # Matrix Operation Tricks
+2. Matrix Operation Tricks
   a. Matrix Multiplication Ordering: https://en.wikipedia.org/wiki/Matrix_chain_multiplication
   b. Element Wise Matrix Multiplication reducing complexity to O(n^2) from O(n^3): https://en.wikipedia.org/wiki/Hadamard_product_(matrices)
   c. Reducing Matrix Operations to Einstein Notation: https://en.wikipedia.org/wiki/Einstein_notation
