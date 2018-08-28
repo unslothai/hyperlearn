@@ -5,10 +5,10 @@ Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning d
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
-| Algorithm         |  n    |  p  | Time(s) |            | RAM(mb) |            |
-| ----------------- | ----- | --- | ------- | ---------- | ------- | ---------- |
-|                   |       |     | Sklearn | Hyperlearn | Sklearn | Hyperlearn |
-| QDA (Quad Dis A)  |1000000| 100 |   54.2  | **22.25**  |   2,700 |  **1,200** |
+| Algorithm         |  n    |  p  | Time(s) |            | RAM(mb) |            | Notes                   |
+| ----------------- | ----- | --- | ------- | ---------- | ------- | ---------- | ----------------------- |
+|                   |       |     | Sklearn | Hyperlearn | Sklearn | Hyperlearn |                         |
+| QDA (Quad Dis A)  |1000000| 100 |   54.2  | **22.25**  |   2,700 |  **1,200** | Now has n_jobs param    |
   
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
