@@ -1,5 +1,10 @@
 # HyperLearn
 
+### Why can't Sklearn have GPU support, and why is it so slow for big data?
+### Statsmodels having Memory Errors and is super slow
+### Why aren't there more drop in Deep Learning modules in Sklearn?
+
+
 Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in substitute. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.
 
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
@@ -13,8 +18,6 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 #### 4. [Deep Learning Drop In Modules with PyTorch](#4)
 #### 5. [20%+ Less Code, Cleaner Clearer Code](#5)
 #### 6. [Accessing Old and Exciting New Algorithms](#6)
-
-All functions are optimized as much as possible, using the following methodologies that I am currenlty researching on:
 
 <a id='1'></a>
 ### 1. Embarrassingly Parallel For Loops
