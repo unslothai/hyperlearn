@@ -29,6 +29,7 @@ class QuadraticDiscriminantAnalysis(BaseEstimator, ClassifierMixin):
 		self.scalings_, self.rotations_, self.means_ = [], [], []
 		self.log_scalings_, self.covariance_, self.scaled_rotations_ = [], [], []
 
+
 	@n2t
 	def fit(self, X, y):
 
@@ -41,13 +42,13 @@ class QuadraticDiscriminantAnalysis(BaseEstimator, ClassifierMixin):
 		self.scalings_, self.log_scalings_, self.rotations_, \
 		self.means_, self.covariance_, self.scaled_rotations_ = \
 		\
-				Parallel_Reference(QuadraticDiscriminantAnalysis_partial_fit,
-					n_jobs = self.n_jobs, reference = 2)(
-					X, Y, self.classes_, self.reg_param, r_1, \
-					self.store_covariance)
+			Parallel_Reference(QuadraticDiscriminantAnalysis_partial_fit,
+				n_jobs = self.n_jobs, reference = 2)(
+				X, Y, self.classes_, self.reg_param, r_1, \
+				self.store_covariance)
 
-		if not self.store_covariance:
-			self.covariance_ = []
+		if not self.store_covariance: self.covariance_ = []
+
 		self.log_scalings_ = stack(self.log_scalings_)
 		return self
 
@@ -59,7 +60,7 @@ class QuadraticDiscriminantAnalysis(BaseEstimator, ClassifierMixin):
 		for VS, means in zip(self.scaled_rotations_, self.means_):
 			partial_X = (X - means).matmul(   VS   )
 
-			distances.append(  einsum('ij,ij->i', partial_X, partial_X) )
+			distances.append(  squareSum(partial_X) )
 			#distances.append(  (partial_X**2).sum(1)  )
 
 		distances = T( stack(distances) )
@@ -72,7 +73,7 @@ class QuadraticDiscriminantAnalysis(BaseEstimator, ClassifierMixin):
 		decision = self.decision_function(X)
 
 		likelihood = (decision - T(decision.max(1)[0])).exp()
-		sum_softmax = T( einsum('ij->i', likelihood) )
+		sum_softmax = T(  rowSum(likelihood)  )
 		#sum_softmax = T(likelihood.sum(1))
 		softmax = likelihood / sum_softmax
 

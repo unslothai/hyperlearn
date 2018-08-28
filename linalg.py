@@ -4,7 +4,17 @@ from scipy.linalg.lapack import clapack
 from scipy.stats import t as tdist
 
 __all__ = ['svd','_svd','pinv','_pinv','qr_solve','svd_solve',
-			'ridge_solve','qr_stats','svd_stats','ridge_stats']
+			'ridge_solve','qr_stats','svd_stats','ridge_stats',
+            'squareSum','rowSum']
+
+def squareSum(X):
+    return einsum('ij,ij->i', X, X )
+
+def rowSum(X, Y = None):
+    if Y is None:
+        return einsum('ij->i',X)
+    return einsum('ij,ij->i', X , Y )
+
 
 def t_svd(X, U = True):
 	if U:
@@ -95,7 +105,7 @@ def qr_stats(Q, R):
     XTX = T(R).matmul(R)
     _XTX = pinv(XTX)
     ## Einsum is slow in pytorch so revert to numpy version
-    h = einsum('ij,ij->i', Q, Q )
+    h = squareSum(Q) #einsum('ij,ij->i', Q, Q )
     h_mean = h.mean()
     
     return _XTX, h, h_mean
@@ -114,7 +124,7 @@ def svd_stats(U, S, VT):
     _S2 = 1.0 / (S**2)
     VS = T(VT) * _S2
     _XTX = VS.matmul(VT)
-    h = einsum('ij,ij->i', U, U )
+    h = squareSum(U) #einsum('ij,ij->i', U, U )
     h_mean = h.mean()
     
     return _XTX, h, h_mean
@@ -149,11 +159,11 @@ def ridge_stats(U, S, VT, alpha = 1):
     exp_theta_hat = einsum('ij,ji->i', VS, VT )     # Same as VS.dot(VT)
     
     V_S2 = VS / S2_alpha  # np_divide(S2,  np_square( S2 + alpha ) )
-    var_theta_hat = einsum('ij,ij->i',  V_S2  , V )   # Sams as np_multiply(   V,   V_S2 ).sum(1)
+    var_theta_hat = rowSum(V_S2, V) #einsum('ij,ij->i',  V_S2  , V )   # Sams as np_multiply(   V,   V_S2 ).sum(1)
     
     _XTX = (V * (1.0 / S2_alpha )  ).matmul( VT )   # V  1/S^2 + a  VT
     
-    h = einsum('ij,ij->i', (U * S2_over_S2), U )  # Same as np_multiply(  U*S2_over_S2, U ).sum(1)
+    h = rowSum((U * S2_over_S2), U) #einsum('ij,ij->i', (U * S2_over_S2), U )  # Same as np_multiply(  U*S2_over_S2, U ).sum(1)
     h_mean = h.mean()
     
     return exp_theta_hat, var_theta_hat, _XTX, h_mean
