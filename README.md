@@ -1,4 +1,4 @@
-# HyperLearn
+# *HyperLearn*
 ---
 
 Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in substitute. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.
@@ -6,7 +6,7 @@ Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning d
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
-<img src="https://pytorch.org/static/img/logos/pytorch-logo-dark.png" alt="drawing" width="200"/><img src="https://numba.pydata.org/_static/numba_blue_icon_rgb.png" width="100"/>
+<img src="https://pytorch.org/static/img/logos/pytorch-logo-dark.png" alt="drawing" width="200"/><img src="https://numba.pydata.org/_static/numba_blue_icon_rgb.png" width="50"/>
 
 | Algorithm         |  n    |  p  | Time(s) |            | RAM(mb) |            | Notes                   |
 | ----------------- | ----- | --- | ------- | ---------- | ------- | ---------- | ----------------------- |
