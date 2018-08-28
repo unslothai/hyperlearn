@@ -6,8 +6,8 @@ HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy &
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
 | Algorithm         |  n    |  p  |  Time (s) (Fit&Pred) |        RAM (mb)      |
+| ----------------- | ----- | --- | -------------------- | -------------------- |
 |                                 | Sklearn | Hyperlearn | Sklearn | Hyperlearn |
-| ------------------------------- | ------- | ---------- | ------- | ---------- |
 | QDA (Quad Dis A)  |1000000| 100 |   54.2  |    22.25   |   2700  |    1200    |
   
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
