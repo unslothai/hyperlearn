@@ -5,6 +5,8 @@ Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning d
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
+#### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
+
 ## Key Methodologies and Aims
 
 #### 1. [Embarrassingly Parallel For Loops](#1)
@@ -21,6 +23,13 @@ HyperLearn also has statistical inference measures embedded, and can be called j
   
 <a id='2'></a>
 ### 2. 50%+ Faster, 50%+ Leaner
+
+  | Tables        | Are           | Cool  |
+  | ------------- |:-------------:| -----:|
+  | col 3 is      | right-aligned | $1600 |
+  | col 2 is      | centered      |   $12 |
+  | zebra stripes | are neat      |    $1 |
+  
   * Matrix Multiplication Ordering: https://en.wikipedia.org/wiki/Matrix_chain_multiplication
   * Element Wise Matrix Multiplication reducing complexity to O(n^2) from O(n^3): https://en.wikipedia.org/wiki/Hadamard_product_(matrices)
   * Reducing Matrix Operations to Einstein Notation: https://en.wikipedia.org/wiki/Einstein_notation
@@ -58,12 +67,11 @@ HyperLearn also has statistical inference measures embedded, and can be called j
   * Generalized MICE (any model drop in replacement)
   * Using Uber's Pyro for Bayesian Deep Learning
 
-A work in progress, HyperLearn aims to follow these development milestones:
-
 ## Goals & Development Schedule
 
 ### Will Focus on & why:
-1. Singular Value Decomposition & QR Decomposition
+
+#### 1. Singular Value Decomposition & QR Decomposition
  * SVD/QR is the backbone for many algorithms including:
    * Linear & Ridge Regression (Regression)
    * Statistical Inference for Regression methods (Inference)
