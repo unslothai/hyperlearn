@@ -13,11 +13,11 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 
 Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
   
-
+---
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
 ---
-## Key Methodologies and Aims
+# Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
 #### 2. [50%+ Faster, 50%+ Leaner](#2)
 #### 3. [Why is Statsmodels sometimes unbearably slow?](#3)
