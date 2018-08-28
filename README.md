@@ -6,8 +6,8 @@ HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy &
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
 ## Key Methodologies and Aims
-### Parallelism with CPU, GPUs
-### Matrix Operation Tricks
+### 1. Parallelism with CPU, GPUs
+### 2. Matrix Operation Tricks
 ### Matrix Decomposition & Inverse Tricks
 ### Fast Calculation of Extensive Statistical Inference Measures
 ### Fast & Drop In Module Deep Learning Integrations
