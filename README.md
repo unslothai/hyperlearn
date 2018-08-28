@@ -1,5 +1,6 @@
-# *HyperLearn*
+# HyperLearn
 ---
+<img src="Images/HyperLearn_Logo.png" alt="drawing" width="200"/>
 
 Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in substitute. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.
 
