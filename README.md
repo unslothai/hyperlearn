@@ -1,4 +1,5 @@
 # HyperLearn
+---
 
 Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in substitute. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.
 
@@ -15,7 +16,7 @@ Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
 
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
-
+---
 ## Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
 #### 2. [50%+ Faster, 50%+ Leaner](#2)
@@ -23,7 +24,7 @@ Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
 #### 4. [Deep Learning Drop In Modules with PyTorch](#4)
 #### 5. [20%+ Less Code, Cleaner Clearer Code](#5)
 #### 6. [Accessing Old and Exciting New Algorithms](#6)
-
+---
 <a id='1'></a>
 ### 1. Embarrassingly Parallel For Loops
   * Including Memory Sharing, Memory Management
@@ -68,7 +69,7 @@ Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
   * Generalized MICE (any model drop in replacement)
   * Using Uber's Pyro for Bayesian Deep Learning
 
-
+---
 # Goals & Development Schedule
 
 ### Will Focus on & why:
@@ -82,7 +83,7 @@ Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
         * Pseudoinverse, Truncated SVD (Linear Algebra)
         * Latent Semantic Indexing LSI (NLP)
         * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
-
+---
 1. Port all important Numpy functions to faster alternatives (ONGOING)
   * Singular Value Decomposition (50% Complete)
     *
