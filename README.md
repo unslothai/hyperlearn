@@ -5,6 +5,10 @@ Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning d
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
+| Algorithm         |  n    |  p  |  Time (s) (Fit&Pred) |        RAM (mb)      |
+|:-------------------------------:| Sklearn | Hyperlearn | Sklearn | Hyperlearn |
+| QDA (Quad Dis A)  |1000000| 100 |   54.2  |    22.25   |   2700  |    1200    |
+  
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
 ## Key Methodologies and Aims
@@ -22,14 +26,7 @@ HyperLearn also has statistical inference measures embedded, and can be called j
   * CUDA Parallelism through PyTorch & Numba
   
 <a id='2'></a>
-### 2. 50%+ Faster, 50%+ Leaner
-
-  | Tables        | Are           | Cool  |
-  | ------------- |:-------------:| -----:|
-  | col 3 is      | right-aligned | $1600 |
-  | col 2 is      | centered      |   $12 |
-  | zebra stripes | are neat      |    $1 |
-  
+### 2. 50%+ Faster, 50%+ Leaner  
   * Matrix Multiplication Ordering: https://en.wikipedia.org/wiki/Matrix_chain_multiplication
   * Element Wise Matrix Multiplication reducing complexity to O(n^2) from O(n^3): https://en.wikipedia.org/wiki/Hadamard_product_(matrices)
   * Reducing Matrix Operations to Einstein Notation: https://en.wikipedia.org/wiki/Einstein_notation
