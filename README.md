@@ -1,4 +1,4 @@
-<img src="Images/HyperLearn_Logo.png" alt="drawing" width="350"/>
+<a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="350"/></a>
 
 ---
 
