@@ -7,46 +7,50 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 
 ## Key Methodologies and Aims
 
-### 1. [Parallelism with CPU, GPUs](#1)
-### 2. Matrix Operation Tricks
-### 3. Matrix Decomposition & Inverse Tricks
-### 4. Fast Calculation of Extensive Statistical Inference Measures
-### 5. Fast & Drop In Module Deep Learning Integrations
-### 6. Clearer, Cleaner & Less Code Design
-### 7. Support for new and novel models
+#### 1. [Embarrassingly Parallel For Loops](#1)
+#### 2. [50%+ Faster, 50%+ Leaner](#2)
+#### 3. [Why is Statsmodels sometimes unbearably slow?](#3)
+#### 4. [Deep Learning Drop In Modules with PyTorch](#4)
+#### 5. [20%+ Less Code, Cleaner Clearer Code](#5)
+#### 6. [Accessing Old and Exciting New Algorithms](#6)
 
 All functions are optimized as much as possible, using the following methodologies that I am currenlty researching on:
-### 1. Parallelism with CPU, GPUs
+
+<a id='1'></a>
+### 1. Embarrassingly Parallel For Loops
   * Including Memory Sharing, Memory Management
   * CUDA Parallelism through PyTorch & Numba
   
-### 2. Matrix Operation Tricks
+<a id='2'></a>
+### 2. 50%+ Faster, 50%+ Leaner
   * Matrix Multiplication Ordering: https://en.wikipedia.org/wiki/Matrix_chain_multiplication
   * Element Wise Matrix Multiplication reducing complexity to O(n^2) from O(n^3): https://en.wikipedia.org/wiki/Hadamard_product_(matrices)
   * Reducing Matrix Operations to Einstein Notation: https://en.wikipedia.org/wiki/Einstein_notation
   * Evaluating one-time Matrix Operations in succession to reduce RAM overhead.
-  
-### 3. Matrix Decomposition & Inverse Tricks
   * If p>>n, maybe decomposing X.T is better than X.
   * Applying QR Decomposition then SVD might be faster in some cases.
   * Utilise the structure of the matrix to compute faster inverse (eg triangular matrices, Hermitian matrices).
   * Computing SVD(X) then getting pinv(X) is sometimes faster than pure pinv(X)
   
-### 4. Fast Calculation of Extensive Statistical Inference Measures
+<a id='3'></a>
+### 3. Why is Statsmodels sometimes unbearably slow?
   * Confidence, Prediction Intervals, Hypothesis Tests & Goodness of Fit tests for linear models are optimized.
   * Using Einstein Notation & Hadamard Products where possible.
   * Computing only what is neccessary to compute (Diagonal of matrix and not entire matrix).
   * Fixing the flaws of Statsmodels on notation, speed, memory issues and storage of variables.
-  
-### 5. Fast & Drop In Module Deep Learning Integrations
+
+<a id='4'></a>
+### 4. Deep Learning Drop In Modules with PyTorch
   * Using PyTorch to create Scikit-Learn like drop in replacements.
-  
-### 6. Clearer, Cleaner & Less Code Design
+
+<a id='5'></a>
+### 5. 20%+ Less Code, Cleaner Clearer Code
   * Using Decorators & Functions where possible.
   * Intuitive Middle Level Function names like (isTensor, isIterable).
   * Handles Parallelism easily through hyperlearn.multiprocessing
-  
-### 7. Support for new and novel models
+
+<a id='6'></a>
+### 6. Accessing Old and Exciting New Algorithms
   * Matrix Completion algorithms - Non Negative Least Squares, NNMF
   * Batch Similarity Latent Dirichelt Allocation (BS-LDA)
   * Correlation Regression
