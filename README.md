@@ -8,14 +8,15 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 | Algorithm         |  n    |  p  | Time(s) |            | RAM(mb) |            | Notes                   |
 | ----------------- | ----- | --- | ------- | ---------- | ------- | ---------- | ----------------------- |
 |                   |       |     | Sklearn | Hyperlearn | Sklearn | Hyperlearn |                         |
-| QDA (Quad Dis A)  |1000000| 100 |   54.2  | *22.25*    |   2,700 |  *1,200*   | Now has n_jobs param    |
+| QDA (Quad Dis A)  |1000000| 100 |   54.2  | *22.25*    |   2,700 |  *1,200*   | Now parallelized        |
 
 Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
   
+
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
-## Key Methodologies and Aims
 
+## Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
 #### 2. [50%+ Faster, 50%+ Leaner](#2)
 #### 3. [Why is Statsmodels sometimes unbearably slow?](#3)
@@ -67,19 +68,20 @@ Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
   * Generalized MICE (any model drop in replacement)
   * Using Uber's Pyro for Bayesian Deep Learning
 
-## Goals & Development Schedule
+
+# Goals & Development Schedule
 
 ### Will Focus on & why:
 
 #### 1. Singular Value Decomposition & QR Decomposition
- * SVD/QR is the backbone for many algorithms including:
-   * Linear & Ridge Regression (Regression)
-   * Statistical Inference for Regression methods (Inference)
-   * Principal Component Analysis (Dimensionality Reduction)
-   * Linear & Quadratic Discriminant Analysis (Classification & Dimensionality Reduction)
-   * Pseudoinverse, Truncated SVD (Linear Algebra)
-   * Latent Semantic Indexing LSI (NLP)
-   * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
+    * SVD/QR is the backbone for many algorithms including:
+        * Linear & Ridge Regression (Regression)
+        * Statistical Inference for Regression methods (Inference)
+        * Principal Component Analysis (Dimensionality Reduction)
+        * Linear & Quadratic Discriminant Analysis (Classification & Dimensionality Reduction)
+        * Pseudoinverse, Truncated SVD (Linear Algebra)
+        * Latent Semantic Indexing LSI (NLP)
+        * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
 
 1. Port all important Numpy functions to faster alternatives (ONGOING)
   * Singular Value Decomposition (50% Complete)
