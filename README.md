@@ -11,6 +11,8 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 
 <img src="Images/Packages_Used_long.png" alt="drawing" width="800"/>
 
+### Comparison of Speed / Memory
+
 | Algorithm         |  n    |  p  | Time(s) |            | RAM(mb) |            | Notes                   |
 | ----------------- | ----- | --- | ------- | ---------- | ------- | ---------- | ----------------------- |
 |                   |       |     | Sklearn | Hyperlearn | Sklearn | Hyperlearn |                         |
