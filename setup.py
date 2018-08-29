@@ -7,12 +7,10 @@ install_requires = [
         'scikit-learn >= 0.18.0',
         'scipy >= 1.0.0',
         'pandas >= 0.21.0',
+        'torch >= 0.4.0',
     	]
 
 dependency_links = [
-      	'http://download.pytorch.org/whl/cpu/torch-0.4.1-cp37-cp37m-win_amd64.whl;platform_system=="Windows";python_version=="3.7"',
-      	'http://download.pytorch.org/whl/cpu/torch-0.4.1-cp36-cp36m-win_amd64.whl;platform_system=="Windows";python_version=="3.6"',
-      	'http://download.pytorch.org/whl/cpu/torch-0.4.1-cp35-cp35m-win_amd64.whl;platform_system=="Windows";python_version=="3.5"'
       	]
 
 
