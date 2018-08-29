@@ -4,7 +4,8 @@ from torch import from_numpy as _toTensor, einsum as t_einsum, \
 from functools import wraps    
 from numpy import finfo as np_finfo, einsum as np_einsum, log as np_log, array as np_array
 from numpy import float32 as np_float32, float64 as np_float64, int32 as np_int32, \
-                    int64 as np_int64, bool_ as np_bool, uint8 as np_uint8, ndarray
+                    int64 as np_int64, bool_ as np_bool, uint8 as np_uint8, ndarray, \
+                    round as np_round
 from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
 from inspect import isclass as isClass
 

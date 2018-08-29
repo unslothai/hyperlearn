@@ -108,12 +108,16 @@ def ridge_solve(X, y, alpha = 1):
 """
 ------------------------------------------------------------
 CHOLESKY_SOLVE
-Updated 29/8/2018
+Updated 30/8/2018
 ------------------------------------------------------------
 """
-def t_cholesky_solve(X, y, alpha = 0):
+def t_cholesky_solve(X, y, alpha = 0, step = 2):
     '''
     Solve least squares problem X*theta_hat = y using Cholesky Decomposition.
+    
+    Alpha = 0, Step = 2 can be options
+    Alpha is Regularization Term and step = 2 default for guaranteed stability.
+    Step must be > 1
     
     |  Method   |   Operations    | Factor * np^2 |
     |-----------|-----------------|---------------|
@@ -129,7 +133,7 @@ def t_cholesky_solve(X, y, alpha = 0):
         alpha = dtype(X).decimal    [1e-6 is float32]
         while failure {
             solve cholesky ( XTX + alpha*identity )
-            alpha *= 10
+            alpha *= step (2 default)
         }
     
     If MSE (Mean Squared Error) is abnormally high, it might be better to solve using stabler but
@@ -137,7 +141,8 @@ def t_cholesky_solve(X, y, alpha = 0):
     
     https://www.quora.com/Is-it-better-to-do-QR-Cholesky-or-SVD-for-solving-least-squares-estimate-and-why
     '''
-
+    assert step > 1
+    
     XTX = T(X).matmul(X)
     regularizer = ones(X.shape[1]).type(X.dtype)
     
@@ -152,13 +157,13 @@ def t_cholesky_solve(X, y, alpha = 0):
             chol = cholesky_decomposition(  XTX + diag(alphaI)  )
             no_success = False
         except:
-            alpha *= 10
+            alpha *= step
             warn = True
             
     if warn and print_all_warnings:
-        addon = constant(alpha.round(10))
+        addon = np_round(constant(alpha), 10)
         print(f'''
-            Matrix is ill-conditioned. Added regularization = {addon} to combat this. 
+            Matrix is not full rank. Added regularization = {addon} to combat this. 
             Now, solving L2 regularized (XTX+{addon}*I)^-1(XTy).
 
             NOTE: It might be better to use svd_solve, qr_solve or lstsq if MSE is high.
@@ -171,4 +176,3 @@ def t_cholesky_solve(X, y, alpha = 0):
 
 cholesky_solve = n2n(t_cholesky_solve)
 _cholesky_solve = n2t(t_cholesky_solve)
-
