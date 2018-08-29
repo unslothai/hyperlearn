@@ -16,7 +16,8 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 | Algorithm         |  n    |  p  | Time(s) |            | RAM(mb) |            | Notes                   |
 | ----------------- | ----- | --- | ------- | ---------- | ------- | ---------- | ----------------------- |
 |                   |       |     | Sklearn | Hyperlearn | Sklearn | Hyperlearn |                         |
-| QDA (Quad Dis A)  |1000000| 100 |   54.2  | *22.25*    |   2,700 |  *1,200*   | Now parallelized        |
+| QDA (Quad Dis A)  |1000000| 100 |   54.2  |   *22.25*  |  2,700  |  *1,200*   | Now parallelized        |
+| LinearRegression  |1000000| 100 |   5.81  |   *0.381*  |   700   |    *10*    | Guaranteed stable & fast|
 
 Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
   
