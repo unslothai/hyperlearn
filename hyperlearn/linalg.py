@@ -1,7 +1,6 @@
 from .base import *
 from torch import svd as __svd, qr as __qr
 from scipy.linalg.lapack import clapack
-from scipy.stats import t as tdist
 from torch import potrf as cholesky_decomposition, diag, ones, \
                 potrs as cholesky_triangular_solve
 
@@ -140,9 +139,10 @@ def t_cholesky_solve(X, y, alpha = 0):
     '''
 
     XTX = T(X).matmul(X)
-    regularizer = ones(X.shape[1])
+    regularizer = ones(X.shape[1]).type(X.dtype)
     
-    if alpha == 0: alpha = typeTensor([np_finfo(dtype(X)).resolution])
+    if alpha == 0: 
+        alpha = typeTensor([np_finfo(dtype(X)).resolution]).type(X.dtype)
     no_success = True
     warn = False
 
@@ -156,7 +156,7 @@ def t_cholesky_solve(X, y, alpha = 0):
             warn = True
             
     if warn and print_all_warnings:
-        addon = round(constant(alpha), 10)
+        addon = constant(alpha.round(10))
         print(f'''
             Matrix is ill-conditioned. Added regularization = {addon} to combat this. 
             Now, solving L2 regularized (XTX+{addon}*I)^-1(XTy).

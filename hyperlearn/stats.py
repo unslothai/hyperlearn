@@ -1,4 +1,5 @@
 from .base import *
+from scipy.stats import t as tdist
 
 __all__ = ['qr_stats','svd_stats','ridge_stats']
 
