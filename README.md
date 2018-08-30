@@ -3,7 +3,7 @@
 
 ![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
 ![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=popout-square)
-![Depfu](https://img.shields.io/depfu/depfu/example-ruby.svg?style=popout-square)
+![Depfu](https://img.shields.io/depfu/depfu/example-ruby.svg?style=popout-square) *Currently badges don't work --> will update late :)*
 
 
 ---
