@@ -1,4 +1,5 @@
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="350"/></a>
+
 *Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
 
 ![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
