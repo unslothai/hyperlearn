@@ -1,178 +1,104 @@
 from .base import *
-from torch import svd as __svd, qr as __qr
-from scipy.linalg.lapack import clapack
-from torch import potrf as cholesky_decomposition, diag, ones, \
-                potrs as cholesky_triangular_solve
+from scipy.linalg import pinvh as scipy_pinvh, svd as scipy_svd, pinv2, eigh
+from torch import svd
 
-__all__ = ['svd','_svd','pinv','_pinv','qr_solve','svd_solve',
-			'ridge_solve','squareSum','rowSum',
-            'cholesky_solve','cholesky_decomposition']
+__all__ = ['pinv', 'pinvh', 'svd', 'diagonal', 'cov', 'invCov', 'Vsigma']
 
-"""
-------------------------------------------------------------
-QR_SOLVE
-Updated 27/8/2018
-------------------------------------------------------------
-"""
-def t_qr(X):
-    return __qr(X)
-qr = n2n(t_qr)
-_qr = n2t(t_qr)
-
-
-def qr_solve(X, y):
-    '''
-    theta =  R^-1 * QT * y
-    '''
-    Q, R = qr(X)
-    check = 0
-    if R.shape[0] == R.shape[1]:
-        _R, check = clapack.strtri(R)
-    if check > 0:
-        _R = _pinv(R)
-    Q, _R, R = Tensor(Q, _R, R)
-    
-    theta_hat = _R.matmul(   T(Q).matmul( ravel(y, Q) )   )
-    return theta_hat
+@check
+def pinv(X):
+	"""
+	Computes the pseudoinverse of any matrix using SVD if use_gpu
+	or if using CPU, using Scipy's pinv2
+	"""
+	if use_gpu:
+		U, S, VT = svd(X)
+		cond = S < eps(X)*constant(S[0])
+		_S = 1.0 / S
+		_S[cond] = 0.0
+		VT *= T(_S)
+		return dot( T(VT), T(U) )
+	return pinv2(X, return_rank = False, check_finite = False)
 
 
-"""
-------------------------------------------------------------
-SVD_SOLVE & PINV
-Updated 27/8/2018
-------------------------------------------------------------
-"""
-
-def t_svd(X, U = True):
-    if U:
-        U, S, V = __svd(X, some = True)
-        return U, S, T(V)
-    else:
-        __, S, V = __svd(X, some = True)
-        return S, T(V)
-svd = n2n(t_svd)
-_svd = n2t(t_svd)
+def pinvh(X):
+	"""
+	Computes the pseudoinverse of a Hermitian Matrix
+	(Positive Symmetric Matrix) using Scipy (fastest)
+	"""
+	A = X.numpy() if isTensor(X) else X
+	return scipy_pinvh(A, check_finite = False, return_rank = False)
 
 
-def t_pinv(X):
-    U, S, VT = _svd(X)
-    cond = S < eps(X)*constant(S[0])
-    _S = 1.0 / S
-    _S[cond] = 0.0
-    VT *= T(_S)
-    return T(VT).matmul(T(U))
-pinv = n2n(t_pinv)
-_pinv = n2t(t_pinv)
+@check
+def svd(X):
+	"""
+	Computes the singular value decomposition of a matrix.
+	Uses scipy when use_gpu = False, else pytorch is used.
+	"""
+	if use_gpu: return svd(X)
+	return scipy_svd(X, check_finite = False, return_rank = False)
 
 
-def svd_solve(X, y):
-    '''
-    theta =  V * S^-1 * UT * y
-    '''
-    U, S, VT = _svd(X)
-    cond = S < eps(X)*constant(S[0])
-    _S = 1.0 / S
-    _S[cond] = 0.0
-    VT *= T(_S)
-    
-    theta_hat = T(VT).matmul(  
-                            T(U).matmul(  ravel(y, U)  )
-                            )
-    return theta_hat
+def diagonal(p, multiplier, dtype):
+	"""
+	Crates a diagonal of ones multiplied by some factor.
+	"""
+	if use_gpu: return  diag(ones(p) * multiplier).type(dtype)
+	return np_diag(np_ones(p) * multiplier).astype(dtype)
 
 
-"""
-------------------------------------------------------------
-RIDGE_SOLVE using SVD
-Updated 27/8/2018
-------------------------------------------------------------
-"""
+def cov(X):
+	"""
+	Creates the covariance matrix for X.
+	Estimated cov(X) = XTX
+	"""
+	if use_gpu: return X.t().matmul(X)
+	return X.T.dot(X)
 
-def ridge_solve(X, y, alpha = 1):
-    '''
-                    S
-    theta =   V --------- UT y 
-                 S^2 + aI
-    '''
-    U, S, VT = _svd(X)
-    cond = S < eps(X)*constant(S[0])
-    _S = S / (S**2 + alpha)
-    _S[cond] = 0.0
-    VT *= T(_S)
-    
-    theta_hat = T(VT).matmul(  
-                            T(U).matmul(  ravel(y, U)  )
-                            )
-    return theta_hat
+@check
+def invCov(X, alpha = 0, epsilon = True):
+	"""
+	Calculates the pseudoinverse of the covariance matrix.
+	
+	invCov also has a epsilon regularization term alpha.
+	Originally set to machine precision, this is to counteract
+	strange computational errors effectively.
 
-"""
-------------------------------------------------------------
-CHOLESKY_SOLVE
-Updated 30/8/2018
-------------------------------------------------------------
-"""
-def t_cholesky_solve(X, y, alpha = 0, step = 2):
-    '''
-    Solve least squares problem X*theta_hat = y using Cholesky Decomposition.
-    
-    Alpha = 0, Step = 2 can be options
-    Alpha is Regularization Term and step = 2 default for guaranteed stability.
-    Step must be > 1
-    
-    |  Method   |   Operations    | Factor * np^2 |
-    |-----------|-----------------|---------------|
-    | Cholesky  |   1/3 * np^2    |      1/3      |
-    |    QR     |   p^3/3 + np^2  |   1 - p/3n    |
-    |    SVD    |   p^3   + np^2  |    1 - p/n    |
-    
-    NOTE: HyperLearn's implementation of Cholesky Solve uses L2 Regularization to enforce stability.
-    Cholesky is known to fail on ill-conditioned problems, so adding L2 penalties helpes it.
-    
-    Note, the algorithm in this implementation is as follows:
-    
-        alpha = dtype(X).decimal    [1e-6 is float32]
-        while failure {
-            solve cholesky ( XTX + alpha*identity )
-            alpha *= step (2 default)
-        }
-    
-    If MSE (Mean Squared Error) is abnormally high, it might be better to solve using stabler but
-    slower methods like qr_solve, svd_solve or lstsq.
-    
-    https://www.quora.com/Is-it-better-to-do-QR-Cholesky-or-SVD-for-solving-least-squares-estimate-and-why
-    '''
-    assert step > 1
-    
-    XTX = T(X).matmul(X)
-    regularizer = ones(X.shape[1]).type(X.dtype)
-    
-    if alpha == 0: 
-        alpha = typeTensor([np_finfo(dtype(X)).resolution]).type(X.dtype)
-    no_success = True
-    warn = False
+	So, we calculate pinvh(XTX + alphaI) as Hermitian matrix
+	(positive symmetric)
 
-    while no_success:
-        alphaI = regularizer*alpha
-        try:
-            chol = cholesky_decomposition(  XTX + diag(alphaI)  )
-            no_success = False
-        except:
-            alpha *= step
-            warn = True
-            
-    if warn and print_all_warnings:
-        addon = np_round(constant(alpha), 10)
-        print(f'''
-            Matrix is not full rank. Added regularization = {addon} to combat this. 
-            Now, solving L2 regularized (XTX+{addon}*I)^-1(XTy).
+	If X is float32, then alpha = 1e-6
+	"""
+	XTX = cov(X)
+	res = resolution(X) if alpha == 0 and epsilon else alpha
+	regularizer = diagonal(XTX.shape[0], res, X.dtype)
 
-            NOTE: It might be better to use svd_solve, qr_solve or lstsq if MSE is high.
-            ''')
-   
-    XTy = T(X).matmul( ravel(y, chol)  )
-    
-    theta_hat = cholesky_triangular_solve(XTy, chol).flatten()
-    return theta_hat
+	if use_gpu: 
+		return pinvh(  (XTX + regularizer).numpy() )
+	return pinvh( XTX + regularizer  )
 
-cholesky_solve = n2n(t_cholesky_solve)
-_cholesky_solve = n2t(t_cholesky_solve)
+
+@check
+def Vsigma(X):
+	"""
+	Computes efficiently V and S for svd(X) = U * S * VT
+	Skips computation of U entirely, by performing
+	eigh (eigendecomp) on covariance matrix XTX.
+
+	Then, notice how XTX = V * lambda * VT, thus:
+	singular_values S is just lambda**0.5, and V is found.
+
+	Returns S, VT by convention of U * S * VT
+	"""
+	XTX = cov(X)
+	if use_gpu: XTX = XTX.numpy()
+
+	S, V = eigh(XTX, check_finite = False)
+	S[S < 0] = 0.0
+	S **= 0.5
+
+	S = S[::-1]
+	VT = V[:,::-1].T
+
+	return S, VT
+
