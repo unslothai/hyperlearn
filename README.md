@@ -1,8 +1,15 @@
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="350"/></a>
 
+*Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
+
+![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
+![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=popout-square)
+![Depfu](https://img.shields.io/depfu/depfu/example-ruby.svg?style=popout-square) *Currently badges don't work --> will update later :)*
+
+
 ---
 
-**Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & Deep Learning drop in substitute. Designed for big data, HyperLearn can use 50%+ less memory, and runs 50%+ faster on some modules. Will have GPU support, and all modules are parallelized.**
+**50%+ Faster, 50%+ less RAM usage, GPU support re-written Sklearn, Statsmodels combo with new novel algorithms.**
 
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
