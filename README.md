@@ -27,7 +27,10 @@ HyperLearn also has statistical inference measures embedded, and can be called j
 | LinearRegression  |1000000| 100 |   5.81  |   *0.381*  |   700   |    *10*    | Guaranteed stable & fast|
 
 Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
-  
+ 
+I've also added some preliminary results for N = 5000, P = 6000
+<img src="Images/Preliminary Results N=5000 P=6000.png" alt="drawing" width="500"/>
+
 ---
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
