@@ -2,7 +2,7 @@ from .base import *
 from scipy.linalg import pinvh as scipy_pinvh, svd as scipy_svd, pinv2, eigh
 from torch import svd
 
-__all__ = ['pinv', 'pinvh', 'svd', 'diagonal', 'cov', 'invCov', 'Vsigma']
+__all__ = ['pinv', 'pinvh', 'svd', 'diagonal', 'cov', 'invCov', 'sigmaV']
 
 @check
 def pinv(X):
@@ -16,7 +16,7 @@ def pinv(X):
 		_S = 1.0 / S
 		_S[cond] = 0.0
 		VT *= T(_S)
-		return dot( T(VT), T(U) )
+		return T(VT) @ T(U)
 	return pinv2(X, return_rank = False, check_finite = False)
 
 
@@ -36,7 +36,7 @@ def svd(X):
 	Uses scipy when use_gpu = False, else pytorch is used.
 	"""
 	if use_gpu: return svd(X)
-	return scipy_svd(X, check_finite = False, return_rank = False)
+	return scipy_svd(X, full_matrices = False, check_finite = False)
 
 
 def diagonal(p, multiplier, dtype):
@@ -52,8 +52,8 @@ def cov(X):
 	Creates the covariance matrix for X.
 	Estimated cov(X) = XTX
 	"""
-	if use_gpu: return X.t().matmul(X)
-	return X.T.dot(X)
+	if use_gpu: return X.t() @ X
+	return X.T @ X
 
 @check
 def invCov(X, alpha = 0, epsilon = True):
@@ -79,7 +79,7 @@ def invCov(X, alpha = 0, epsilon = True):
 
 
 @check
-def Vsigma(X):
+def sigmaV(X):
 	"""
 	Computes efficiently V and S for svd(X) = U * S * VT
 	Skips computation of U entirely, by performing
@@ -93,7 +93,7 @@ def Vsigma(X):
 	XTX = cov(X)
 	if use_gpu: XTX = XTX.numpy()
 
-	S, V = eigh(XTX, check_finite = False)
+	S, V = eigh(XTX, check_finite = False, overwrite_a = True)
 	S[S < 0] = 0.0
 	S **= 0.5
 

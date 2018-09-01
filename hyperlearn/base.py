@@ -9,7 +9,7 @@ from numpy import float32 as np_float32, float64 as np_float64, int32 as np_int3
 from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
 from inspect import isclass as isClass
 from torch import matmul as torch_dot, diag, ones
-from numpy import dot as np_dot, diag as np_diag, ones as np_ones
+from numpy import diag as np_diag, ones as np_ones # dot as np_dot
 
 use_numpy_einsum = True
 print_all_warnings = True
@@ -134,7 +134,7 @@ Matrix Manipulation
 Updated 30/8/2018
 ------------------------------------------------------------
 """
-dot = torch_dot if use_gpu else np_dot
+#dot = torch_dot if use_gpu else np_dot
 
 def T(X):
 	A = X.reshape(-1,1) if len(X.shape) == 1 else X
@@ -145,9 +145,9 @@ def cast(X, dtype):
 	if use_gpu: return X.type(dtype)
 	return X.astype(dtype)
 
-def ravel(X):
-	if use_gpu: return X.unsqueeze(1)
-	return X.ravel()
+#def ravel(X):
+#	if use_gpu: return X.unsqueeze(1)
+#	return X.ravel()
 
 def constant(X):
 	if use_gpu: return X.item()
@@ -202,11 +202,22 @@ def einsum(notation, *args, tensor = False):
 
 
 def squareSum(X):
+	if len(X.shape) == 1:
+		return einsum('i,i->', X, X)
 	return einsum('ij,ij->i', X, X )
 
 
-def rowSum(X, Y = None):
+def rowSum(X, Y = None, transpose_a = False):
 	if Y is None:
 		return einsum('ij->i',X)
+	if transpose_a:
+		return einsum('ji,ij->i', X , Y )
 	return einsum('ij,ij->i', X , Y )
+
+
+def diagSum(X, Y, transpose_a = False):
+	if transpose_a:
+		return einsum('ji,ij->', X , Y )
+	return einsum('ij,ij->', X , Y )
+
 

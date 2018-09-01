@@ -2,7 +2,7 @@ from .base import *
 from .linalg import *
 from torch import qr as qr
 from scipy.linalg import qr as scipy_qr, cho_factor as scipy_cholesky, cho_solve
-from scipy.linalg.lapack import clapack
+from scipy.linalg.lapack import dtrtri
 from torch import potrf as cholesky, diag, ones, \
 				potrs as cholesky_triangular_solve
 
@@ -14,25 +14,30 @@ def qrSolve(X, y):
 	'''
 	Uses QR Decomposition to solve X * theta = y
 
-	Uses scipy when use_gpu = False, but always uses LAPACK's
-	triangular efficient inverse.
+	Uses scipy when use_gpu = False, and uses solve_triangular
+	to solve R = QTy.
 
+	This implementation of QR Solve handles ill conditioned
+	problems using the following algorithm:
+
+	compute covariance XTX
+	try Q, R = qr(XTX)
+	if R^-1 * R diag sum > 1.1*p {
+		compute Q, R = qr(X + I)
+	}
 	Solves theta =  R^-1 * QT * y
 	'''
-	if use_gpu:
-		Q, R = qr(X)
-		R = R.numpy()
-	else: 
-		Q, R = qr(X, mode = 'economic', check_finite = False)
+	XTX = cov(X)
 
-	check = 0
+	Q, R = scipy_qr(XTX, mode = 'economic', check_finite = False,
+					overwrite_a = True)
+	check = 1
 	a,b = R.shape
+	if use_gpu: R = R.numpy()
+	if a == b: _R, check = dtrtri(R)
+	if check == 1: _R = pinv(R)
 
-	if a == b: _R, check = clapack.dtrtri(R)	# LAPACK inverse
-	if check > 0: _R = pinv(R)					# Else, use pseudoinverse
-	if use_gpu: _R = Tensor(_R)
-
-	return dot( _R,  dot(T(Q), y)   )
+	return _R @ (Q.T @ (X.T @ y))
 
 
 @check
@@ -43,7 +48,7 @@ def pinvSolve(X, y):
 
 	Evaluate pinv(XTX) * (XTy) directly to get theta.
 	"""
-	return dot( invCov(X, 0, False), dot(T(X), y) )
+	return invCov(X, 0, False) @ (T(X) @ y)
 
 
 @check
@@ -55,7 +60,7 @@ def ridgeSolve(X, y, alpha = 1):
 	Easily computes:
 	theta_hat = pinv(XTX + alpha) * (XTy)
 	"""
-	return dot( invCov(X, alpha), dot(T(X), y) )
+	return invCov(X, alpha) @ (T(X) @ y)
 
 
 @check
@@ -117,5 +122,5 @@ def choleskySolve(X, y, alpha = 0, step = 10):
 		''')
    
 	if use_gpu:
-		return cholesky_triangular_solve(dot(T(X), y), chol).flatten()
-	return cho_solve( chol, dot(T(X), y) ).flatten()
+		return cholesky_triangular_solve( T(X) @ y, chol).flatten()
+	return cho_solve( chol, T(X) @ y ).flatten()
