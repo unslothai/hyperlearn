@@ -31,6 +31,10 @@ Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
 I've also added some preliminary results for N = 5000, P = 6000
 <img src="Images/Preliminary Results N=5000 P=6000.png" alt="drawing" width="500"/>
 
+Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
+1. EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
+2. SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
+
 ---
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
