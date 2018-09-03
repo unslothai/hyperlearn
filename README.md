@@ -63,7 +63,7 @@ I've also added some preliminary results for N = 5000, P = 6000
 ### 3. Why is Statsmodels sometimes unbearably slow?
   * Confidence, Prediction Intervals, Hypothesis Tests & Goodness of Fit tests for linear models are optimized.
   * Using Einstein Notation & Hadamard Products where possible.
-  * Computing only what is neccessary to compute (Diagonal of matrix and not entire matrix).
+  * Computing only what is necessary to compute (Diagonal of matrix and not entire matrix).
   * Fixing the flaws of Statsmodels on notation, speed, memory issues and storage of variables.
 
 <a id='4'></a>
