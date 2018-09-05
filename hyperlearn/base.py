@@ -11,9 +11,11 @@ from inspect import isclass as isClass
 from torch import matmul as torch_dot, diag, ones
 from numpy import diag as np_diag, ones as np_ones # dot as np_dot
 
-use_numpy_einsum = True
-print_all_warnings = True
-use_gpu = False
+USE_NUMPY_EINSUM = True
+PRINT_ALL_WARNINGS = True
+USE_GPU = False
+ALPHA_DEFAULT = 0.00001
+USE_NUMBA = True
 
 """
 ------------------------------------------------------------
@@ -115,7 +117,7 @@ Updated 31/8/2018
 def check(f):
 	@wraps(f)
 	def wrapper(*args, **kwargs):
-		if use_gpu:
+		if USE_GPU:
 			if isClass(args[0]):
 				returned = f(args[0], *Tensors(*args[1:]), **kwargs)
 			returned = f(*Tensors(*args), **kwargs)
@@ -134,23 +136,23 @@ Matrix Manipulation
 Updated 30/8/2018
 ------------------------------------------------------------
 """
-#dot = torch_dot if use_gpu else np_dot
+#dot = torch_dot if USE_GPU else np_dot
 
 def T(X):
 	A = X.reshape(-1,1) if len(X.shape) == 1 else X
-	if use_gpu: return A.t()
+	if USE_GPU: return A.t()
 	return A.T
 
 def cast(X, dtype):
-	if use_gpu: return X.type(dtype)
+	if USE_GPU: return X.type(dtype)
 	return X.astype(dtype)
 
 #def ravel(X):
-#	if use_gpu: return X.unsqueeze(1)
+#	if USE_GPU: return X.unsqueeze(1)
 #	return X.ravel()
 
 def constant(X):
-	if use_gpu: return X.item()
+	if USE_GPU: return X.item()
 	return X
 
 def eps(X):
@@ -187,7 +189,7 @@ Updated 28/8/2018
 ------------------------------------------------------------
 """
 def einsum(notation, *args, tensor = False):
-	if use_numpy_einsum:
+	if USE_NUMPY_EINSUM:
 		args = Numpy(*args)
 		out = np_einsum(notation, *args)
 	else:

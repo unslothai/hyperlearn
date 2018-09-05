@@ -1,76 +1,23 @@
-from .base import *
+
 from .linalg import *
-from torch import qr as qr
-from scipy.linalg import qr as scipy_qr, cho_factor as scipy_cholesky, cho_solve
-from scipy.linalg.lapack import dtrtri
-from torch import potrf as cholesky, diag, ones, \
-				potrs as cholesky_triangular_solve
+from .base import *
+from .numba import numba_lstsq
 
-__all__ = ['qrSolve', 'pinvSolve', 'ridgeSolve', 'choleskySolve']
+__all__ = ['solveCholesky', 'solveSVD', 'solveEig', 'lstsq']
 
 
-@check
-def qrSolve(X, y):
-	'''
-	Uses QR Decomposition to solve X * theta = y
-
-	Uses scipy when use_gpu = False, and uses solve_triangular
-	to solve R = QTy.
-
-	This implementation of QR Solve handles ill conditioned
-	problems using the following algorithm:
-
-	compute covariance XTX
-	try Q, R = qr(XTX)
-	if R^-1 * R diag sum > 1.1*p {
-		compute Q, R = qr(X + I)
-	}
-	Solves theta =  R^-1 * QT * y
-	'''
-	XTX = cov(X)
-
-	Q, R = scipy_qr(XTX, mode = 'economic', check_finite = False,
-					overwrite_a = True)
-	check = 1
-	a,b = R.shape
-	if use_gpu: R = R.numpy()
-	if a == b: _R, check = dtrtri(R)
-	if check == 1: _R = pinv(R)
-
-	return _R @ (Q.T @ (X.T @ y))
-
-
-@check
-def pinvSolve(X, y):
+def solveCholesky(X, y, alpha = None, fast = False):
 	"""
-	Solves X*theta_hat = y using pseudoinverse
-	on the covariance matrix XTX
-
-	Evaluate pinv(XTX) * (XTy) directly to get theta.
-	"""
-	return invCov(X, 0, False) @ (T(X) @ y)
-
-
-@check
-def ridgeSolve(X, y, alpha = 1):
-	"""
-	Solves Ridge Regression directly by evaluating
-	the inverse of the covariance matrix + alpha.
-
-	Easily computes:
-	theta_hat = pinv(XTX + alpha) * (XTy)
-	"""
-	return invCov(X, alpha) @ (T(X) @ y)
-
-
-@check
-def choleskySolve(X, y, alpha = 0, step = 10):
-	'''
-	Solve least squares problem X*theta_hat = y using Cholesky Decomposition.
+	Computes the Least Squares solution to X @ theta = y using Cholesky
+	Decomposition. This is the default solver in HyperLearn.
 	
-	Alpha = 0, Step = 10 can be options
-	Alpha is Regularization Term and step = 10 default for guaranteed stability.
-	Step must be > 1
+	Cholesky Solving is used as the default solver in HyperLearn,
+	as it is super fast and allows regularization. HyperLearn's
+	implementation also handles rank deficient and ill-conditioned
+	matrices perfectly with the help of the limiting behaivour of
+	adding forced epsilon regularization.
+	
+	Optional alpha is used for regularization purposes.
 	
 	|  Method   |   Operations    | Factor * np^2 |
 	|-----------|-----------------|---------------|
@@ -78,49 +25,113 @@ def choleskySolve(X, y, alpha = 0, step = 10):
 	|    QR     |   p^3/3 + np^2  |   1 - p/3n    |
 	|    SVD    |   p^3   + np^2  |    1 - p/n    |
 	
-	NOTE: HyperLearn's implementation of Cholesky Solve uses L2 Regularization to enforce stability.
-	Cholesky is known to fail on ill-conditioned problems, so adding L2 penalties helpes it.
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's Cholesky and Triangular Solve given identity matrix. 
+		Speed is OK.
+	If CPU:
+		Uses Numpy's Fortran C based Cholesky.
+		If NUMBA is not installed, uses very fast LAPACK functions.
+		Also, uses very fast LAPACK algorithms for triangular system inverses.
 	
-	Note, the algorithm in this implementation is as follows:
+	Stability
+	--------------
+	Note that LAPACK's single precision (float32) solver (strtri) is much more
+	unstable than double (float64). So, default strtri is OFF.
+	However, speeds are reduced by 50%.
+	"""
+	n,p = X.shape
+	XT = X.T
+	covariance = XT @ X if n >= p else X @ XT
 	
-		alpha = dtype(X).decimal    [1e-6 is float32]
-		while failure {
-			solve cholesky ( XTX + alpha*identity )
-			alpha *= step (10 default)
-		}
+	cho = cholesky(covariance, alpha = alpha, fast = fast)
+	inv = invCholesky(cho, fast = fast)
 	
-	If MSE (Mean Squared Error) is abnormally high, it might be better to solve using stabler but
-	slower methods like qr_solve, svd_solve or lstsq.
-	
-	https://www.quora.com/Is-it-better-to-do-QR-Cholesky-or-SVD-for-solving-least-squares-estimate-and-why
-	'''
-	assert step > 1
+	return inv @ (XT @ y) if n >= p else XT @ (inv @ y)
 
-	XTX = cov(X)
-	alpha = resolution(X) if alpha == 0 else alpha
-	regularizer = diagonal(XTX.shape[0], 1, X.dtype)
+
+
+def solveSVD(X, y, alpha = None, fast = True):
+	"""
+	Computes the Least Squares solution to X @ theta = y using SVD.
+	Slow, but most accurate.
 	
-	no_success = True
-	warn = False
+	Optional alpha is used for regularization purposes.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's SVD. PyTorch uses (for now) a NON divide-n-conquer algo.
+		Submitted report to PyTorch:
+		https://github.com/pytorch/pytorch/issues/11174
+	If CPU:
+		Uses Numpy's Fortran C based SVD.
+		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.
+	
+	Stability
+	--------------
+	Condition number is:
+		float32 = 1e3 * eps * max(S)
+		float64 = 1e6 * eps * max(S)
+	"""
+	if alpha is not None: assert alpha >= 0
+	alpha = 0 if alpha is None else alpha
+	
+	U, S, VT = SVD(X, fast = fast)
+	U, S, VT = _SVDCond(U, S, VT, alpha)
+	
+	return (VT.T * S) @ (U.T @ y)
 
-	while no_success:
-		alphaI = regularizer*alpha
-		try:
-			if use_gpu: chol = cholesky(  XTX + alphaI  )
-			else: chol = scipy_cholesky(  XTX + alphaI  , check_finite = False)
-			no_success = False
-		except:
-			alpha *= step
-			warn = True
-			
-	if warn and print_all_warnings:
-		print(f'''
-		Matrix is not full rank. Added regularization = {alpha} to combat this. 
-		Now, solving L2 regularized (XTX+{alpha}*I)^-1(XTy).
 
-		NOTE: It might be better to use svd_solve, qr_solve or lstsq if MSE is high.
-		''')
-   
-	if use_gpu:
-		return cholesky_triangular_solve( T(X) @ y, chol).flatten()
-	return cho_solve( chol, T(X) @ y ).flatten()
+
+def solveEig(X, y, alpha = None, fast = True):
+	"""
+	Computes the Least Squares solution to X @ theta = y using
+	Eigendecomposition on the covariance matrix XTX or XXT.
+	Medium speed and accurate, where this lies between
+	SVD and Cholesky.
+	
+	Optional alpha is used for regularization purposes.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's EIGH. PyTorch uses (for now) a non divide-n-conquer algo.
+		Submitted report to PyTorch:
+		https://github.com/pytorch/pytorch/issues/11174
+	If CPU:
+		Uses Numpy's Fortran C based EIGH.
+		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.
+		Note Scipy's EIGH as of now is NON divide-n-conquer.
+		Submitted report to Scipy:
+		https://github.com/scipy/scipy/issues/9212
+	
+	Stability
+	--------------
+	Condition number is:
+		float32 = 1e3 * eps * max(abs(S))
+		float64 = 1e6 * eps * max(abs(S))
+		
+	Alpha is added for regularization purposes. This prevents system
+	rounding errors and promises better convergence rates.
+	"""
+	n,p = X.shape
+	XT = X.T
+	covariance = XT @ X if n >= p else X @ XT
+	
+	inv = pinvh(covariance, alpha = alpha, fast = fast)
+
+	return inv @ (XT @ y) if n >= p else XT @ (inv @ y)
+
+
+
+
+def lstsq(X, y):
+	"""
+	Returns normal Least Squares solution using LAPACK and Numba if
+	installed. PyTorch will default to Cholesky Solve.
+	"""
+	
+	return numba_lstsq(X, y)
+

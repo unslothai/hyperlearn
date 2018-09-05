@@ -8,6 +8,7 @@ install_requires = [
         'scipy >= 1.0.0',
         'pandas >= 0.21.0',
         'torch >= 0.4.0',
+        'numba >= 0.37.0'
     	]
 
 dependency_links = [
