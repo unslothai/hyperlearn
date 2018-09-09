@@ -1,9 +1,9 @@
 
 from .linalg import *
 from .base import *
-from .numba import numba_lstsq
+from .numba import lstsq as _lstsq
 
-__all__ = ['solveCholesky', 'solveSVD', 'solveEig', 'lstsq']
+__all__ = ['solveCholesky', 'solveSvd', 'solveEig', 'lstsq']
 
 
 def solveCholesky(X, y, alpha = None, fast = False):
@@ -52,7 +52,7 @@ def solveCholesky(X, y, alpha = None, fast = False):
 
 
 
-def solveSVD(X, y, alpha = None, fast = True):
+def solveSvd(X, y, alpha = None, fast = True):
 	"""
 	Computes the Least Squares solution to X @ theta = y using SVD.
 	Slow, but most accurate.
@@ -78,8 +78,8 @@ def solveSVD(X, y, alpha = None, fast = True):
 	if alpha is not None: assert alpha >= 0
 	alpha = 0 if alpha is None else alpha
 	
-	U, S, VT = SVD(X, fast = fast)
-	U, S, VT = _SVDCond(U, S, VT, alpha)
+	U, S, VT = svd(X, fast = fast)
+	U, S, VT = _svdCond(U, S, VT, alpha)
 	
 	return (VT.T * S) @ (U.T @ y)
 
@@ -133,5 +133,5 @@ def lstsq(X, y):
 	installed. PyTorch will default to Cholesky Solve.
 	"""
 	
-	return numba_lstsq(X, y)
+	return _lstsq(X, y)
 

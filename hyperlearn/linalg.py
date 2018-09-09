@@ -1,57 +1,14 @@
 
-from scipy.linalg import lapack
-from numpy import eye, finfo, abs as _abs, arange as _arange, sign as _sign, uint as _uint
-from .numba import *
+from scipy.linalg import lapack, lu as _lu, qr as _qr
+from scipy.sparse import linalg as sparse
+from . import numba
 from .base import *
+from .utils import *
+from numpy import random as _random, finfo
 
-_condition = {'f': 1e3, 'd': 1e6}
-
-__all__ = ['svd_flip', 'cholesky', 'invCholesky', 'pinvCholesky',
-			'SVD', 'pinv', 'pinvh', 'eigh', 'pinvEig',
-			'_SVDCond', '_eighCond']
-
-
-def svd_flip(U, VT, U_decision = True):
-	"""
-	Flips the signs of U and VT for SVD / Eigendecomposition
-	in order to force deterministic output.
-
-	Follows Sklearn convention by looking at U's maximum in columns
-	as default.
-	"""
-	if U_decision:
-		max_abs_cols = _abs(U).argmax(0)
-		signs = _sign(U[max_abs_cols, _arange(U.shape[1], dtype = _uint)])
-		if U is not None: 
-			U *= signs
-		VT *= signs.reshape(-1,1)
-	else:
-		# rows of v, columns of u
-		max_abs_rows = _abs(VT).argmax(1)
-		signs = _sign(VT[_arange(len(VT), dtype = _uint), max_abs_rows])
-		if U is not None: 
-			U *= signs
-		VT *= signs.reshape(-1,1)
-	return U, VT
-
-
-def _SVDCond(U, S, VT, alpha):
-	t = S.dtype.char.lower()
-	cond = (S > (_condition[t] * finfo(t).eps * S[0]))
-	rank = cond.sum()
-	
-	S /= (S**2 + alpha)
-	return U[:, :rank], S[:rank], VT[:rank]
-
-
-def _eighCond(S2, V):
-	t = S2.dtype.char.lower()
-	absS = _abs(S2)
-	cond = (absS > (_condition[t] * finfo(t).eps * absS.max()) )
-	S2 = S2[cond]
-	
-	return S2, V[:, cond]
-
+__all__ = ['cholesky', 'invCholesky', 'pinvCholesky',
+			'svd', 'lu', 'qr', 'pinv', 'pinvh', 'eigh', 'pinvEig',
+			'truncatedEigh', 'truncatedSVD']
 
 
 def cholesky(X, alpha = None, fast = True):
@@ -85,10 +42,11 @@ def cholesky(X, alpha = None, fast = True):
 	
 	if USE_NUMBA: 
 		while check != 0:
-			print('Alpha = {}'.format(alpha))
+			if PRINT_ALL_WARNINGS: 
+				print('Alpha = {}'.format(alpha))
 			try:
-				X.flat[::X.shape[0]+1] += (-old_alpha + alpha)
-				cho = numba_cholesky(X)
+				X.flat[::X.shape[0]+1] += (alpha - old_alpha)
+				cho = numba.cholesky(X)
 				check = 0
 			except:
 				old_alpha = alpha
@@ -99,8 +57,9 @@ def cholesky(X, alpha = None, fast = True):
 		if fast: decomp = lapack.spotrf if X.dtype == np.float32 else lapack.dpotrf
 			
 		while check != 0:
-			print('Alpha = {}'.format(alpha))
-			X.flat[::X.shape[0]+1] += (-old_alpha + alpha)
+			if PRINT_ALL_WARNINGS: 
+				print('Alpha = {}'.format(alpha))
+			X.flat[::X.shape[0]+1] += (alpha - old_alpha)
 			cho, check = decomp(X)
 			if check == 0: break
 			old_alpha = alpha
@@ -108,6 +67,26 @@ def cholesky(X, alpha = None, fast = True):
 	
 	X.flat[::X.shape[0]+1] -= alpha
 	return cho
+
+
+
+def lu(X):
+	"""
+	Computes the LU Decomposition of any matrix with pivoting.
+	Uses Scipy. Will utilise LAPACK later.
+	"""
+	return _lu(X, permute_l = True, check_finite = False)
+
+
+def qr(X):
+	"""
+	Computes the reduced QR Decomposition of any matrix.
+	Uses optimized NUMBA QR if avaliable else use's Scipy's
+	version.
+	"""
+	if USE_NUMBA: return numba.qr(X)
+	return _qr(X, mode = 'economic', check_finite = False)
+
 
 
 def invCholesky(X, fast = False):
@@ -140,6 +119,7 @@ def invCholesky(X, fast = False):
 	return choInv @ choInv.T
 
 	
+
 def pinvCholesky(X, alpha = None, fast = False):
 	"""
 	Computes the approximate pseudoinverse of any matrix using Cholesky Decomposition
@@ -176,10 +156,13 @@ def pinvCholesky(X, alpha = None, fast = False):
 	return inv @ XT if n >= p else XT @ inv
 
 
-def SVD(X, fast = True):
+
+def svd(X, fast = True, U_decision = False, transpose = True):
 	"""
 	Computes the Singular Value Decomposition of any matrix.
-	So, X = U * S @ VT
+	So, X = U * S @ VT. Note will compute svd(X.T) if p > n.
+	Should be 99% same result. This means this implementation's
+	time complexity is O[ min(np^2, n^2p) ]
 	
 	Speed
 	--------------
@@ -190,21 +173,31 @@ def SVD(X, fast = True):
 	If CPU:
 		Uses Numpy's Fortran C based SVD.
 		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.
+	If Transpose:
+		Will compute if possible svd(X.T) instead of svd(X) if p > n.
+		Default setting is TRUE to maintain speed.
 	
 	Stability
 	--------------
-	SVD_Flip is used for deterministic output. Follows Sklearn convention.
-	This flips the signs of U and VT.
+	SVD_Flip is used for deterministic output. Does NOT follow Sklearn convention.
+	This flips the signs of U and VT, using VT_based decision.
 	"""
-	if USE_NUMBA:
-		U, S, VT = numba_svd(X)
-	else:
-		svd = lapack.dgesdd
-		if fast: svd = lapack.sgesdd if X.dtype == np.float32 else lapack.dgesdd
+	transpose = True if (transpose and X.shape[1] > X.shape[0]) else False
+	if transpose: 
+		X, U_decision = X.T, ~U_decision
 
-		U, S, VT, __ = svd(X, full_matrices = 0)
+	if USE_NUMBA:
+		U, S, VT = numba.svd(X)
+	else:
+		_svd = lapack.dgesdd
+		if fast: _svd = lapack.sgesdd if X.dtype == np.float32 else lapack.dgesdd
+
+		U, S, VT, __ = _svd(X, full_matrices = 0)
 		
-	U, VT = svd_flip(U, VT)
+	U, VT = svd_flip(U, VT, U_decision = U_decision)
+	
+	if transpose:
+		return VT.T, S, U.T
 	return U, S, VT
 		
 
@@ -238,8 +231,8 @@ def pinv(X, alpha = None, fast = True):
 #     if USE_NUMBA:
 #         return numba.pinv(X)
 #     else:
-	U, S, VT = SVD(X, fast = fast)
-	U, S, VT = _SVDCond(U, S, VT, alpha)
+	U, S, VT = svd(X, fast = fast)
+	U, S, VT = _svdCond(U, S, VT, alpha)
 	return (VT.T * S) @ U.T
 	
 
@@ -248,6 +241,9 @@ def eigh(X, alpha = None, fast = True):
 	"""
 	Computes the Eigendecomposition of a Hermitian Matrix
 	(Positive Symmetric Matrix).
+	
+	Note: Slips eigenvalues / eigenvectors with MAX first.
+	Scipy convention is MIN first, but MAX first is SVD convention.
 	
 	Uses the fact that the matrix is special, and so time
 	complexity is approximately reduced by 1/2 or more when
@@ -268,6 +264,9 @@ def eigh(X, alpha = None, fast = True):
 	--------------
 	Alpha is added for regularization purposes. This prevents system
 	rounding errors and promises better convergence rates.
+
+	Also uses eig_flip to flip the signs of the eigenvectors
+	to ensure deterministic output.
 	"""
 	assert X.shape[0] == X.shape[1]
 	check = 1
@@ -276,10 +275,11 @@ def eigh(X, alpha = None, fast = True):
 	
 	if USE_NUMBA:
 		while check != 0:
-			print('Alpha = {}'.format(alpha))
+			if PRINT_ALL_WARNINGS: 
+				print('Alpha = {}'.format(alpha))
 			try:
 				X.flat[::X.shape[0]+1] += (-old_alpha + alpha)
-				S2, V = numba_eigh(X)
+				S2, V = numba.eigh(X)
 				check = 0
 			except:
 				old_alpha = alpha
@@ -294,11 +294,12 @@ def eigh(X, alpha = None, fast = True):
 			if check == 0: break
 			old_alpha = alpha
 			alpha *= 10
-			print('Alpha = {}'.format(alpha))
+			if PRINT_ALL_WARNINGS: 
+				print('Alpha = {}'.format(alpha))
 			
-	#V = svd_flip(U = None, VT, U_decision = False)
 	X.flat[::X.shape[0]+1] -= alpha
-	return S2, V
+	return S2[::-1], eig_flip(V[:,::-1])
+
 
 	
 def pinvh(X, alpha = None, fast = True):
@@ -376,4 +377,74 @@ def pinvEig(X, alpha = None, fast = True):
 	inv = (V / S2) @ V.T
 
 	return inv @ XT if n >= p else XT @ inv
+
+
+
+def truncatedEigh(XTX, n_components = 2, tol = None):
+	"""
+	Computes the Truncated Eigendecomposition of a Hermitian Matrix
+	(positive definite). K = 2 for default.
+	Return format is LARGEST eigenvalue first.
+	
+	Speed
+	--------------
+	Uses ARPACK from Scipy to compute the truncated decomp. Note that
+	to make it slightly more stable and faster, follows Sklearn's
+	random intialization from -1 -> 1.
+
+	Also note tolerance is resolution(X), and NOT eps(X)
+
+	Might switch to SPECTRA in the future.
+	
+	Stability
+	--------------
+	EIGH FLIP is called to flip the eigenvector signs for deterministic
+	output.
+	"""
+	n,p = XTX.shape
+	dtype = XTX.dtype
+	assert n == p
+	
+	if tol is None: tol = finfo(dtype).resolution
+	v = _random.uniform(-1, 1, size = p ).astype(dtype)
+
+	S2, V = sparse.eigsh(XTX, k = n_components, tol = tol, v0 = v)
+	V = eig_flip(V)
+	
+	return S2[::-1], V[:,::-1]
+
+
+
+def truncatedSVD(X, n_components = 2, tol = None):
+	"""
+	Computes the Truncated SVD of any matrix. K = 2 for default.
+	Return format is LARGEST singular first first.
+	
+	Speed
+	--------------
+	Uses ARPACK from Scipy to compute the truncated decomp. Note that
+	to make it slightly more stable and faster, follows Sklearn's
+	random intialization from -1 -> 1.
+
+	Also note tolerance is resolution(X), and NOT eps(X)
+
+	Might switch to SPECTRA in the future.
+	
+	Stability
+	--------------
+	SVD FLIP is called to flip the VT signs for deterministic
+	output. Note uses VT based decision and not U based decision.
+	"""
+	n, p = X.shape
+	dtype = X.dtype
+	
+	if tol is None: tol = finfo(dtype).resolution
+	v = _random.uniform(-1, 1, size = p ).astype(dtype)
+
+	U, S, VT = sparse.svds(X, k = n_components, tol = tol, v0 = v)
+	U, S, VT = U[:, ::-1], S[::-1], VT[::-1]
+	U, VT = svd_flip(U, VT, U_decision = False)
+	
+	return U, S, VT
+
 
