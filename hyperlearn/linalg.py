@@ -1,14 +1,14 @@
 
 from scipy.linalg import lapack, lu as _lu, qr as _qr
-from scipy.sparse import linalg as sparse
 from . import numba
 from .base import *
 from .utils import *
-from numpy import random as _random, finfo
+from numpy import float32, float64
 
 __all__ = ['cholesky', 'invCholesky', 'pinvCholesky',
-			'svd', 'lu', 'qr', 'pinv', 'pinvh', 'eigh', 'pinvEig',
-			'truncatedEigh', 'truncatedSVD']
+			'svd', 'lu', 'qr', 
+			'pinv', 'pinvh', 
+			'eigh', 'pinvEig', 'eig']
 
 
 def cholesky(X, alpha = None, fast = True):
@@ -35,37 +35,40 @@ def cholesky(X, alpha = None, fast = True):
 	Alpha is added for regularization purposes. This prevents system
 	rounding errors and promises better convergence rates.
 	"""
-	assert X.shape[0] == X.shape[1]
+	n,p = X.shape
+	assert n == p
 	check = 1
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
-	
-	if USE_NUMBA: 
-		while check != 0:
-			if PRINT_ALL_WARNINGS: 
-				print('Alpha = {}'.format(alpha))
-			try:
-				X.flat[::X.shape[0]+1] += (alpha - old_alpha)
-				cho = numba.cholesky(X)
+
+	decomp = lapack.dpotrf
+	if fast: decomp = lapack.spotrf if X.dtype == float32 else lapack.dpotrf
+
+	solver = numba.cholesky if USE_NUMBA else decomp
+
+
+	while check != 0:
+		if PRINT_ALL_WARNINGS: 
+			print('Alpha = {}'.format(alpha))
+
+		# Add epsilon jitter to diagonal. Note adding
+		# np.eye(p)*alpha is slower and uses p^2 memory
+		# whilst flattening uses only p memory.
+		X.flat[::n+1] += (alpha - old_alpha)
+		try:
+			cho = solver(X)
+			if USE_NUMBA: 
+				cho = cho.T
 				check = 0
-			except:
-				old_alpha = alpha
-				alpha *= 10
-		cho = cho.T
-	else:
-		decomp = lapack.dpotrf
-		if fast: decomp = lapack.spotrf if X.dtype == np.float32 else lapack.dpotrf
-			
-		while check != 0:
-			if PRINT_ALL_WARNINGS: 
-				print('Alpha = {}'.format(alpha))
-			X.flat[::X.shape[0]+1] += (alpha - old_alpha)
-			cho, check = decomp(X)
-			if check == 0: break
+			else:
+				cho, check = cho
+		except: pass
+		if check != 0:
 			old_alpha = alpha
 			alpha *= 10
-	
-	X.flat[::X.shape[0]+1] -= alpha
+
+
+	X.flat[::n+1] -= alpha
 	return cho
 
 
@@ -113,7 +116,7 @@ def invCholesky(X, fast = False):
 	"""
 	assert X.shape[0] == X.shape[1]
 	inverse = lapack.dtrtri
-	if fast: inverse = lapack.strtri if X.dtype == np.float32 else lapack.dtrtri
+	if fast: inverse = lapack.strtri if X.dtype == float32 else lapack.dtrtri
 		
 	choInv = inverse(X)[0]
 	return choInv @ choInv.T
@@ -148,6 +151,7 @@ def pinvCholesky(X, alpha = None, fast = False):
 	"""
 	n,p = X.shape
 	XT = X.T
+	memoryCovariance(X)
 	covariance = XT @ X if n >= p else X @ XT
 	
 	cho = cholesky(covariance, alpha = alpha, fast = fast)
@@ -186,11 +190,14 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 	if transpose: 
 		X, U_decision = X.T, ~U_decision
 
+	#### TO DO: If memory usage exceeds LWORK, use GESVD
 	if USE_NUMBA:
 		U, S, VT = numba.svd(X)
 	else:
+		#### TO DO: If memory usage exceeds LWORK, use GESVD
+
 		_svd = lapack.dgesdd
-		if fast: _svd = lapack.sgesdd if X.dtype == np.float32 else lapack.dgesdd
+		if fast: _svd = lapack.sgesdd if X.dtype == float32 else lapack.dgesdd
 
 		U, S, VT, __ = _svd(X, full_matrices = 0)
 		
@@ -237,7 +244,7 @@ def pinv(X, alpha = None, fast = True):
 	
 
 
-def eigh(X, alpha = None, fast = True):
+def eigh(XTX, alpha = None, fast = True, svd = False, positive = False):
 	"""
 	Computes the Eigendecomposition of a Hermitian Matrix
 	(Positive Symmetric Matrix).
@@ -248,6 +255,11 @@ def eigh(X, alpha = None, fast = True):
 	Uses the fact that the matrix is special, and so time
 	complexity is approximately reduced by 1/2 or more when
 	compared to full SVD.
+
+	If POSITIVE is True, then all negative eigenvalues will be set
+	to zero, and return value will be VT and not V.
+
+	If SVD is True, then eigenvalues will be square rooted as well.
 	
 	Speed
 	--------------
@@ -268,41 +280,96 @@ def eigh(X, alpha = None, fast = True):
 	Also uses eig_flip to flip the signs of the eigenvectors
 	to ensure deterministic output.
 	"""
-	assert X.shape[0] == X.shape[1]
+	n,p = XTX.shape
+	assert n == p
 	check = 1
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 	
-	if USE_NUMBA:
-		while check != 0:
-			if PRINT_ALL_WARNINGS: 
-				print('Alpha = {}'.format(alpha))
-			try:
-				X.flat[::X.shape[0]+1] += (-old_alpha + alpha)
-				S2, V = numba.eigh(X)
-				check = 0
-			except:
-				old_alpha = alpha
-				alpha *= 10
-	else:
-		eig = lapack.dsyevd
-		if fast: eig = lapack.ssyevd if X.dtype == np.float32 else lapack.dsyevd
+	eig = lapack.dsyevd
+	if fast: eig = lapack.ssyevd if XTX.dtype == float32 else lapack.dsyevd
 			
-		while check != 0:
-			X.flat[::X.shape[0]+1] += (-old_alpha + alpha)
-			S2, V, check = eig(X)
-			if check == 0: break
+	solver = numba.eigh if USE_NUMBA else eig
+
+
+	while check != 0:
+		if PRINT_ALL_WARNINGS: 
+			print('Alpha = {}'.format(alpha))
+
+		# Add epsilon jitter to diagonal. Note adding
+		# np.eye(p)*alpha is slower and uses p^2 memory
+		# whilst flattening uses only p memory.
+		XTX.flat[::n+1] += (alpha - old_alpha)
+		try:
+			output = solver(XTX)
+			if USE_NUMBA: 
+				S2, V = output
+				check = 0
+			else: 
+				S2, V, check = output
+		except: pass
+		if check != 0:
 			old_alpha = alpha
 			alpha *= 10
-			if PRINT_ALL_WARNINGS: 
-				print('Alpha = {}'.format(alpha))
-			
-	X.flat[::X.shape[0]+1] -= alpha
-	return S2[::-1], eig_flip(V[:,::-1])
+
+
+	XTX.flat[::n+1] -= alpha
+	S2, V = S2[::-1], eig_flip(V[:,::-1])
+
+	if svd or positive: 
+		S2[S2 < 0] = 0.0
+		V = V.T
+	if svd:
+		S2 **= 0.5
+	return S2, V
+
+
+
+def eig(X, alpha = None, fast = True, U_decision = False):
+	"""
+	Computes the Eigendecomposition of any matrix using either
+	QR then SVD or just SVD. This produces much more stable solutions 
+	that pure eigh(covariance), and thus will be necessary in some cases.
+	
+	Speed
+	--------------
+	If n >= 5/3 * p:
+		Uses QR followed by SVD noticing that U is not needed.
+		This means Q @ U is not required, reducing work.
+
+		Note Sklearn's Incremental PCA was used for the constant
+		5/3 [`Matrix Computations, Third Edition, G. Holub and C. 
+		Van Loan, Chapter 5, section 5.4.4, pp 252-253.`]
+
+	Else If n >= p:
+		SVD is used, as QR would be slower.
+
+	Else If n <= p:
+		SVD Transpose is used svd(X.T)
+		
+	Stability
+	--------------
+	Eig is the most stable Eigendecomposition in HyperLearn. It
+	surpasses the stability of Eigh, as no epsilon jitter is added.
+	"""
+	n,p = X.shape
+
+	if n >= 5/3*p:
+		# Q, R = qr(X)
+		# U, S, VT = svd(R)
+		# S, VT is kept.
+		__, S, VT = svd( qr(X)[1], fast = fast, U_decision = U_decision)
+	else:
+		# Force turn on transpose:
+		# either computes svd(X) or svd(X.T)
+		# whichever is faster. [p >= n --> svd(X.T)]
+		__, S, VT = svd(X, transpose = True, fast = fast, U_decision = U_decision)
+		
+	return S**2, VT.T
 
 
 	
-def pinvh(X, alpha = None, fast = True):
+def pinvh(XTX, alpha = None, fast = True):
 	"""
 	Computes the pseudoinverse of a Hermitian Matrix
 	(Positive Symmetric Matrix) using Eigendecomposition.
@@ -331,9 +398,9 @@ def pinvh(X, alpha = None, fast = True):
 	Alpha is added for regularization purposes. This prevents system
 	rounding errors and promises better convergence rates.
 	"""
-	assert X.shape[0] == X.shape[1]
+	assert XTX.shape[0] == XTX.shape[1]
 
-	S2, V = eigh(X, alpha = alpha, fast = fast)
+	S2, V = eigh(XTX, alpha = alpha, fast = fast)
 	S2, V = _eighCond(S2, V)
 	return (V / S2) @ V.T
 
@@ -370,6 +437,7 @@ def pinvEig(X, alpha = None, fast = True):
 	"""
 	n,p = X.shape
 	XT = X.T
+	memoryCovariance(X)
 	covariance = XT @ X if n >= p else X @ XT
 	
 	S2, V = eigh(covariance, alpha = alpha, fast = fast)
@@ -378,73 +446,5 @@ def pinvEig(X, alpha = None, fast = True):
 
 	return inv @ XT if n >= p else XT @ inv
 
-
-
-def truncatedEigh(XTX, n_components = 2, tol = None):
-	"""
-	Computes the Truncated Eigendecomposition of a Hermitian Matrix
-	(positive definite). K = 2 for default.
-	Return format is LARGEST eigenvalue first.
-	
-	Speed
-	--------------
-	Uses ARPACK from Scipy to compute the truncated decomp. Note that
-	to make it slightly more stable and faster, follows Sklearn's
-	random intialization from -1 -> 1.
-
-	Also note tolerance is resolution(X), and NOT eps(X)
-
-	Might switch to SPECTRA in the future.
-	
-	Stability
-	--------------
-	EIGH FLIP is called to flip the eigenvector signs for deterministic
-	output.
-	"""
-	n,p = XTX.shape
-	dtype = XTX.dtype
-	assert n == p
-	
-	if tol is None: tol = finfo(dtype).resolution
-	v = _random.uniform(-1, 1, size = p ).astype(dtype)
-
-	S2, V = sparse.eigsh(XTX, k = n_components, tol = tol, v0 = v)
-	V = eig_flip(V)
-	
-	return S2[::-1], V[:,::-1]
-
-
-
-def truncatedSVD(X, n_components = 2, tol = None):
-	"""
-	Computes the Truncated SVD of any matrix. K = 2 for default.
-	Return format is LARGEST singular first first.
-	
-	Speed
-	--------------
-	Uses ARPACK from Scipy to compute the truncated decomp. Note that
-	to make it slightly more stable and faster, follows Sklearn's
-	random intialization from -1 -> 1.
-
-	Also note tolerance is resolution(X), and NOT eps(X)
-
-	Might switch to SPECTRA in the future.
-	
-	Stability
-	--------------
-	SVD FLIP is called to flip the VT signs for deterministic
-	output. Note uses VT based decision and not U based decision.
-	"""
-	n, p = X.shape
-	dtype = X.dtype
-	
-	if tol is None: tol = finfo(dtype).resolution
-	v = _random.uniform(-1, 1, size = p ).astype(dtype)
-
-	U, S, VT = sparse.svds(X, k = n_components, tol = tol, v0 = v)
-	U, S, VT = U[:, ::-1], S[::-1], VT[::-1]
-	U, VT = svd_flip(U, VT, U_decision = False)
-	
-	return U, S, VT
 
 

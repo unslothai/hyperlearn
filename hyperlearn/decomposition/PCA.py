@@ -41,8 +41,7 @@ class PCA(_basePCA):
         
         
     def _fit_svd(self, X):        
-        U, S2, VT = svd(X, fast = self.fast, transpose = True)
-        S2 **= 2
+        S2, VT = eig(X, fast = self.fast)
         return S2, VT
         
         
@@ -51,6 +50,6 @@ class PCA(_basePCA):
             # Drop back to SVD, as Eigendecomp would output U and not VT.
             return self._fit_svd(X)
         else:
-            S2, VT = eigh(X.T @ X, alpha = self.alpha, fast = self.fast)
-            S2, VT = S2, VT.T
+            S2, VT = eigh(X.T @ X, alpha = self.alpha, fast = self.fast,
+                            positive = True)
             return S2, VT

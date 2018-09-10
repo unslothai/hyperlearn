@@ -12,7 +12,7 @@ from torch import matmul as torch_dot, diag, ones
 from numpy import diag as np_diag, ones as np_ones # dot as np_dot
 
 USE_NUMPY_EINSUM = True
-PRINT_ALL_WARNINGS = True
+PRINT_ALL_WARNINGS = False
 USE_GPU = False
 ALPHA_DEFAULT = 0.00001
 USE_NUMBA = True

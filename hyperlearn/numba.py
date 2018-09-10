@@ -46,23 +46,30 @@ def norm(v, d = 2):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
+def _0mean(X, axis = 0):
+	return __sum(X, axis)/X.shape[axis]
+
+
 def mean(X, axis = 0):
-    return __sum(X, axis)/X.shape[axis]
+	if axis == 0 and X.flags['C_CONTIGUOUS']:
+		return _0mean(X)
+	else:
+		return X.mean(axis)
 
 
 @njit(fastmath = True, nogil = True, cache = True)
 def sign(X):
-    return _sign(X)
+	return _sign(X)
 
 
 @njit(fastmath = True, nogil = True, cache = True)
 def arange(i):
-    return _arange(i)
+	return _arange(i)
 
 
 @njit(fastmath = True, nogil = True, cache = True)
 def _sum(X, axis = 0):
-    return __sum(X, axis)
+	return __sum(X, axis)
 
 
 

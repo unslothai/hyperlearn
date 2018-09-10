@@ -1,9 +1,10 @@
 
 from .linalg import *
 from .base import *
+from .utils import _svdCond
 from .numba import lstsq as _lstsq
 
-__all__ = ['solveCholesky', 'solveSvd', 'solveEig', 'lstsq']
+__all__ = ['solveCholesky', 'solveSVD', 'solveEig', 'lstsq']
 
 
 def solveCholesky(X, y, alpha = None, fast = False):
@@ -52,7 +53,7 @@ def solveCholesky(X, y, alpha = None, fast = False):
 
 
 
-def solveSvd(X, y, alpha = None, fast = True):
+def solveSVD(X, y, alpha = None, fast = True):
 	"""
 	Computes the Least Squares solution to X @ theta = y using SVD.
 	Slow, but most accurate.

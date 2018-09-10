@@ -1,8 +1,11 @@
 
 from numpy import uint, newaxis, finfo
 from .numba import sign, arange
+from psutil import virtual_memory
+from .exceptions import FutureExceedsMemory
 
-__all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond']
+__all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
+			'memoryXTX', 'memoryCovariance']
 
 _condition = {'f': 1e3, 'd': 1e6}
 
@@ -73,4 +76,35 @@ def _eighCond(S2, V):
 	S2 = S2[cond]
 	
 	return S2, V[:, cond]
+
+
+
+def memoryXTX(X):
+	"""
+	Computes the memory usage for X.T @ X so that error messages
+	can be broadcast without submitting to a memory error.
+	"""
+	free = virtual_memory().free * 0.95
+	byte = 4 if '32' in str(X.dtype) else 8
+	memUsage = X.shape[1]**2 * byte
+
+	return memUsage < free
+
+
+
+def memoryCovariance(X):
+	"""
+	Computes the memory usage for X.T @ X or X @ X.T so that error messages
+	can be broadcast without submitting to a memory error.
+	"""
+	n,p = X.shape
+	free = virtual_memory().free * 0.95
+	byte = 4 if '32' in str(X.dtype) else 8
+	size = p if n > p else n
+	
+	memUsage = size**2 * byte
+
+	if memUsage > free:
+		raise FutureExceedsMemory()
+	return
 
