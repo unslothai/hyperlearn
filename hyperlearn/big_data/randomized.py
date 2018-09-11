@@ -98,6 +98,6 @@ def randomizedEig(X, n_components = 2, max_iter = 'auto', solver = 'lu'):
 
 	Q = randomized_projection(X, k, solver, max_iter)
 	
-	S2, V = eig(Q.T @ X, U_decision = ~transpose, transpose = True)
+	S2, V = eig(Q.T @ X, U_decision = ~transpose)
 	return S2, V
 

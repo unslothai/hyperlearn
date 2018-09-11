@@ -81,6 +81,7 @@ def lu(X):
 	return _lu(X, permute_l = True, check_finite = False)
 
 
+
 def qr(X):
 	"""
 	Computes the reduced QR Decomposition of any matrix.
@@ -324,12 +325,16 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False):
 	return S2, V
 
 
-
-def eig(X, alpha = None, fast = True, U_decision = False):
+_svd = svd
+def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = False):
 	"""
 	Computes the Eigendecomposition of any matrix using either
 	QR then SVD or just SVD. This produces much more stable solutions 
 	that pure eigh(covariance), and thus will be necessary in some cases.
+
+	If STABLE is True, then EIGH will be bypassed, and instead SVD or QR/SVD
+	will be used instead. This is to guarantee stability, since EIGH
+	uses epsilon jitter along the diagonal of the covariance matrix.
 	
 	Speed
 	--------------
@@ -346,26 +351,43 @@ def eig(X, alpha = None, fast = True, U_decision = False):
 
 	Else If n <= p:
 		SVD Transpose is used svd(X.T)
+
+	If stable is False:
+		Eigh is used or SVD depending on the memory requirement.
 		
 	Stability
 	--------------
 	Eig is the most stable Eigendecomposition in HyperLearn. It
-	surpasses the stability of Eigh, as no epsilon jitter is added.
+	surpasses the stability of Eigh, as no epsilon jitter is added,
+	unless specified when stable = False.
 	"""
 	n,p = X.shape
+	memCheck = memoryXTX(X)
 
-	if n >= 5/3*p:
-		# Q, R = qr(X)
-		# U, S, VT = svd(R)
-		# S, VT is kept.
-		__, S, VT = svd( qr(X)[1], fast = fast, U_decision = U_decision)
+	# Note when p >= n, EIGH will return incorrect results, and hence HyperLearn
+	# will default to SVD or QR/SVD
+	if stable or ~memCheck or p > n:
+		if n >= 5/3*p:
+			# Q, R = qr(X)
+			# U, S, VT = svd(R)
+			# S, VT is kept.
+			__, S, V = _svd( qr(X)[1], fast = fast, U_decision = U_decision)
+		else:
+			# Force turn on transpose:
+			# either computes svd(X) or svd(X.T)
+			# whichever is faster. [p >= n --> svd(X.T)]
+			__, S, V = _svd(X, transpose = True, fast = fast, U_decision = U_decision)
+		if ~svd:
+			S **= 2
+			V = V.T
 	else:
-		# Force turn on transpose:
-		# either computes svd(X) or svd(X.T)
-		# whichever is faster. [p >= n --> svd(X.T)]
-		__, S, VT = svd(X, transpose = True, fast = fast, U_decision = U_decision)
-		
-	return S**2, VT.T
+		S, V = eigh(X.T @ X, U_decision = U_decision, fast = fast, alpha = alpha)
+		if svd:
+			S **= 0.5
+			V = V.T
+			
+	return S, V
+
 
 
 	

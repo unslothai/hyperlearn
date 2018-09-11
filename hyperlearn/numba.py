@@ -1,5 +1,5 @@
 
-from numpy import ones, eye, float32 as _float32, float64 as _float64, \
+from numpy import ones, eye, float32, float64, \
 				sum as __sum, arange as _arange, sign as _sign, uint as _uint
 from numpy.linalg import svd as _svd, pinv as _pinv, eigh as _eigh, \
 					cholesky as _cholesky, lstsq as _lstsq, qr as _qr, \
@@ -72,16 +72,15 @@ def _sum(X, axis = 0):
 	return __sum(X, axis)
 
 
-
 ## TEST
 print("""Note that first time import of HyperLearn will be slow, """
 		"""since NUMBA code has to be compiled to machine code """
 		"""for optimization purposes.""")
 
-y32 = ones(2, dtype = _float32)
-y64 = ones(2, dtype = _float64)
+y32 = ones(2, dtype = float32)
+y64 = ones(2, dtype = float64)
 
-X = eye(2, dtype = _float32)
+X = eye(2, dtype = float32)
 A = svd(X)
 A = eigh(X)
 A = cholesky(X)
@@ -100,8 +99,7 @@ A = _sum(y64)
 A = sign(X)
 A = arange(100)
 
-
-X = eye(2, dtype = _float64)
+X = eye(2, dtype = float64)
 A = svd(X)
 A = eigh(X)
 A = cholesky(X)

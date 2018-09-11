@@ -3,8 +3,60 @@ from .linalg import *
 from .base import *
 from .utils import _svdCond
 from .numba import lstsq as _lstsq
+from .big_data import LSMR
 
-__all__ = ['solveCholesky', 'solveSVD', 'solveEig', 'lstsq']
+
+__all__ = ['solve', 'solveCholesky', 'solveSVD', 'solveEig', 'lstsq']
+
+
+def solve(X, y, tol = 1e-6, condition_limit = 1e8, alpha = None):
+	"""
+	[NOTE: as of 12/9/2018, LSMR is default in HyperLearn, replacing the 2nd fastest Cholesky
+	Solve. LSMR is 2-4 times faster, and uses N less memory]
+
+	Implements extremely fast least squares LSMR using orthogonalization as seen in Scipy's LSMR and
+	https://arxiv.org/abs/1006.0758 [LSMR: An iterative algorithm for sparse least-squares problems]
+	by David Fong, Michael Saunders.
+
+	Scipy's version of LSMR is surprisingly slow, as some slow design factors were used
+	(ie np.sqrt(1 number) is slower than number**0.5, or min(a,b) is slower than using 1 if statement.)
+
+	ALPHA is provided for regularization purposes like Ridge Regression.
+
+	This algorithm works well for Sparse Matrices as well, and the time complexity analysis is approx:
+		X.T @ y   * min(n,p) times + 3 or so O(n) operations
+		==> O(np)*min(n,p)
+		==> either min(O(n^2p + n), O(np^2 + n))
+
+	This complexity is much better than Cholesky Solve which is the next fastest in HyperLearn.
+	Cholesky requires O(np^2) for XT * X, then Cholesky needs an extra 1/3*O(np^2), then inversion
+	takes another 1/3*(np^2), and finally (XT*y) needs O(np).
+
+	So Cholesky needs O(5/3np^2 + np) >> min(O(n^2p + n), O(np^2 + n))
+
+	So by factor analysis, expect LSMR to be approx 2 times faster or so.
+	Interestingly, the Space Complexity is even more staggering. LSMR takes only maximum O(np^2) space
+	for the computation of XT * y + some overhead.
+
+	Cholesky requires XT * X space, which is already max O(n^2p) [which is huge].
+	Essentially, Cholesky shines when P is large, but N is small. LSMR is good for large N, medium P
+	"""
+
+	if len(y.shape) > 1:
+		if y.shape[1] > 1:
+			print("LSMR can only work on single Ys. Try fitting 2 or more models.")
+			return
+	
+	alpha = 0 if alpha is None else alpha
+
+	good = True
+	while ~good:
+		theta_hat, good = LSMR(X, y, tol = tol, condition_limit = condition_limit, alpha = alpha)
+		alpha = ALPHA_DEFAULT is alpha == 0 else alpha*10
+
+	return theta_hat
+
+	
 
 
 def solveCholesky(X, y, alpha = None, fast = False):
@@ -12,7 +64,8 @@ def solveCholesky(X, y, alpha = None, fast = False):
 	Computes the Least Squares solution to X @ theta = y using Cholesky
 	Decomposition. This is the default solver in HyperLearn.
 	
-	Cholesky Solving is used as the default solver in HyperLearn,
+	Cholesky Solving is used as the 2nd default solver [as of 12/9/2018, default
+	has been switched to LSMR (called solve)] in HyperLearn,
 	as it is super fast and allows regularization. HyperLearn's
 	implementation also handles rank deficient and ill-conditioned
 	matrices perfectly with the help of the limiting behaivour of
@@ -135,4 +188,5 @@ def lstsq(X, y):
 	"""
 	
 	return _lstsq(X, y)
+
 

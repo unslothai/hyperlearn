@@ -1,160 +1,148 @@
 
-from numpy import vstack, newaxis
+from numpy import vstack, newaxis, arange
 from ..linalg import svd, eigh, eig
 from .truncated import truncatedSVD, truncatedEigh
 from ..utils import memoryXTX
 from .randomized import randomizedSVD, randomizedEig
+from ..exceptions import PartialWrongShape
 
 
-def _util(batch, S, VT, n_components = 1, ratio = 1, eig = False):
-    if eig:
-        VT = VT.T
-    comp, col = VT.shape
-    assert batch.shape[1] == col
-    components = int(n_components*ratio)
+def _util(batch, S, VT, eig = False):
+	"""
+	Batch (nrows, ncols)
+	S (ncomponents)
+	VT (rows = ncomponents, cols = ncols)
+	
+	Check Batch(ncols) == VT(ncols) to check same number
+		of columns or else error is provided.
+	"""
+	if eig: 
+		VT, S = VT.T, S**0.5
+	ncomponents, ncols = VT.shape
+	if batch.shape[1] != ncols:
+		raise PartialWrongShape()
 
-    if components > col:  components = col
+	data = vstack( ( S[:,newaxis]*VT , batch ) )
 
-    assert comp == components
-    
-    if eig:
-        data = vstack( ( (S**0.5)[:,newaxis] * VT  ,  batch ) )
-    else:
-        data = vstack( ( S[:,newaxis] * VT  ,  batch ) )
-
-    return data, components, memoryXTX(data)
+	return data, VT.shape[0] , memoryXTX(data)
 
 
 
-def partialSVD(batch, S, VT):
+
+def reverseU(X, S, VT, size = 1):
+	"""
+	Computes an approximation to the matrix U if given S and VT and
+	the data matrix X. If size = 1, then will not batch process.
+	Else, if size > 1, then will split the data into portions
+	and find U approximation.
+	
+	U is approximated by:
+
+		X = U @ S @ VT
+		X @ V = U @ S
+		(X @ V)/S = U
+
+		So, U = (X @ V)/S, so you can output U from (X @ V)/S
+	"""
+	V = VT.T
+	if size > 1:
+		n = len(X)
+		parts = list(arange(0, n, int(n/size)))
+		if parts[-1] != n:
+			parts.append(n)
+		
+		Us = []
+		for left,right in zip(parts, parts[1:]):
+			Us.append( (X[left:right]@V)/S )
+		return Us
+			
+	return (X @ V)/S
+
+
+
+
+def partialSVD(batch, S, VT, ratio = 1, solver = 'full', tol = None, max_iter = 'auto'):
 	"""
 	Fits a partial SVD after given old singular values S
 	and old components VT.
 
+	Note that VT will be used as the number of old components,
+	so when calling truncated or randomized, will output a
+	specific number of eigenvectors and singular values.
+
 	Checks if new batch's size matches that of the old VT.
+
+	Note that PartialSVD has different solvers. Either choose:
+		1. full
+			Solves full SVD on the data. This is the most
+			stable and will guarantee the most robust results.
+			You can select the number of components to keep
+			within the model later.
+
+		2. truncated
+			This keeps the top K right eigenvectors and top
+			k right singular values, as determined by
+			n_components. Note full SVD is not called for the
+			truncated case, but rather ARPACK is called.
+
+		3. randomized
+			Same as truncated, but instead of using ARPACK, uses
+			randomized SVD.
+
+	Notice how Batch = U @ S @ VT. However, partialSVD returns
+	S, VT, and not U. In order to get U, you might consider using
+	the relation that X = U @ S @ VT, and approximating U by:
+
+		X = U @ S @ VT
+		X @ V = U @ S
+		(X @ V)/S = U
+
+		So, U = (X @ V)/S, so you can output U from (X @ V)/S
+
+		You can also get U partially and slowly using batchU.
 	"""
-    data, __, memCheck = _util(batch, S, VT)
+	data, k, memCheck = _util(batch, S, VT, eig = False)
 
-    if (data.shape[1] > data.shape[0]) or ~memCheck: 
-        __, S, VT = svd( data, transpose = True )
-    else:
-        S, VT = eigh(data.T @ data, svd = True)
-    return S, VT
+	if solver == 'full':
+		S, VT = eig(batch, svd = True)
+		return S, VT
 
+	elif solver == 'truncated':
+		S, VT = truncatedSVD(batch, n_components = k, tol = tol)
+	else:
+		S, VT = randomizedSVD(batch, n_components = k, max_iter = max_iter)
 
-
-def partialEig(batch, S2, V):
-    """
-    Fits a partial Eigendecomposition after given old eigenvalues S2
-    and old components VT.
-
-    Checks if new batch's size matches that of the old VT.
-    """
-    data, __, memCheck = _util(batch, S2, V, eig = True)
-
-    if (data.shape[1] > data.shape[0]) or ~memCheck: 
-        S2, V = eig(data)
-    else:
-        S2, V = eigh(data.T @ data, positive = True)
-    return S2, V
+	return S[:k], VT[:k]
 
 
 
-def truncatedPartialSVD(batch, S, VT, n_components = 2, ratio = 2):
-    """
-    HyperLearn also extends Truncated SVD to fit on partial
-    datasets. If n_components is set, then truncatedPartialSVD
-    will output only n_components * ratio.
 
-    Note the accuracy will be reduced when compared to full partialSVD,
-    since the corrected eigenspace is not very robust.
+def partialEig(batch, S2, V, ratio = 1, solver = 'full', tol = None, max_iter = 'auto'):
+	"""
+	Fits a partial Eigendecomp after given old eigenvalues S2
+	and old eigenvector components V.
 
-    Thus, RATIO is set to 2, were the n_components outputted is
-    actually 2 * n_components, and not n_components. If you deem
-    that it's better to output purely n_components, then set
-    ratio to 1.
-    """
-    data, components, memCheck = _util(batch, S, VT, n_components, ratio)
+	Note that V will be used as the number of old components,
+	so when calling truncated or randomized, will output a
+	specific number of eigenvectors and eigenvalues.
 
-    if (data.shape[1] > data.shape[0]) or ~memCheck:
-        __, S, VT = truncatedSVD( data, transpose = True, n_components = components )
-    else:
-        S, VT = truncatedEigh(data.T @ data, svd = True, n_components = components )
-    return S, VT
+	Checks if new batch's size matches that of the old V.
 
+	Note that PartialEig has different solvers. Either choose:
+		1. full
+			Solves full Eigendecompsition on the data. This is the most
+			stable and will guarantee the most robust results.
+			You can select the number of components to keep
+			within the model later.
 
+		2. truncated
+			This keeps the top K right eigenvectors and top
+			k eigenvalues, as determined by n_components. Note full Eig
+			is not called for the truncated case, but rather ARPACK is called.
 
-def truncatedPartialEig(batch, S2, V, n_components = 2, ratio = 2):
-    """
-    HyperLearn also extends Truncated Eig to fit on partial
-    datasets. If n_components is set, then truncatedPartialEig
-    will output only n_components * ratio.
-
-    Note the accuracy will be reduced when compared to full partialEig,
-    since the corrected eigenspace is not very robust.
-
-    Thus, RATIO is set to 2, were the n_components outputted is
-    actually 2 * n_components, and not n_components. If you deem
-    that it's better to output purely n_components, then set
-    ratio to 1.
-    """
-    data, components, memCheck = _util(batch, S2, V, n_components, ratio, eig = True)
-
-    if (data.shape[1] > data.shape[0]) or ~memCheck:
-        __, S2, V = truncatedSVD( data, transpose = True, n_components = components )
-        V = V.T
-        S2 **= 2
-    else:
-        S2, V = truncatedEigh(data.T @ data, svd = False, n_components = components )
-    return S2, V
-
-
-
-def randomizedPartialSVD(batch, S, VT, n_components = 2, ratio = 3, max_iter = 'auto', solver = 'lu'):
-    """
-    HyperLearn also extends Randomized SVD to fit on partial
-    datasets. If n_components is set, then randomizedPartialSVD
-    will output only n_components * ratio.
-
-    Note the accuracy will be reduced when compared to full partialSVD,
-    since the corrected eigenspace is not very robust.
-
-    Thus, RATIO is set to 3, were the n_components outputted is
-    actually 3 * n_components, and not n_components. Note this is even
-    more strict than truncatedPartialSVD, since randomizedSVD's
-    P(success) is lower.
-    """
-    data, components, memCheck = _util(batch, S, VT, n_components, ratio)
-
-    if (data.shape[1] > data.shape[0]) or ~memCheck:
-        __, S, VT = randomizedSVD( data, n_components = components, max_iter = max_iter, solver = solver)
-    else:
-        S, VT = randomizedEig(data.T @ data, n_components = components, max_iter = max_iter, solver = solver)
-    return S, VT
-
-
-
-def randomizedPartialEig(batch, S2, V, n_components = 2, ratio = 3, max_iter = 'auto', solver = 'lu'):
-    """
-    HyperLearn also extends Randomized Eig to fit on partial
-    datasets. If n_components is set, then randomizedPartialEig
-    will output only n_components * ratio.
-
-    Note the accuracy will be reduced when compared to full partialEig,
-    since the corrected eigenspace is not very robust.
-
-    Thus, RATIO is set to 3, were the n_components outputted is
-    actually 3 * n_components, and not n_components. Note this is even
-    more strict than truncatedPartialEig, since randomizedEig's
-    P(success) is lower.
-    """
-    data, components, memCheck = _util(batch, S2, V, n_components, ratio, eig = True)
-
-    if (data.shape[1] > data.shape[0]) or ~memCheck:
-        __, S2, V = randomizedSVD( data, n_components = components, max_iter = max_iter, solver = solver)
-        V = V.T
-        S2 **= 2
-    else:
-        S2, V = randomizedEig(data.T @ data, n_components = components, max_iter = max_iter, solver = solver)
-    return S2, V
+		3. randomized
+			Same as truncated, but instead of using ARPACK, uses
+			randomized Eig.
+	"""
+	
 
