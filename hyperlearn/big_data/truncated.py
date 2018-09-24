@@ -96,3 +96,4 @@ def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision =
 		return VT.T, S, U.T
 	return U, S, VT
 
+

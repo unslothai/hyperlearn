@@ -1,17 +1,26 @@
 
-from ..numba import norm, sign
+from ..numba import norm
 from numpy import infty, zeros
 from copy import copy
 
 
 def _max(a,b):
-	return a if a > b else b
+	if a >= b:
+		return a
+	return b
 
 def _min(a,b):
-	return a if a < b else b
+	if a >= b:
+		return b
+	return a
+
+def sign(x):
+    if x < 0:
+        return -1
+    return 1
 
 
-def SymbolOrtho(a, b):
+def Orthogonalize(a, b):
 	A,B,_a,_b = abs(a), abs(b), sign(a), sign(b)
 	if b == 0: 
 		return _a, 0, A
@@ -30,8 +39,14 @@ def SymbolOrtho(a, b):
 	return c,s,r
 
 
-def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0):
+
+
+def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0, threshold = 1e12, non_negative = False,
+			max_iter = None):
 	"""
+	[As of 12/9/2018, an optional non_negative argument is added. Note as accurate as Scipy's NNLS,
+	by copies ideas from gradient descent.]
+
 	Implements extremely fast least squares LSMR using orthogonalization as seen in Scipy's LSMR and
 	https://arxiv.org/abs/1006.0758 [LSMR: An iterative algorithm for sparse least-squares problems]
 	by David Fong, Michael Saunders.
@@ -59,35 +74,41 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0):
 	Cholesky requires XT * X space, which is already max O(n^2p) [which is huge].
 	Essentially, Cholesky shines when P is large, but N is small. LSMR is good for large N, medium P
 	"""
-	a_tol = b_tol = tol
 	damp = alpha
 	dtype = X.dtype
+	check = False
 
 	Y = y.squeeze().copy()
+	if y.dtype != dtype:
+		Y = Y.astype(dtype)
+	# Y = Y.copy()
 	n,p = X.shape
-	max_iter = _min(n, p)
+	max_iter = _min(n, p) if max_iter is None else max_iter
 
 	norm_Y = norm(Y)
-	theta_hat = zeros(p, dtype = dtype)
+	zero = zeros(p, dtype = dtype)
+	theta_hat = zero.copy()
+
 	beta = copy(norm_Y)
+	XT = X.T
 
 	if beta > 0:
-		Y = (1 / beta)*Y
-		V = X.T @ Y
+		Y /= beta
+		V = XT @ Y
 		alpha = norm(V)
 	else:
 		V = zeros(p, dtype = dtype)
 		alpha = 0
 
 	if alpha > 0:
-		V = (1 / alpha)*V
+		V /= alpha
 		
 	# Initialize first iteration variables
 	zeta_bar = alpha * beta
 	alpha_bar = alpha
 	rho, rho_bar, c_bar, s_bar = 1,1,1,0
 	H = V.copy()
-	H_bar = zeros(p, dtype = dtype)
+	H_bar = zero.copy()
 
 
 	# Initialize variables for estimation of ||r||.
@@ -103,36 +124,41 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0):
 
 
 	# Early stopping
-	c_tol = 1/condition_limit if condition_limit > 0 else 0
+	if condition_limit > 0:
+		c_tol = 1/condition_limit
+	else:
+		c_tol = 0
 	norm_r = beta
 
 
 	# Check if theta_hat == 0
 	normAB = alpha*beta
 	if normAB == 0:
-		return theta_hat
+		return theta_hat, True
 
 
 	# Iteration Loop
 	for i in range(max_iter):
 
-		Y = X @ V - alpha*Y
+		Y *= -alpha
+		Y += X @ V
 		beta = norm(Y)
 
 		if beta > 0:
-			Y = (1 / beta)*Y
-			V = X.T @ Y - beta*V
+			Y /= beta
+			V *= -beta
+			V += XT @ Y
 			alpha = norm(V)
 
 			if alpha > 0:
-				V = (1 / alpha)*V
+				V /= alpha
 
 
-		c_hat, s_hat, alpha_hat = SymbolOrtho(alpha_bar, damp)
+		c_hat, s_hat, alpha_hat = Orthogonalize(alpha_bar, damp)
 
 		# Plane rotation
 		rho_old = rho
-		c, s, rho = SymbolOrtho(alpha_hat, beta)
+		c, s, rho = Orthogonalize(alpha_hat, beta)
 		theta_new = s*alpha
 		alpha_bar = c*alpha
 
@@ -140,14 +166,23 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0):
 		rho_bar_old, zeta_old = rho_bar, zeta
 		theta_bar, rho_temp = s_bar*rho, c_bar*rho
 
-		c_bar, s_bar, rho_bar = SymbolOrtho(c_bar*rho, theta_new)
+		c_bar, s_bar, rho_bar = Orthogonalize(c_bar*rho, theta_new)
 		zeta = c_bar*zeta_bar
-		zeta_bar = -s_bar*zeta_bar
-
+		zeta_bar *= -s_bar
+				
 		# Update H, H_hat, theta_hat
-		H_bar = H - (theta_bar*rho/(rho_old*rho_bar_old))*H_bar
+		H_bar *= -theta_bar*rho/(rho_old*rho_bar_old)
+		H_bar += H
 		theta_hat += (zeta/(rho*rho_bar))*H_bar
-		H = V - (theta_new/rho)*H
+
+		# Just in case if coefficients exceed maximum
+		theta_hat[abs(theta_hat) > threshold] = 0.0
+
+		if non_negative:
+			theta_hat[theta_hat < 0] = 0.0
+
+		H *= -theta_new/rho
+		H += V
 
 		# Estimate of ||r||
 		beta_acute, beta_check = c_hat*beta_dd, -s_hat*beta_dd
@@ -158,18 +193,18 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0):
 
 		# Apply rotation
 		theta_tilde_old = theta_tilde
-		c_tilde_old, s_tilde_old, rho_tilde_old = SymbolOrtho(rho_old, theta_bar)
+		c_tilde_old, s_tilde_old, rho_tilde_old = Orthogonalize(rho_old, theta_bar)
 		theta_tilde = s_tilde_old*rho_bar
 
 		rho_old = c_tilde_old*rho_bar
-		beta_d = -s_tilde_old*beta_d + c_tilde_old*beta_hat
+		beta_d = c_tilde_old*beta_hat - s_tilde_old*beta_d
 
 
 		tau_tilde_old = (zeta_old - theta_tilde_old*tau_tilde_old)/rho_tilde_old
-		tau_d = (zeta - theta_tilde*tau_tilde_old)/rho_old
 		d += beta_check*beta_check
 
-		norm_r = (d+ (beta_d - tau_d)**2 + beta_dd*beta_dd)**0.5
+		partial = beta_d - ((zeta - theta_tilde*tau_tilde_old)/rho_old)
+		norm_r = (d+ partial*partial + beta_dd*beta_dd)**0.5
 
 		# Estimate ||X||
 		norm_X2 += beta*beta
@@ -182,30 +217,40 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0):
 			min_r_bar = _min(max_r_bar, rho_bar_old)
 		cond_X = _max(max_r_bar, rho_temp)/_min(min_r_bar, rho_temp)
 
-		# Comvergence test
-		norm_ar = abs(zeta_bar)
-		norm_theta = norm(theta_hat)
-
 		# Estimate other stuff
 
 		test_1 = norm_r/norm_Y
 		X_r = norm_X * norm_r
 
-		test_2 = norm_ar / X_r if X_r != 0 else infty
+
+		if X_r != 0:
+			test_2 = abs(zeta_bar) / X_r							# norm_ar = abs(zeta_bar)
+		else:
+			test_2 = infty
+
+		if (1+test_2 <= 1):
+			break
+		elif (test_2 <= tol):
+			break
 		
+
 		test_3 = 1/cond_X
-		partial = norm_X*norm_theta/norm_Y
-
-		t1 = test_1/(1+partial)
-		r_tol = b_tol + a_tol*partial
-
-		# Stopping criteria
 		check = (1+test_3 <= 1)
 
-		# If number iterations too less, does a tiny bit more scaled by 
+		if check:
+			break
+		elif (test_3 <= c_tol):
+			break
 
-		if check or (1+test_2 <= 1) or (1+t1 <= 1) \
-			or (test_3 <= c_tol) or (test_2 <= a_tol) or (test_1 <= r_tol):
+
+		partial = 1+(norm_X*norm(theta_hat)/norm_Y)						# norm_theta = norm(theta)
+		t1 = test_1/partial
+
+		r_tol = tol*partial
+
+		if (1+t1 <= 1):
+			break
+		elif (test_1 <= r_tol):
 			break
 
 

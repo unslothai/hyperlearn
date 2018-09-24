@@ -6,6 +6,7 @@ from numpy import finfo as np_finfo, einsum as np_einsum, log as np_log, array a
 from numpy import float32 as np_float32, float64 as np_float64, int32 as np_int32, \
 					int64 as np_int64, bool_ as np_bool, uint8 as np_uint8, ndarray, \
 					round as np_round
+from numpy import newaxis
 from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
 from inspect import isclass as isClass
 from torch import matmul as torch_dot, diag, ones

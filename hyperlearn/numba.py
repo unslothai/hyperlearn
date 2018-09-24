@@ -1,13 +1,16 @@
 
 from numpy import ones, eye, float32, float64, \
-				sum as __sum, arange as _arange, sign as _sign, uint as _uint
+				sum as __sum, arange as _arange, sign as _sign, uint as _uint, \
+				abs as __abs, minimum as _minimum, maximum as _maximum
 from numpy.linalg import svd as _svd, pinv as _pinv, eigh as _eigh, \
 					cholesky as _cholesky, lstsq as _lstsq, qr as _qr, \
 					norm as _norm
-from numba import njit
+from numba import njit, prange
+from .base import USE_NUMBA
 
 __all__ = ['svd', 'pinv', 'eigh', 'cholesky', 'lstsq', 'qr','norm',
-			'mean', '_sum', 'sign', 'arange']
+			'mean', '_sum', 'sign', 'arange', '_abs', 'minimum', 'maximum',
+			'multsum']
 
 
 @njit(fastmath = True, nogil = True, cache = True)
@@ -72,6 +75,43 @@ def _sum(X, axis = 0):
 	return __sum(X, axis)
 
 
+@njit(fastmath = True, nogil = True, cache = True)
+def _abs(v):
+	return __abs(v)
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def maximum(X, i):
+    return _maximum(X, i)
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def minimum(X, i):
+    return _minimum(X, i)
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def _min(a,b):
+    if a < b:
+        return a
+    return b
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def _max(a,b):
+    if a < b:
+        return b
+    return a
+
+
+@njit(fastmath = True, nogil = True, parallel = True)
+def multsum(a,b):
+    s = a[0]*b[0]
+    for i in prange(1,len(a)):
+        s += a[i]*b[i]
+    return s
+
+
 ## TEST
 print("""Note that first time import of HyperLearn will be slow, """
 		"""since NUMBA code has to be compiled to machine code """
@@ -98,6 +138,26 @@ A = _sum(y32)
 A = _sum(y64)
 A = sign(X)
 A = arange(100)
+A = _abs(y32)
+A = _abs(y64)
+A = _abs(X)
+A = _abs(10.0)
+A = _abs(10)
+A = minimum(X, 0)
+A = minimum(y32, 0)
+A = minimum(y64, 0)
+A = maximum(X, 0)
+A = maximum(y32, 0)
+A = maximum(y64, 0)
+A = _min(0,1)
+A = _min(0.1,1.1)
+A = _max(0,1)
+A = _max(0.1,1.1)
+A = multsum(y32, y32)
+A = multsum(y32, y64)
+A = multsum(y64, y64)
+
+
 
 X = eye(2, dtype = float64)
 A = svd(X)
@@ -112,6 +172,9 @@ A = norm(y64, 2)
 A = mean(X, 1)
 A = _sum(X)
 A = sign(X)
+A = _abs(X)
+A = maximum(X, 0)
+A = minimum(X, 0)
 
 A = None
 X = None

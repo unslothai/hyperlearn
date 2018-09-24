@@ -1,8 +1,31 @@
 from .base import *
 from scipy.stats import t as tdist
+from .numba import mean
 
-__all__ = ['qr_stats','svd_stats','ridge_stats']
+__all__ = ['corr', 'qr_stats','svd_stats','ridge_stats']
 
+
+def corr(X, y):
+    same = y is X
+    
+    _X = X - mean(X, 0)
+    _y = y - mean(y, 0) if ~same else _X
+    
+    if len(X.shape) == 1:
+        _X2 = einsum('i,i', _X, _X)**0.5
+    else:
+        _X2 = einsum('ij,ij->j', _X, _X)**0.5
+        
+
+    if len(y.shape) == 1:
+        _y2 = einsum('i,i',_y,_y)**0.5
+    else:
+        _y2 = einsum('ij,ij->j',_y,_y)**0.5 if ~same else _X2
+        _X2 = _X2[:,newaxis]
+        
+    corr = (_X.T @ _y) / _X2 /_y2
+    
+    return corr
 
 """
 ------------------------------------------------------------

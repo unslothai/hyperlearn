@@ -1,11 +1,11 @@
 
-from numpy import uint, newaxis, finfo
+from numpy import uint, newaxis, finfo, float32, float64
 from .numba import sign, arange
 from psutil import virtual_memory
 from .exceptions import FutureExceedsMemory
 
 __all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
-			'memoryXTX', 'memoryCovariance']
+			'memoryXTX', 'memoryCovariance', 'memorySVD', '_float']
 
 _condition = {'f': 1e3, 'd': 1e6}
 
@@ -107,4 +107,36 @@ def memoryCovariance(X):
 	if memUsage > free:
 		raise FutureExceedsMemory()
 	return
+
+
+def memorySVD(X):
+	"""
+	Computes the approximate memory usage of SVD(X) [transpose or not].
+	How it's computed:
+		X = U * S * VT
+		U(n,p) * S(p) * VT(p,p)
+		This means RAM usgae is np+p+p^2 approximately.
+	### TODO: Divide N Conquer SVD vs old SVD
+	"""
+	n,p = X.shape
+	if n > p: n,p = p,n
+	free = virtual_memory().free * 0.95
+	byte = 4 if '32' in str(X.dtype) else 8
+
+	U = n*p
+	S = p
+	VT = p*p
+	memUsage = (U+S+VT) * byte
+
+	return memUsage < free
+
+
+
+def _float(data):
+	dtype = str(data.dtype)
+	if 'f' not in dtype:
+		if '64' in dtype:
+			return data.astype(float64)
+		return data.astype(float32)
+	return data
 

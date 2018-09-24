@@ -8,7 +8,8 @@ from numpy import float32, float64
 __all__ = ['cholesky', 'invCholesky', 'pinvCholesky',
 			'svd', 'lu', 'qr', 
 			'pinv', 'pinvh', 
-			'eigh', 'pinvEig', 'eig']
+			'eigh', 'pinvEig', 'eig',
+			'traceXTX', 'fastDot']
 
 
 def cholesky(X, alpha = None, fast = True):
@@ -188,6 +189,8 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 	This flips the signs of U and VT, using VT_based decision.
 	"""
 	transpose = True if (transpose and X.shape[1] > X.shape[0]) else False
+	if X.dtype not in (float32, float64):
+		X = X.astype(float32)
 	if transpose: 
 		X, U_decision = X.T, ~U_decision
 
@@ -470,3 +473,49 @@ def pinvEig(X, alpha = None, fast = True):
 
 
 
+def traceXTX(X):
+	"""
+	One drawback of truncated algorithms is that they can't output the correct
+	variance explained ratios, since the full eigenvalue decomp needs to be
+	done. However, using linear algebra, trace(XT*X) = sum(eigenvalues).
+
+	So, this function outputs the trace(XT*X) efficiently without computing
+	explicitly XT*X.
+
+	Note einsum('ij,ij->', X, X) is corret in a sense, but sadly, has less
+	accuracy, hence row sum is formed then total sum.
+	"""
+	return einsum('ij,ij->i', X, X).sum()
+
+
+
+def fastDot(A, B, C):
+	"""
+	[Added 23/9/2018]
+	Computes a fast matrix multiplication of 3 matrices.
+	Either performs (A @ B) @ C or A @ (B @ C) depending which is more
+	efficient.
+	"""
+	size = A.shape
+	n = size[0]
+	p = size[1] if len(size) > 1 else 1
+	
+	size = B.shape
+	k = size[1] if len(size) > 1 else 1
+	
+	size = C.shape
+	d = size[1] if len(size) > 1 else 1
+	
+	# Forward (A @ B) @ C
+	# p*k*n + (k*d*n) repeated
+	forward = n
+	
+	# Backward A @ (B @ C)
+	# k*d*p + (k*d*n) repeated
+	backward = p
+	
+	if forward <= backward:
+		return (A @ B) @ C
+	return A @ (B @ C)
+
+	

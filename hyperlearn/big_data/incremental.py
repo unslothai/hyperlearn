@@ -28,39 +28,6 @@ def _util(batch, S, VT, eig = False):
 
 
 
-
-def reverseU(X, S, VT, size = 1):
-	"""
-	Computes an approximation to the matrix U if given S and VT and
-	the data matrix X. If size = 1, then will not batch process.
-	Else, if size > 1, then will split the data into portions
-	and find U approximation.
-	
-	U is approximated by:
-
-		X = U @ S @ VT
-		X @ V = U @ S
-		(X @ V)/S = U
-
-		So, U = (X @ V)/S, so you can output U from (X @ V)/S
-	"""
-	V = VT.T
-	if size > 1:
-		n = len(X)
-		parts = list(arange(0, n, int(n/size)))
-		if parts[-1] != n:
-			parts.append(n)
-		
-		Us = []
-		for left,right in zip(parts, parts[1:]):
-			Us.append( (X[left:right]@V)/S )
-		return Us
-			
-	return (X @ V)/S
-
-
-
-
 def partialSVD(batch, S, VT, ratio = 1, solver = 'full', tol = None, max_iter = 'auto'):
 	"""
 	Fits a partial SVD after given old singular values S
@@ -99,18 +66,18 @@ def partialSVD(batch, S, VT, ratio = 1, solver = 'full', tol = None, max_iter = 
 
 		So, U = (X @ V)/S, so you can output U from (X @ V)/S
 
-		You can also get U partially and slowly using batchU.
+		You can also get U partially and slowly using reverseU.
 	"""
-	data, k, memCheck = _util(batch, S, VT, eig = False)
+	data, k, __ = _util(batch, S, VT, eig = False)
 
 	if solver == 'full':
-		S, VT = eig(batch, svd = True)
+		S, VT = eig(data, svd = True)
 		return S, VT
 
 	elif solver == 'truncated':
-		S, VT = truncatedSVD(batch, n_components = k, tol = tol)
+		__, S, VT = truncatedSVD(data, n_components = k, tol = tol)
 	else:
-		S, VT = randomizedSVD(batch, n_components = k, max_iter = max_iter)
+		__, S, VT = randomizedSVD(data, n_components = k, max_iter = max_iter)
 
 	return S[:k], VT[:k]
 
@@ -144,5 +111,21 @@ def partialEig(batch, S2, V, ratio = 1, solver = 'full', tol = None, max_iter = 
 			Same as truncated, but instead of using ARPACK, uses
 			randomized Eig.
 	"""
-	
+	data, k, memCheck = _util(batch, S2, V, eig = True)
+
+	if solver == 'full':
+		S2, V = eig(data, svd = False)
+		return S2, V
+
+	elif solver == 'truncated':
+		if memCheck:
+			S2, V = truncatedEigh(data.T @ data, n_components = k, tol = tol)
+		else:
+			__, S2, V = truncatedSVD(data, n_components = k, tol = tol)
+			S2**=2
+			V = V.T
+	else:
+		S2, V = randomizedEig(data, n_components = k, max_iter = max_iter)
+
+	return S2[:k], V[:,:k]
 
