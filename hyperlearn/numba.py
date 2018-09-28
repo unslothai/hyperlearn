@@ -1,6 +1,6 @@
 
 from numpy import ones, eye, float32, float64, \
-				sum as __sum, arange as _arange, sign as _sign, uint as _uint, \
+				sum as __sum, arange as _arange, sign as __sign, uint as _uint, \
 				abs as __abs, minimum as _minimum, maximum as _maximum
 from numpy.linalg import svd as _svd, pinv as _pinv, eigh as _eigh, \
 					cholesky as _cholesky, lstsq as _lstsq, qr as _qr, \
@@ -10,7 +10,7 @@ from .base import USE_NUMBA
 
 __all__ = ['svd', 'pinv', 'eigh', 'cholesky', 'lstsq', 'qr','norm',
 			'mean', '_sum', 'sign', 'arange', '_abs', 'minimum', 'maximum',
-			'multsum']
+			'multsum', 'squaresum', '_sign']
 
 
 @njit(fastmath = True, nogil = True, cache = True)
@@ -62,7 +62,7 @@ def mean(X, axis = 0):
 
 @njit(fastmath = True, nogil = True, cache = True)
 def sign(X):
-	return _sign(X)
+	return __sign(X)
 
 
 @njit(fastmath = True, nogil = True, cache = True)
@@ -104,12 +104,30 @@ def _max(a,b):
     return a
 
 
+@njit(fastmath = True, nogil = True, cache = True)
+def _sign(x):
+    if x < 0:
+        return -1
+    return 1
+
+
 @njit(fastmath = True, nogil = True, parallel = True)
 def multsum(a,b):
     s = a[0]*b[0]
     for i in prange(1,len(a)):
         s += a[i]*b[i]
     return s
+
+
+@njit(fastmath = True, nogil = True, parallel = True)
+def squaresum(v):
+	if len(v.shape) == 1:
+	    s = v[0]**2
+	    for i in prange(1,len(v)):
+	        s += v[i]**2
+	# else:
+
+ #    return s
 
 
 ## TEST
@@ -119,6 +137,7 @@ print("""Note that first time import of HyperLearn will be slow, """
 
 y32 = ones(2, dtype = float32)
 y64 = ones(2, dtype = float64)
+
 
 X = eye(2, dtype = float32)
 A = svd(X)
@@ -156,7 +175,12 @@ A = _max(0.1,1.1)
 A = multsum(y32, y32)
 A = multsum(y32, y64)
 A = multsum(y64, y64)
-
+A = squaresum(y32)
+A = squaresum(X)
+A = squaresum(y64)
+A = _sign(-1)
+A = _sign(-1.2)
+A = _sign(1.2)
 
 
 X = eye(2, dtype = float64)
@@ -175,6 +199,7 @@ A = sign(X)
 A = _abs(X)
 A = maximum(X, 0)
 A = minimum(X, 0)
+A = squaresum(X)
 
 A = None
 X = None

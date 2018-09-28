@@ -2,7 +2,8 @@
 from sklearn.externals import six
 from abc import ABCMeta, abstractmethod
 from sklearn.base import BaseEstimator, TransformerMixin
-from .numba import mean
+from ..numba import mean
+from ..utils import _float
 
 
 class _basePCA(six.with_metaclass(ABCMeta, BaseEstimator, TransformerMixin)):

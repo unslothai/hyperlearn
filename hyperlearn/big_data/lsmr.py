@@ -1,27 +1,12 @@
 
-from ..numba import norm
-from numpy import infty, zeros
+from ..numba import norm, _min, _max, _sign
+from numpy import infty, zeros, float32, float64
 from copy import copy
-
-
-def _max(a,b):
-	if a >= b:
-		return a
-	return b
-
-def _min(a,b):
-	if a >= b:
-		return b
-	return a
-
-def sign(x):
-    if x < 0:
-        return -1
-    return 1
+from ..utils import _float
 
 
 def Orthogonalize(a, b):
-	A,B,_a,_b = abs(a), abs(b), sign(a), sign(b)
+	A,B,_a,_b = abs(a), abs(b), _sign(a), _sign(b)
 	if b == 0: 
 		return _a, 0, A
 	elif a == 0:
@@ -38,6 +23,12 @@ def Orthogonalize(a, b):
 		r = a/c
 	return c,s,r
 
+
+def floatType(dtype):
+	dtype = str(dtype)
+	if '64' in dtype:
+		return float64
+	return float32
 
 
 
@@ -75,10 +66,14 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0, threshold = 1e12, n
 	Essentially, Cholesky shines when P is large, but N is small. LSMR is good for large N, medium P
 	"""
 	damp = alpha
-	dtype = X.dtype
 	check = False
-
-	Y = y.squeeze().copy()
+	try:
+		X = X.A  # Convert Matrix to Array
+		X = _float(X)
+	except:
+		pass
+	dtype = X.dtype
+	Y = y.ravel().copy()
 	if y.dtype != dtype:
 		Y = Y.astype(dtype)
 	# Y = Y.copy()
