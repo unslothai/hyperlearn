@@ -5,7 +5,8 @@ from psutil import virtual_memory
 from .exceptions import FutureExceedsMemory
 
 __all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
-			'memoryXTX', 'memoryCovariance', 'memorySVD', '_float']
+			'memoryXTX', 'memoryGram', 'memorySVD', '_float',
+			'traceXTX', 'fastDot', '_XTX', '_XXT']
 
 _condition = {'f': 1e3, 'd': 1e6}
 
@@ -92,7 +93,7 @@ def memoryXTX(X):
 
 
 
-def memoryCovariance(X):
+def memoryGram(X):
 	"""
 	Computes the memory usage for X.T @ X or X @ X.T so that error messages
 	can be broadcast without submitting to a memory error.
@@ -140,3 +141,80 @@ def _float(data):
 		return data.astype(float32)
 	return data
 
+
+
+def traceXTX(X):
+	"""
+	One drawback of truncated algorithms is that they can't output the correct
+	variance explained ratios, since the full eigenvalue decomp needs to be
+	done. However, using linear algebra, trace(XT*X) = sum(eigenvalues).
+
+	So, this function outputs the trace(XT*X) efficiently without computing
+	explicitly XT*X.
+
+	Note einsum('ij,ij->', X, X) is corret in a sense, but sadly, has less
+	accuracy, hence row sum is formed then total sum.
+	"""
+	return einsum('ij,ij->i', X, X).sum()
+
+
+
+def fastDot(A, B, C):
+	"""
+	[Added 23/9/2018]
+	[Updated 1/10/2018 Error in calculating which is faster]
+	Computes a fast matrix multiplication of 3 matrices.
+	Either performs (A @ B) @ C or A @ (B @ C) depending which is more
+	efficient.
+	"""
+	size = A.shape
+	n = size[0]
+	p = size[1] if len(size) > 1 else 1
+	
+	size = B.shape
+	k = size[1] if len(size) > 1 else 1
+	
+	size = C.shape
+	d = size[1] if len(size) > 1 else 1
+	
+	# Forward (A @ B) @ C
+	# p*k*n + k*d*n = kn(p+d)
+	forward = k*n*(p+d)
+	
+	# Backward A @ (B @ C)
+	# p*d*n + k*d*p = pd(n+k)
+	backward = p*d*(n+k)
+	
+	if forward <= backward:
+		return (A @ B) @ C
+	return A @ (B @ C)
+
+	
+
+def _XTX(XT):
+	"""
+	[Added 30/9/2018]
+	Computes XT @ X much faster than naive XT @ X.
+	Notice XT @ X is symmetric, hence instead of doing the
+	full matrix multiplication XT @ X which takes O(np^2) time,
+	compute only the upper triangular which takes slightly
+	less time and memory.
+	"""
+	if XT.dtype == np.float64:
+		return dsyrk(1, XT, trans = 0).T
+	return ssyrk(1, XT, trans = 0).T
+
+
+
+def _XXT(XT):
+	"""
+	[Added 30/9/2018]
+	Computes X @ XT much faster than naive X @ XT.
+	Notice X @ XT is symmetric, hence instead of doing the
+	full matrix multiplication X @ XT which takes O(pn^2) time,
+	compute only the upper triangular which takes slightly
+	less time and memory.
+	"""
+	if XT.dtype == np.float64:
+		return dsyrk(1, XT, trans = 1).T
+	return ssyrk(1, XT, trans = 1).T

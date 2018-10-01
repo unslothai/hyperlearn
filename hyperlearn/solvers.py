@@ -1,7 +1,7 @@
 
 from .linalg import *
 from .base import *
-from .utils import _svdCond, _float
+from .utils import _svdCond, _float, _XTX, _XXT
 from .numba import lstsq as _lstsq
 from .big_data import LSMR
 from numpy import newaxis
@@ -148,11 +148,11 @@ def solveCholesky(X, y, alpha = None, fast = False):
 	However, speeds are reduced by 50%.
 	"""
 	n,p = X.shape
-	XT = X.T
-	covariance = XT @ X if n >= p else X @ XT
 	X = _float(X)
+	XT = X.T
+	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
-	cho = cholesky(covariance, alpha = alpha, fast = fast)
+	cho = cholesky(gram, alpha = alpha, fast = fast)
 	inv = invCholesky(cho, fast = fast)
 
 	return fastDot(inv, XT, y) if n >= p else fastDot(XT, inv, y)
@@ -225,11 +225,11 @@ def solveEig(X, y, alpha = None, fast = True):
 	rounding errors and promises better convergence rates.
 	"""
 	n,p = X.shape
-	XT = X.T
 	X = _float(X)
-	covariance = XT @ X if n >= p else X @ XT
+	XT = X.T
+	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
-	inv = pinvh(covariance, alpha = alpha, fast = fast)
+	inv = pinvh(gram, alpha = alpha, fast = fast)
 
 	return fastDot(inv, XT, y) if n >= p else fastDot(XT, inv, y)
 

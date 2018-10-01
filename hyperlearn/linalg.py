@@ -1,5 +1,6 @@
 
 from scipy.linalg import lapack, lu as _lu, qr as _qr
+from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
 from . import numba
 from .base import *
 from .utils import *
@@ -8,8 +9,7 @@ from numpy import float32, float64
 __all__ = ['cholesky', 'invCholesky', 'pinvCholesky',
 			'svd', 'lu', 'qr', 
 			'pinv', 'pinvh', 
-			'eigh', 'pinvEig', 'eig',
-			'traceXTX', 'fastDot']
+			'eigh', 'pinvEig', 'eig']
 
 
 def cholesky(X, alpha = None, fast = True):
@@ -101,7 +101,7 @@ def invCholesky(X, fast = False):
 	Upper Triangular Matrix.
 	
 	This is used in conjunction in solveCholesky, where the
-	inverse of the covariance matrix is needed.
+	inverse of the gram matrix is needed.
 	
 	Speed
 	--------------
@@ -153,10 +153,10 @@ def pinvCholesky(X, alpha = None, fast = False):
 	"""
 	n,p = X.shape
 	XT = X.T
-	memoryCovariance(X)
-	covariance = XT @ X if n >= p else X @ XT
+	memoryGram(X)
+	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
-	cho = cholesky(covariance, alpha = alpha, fast = fast)
+	cho = cholesky(gram, alpha = alpha, fast = fast)
 	inv = invCholesky(cho, fast = fast)
 	
 	return inv @ XT if n >= p else XT @ inv
@@ -333,11 +333,11 @@ def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = 
 	"""
 	Computes the Eigendecomposition of any matrix using either
 	QR then SVD or just SVD. This produces much more stable solutions 
-	that pure eigh(covariance), and thus will be necessary in some cases.
+	that pure eigh(gram), and thus will be necessary in some cases.
 
 	If STABLE is True, then EIGH will be bypassed, and instead SVD or QR/SVD
 	will be used instead. This is to guarantee stability, since EIGH
-	uses epsilon jitter along the diagonal of the covariance matrix.
+	uses epsilon jitter along the diagonal of the gram matrix.
 	
 	Speed
 	--------------
@@ -384,7 +384,7 @@ def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = 
 			S **= 2
 			V = V.T
 	else:
-		S, V = eigh(X.T @ X, U_decision = U_decision, fast = fast, alpha = alpha)
+		S, V = eigh(_XTX(X.T), U_decision = U_decision, fast = fast, alpha = alpha)
 		if svd:
 			S **= 0.5
 			V = V.T
@@ -434,7 +434,7 @@ def pinvh(XTX, alpha = None, fast = True):
 def pinvEig(X, alpha = None, fast = True):
 	"""
 	Computes the approximate pseudoinverse of any matrix X
-	using Eigendecomposition on the covariance matrix XTX or XXT
+	using Eigendecomposition on the gram matrix XTX or XXT
 	
 	Uses a special trick where:
 		If n >= p: X^-1 approx = (XT @ X)^-1 @ XT
@@ -462,60 +462,11 @@ def pinvEig(X, alpha = None, fast = True):
 	"""
 	n,p = X.shape
 	XT = X.T
-	memoryCovariance(X)
-	covariance = XT @ X if n >= p else X @ XT
+	memoryGram(X)
+	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
-	S2, V = eigh(covariance, alpha = alpha, fast = fast)
+	S2, V = eigh(gram, alpha = alpha, fast = fast)
 	S2, V = _eighCond(S2, V)
 	inv = (V / S2) @ V.T
 
 	return inv @ XT if n >= p else XT @ inv
-
-
-
-def traceXTX(X):
-	"""
-	One drawback of truncated algorithms is that they can't output the correct
-	variance explained ratios, since the full eigenvalue decomp needs to be
-	done. However, using linear algebra, trace(XT*X) = sum(eigenvalues).
-
-	So, this function outputs the trace(XT*X) efficiently without computing
-	explicitly XT*X.
-
-	Note einsum('ij,ij->', X, X) is corret in a sense, but sadly, has less
-	accuracy, hence row sum is formed then total sum.
-	"""
-	return einsum('ij,ij->i', X, X).sum()
-
-
-
-def fastDot(A, B, C):
-	"""
-	[Added 23/9/2018]
-	Computes a fast matrix multiplication of 3 matrices.
-	Either performs (A @ B) @ C or A @ (B @ C) depending which is more
-	efficient.
-	"""
-	size = A.shape
-	n = size[0]
-	p = size[1] if len(size) > 1 else 1
-	
-	size = B.shape
-	k = size[1] if len(size) > 1 else 1
-	
-	size = C.shape
-	d = size[1] if len(size) > 1 else 1
-	
-	# Forward (A @ B) @ C
-	# p*k*n + (k*d*n) repeated
-	forward = n
-	
-	# Backward A @ (B @ C)
-	# k*d*p + (k*d*n) repeated
-	backward = p
-	
-	if forward <= backward:
-		return (A @ B) @ C
-	return A @ (B @ C)
-
-	
