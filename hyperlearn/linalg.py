@@ -1,6 +1,5 @@
 
 from scipy.linalg import lapack, lu as _lu, qr as _qr
-from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
 from . import numba
 from .base import *
 from .utils import *

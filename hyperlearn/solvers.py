@@ -1,7 +1,7 @@
 
 from .linalg import *
 from .base import *
-from .utils import _svdCond, _float, _XTX, _XXT
+from .utils import _svdCond, _float, _XTX, _XXT, fastDot
 from .numba import lstsq as _lstsq
 from .big_data import LSMR
 from numpy import newaxis

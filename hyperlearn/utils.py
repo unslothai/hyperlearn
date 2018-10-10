@@ -3,6 +3,7 @@ from numpy import uint, newaxis, finfo, float32, float64
 from .numba import sign, arange
 from psutil import virtual_memory
 from .exceptions import FutureExceedsMemory
+from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
 
 __all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
 			'memoryXTX', 'memoryGram', 'memorySVD', '_float',
@@ -200,7 +201,7 @@ def _XTX(XT):
 	compute only the upper triangular which takes slightly
 	less time and memory.
 	"""
-	if XT.dtype == np.float64:
+	if XT.dtype == float64:
 		return dsyrk(1, XT, trans = 0).T
 	return ssyrk(1, XT, trans = 0).T
 
@@ -215,6 +216,6 @@ def _XXT(XT):
 	compute only the upper triangular which takes slightly
 	less time and memory.
 	"""
-	if XT.dtype == np.float64:
+	if XT.dtype == float64:
 		return dsyrk(1, XT, trans = 1).T
 	return ssyrk(1, XT, trans = 1).T
