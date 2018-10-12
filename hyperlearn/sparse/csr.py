@@ -1,7 +1,7 @@
 
 from numba import njit, prange, jit
 from numpy import zeros, uint8, uint16, uint32, uint64, float32, float64
-from numpy import sum as _sum
+from numpy import sum as _sum, array, hstack, searchsorted
 from warnings import warn as Warn
 
 
@@ -222,6 +222,118 @@ def mult_1(val, rowIndices, mult, n, p, copy = True):
 		for j in range(left, right):
 			V[j] *= mult[i]
 	return V
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def diagonal(val, colPointer, rowIndices, n, p):
+    
+    size = min(n,p)
+    diag = np.zeros(size, dtype = val.dtype)
+    d = 0
+    for i in range(n):
+        if d == size: break
+        left = rowIndices[i]
+        right = rowIndices[i+1]
+        
+        partial = colPointer[left:right]
+        k = np.searchsorted(partial, d)
+        
+        if partial[k] == d:
+            diag[i] = val[left+k]
+        d += 1
+    return diag
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def diagonal_addA(val, colPointer, rowIndices, n, p, addon, copy = True):
+    V = val.copy() if copy else val
+    C = colPointer.copy() if copy else colPointer
+    R = rowIndices.copy() if copy else rowIndices
+    
+    A = np.array([addon], dtype = val.dtype)
+    
+    size = min(n,p)
+    d = 0
+    for i in range(n):
+        if d == size: break
+        left = R[i]
+        right = R[i+1]
+        
+        partial = C[left:right]
+        k = np.searchsorted(partial, d)
+        
+        if partial[k] == d:
+            V[left+k] += addon
+        else:
+            dA = np.array([d], dtype = C.dtype)
+            for j in range(i+1, n+1):
+                R[j] += 1
+            C = np.hstack((C[:left+k], dA, C[left+k:]))
+            V = np.hstack((V[:left+k], A, V[left+k:]))
+        d += 1
+    return V, C, R
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def diagonal_addA(val, colPointer, rowIndices, n, p, addon, copy = True):
+    V = val.copy() if copy else val
+    C = colPointer.copy() if copy else colPointer
+    R = rowIndices.copy() if copy else rowIndices
+    size = min(n,p)
+    
+    A = array([addon], dtype = val.dtype)
+
+    d = 0
+    for i in range(n):
+        if d == size: break
+        left = R[i]
+        right = R[i+1]
+        
+        partial = C[left:right]
+        k = searchsorted(partial, d)
+        
+        if partial[k] == d:
+            V[left+k] += addon
+        else:
+            dA = array([d], dtype = C.dtype)
+            for j in range(i+1, n+1):
+                R[j] += 1
+            C = hstack((C[:left+k], dA, C[left+k:]))
+            V = hstack((V[:left+k], A, V[left+k:]))
+        d += 1
+    return V, C, R
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def diagonal_add01(val, colPointer, rowIndices, n, p, addon, copy = True):
+    V = val.copy() if copy else val
+    C = colPointer.copy() if copy else colPointer
+    R = rowIndices.copy() if copy else rowIndices
+    size = min(n,p)
+    
+    assert len(addon) == size
+    A = addon.astype(val.dtype)
+
+    d = 0
+    for i in range(n):
+        if d == size: break
+        left = R[i]
+        right = R[i+1]
+        
+        partial = C[left:right]
+        k = searchsorted(partial, d)
+        
+        if partial[k] == d:
+            V[left+k] += A[d]
+        else:
+            dA = array([d], dtype = C.dtype)
+            for j in range(i+1, n+1):
+                R[j] += 1
+            C = hstack((C[:left+k], dA, C[left+k:]))
+            V = hstack((V[:left+k], A[d:d+1], V[left+k:]))
+        d += 1
+    return V, C, R
+
 
 
 def CreateCSR(X, n_jobs = 1):
