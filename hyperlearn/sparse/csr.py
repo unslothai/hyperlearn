@@ -1,97 +1,21 @@
 
-from numba import njit, prange, jit
-from numpy import zeros, uint8, uint16, uint32, uint64, float32, float64
-from numpy import sum as _sum, array, hstack, searchsorted
-from numpy import int8, int16, int32, int64, ndim
-from warnings import warn as Warn
+from numba import njit, prange
+from numpy import zeros, sum as _sum, array, hstack, searchsorted, ndim
+from .base import getDtype
 
-
-def getDtype(p, size, uint = True):
-	"""
-	Computes the exact best possible data type for CSR Matrix
-	creation.
-	"""
-	p = 2*p # Just in case
-	if uint:
-		dtype = uint64
-		if uint8(p) == p: dtype = uint8
-		elif uint16(p) == p: dtype = uint16
-		elif uint32(p) == p: dtype = uint32
-		return zeros(size, dtype = dtype)
-	else:
-		dtype = int64
-		if int8(p) == p: dtype = int8
-		elif int16(p) == p: dtype = int16
-		elif int32(p) == p: dtype = int32
-		return zeros(size, dtype = dtype)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def determine_nnz(X, rowCount):
-	"""
-	Uses close to no memory at all when computing how many non
-	zeros are in the matrix. Notice the difference with Scipy
-	is HyperLearn does NOT use nonzero(). This reduces memory
-	usage dramatically.
-	"""
-	nnz = 0
-	n,p = X.shape
-	
-	for i in range(n):
-		currNNZ = 0
-		for j in range(p):
-			currNNZ += (X[i, j] != 0)
-		nnz += currNNZ
-		rowCount[i] = currNNZ
-	return rowCount, nnz
-
-
-def create_csr(X, rowCount, nnz, temp):
-	"""
-	[Added 10/10/2018] [Edited 13/10/2018]
-	Before used extra memory keeping a Boolean Matrix (np bytes) and a
-	ColIndex pointer which used p memory. Now, removed (np + p) memory usage,
-	meaning larger matrices can be handled.
-
-	Algorithm is 3 fold:
-
-	1. Create RowIndices
-	2. For every row in data:
-		3. Store until a non 0 is seen.
-
-	Algorithm takes approx O(n + np) time, which is similar to Scipy's.
-	The only difference is now, parallelisation is possible, which can
-	cut the time to approx O(n + np/c) where c = no of threads
-	"""
-    val = zeros(nnz, dtype = X.dtype)
-    rowIndices = zeros(n+1, dtype = temp.dtype)
-    colPointer = zeros(nnz, dtype = rowCount.dtype)
-    
-    p = X.shape[1]
-    
-    k = 0
-    for i in range(n):
-        a = rowCount[i]
-        rowIndices[i] += k
-        k += a
-    rowIndices[n] = nnz
-
-    for i in prange(n):
-        Xi = X[i]
-        left = rowIndices[i]
-        right = rowIndices[i+1]
-        
-        k = 0
-        for j in range(left, right):
-            while Xi[k] == 0:
-                k += 1
-            val[j] = Xi[k]
-            colPointer[j] = k
-            k += 1
-    
-    return val, colPointer, rowIndices
-create_csr_cache = njit(create_csr, fastmath = True, nogil = True, cache = True)
-create_csr_parallel = njit(create_csr, fastmath = True, nogil = True, parallel = True)
+"""
+CSR Matrix functions.
+	1. sum [sum_A, sum_0, sum_1]
+	2. mean [mean_A, mean_0, mean_1]
+	3. mult [mult_A, mult_0, mult_1]
+	4. div [div_A, div_0, div_1]
+	5. add [add_A, add_0, add_1]
+	6. min [min_A, min_0, min_1]
+	7. max [max_A, max_0, max_1]
+	8. diagonal [diagonal, diagonal_add]
+	9. element [get_element]
+	10. matmul [mat_vec, matT_vec, mat_mat]
+"""
 
 
 @njit(fastmath = True, nogil = True, cache = True)
@@ -249,7 +173,83 @@ def mult_1(val, rowIndices, mult, n, p, copy = True):
 	return V
 
 
-@njit(fastmath = True, nogil = True)
+@njit(fastmath = True, nogil = True, cache = True)
+def min_A(val, colPointer, n, p):
+	M = 0
+	for i in range(len(val)):
+		v = V[i]
+		if v < M:
+			M = v
+	return M
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def min_0(val, colPointer, n, p):
+	M = zeros(p, dtype = val.dtype)
+	
+	for i in range(len(val)):
+		v = V[i]
+		coli = colPointer[i]
+		if v < M[coli]:
+			M[coli] = v
+	return M
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def min_1(val, rowIndices, n, p):
+	M = zeros(n, dtype = val.dtype)
+	
+	for i in range(n):
+		left = rowIndices[i]
+		right = rowIndices[i+1]
+
+		Mi = M[i]
+		for j in val[left:right]:
+			if j < Mi:
+				Mi = j
+		M[i] = Mi
+	return M
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def max_A(val, colPointer, n, p):
+	M = 0
+	for i in range(len(val)):
+		v = V[i]
+		if v > M:
+			M = v
+	return M
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def max_0(val, colPointer, n, p):
+	M = zeros(p, dtype = val.dtype)
+	
+	for i in range(len(val)):
+		v = V[i]
+		coli = colPointer[i]
+		if v > M[coli]:
+			M[coli] = v
+	return M
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def max_1(val, rowIndices, n, p):
+	M = zeros(n, dtype = val.dtype)
+	
+	for i in range(n):
+		left = rowIndices[i]
+		right = rowIndices[i+1]
+
+		Mi = M[i]
+		for j in val[left:right]:
+			if j > Mi:
+				Mi = j
+		M[i] = Mi
+	return M
+
+
+@njit(fastmath = True, nogil = True, cache = True)
 def diagonal(val, colPointer, rowIndices, n, p):
 	"""
 	[Added 10/10/2018] [Edited 13/10/2018]
@@ -277,7 +277,7 @@ def diagonal(val, colPointer, rowIndices, n, p):
 
 
 
-@njit(fastmath = True, nogil = True)
+@njit(fastmath = True, nogil = True, cache = True)
 def _diagonal_add(val, colPointer, rowIndices, n, p, minimum, addon, copy = True):
 	"""
 	[Added 10/10/2018] [Edited 13/10/2018]
@@ -337,12 +337,13 @@ def _diagonal_add(val, colPointer, rowIndices, n, p, minimum, addon, copy = True
 	newN = len(C)+extend
 	newC = zeros(newN, dtype = C.dtype)
 	newV = zeros(newN, dtype = V.dtype)
-	added = zeros(size, dtype = minimum.dtype)
+	added = zeros(n, dtype = minimum.dtype)
 	move = 0
 	
 	# move = go move steps forward
 	# goes from left --> right
 	for i in range(size):
+		a = A[i]
 		k = K[i]
 		left = R[i]
 		right = R[i+1]
@@ -358,13 +359,20 @@ def _diagonal_add(val, colPointer, rowIndices, n, p, minimum, addon, copy = True
 			newC[m+1:r+1] = C[lk:right]
 			
 			newV[l:m] = V[left:lk]
-			newV[m] = A[i]
+			newV[m] = a
 			newV[m+1:r+1] = V[lk:right]      
 			move += 1
 		else:
 			newC[l:r] = C[left:right]
 			newV[l:r] = V[left:right]
-			newV[l-k-1] += A[i] # -1 and not + 1 since -k
+			newV[l-k-1] += a # -1 and not + 1 since -k
+		  
+	# Update rest of matrix if n > size  
+	i += 1
+	if i < n:
+		newV[R[i]+move:] = V[R[i]:]
+		newC[R[i]+move:] = C[R[i]:]
+		added[i:] = move
 	
 	# Update rowPointer
 	for i in range(n):
@@ -376,13 +384,13 @@ def _diagonal_add(val, colPointer, rowIndices, n, p, minimum, addon, copy = True
 			for j in range(i, n):
 				R[j] += a
 			break
-	R[i+1] += a # Add to end of rowPointer, since size(n+1)
+	R[n] += a # Add to end of rowPointer, since size(n+1)
 	
 	return newV, newC, R
 
 
 
-def diagonal_add(val, colPointer, rowIndices, n, p, minimum, addon, copy = True):
+def diagonal_add(val, colPointer, rowIndices, n, p, addon, copy = True):
 	"""
 	See _diagonal_add documentation.
 	"""
@@ -392,30 +400,114 @@ def diagonal_add(val, colPointer, rowIndices, n, p, minimum, addon, copy = True)
 	else:
 		A = addon
 	assert len(A) == size
+	minimum = minimum = getDtype(min(n,p), size = 1, uint = False)
 	return _diagonal_add(val, colPointer, rowIndices, n, p, minimum, A, copy)
 
 
 
-def CreateCSR(X, n_jobs = 1):
+@njit(fastmath = True, nogil = True, cache = True)
+def get_element(val, colPointer, rowIndices, n, p, i, j):
 	"""
-	[Added 10/10/2018] [Edited 13/10/2018]
-	Much much faster than Scipy. In fact, HyperLearn uses less memory,
-	by noticing indices >= 0, hence unsigned ints are used.
-
-	Likewise, parallelisation is seen possible with Numba with n_jobs.
-	Notice, an error message will be provided if 20% of the data is only zeros.
-	It needs to be more than 20% zeros for CSR Matrix to shine.
+	[Added 14/10/2018]
+	Get A[i,j] element. HyperLearn's algorithm is O(logp) complexity, which is much
+	better than Scipy's O(p) complexity. HyperLearn uses binary search to find the
+	element.
 	"""
-	n,p = X.shape
-	rowCount = getDtype(p, n)
+    assert i < n and j < p
+    left = rowIndices[i]
+    right = rowIndices[i+1]
+    select = colPointer[left:right]
+    search = searchsorted(select, j)
+    
+    if search < len(select):
+        if select[search] == j:
+            return val[left+search]
+    return 0
 
-	rowCount, nnz = determine_nnz(X, rowCount)
 
-	if nnz/(n*p) > 0.8:
-		Warn("Created sparse matrix has just under 20% zeros. Not a good idea to sparsify the matrix.")
 
-	temp = getDtype(nnz, 1)
+def _mat_vec(val, colPointer, rowIndices, n, p, y):
+	"""
+	Added [13/10/2018]
+	X @ y is found. Scipy & HyperLearn has similar speed. Notice, now
+	HyperLearn can be parallelised! This reduces complexity to approx
+	O(np/c) where c = no of threads / cores
+	"""
+    Z = zeros(n, dtype = y.dtype)
+    
+    for i in prange(n):
+        s = 0
+        for j in range(rowIndices[i], rowIndices[i+1]):
+            s += val[j]*y[colPointer[j]]
+        Z[i] = s
+    return Z
+mat_vec = njit(_mat_vec, fastmath = True, nogil = True, cache = True)
+mat_vec_parallel = njit(_mat_vec, fastmath = True, nogil = True, parallel = True)
 
-	f = create_csr_cache if n_jobs == 1 else create_csr_parallel
-	return f(X, rowCount, nnz, temp)
+
+def _matT_vec(val, colPointer, rowIndices, n, p, y):
+	"""
+	Added [13/10/2018]
+	X.T @ y is found. Notice how instead of converting CSR to CSC matrix, a direct
+	X.T @ y can be found. Same complexity as mat_vec(X, y). Also, HyperLearn is
+	parallelized, allowing for O(np/c) complexity.
+	"""
+    Z = zeros(p, dtype = y.dtype)
+
+    for i in prange(n):
+        yi = y[i]
+        for j in range(rowIndices[i], rowIndices[i+1]):
+            Z[colPointer[j]] += val[j]*yi
+    return Z
+matT_vec = njit(_matT_vec, fastmath = True, nogil = True, cache = True)
+matT_vec_parallel = njit(_matT_vec, fastmath = True, nogil = True, parallel = True)
+
+
+
+def _mat_mat(val, colPointer, rowIndices, n, p, X):
+	"""
+	Added [14/10/2018]
+	A @ X is found where X is a dense matrix. Mostly the same as Scipy, albeit slightly faster.
+	The difference is now, HyperLearn is parallelized, which can reduce times by 1/2 or more.
+	"""
+    K = X.shape[1]
+    Z = zeros((n, K), dtype = X.dtype)
+
+    for i in prange(n):
+        left = rowIndices[i]
+        right = rowIndices[i+1]
+        
+        for k in range(K):
+            s = 0
+            for j in range(left, right):
+                s += val[j]*X[colPointer[j], k]
+            Z[i, k] = s
+    return Z
+mat_mat = njit(_mat_mat, fastmath = True, nogil = True, cache = True)
+mat_mat_parallel = njit(_mat_mat, fastmath = True, nogil = True, parallel = True)
+
+
+def _matT_mat(val, colPointer, rowIndices, n, p, X):
+	"""
+	Added [14/10/2018]
+	A.T @ X is found where X is a dense matrix. Mostly the same as Scipy, albeit slightly faster.
+	The difference is now, HyperLearn is parallelized, which can reduce times by 1/2 or more.
+	"""
+	K = X.shape[1]
+    A = zeros((K, p), dtype = X.dtype)
+    zero = zeros(p, dtype = X.dtype)
+
+    for k in prange(K):
+        Z = zero.copy()
+        y = X[:,k]
+        
+        for i in range(n):
+            yi = y[i]
+            for j in range(rowIndices[i], rowIndices[i+1]):
+                Z[colPointer[j]] += val[j]*yi
+        for i in range(p):
+            A[k, i] = Z[i]
+    return A.T.copy()
+matT_mat = njit(_matT_mat, fastmath = True, nogil = True, cache = True)
+matT_mat_parallel = njit(_matT_mat, fastmath = True, nogil = True, parallel = True)
 
