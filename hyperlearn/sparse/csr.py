@@ -510,4 +510,3 @@ def _matT_mat(val, colPointer, rowIndices, n, p, X):
     return A.T.copy()
 matT_mat = njit(_matT_mat, fastmath = True, nogil = True, cache = True)
 matT_mat_parallel = njit(_matT_mat, fastmath = True, nogil = True, parallel = True)
-

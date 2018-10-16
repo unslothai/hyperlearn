@@ -11,7 +11,7 @@ def getDtype(p, size, uint = True):
 	Computes the exact best possible data type for CSR Matrix
 	creation.
 	"""
-	p = 2*p # Just in case
+	p = int(1.25*p) # Just in case
 	if uint:
 		dtype = uint64
 		if uint8(p) == p: dtype = uint8
@@ -65,6 +65,7 @@ def create_csr(X, rowCount, nnz, temp):
 	The only difference is now, parallelisation is possible, which can
 	cut the time to approx O(n + np/c) where c = no of threads
 	"""
+	n = X.shape[0]
 	val = zeros(nnz, dtype = X.dtype)
 	rowIndices = zeros(n+1, dtype = temp.dtype)
 	colPointer = zeros(nnz, dtype = rowCount.dtype)
