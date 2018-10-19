@@ -1,18 +1,3 @@
-Copyright 2018 Daniel Han-Chen.
-
-GNU License is used to maintain control on some possible patentable algorithms.
-In short words, the GNU License allows private and public use, but you cannot
-distribute closed source editions.
-This means any commercial use of this package causes the final edition of YOUR
-product to inherit the GNU License. (Essentially, if you use HyperLearn code,
-you can only do that if your software is free).
-This is to ensure autonomy and equal fair access.
-HyperLearn is NOT intended for commercial use AT ALL. Commercial use is prohibited,
-as HyperLearn is PURELY ACADEMIC. You can use this however you like IF YOU DO NOT
-CHARGE ANYTHING.
-Commercial use must obtain permission from the explicit owners of HyperLearn
-(for now Daniel Han-Chen).
-
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
