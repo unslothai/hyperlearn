@@ -19,7 +19,7 @@ CSR Matrix functions.
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def sum_A(val, colPointer, n, p):
+def sum_A(val, colPointer, rowIndices, n, p):
 	S = 0
 	for i in range(len(val)):
 		S += val[i]
@@ -27,7 +27,7 @@ def sum_A(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def sum_0(val, colPointer, n, p):
+def sum_0(val, colPointer, rowIndices, n, p):
 	S = zeros(p, dtype = val.dtype)
 	
 	for i in range(len(val)):
@@ -36,7 +36,7 @@ def sum_0(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def sum_1(val, rowIndices, n, p):
+def sum_1(val, colPointer, rowIndices, n, p):
 	S = np.zeros(n, dtype = val.dtype)
 	
 	for i in range(n):
@@ -47,13 +47,13 @@ def sum_1(val, rowIndices, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def mean_A(val, rowIndices, n, p):
+def mean_A(val, colPointer, rowIndices, n, p):
 	S = sum_A(val, rowIndies)
 	return S/len(val)
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def mean_0(val, colPointer, n, p):
+def mean_0(val, colPointer, rowIndices, n, p):
 	A = zeros(p, dtype = val.dtype)
 	
 	nnz = len(val)
@@ -68,7 +68,7 @@ def mean_0(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def mean_1(val, rowIndices, n, p):
+def mean_1(val, colPointer, rowIndices, n, p):
 	A = zeros(n, dtype = val.dtype)
 	
 	for i in range(n):
@@ -112,7 +112,7 @@ def add_1(val, rowIndices, addon, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def div_A(val, colPointer, divisor, n, p, copy = True):
+def div_A(val, colPointer, rowIndices, divisor, n, p, copy = True):
 	V = val.copy() if copy else val
 
 	for i in range(len(val)):
@@ -121,7 +121,7 @@ def div_A(val, colPointer, divisor, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def div_0(val, colPointer, divisor, n, p, copy = True):
+def div_0(val, colPointer, rowIndices, divisor, n, p, copy = True):
 	V = val.copy() if copy else val
 	
 	for i in range(len(val)):
@@ -131,7 +131,7 @@ def div_0(val, colPointer, divisor, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def div_1(val, rowIndices, divisor, n, p, copy = True):
+def div_1(val, colPointer, rowIndices, divisor, n, p, copy = True):
 	V = val.copy() if copy else val
 
 	for i in range(n):
@@ -143,7 +143,7 @@ def div_1(val, rowIndices, divisor, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def mult_A(val, colPointer, mult, n, p, copy = True):
+def mult_A(val, colPointer, rowIndices, mult, n, p, copy = True):
 	V = val.copy() if copy else val
 
 	for i in range(len(val)):
@@ -152,7 +152,7 @@ def mult_A(val, colPointer, mult, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def mult_0(val, colPointer, mult, n, p, copy = True):
+def mult_0(val, colPointer, rowIndices, mult, n, p, copy = True):
 	V = val.copy() if copy else val
 	
 	for i in range(len(val)):
@@ -162,7 +162,7 @@ def mult_0(val, colPointer, mult, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def mult_1(val, rowIndices, mult, n, p, copy = True):
+def mult_1(val, colPointer, rowIndices, mult, n, p, copy = True):
 	V = val.copy() if copy else val
 
 	for i in range(n):
@@ -174,7 +174,7 @@ def mult_1(val, rowIndices, mult, n, p, copy = True):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def min_A(val, colPointer, n, p):
+def min_A(val, colPointer, rowIndices, n, p):
 	M = 0
 	for i in range(len(val)):
 		v = V[i]
@@ -184,7 +184,7 @@ def min_A(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def min_0(val, colPointer, n, p):
+def min_0(val, colPointer, rowIndices, n, p):
 	M = zeros(p, dtype = val.dtype)
 	
 	for i in range(len(val)):
@@ -196,7 +196,7 @@ def min_0(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def min_1(val, rowIndices, n, p):
+def min_1(val, colPointer, rowIndices, n, p):
 	M = zeros(n, dtype = val.dtype)
 	
 	for i in range(n):
@@ -212,7 +212,7 @@ def min_1(val, rowIndices, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def max_A(val, colPointer, n, p):
+def max_A(val, colPointer, rowIndices, n, p):
 	M = 0
 	for i in range(len(val)):
 		v = V[i]
@@ -222,7 +222,7 @@ def max_A(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def max_0(val, colPointer, n, p):
+def max_0(val, colPointer, rowIndices, n, p):
 	M = zeros(p, dtype = val.dtype)
 	
 	for i in range(len(val)):
@@ -234,7 +234,7 @@ def max_0(val, colPointer, n, p):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def max_1(val, rowIndices, n, p):
+def max_1(val, colPointer, rowIndices, n, p):
 	M = zeros(n, dtype = val.dtype)
 	
 	for i in range(n):
@@ -413,16 +413,16 @@ def get_element(val, colPointer, rowIndices, n, p, i, j):
 	better than Scipy's O(p) complexity. HyperLearn uses binary search to find the
 	element.
 	"""
-    assert i < n and j < p
-    left = rowIndices[i]
-    right = rowIndices[i+1]
-    select = colPointer[left:right]
-    search = searchsorted(select, j)
-    
-    if search < len(select):
-        if select[search] == j:
-            return val[left+search]
-    return 0
+	assert i < n and j < p
+	left = rowIndices[i]
+	right = rowIndices[i+1]
+	select = colPointer[left:right]
+	search = searchsorted(select, j)
+	
+	if search < len(select):
+		if select[search] == j:
+			return val[left+search]
+	return 0
 
 
 
@@ -433,14 +433,14 @@ def _mat_vec(val, colPointer, rowIndices, n, p, y):
 	HyperLearn can be parallelised! This reduces complexity to approx
 	O(np/c) where c = no of threads / cores
 	"""
-    Z = zeros(n, dtype = y.dtype)
-    
-    for i in prange(n):
-        s = 0
-        for j in range(rowIndices[i], rowIndices[i+1]):
-            s += val[j]*y[colPointer[j]]
-        Z[i] = s
-    return Z
+	Z = zeros(n, dtype = y.dtype)
+	
+	for i in prange(n):
+		s = 0
+		for j in range(rowIndices[i], rowIndices[i+1]):
+			s += val[j]*y[colPointer[j]]
+		Z[i] = s
+	return Z
 mat_vec = njit(_mat_vec, fastmath = True, nogil = True, cache = True)
 mat_vec_parallel = njit(_mat_vec, fastmath = True, nogil = True, parallel = True)
 
@@ -452,13 +452,13 @@ def _matT_vec(val, colPointer, rowIndices, n, p, y):
 	X.T @ y can be found. Same complexity as mat_vec(X, y). Also, HyperLearn is
 	parallelized, allowing for O(np/c) complexity.
 	"""
-    Z = zeros(p, dtype = y.dtype)
+	Z = zeros(p, dtype = y.dtype)
 
-    for i in prange(n):
-        yi = y[i]
-        for j in range(rowIndices[i], rowIndices[i+1]):
-            Z[colPointer[j]] += val[j]*yi
-    return Z
+	for i in prange(n):
+		yi = y[i]
+		for j in range(rowIndices[i], rowIndices[i+1]):
+			Z[colPointer[j]] += val[j]*yi
+	return Z
 matT_vec = njit(_matT_vec, fastmath = True, nogil = True, cache = True)
 matT_vec_parallel = njit(_matT_vec, fastmath = True, nogil = True, parallel = True)
 
@@ -470,19 +470,19 @@ def _mat_mat(val, colPointer, rowIndices, n, p, X):
 	A @ X is found where X is a dense matrix. Mostly the same as Scipy, albeit slightly faster.
 	The difference is now, HyperLearn is parallelized, which can reduce times by 1/2 or more.
 	"""
-    K = X.shape[1]
-    Z = zeros((n, K), dtype = X.dtype)
+	K = X.shape[1]
+	Z = zeros((n, K), dtype = X.dtype)
 
-    for i in prange(n):
-        left = rowIndices[i]
-        right = rowIndices[i+1]
-        
-        for k in range(K):
-            s = 0
-            for j in range(left, right):
-                s += val[j]*X[colPointer[j], k]
-            Z[i, k] = s
-    return Z
+	for i in prange(n):
+		left = rowIndices[i]
+		right = rowIndices[i+1]
+		
+		for k in range(K):
+			s = 0
+			for j in range(left, right):
+				s += val[j]*X[colPointer[j], k]
+			Z[i, k] = s
+	return Z
 mat_mat = njit(_mat_mat, fastmath = True, nogil = True, cache = True)
 mat_mat_parallel = njit(_mat_mat, fastmath = True, nogil = True, parallel = True)
 
@@ -494,19 +494,19 @@ def _matT_mat(val, colPointer, rowIndices, n, p, X):
 	The difference is now, HyperLearn is parallelized, which can reduce times by 1/2 or more.
 	"""
 	K = X.shape[1]
-    A = zeros((K, p), dtype = X.dtype)
-    zero = zeros(p, dtype = X.dtype)
+	A = zeros((K, p), dtype = X.dtype)
+	zero = zeros(p, dtype = X.dtype)
 
-    for k in prange(K):
-        Z = zero.copy()
-        y = X[:,k]
-        
-        for i in range(n):
-            yi = y[i]
-            for j in range(rowIndices[i], rowIndices[i+1]):
-                Z[colPointer[j]] += val[j]*yi
-        for i in range(p):
-            A[k, i] = Z[i]
-    return A.T.copy()
+	for k in prange(K):
+		Z = zero.copy()
+		y = X[:,k]
+		
+		for i in range(n):
+			yi = y[i]
+			for j in range(rowIndices[i], rowIndices[i+1]):
+				Z[colPointer[j]] += val[j]*yi
+		for i in range(p):
+			A[k, i] = Z[i]
+	return A.T.copy()
 matT_mat = njit(_matT_mat, fastmath = True, nogil = True, cache = True)
 matT_mat_parallel = njit(_matT_mat, fastmath = True, nogil = True, parallel = True)

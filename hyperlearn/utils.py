@@ -1,13 +1,15 @@
 
-from numpy import uint, newaxis, finfo, float32, float64
+from numpy import uint, newaxis, finfo, float32, float64, zeros
 from .numba import sign, arange
+from numba import njit, prange
 from psutil import virtual_memory
 from .exceptions import FutureExceedsMemory
 from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
 
 __all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
 			'memoryXTX', 'memoryGram', 'memorySVD', '_float',
-			'traceXTX', 'fastDot', '_XTX', '_XXT']
+			'traceXTX', 'fastDot', '_XTX', '_XXT', '_XXT_sparse',
+			'rowSum', 'rowSum_sparse', 'reflect']
 
 _condition = {'f': 1e3, 'd': 1e6}
 
@@ -34,17 +36,17 @@ def svd_flip(U, VT, U_decision = True):
 
 
 def eig_flip(V):
-    """
+	"""
 	Flips the signs of V for Eigendecomposition in order to 
 	force deterministic output.
 
 	Follows Sklearn convention by looking at V's maximum in columns
 	as default. This essentially mirrors svd_flip(U_decision = False)
 	"""
-    max_abs_rows = abs(V).argmax(0)
-    signs = sign( V[max_abs_rows, arange(V.shape[1]) ] )
-    V *= signs
-    return V
+	max_abs_rows = abs(V).argmax(0)
+	signs = sign( V[max_abs_rows, arange(V.shape[1]) ] )
+	V *= signs
+	return V
 
 
 
@@ -143,9 +145,10 @@ def _float(data):
 	return data
 
 
-
+@njit(fastmath = True, nogil = True, cache = True)
 def traceXTX(X):
 	"""
+	[Edited 18/10/2018]
 	One drawback of truncated algorithms is that they can't output the correct
 	variance explained ratios, since the full eigenvalue decomp needs to be
 	done. However, using linear algebra, trace(XT*X) = sum(eigenvalues).
@@ -153,10 +156,15 @@ def traceXTX(X):
 	So, this function outputs the trace(XT*X) efficiently without computing
 	explicitly XT*X.
 
-	Note einsum('ij,ij->', X, X) is corret in a sense, but sadly, has less
-	accuracy, hence row sum is formed then total sum.
+	Changes --> now uses Numba which is approx 20% faster.
 	"""
-	return einsum('ij,ij->i', X, X).sum()
+	n, p = X.shape
+	s = 0
+	for i in range(n):
+		for j in range(p):
+			xij = X[i,j]
+			s += xij*xij
+	return s
 
 
 
@@ -219,3 +227,132 @@ def _XXT(XT):
 	if XT.dtype == float64:
 		return dsyrk(1, XT, trans = 1).T
 	return ssyrk(1, XT, trans = 1).T
+
+
+
+def XXT_sparse(val, colPointer, rowIndices, n, p):
+	"""
+	See _XXT_sparse documentation.
+	"""
+	D = zeros((n,n), dtype = val.dtype)
+	P = zeros(p, dtype = val.dtype)
+
+	for k in prange(n-1):
+		l = rowIndices[k]
+		r = rowIndices[k+1]
+
+		R = P.copy()
+		b = l
+		for i in range(r-l):
+			x = colPointer[b]
+			R[x] = val[b]
+			b += 1
+		
+		for j in prange(k+1, n):
+			l = rowIndices[j]
+			r = rowIndices[j+1]
+			s = 0
+			c = l
+			for a in range(r-l):
+				z = colPointer[c]
+				v = R[z]
+				if v != 0:
+					s += v*val[c]
+				c += 1
+			D[j, k] = s
+	return D
+_XXT_sparse_single = njit(XXT_sparse, fastmath = True, nogil = True, cache = True)
+_XXT_sparse_parallel = njit(XXT_sparse, fastmath = True, nogil = True, parallel = True)
+
+
+def _XXT_sparse(val, colPointer, rowIndices, n, p, n_jobs = 1):
+	"""
+	[Added 16/10/2018]
+	Computes X @ XT very quickly. Approx 50-60% faster than Sklearn's version,
+	as it doesn't optimize a lot. Note, computes only lower triangular X @ XT,
+	and disregards diagonal (set to 0)
+	"""
+	XXT = _XXT_sparse_parallel(val, colPointer, rowIndices, n, p) if n_jobs != 1 else \
+		_XXT_sparse_single(val, colPointer, rowIndices, n, p)
+	return XXT
+
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def rowSum(X, norm = False):
+	"""
+	[Added 17/10/2018]
+	Computes rowSum**2 for dense matrix efficiently, instead of using einsum
+	"""
+	n, p = X.shape
+	S = zeros(n, dtype = X.dtype)
+
+	for i in range(n):
+		s = 0
+		Xi = X[i]
+		for j in range(p):
+			Xij = Xi[j]
+			s += Xij*Xij
+		S[i] = s
+	if norm:
+		S**=0.5
+	return S
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def rowSum_sparse(val, colPointer, rowIndices, norm = False):
+	"""
+	[Added 17/10/2018]
+	Computes rowSum**2 for sparse matrix efficiently, instead of using einsum
+	"""
+	n = len(rowIndices)-1
+	S = zeros(n, dtype = val.dtype)
+
+	for i in range(n):
+		s = 0
+		l = rowIndices[i]
+		r = rowIndices[i+1]
+		b = l
+		for j in range(r-l):
+			Xij = val[b]
+			s += Xij*Xij
+			b += 1
+		S[i] = s
+	if norm:
+		S**=0.5
+	return S
+
+
+
+def _reflect(X):
+	"""
+	See reflect(X, n_jobs = N) documentation.
+	"""
+	n = len(X)
+	for i in prange(1, n):
+		Xi = X[i]
+		for j in range(i):
+			X[j, i] = Xi[j]
+	return X
+reflect_single = njit(_reflect, fastmath = True, nogil = True, cache = True)
+reflect_parallel = njit(_reflect, fastmath = True, nogil = True, parallel = True)
+
+
+def reflect(X, n_jobs = 1):
+	"""
+	[Added 15/10/2018] [Edited 18/10/2018]
+	Reflects lower triangular of matrix efficiently to upper.
+	Notice much faster than say X += X.T or naive:
+		for i in range(n):
+			for j in range(i, n):
+				X[i,j] = X[j,i]
+	In fact, it is much faster to perform vertically:
+		for i in range(1, n):
+			Xi = X[i]
+			for j in range(i):
+				X[j,i] = Xi[j]
+	The trick is to notice X[i], which reduces array access.
+	"""
+	X = reflect_parallel(X) if n_jobs != 1 else reflect_single(X)
+	return X
+
