@@ -37,7 +37,6 @@ Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
 
 ---
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
-
 ---
 # Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
@@ -106,8 +105,10 @@ Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
         * Latent Semantic Indexing LSI (NLP)
         * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
 ---
-1. Port all important Numpy functions to faster alternatives (ONGOING)
-  * Singular Value Decomposition (50% Complete)
-    *
-2. 
+On Licensing:
+HyperLearn is under a GNU v3 License. This means:
+1. Commercial use is restricted. Only software with 0 cost can be released. Ie: no closed source versions are allowed.
+2. Using HyperLearn must entail all of the code being avaliable to everyone who uses your public software.
+3. HyperLearn is intended for academic, research and personal purposes. Any explicit commercialisation of the algorithms and anything inside HyperLearn is strictly prohibited.
 
+HyperLearn promotes a free and just world. Hence, it is free to everyone, except for those who wish to commercialise on top of HyperLearn.
