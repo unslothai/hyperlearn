@@ -108,10 +108,11 @@ def solve(X, y, tol = 1e-6, condition_limit = 1e8, alpha = None, weights = None,
 	
 
 
-def solveCholesky(X, y, alpha = None, fast = False):
+def solveCholesky(X, y, alpha = None, fast = True):
 	"""
 	[Added 23/9/2018 added matrix multiplication decisions (faster multiply)
 	 ie: if (XTX)^1(XTy) or ((XTX)^-1XT)y is faster]
+	[Edited 20/10/2018 Major update - added LAPACK cholSolve --> 20% faster]
 
 	Computes the Least Squares solution to X @ theta = y using Cholesky
 	Decomposition. This is the default solver in HyperLearn.
@@ -144,8 +145,8 @@ def solveCholesky(X, y, alpha = None, fast = False):
 	Stability
 	--------------
 	Note that LAPACK's single precision (float32) solver (strtri) is much more
-	unstable than double (float64). So, default strtri is OFF.
-	However, speeds are reduced by 50%.
+	unstable than double (float64). You might see stability problems if FAST = TRUE.
+	Set it to FALSE if theres issues.
 	"""
 	n,p = X.shape
 	X = _float(X)
@@ -153,9 +154,16 @@ def solveCholesky(X, y, alpha = None, fast = False):
 	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
 	cho = cholesky(gram, alpha = alpha, fast = fast)
-	inv = invCholesky(cho, fast = fast)
 
-	return fastDot(inv, XT, y) if n >= p else fastDot(XT, inv, y)
+	if n >= p:
+		# Use spotrs solve from LAPACK
+		return cholSolve(cho, XT @ y, alpha = alpha)
+	else:
+		inv = invCholesky(cho, fast = fast)
+		return fastDot(XT, inv, y)
+
+	#return fastDot(inv, XT, y) if n >= p else fastDot(XT, inv, y)
+	
 
 
 

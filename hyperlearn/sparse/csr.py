@@ -15,6 +15,8 @@ CSR Matrix functions.
 	8. diagonal [diagonal, diagonal_add]
 	9. element [get_element]
 	10. matmul [mat_vec, matT_vec, mat_mat]
+	11. _XXT
+	12. rowSum
 """
 
 
@@ -510,3 +512,78 @@ def _matT_mat(val, colPointer, rowIndices, n, p, X):
 	return A.T.copy()
 matT_mat = njit(_matT_mat, fastmath = True, nogil = True, cache = True)
 matT_mat_parallel = njit(_matT_mat, fastmath = True, nogil = True, parallel = True)
+
+
+
+
+def XXT_sparse(val, colPointer, rowIndices, n, p):
+	"""
+	See _XXT_sparse documentation.
+	"""
+	D = zeros((n,n), dtype = val.dtype)
+	P = zeros(p, dtype = val.dtype)
+
+	for k in prange(n-1):
+		l = rowIndices[k]
+		r = rowIndices[k+1]
+
+		R = P.copy()
+		b = l
+		for i in range(r-l):
+			x = colPointer[b]
+			R[x] = val[b]
+			b += 1
+		
+		for j in prange(k+1, n):
+			l = rowIndices[j]
+			r = rowIndices[j+1]
+			s = 0
+			c = l
+			for a in range(r-l):
+				z = colPointer[c]
+				v = R[z]
+				if v != 0:
+					s += v*val[c]
+				c += 1
+			D[j, k] = s
+	return D
+_XXT_sparse_single = njit(XXT_sparse, fastmath = True, nogil = True, cache = True)
+_XXT_sparse_parallel = njit(XXT_sparse, fastmath = True, nogil = True, parallel = True)
+
+
+def _XXT(val, colPointer, rowIndices, n, p, n_jobs = 1):
+	"""
+	[Added 16/10/2018]
+	Computes X @ XT very quickly. Approx 50-60% faster than Sklearn's version,
+	as it doesn't optimize a lot. Note, computes only lower triangular X @ XT,
+	and disregards diagonal (set to 0)
+	"""
+	XXT = _XXT_sparse_parallel(val, colPointer, rowIndices, n, p) if n_jobs != 1 else \
+		_XXT_sparse_single(val, colPointer, rowIndices, n, p)
+	return XXT
+
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def rowSum(val, colPointer, rowIndices, norm = False):
+	"""
+	[Added 17/10/2018]
+	Computes rowSum**2 for sparse matrix efficiently, instead of using einsum
+	"""
+	n = len(rowIndices)-1
+	S = zeros(n, dtype = val.dtype)
+
+	for i in range(n):
+		s = 0
+		l = rowIndices[i]
+		r = rowIndices[i+1]
+		b = l
+		for j in range(r-l):
+			Xij = val[b]
+			s += Xij*Xij
+			b += 1
+		S[i] = s
+	if norm:
+		S**=0.5
+	return S
+

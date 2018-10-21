@@ -5,7 +5,8 @@ from .base import *
 from .utils import *
 from numpy import float32, float64
 
-__all__ = ['cholesky', 'invCholesky', 'pinvCholesky',
+
+__all__ = ['cholesky', 'invCholesky', 'pinvCholesky', 'cholSolve',
 			'svd', 'lu', 'qr', 
 			'pinv', 'pinvh', 
 			'eigh', 'pinvEig', 'eig']
@@ -49,7 +50,7 @@ def cholesky(X, alpha = None, fast = True):
 
 	while check != 0:
 		if PRINT_ALL_WARNINGS: 
-			print('Alpha = {}'.format(alpha))
+			print('cholesky Alpha = {}'.format(alpha))
 
 		# Add epsilon jitter to diagonal. Note adding
 		# np.eye(p)*alpha is slower and uses p^2 memory
@@ -71,6 +72,39 @@ def cholesky(X, alpha = None, fast = True):
 	X.flat[::n+1] -= alpha
 	return cho
 
+
+def cholSolve(A, b, alpha = None):
+	"""
+	[Added 20/10/2018]
+	Faster than direct inverse solve. Finds coefficients in linear regression
+	allowing A @ theta = b.
+	Notice auto adds epsilon jitter if solver fails.
+	"""
+	n,p = A.shape
+	assert n == p and b.shape[0] == n
+	check = 1
+	alpha = ALPHA_DEFAULT if alpha is None else alpha
+	old_alpha = 0
+
+	solver = lapack.spotrs if A.dtype == float32 else lapack.dpotrs
+
+	while check != 0:
+		if PRINT_ALL_WARNINGS: 
+			print('cholSolve Alpha = {}'.format(alpha))
+
+		# Add epsilon jitter to diagonal. Note adding
+		# np.eye(p)*alpha is slower and uses p^2 memory
+		# whilst flattening uses only p memory.
+		A.flat[::n+1] += (alpha - old_alpha)
+		try:
+			coef, check = solver(A, b)
+		except: pass
+		if check != 0:
+			old_alpha = alpha
+			alpha *= 10
+
+	A.flat[::n+1] -= alpha
+	return coef
 
 
 def lu(X):
@@ -297,7 +331,7 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False):
 
 	while check != 0:
 		if PRINT_ALL_WARNINGS: 
-			print('Alpha = {}'.format(alpha))
+			print('eigh Alpha = {}'.format(alpha))
 
 		# Add epsilon jitter to diagonal. Note adding
 		# np.eye(p)*alpha is slower and uses p^2 memory
