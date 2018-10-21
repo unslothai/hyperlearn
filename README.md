@@ -38,6 +38,12 @@ Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
 ---
 #### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
 
+On Licensing:
+HyperLearn is under a GNU v3 License. This means:
+1. Commercial use is restricted. Only software with 0 cost can be released. Ie: no closed source versions are allowed.
+2. Using HyperLearn must entail all of the code being avaliable to everyone who uses your public software.
+3. HyperLearn is intended for academic, research and personal purposes. Any explicit commercialisation of the algorithms and anything inside HyperLearn is strictly prohibited.
+
 ---
 # Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
