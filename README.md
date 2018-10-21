@@ -44,6 +44,8 @@ HyperLearn is under a GNU v3 License. This means:
 2. Using HyperLearn must entail all of the code being avaliable to everyone who uses your public software.
 3. HyperLearn is intended for academic, research and personal purposes. Any explicit commercialisation of the algorithms and anything inside HyperLearn is strictly prohibited.
 
+HyperLearn promotes a free a just world. Hence, it is free to everyone, except for those who wish to commercialise on top of HyperLearn.
+
 ---
 # Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
