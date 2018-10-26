@@ -14,6 +14,8 @@
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
 
+I'm also writing a mini book! A sneak peak:
+<img src="Images/SVD.png" alt="drawing" width="600"/>
 ---
 
 <img src="Images/Packages_Used_long.png" alt="drawing" width="800"/>
