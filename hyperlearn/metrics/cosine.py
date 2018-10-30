@@ -67,27 +67,40 @@ def cosine_dis_triangular(D):
 
 
 
-def cosine_similarity(X, triangular = False, n_jobs = 1, copy = False):
+def cosine_similarity(X, Y = None, triangular = False, n_jobs = 1, copy = False):
 	"""
 	[Added 20/10/2018] [Edited 22/201/2018]
-	Cosine similarity is approx the same speed as Sklearn, but uses approx 5-10%
-	less memory. One clear advantage
+	[Edited 22/10/2018 Added Y option]
+	Note: when using Y, speed improvement is approx 5% only from Sklearn.
+
+	Cosine similarity is approx the same speed as Sklearn, but uses approx 10%
+	less memory. One clear advantage is if you set triangular to TRUE, then it's faster.
 	"""
 	norm_rows = rowSum(X, norm = True)
 
-	if copy:
-		XXT = _XXT(X.T)
-		XXT /= norm_rows[:, newaxis]
-		XXT /= norm_rows #[newaxis, :]
+	if Y is X:
+		# Force algo to be triangular cosine rather than normal CS.
+		Y = None
+
+	if Y is None:
+		if copy:
+			XXT = _XXT(X.T)
+			XXT /= norm_rows[:, newaxis]
+			XXT /= norm_rows #[newaxis, :]
+		else:
+			XXT = _XXT(  (X/norm_rows[:, newaxis]).T  )
+
+		if not triangular:
+			XXT = reflect(XXT, n_jobs)
+
+		# diagonal is set to 1
+		XXT.flat[::len(XXT)+1] = 1
+		return XXT
 	else:
-		XXT = _XXT(  (X/norm_rows[:, newaxis]).T  )
-
-	if not triangular:
-		XXT = reflect(XXT, n_jobs)
-
-	# diagonal is set to 1
-	XXT.flat[::len(XXT)+1] = 1
-	return XXT
+		D = X @ Y.T
+		D /= norm_rows[:, newaxis]
+		D /= rowSum(Y, norm = True)
+		return D
 
 
 
@@ -127,66 +140,58 @@ def cosine_similarity_sparse(val, colPointer, rowIndices, n, p, triangular = Fal
 
 
 
-def cosine_distances(X, triangular = False, n_jobs = 1, copy = False):
+def cosine_distances(X, Y = None, triangular = False, n_jobs = 1, copy = False):
 	"""
 	[Added 15/10/2018] [Edited 18/10/2018]
-	Slightly faster than Sklearn's Cosine Similarity implementation.
+	[Edited 22/10/2018 Added Y option]
+	Note: when using Y, speed improvement is approx 5-10% only from Sklearn.
 
-	If dense_output is set to FALSE, then a TCSR Matrix (Triangular CSR Matrix) is
-	provided and not a CSR matrix. This has the advantage of using only 1/2n^2 - n
-	memory and not n^2 memory.
-
+	Slightly faster than Sklearn's Cosine Distances implementation.
+	If you set triangular to TRUE, the result is much much faster.
+	(Approx 50% faster than Sklearn)
 	"""
 	norm_rows = rowSum(X, norm = True)
 
-	if copy:
-		XXT = _XXT(X.T)
-		XXT /= norm_rows[:, newaxis]
-		XXT /= norm_rows #[newaxis, :]
+	if Y is X:
+		# Force algo to be triangular cosine rather than normal CS.
+		Y = None
+
+	if Y is None:
+		if copy:
+			XXT = _XXT(X.T)
+			XXT /= norm_rows[:, newaxis]
+			XXT /= norm_rows #[newaxis, :]
+		else:
+			XXT = _XXT(  (X/norm_rows[:, newaxis]).T  )
+
+		# XXT*-1 + 1
+		XXT = cosine_dis(XXT)
+
+		if not triangular:
+			XXT = reflect(XXT, n_jobs)
+
+		# diagonal is set to 0 as zero distance between row i and i
+		XXT.flat[::len(XXT)+1] = 0
+		return XXT
 	else:
-		XXT = _XXT(  (X/norm_rows[:, newaxis]).T  )
-
-	# XXT*-1 + 1
-	XXT = cosine_dis(XXT)
-
-	if not triangular:
-		XXT = reflect(XXT, n_jobs)
-
-	# diagonal is set to 0 as zero distance between row i and i
-	XXT.flat[::len(XXT)+1] = 0
-	return XXT
+		D = X @ Y.T
+		D /= norm_rows[:, newaxis]
+		D /= rowSum(Y, norm = True)
+		D *= -1
+		D += 1
+		return D
 
 
 
-def cosine_similarity_sparse(val, colPointer, rowIndices, n, p, triangular = False, dense_output = True,
+def cosine_distances_sparse(val, colPointer, rowIndices, n, p, triangular = False, dense_output = True,
 	n_jobs = 1, copy = True):
 	"""
-	[Added 15/10/2018] [Edited 18/10/2018]
-	Much much faster than Sklearn's implementation. Approx ~60% faster. Probably
-	even faster if using n_jobs = -1 (actually 73% faster). [n = 10,000 p = 1,000]
-	Uses the idea that distance(X, X) is symmetric,	and thus algorithm runs only on 
-	1/2 triangular part. Also notice memory usage is now 60% better than Sklearn.
+	[Added 22/10/2018]
+	Slightly faster than Sklearn's Cosine Distances implementation.
 
 	If dense_output is set to FALSE, then a TCSR Matrix (Triangular CSR Matrix) is
 	provided and not a CSR matrix. This has the advantage of using only 1/2n^2 - n
 	memory and not n^2 memory.
-
-	Old complexity:
-		X @ XT 			n^2p
-		rowSum(X^2)		np	
-		XXT*-2			n^2
-		XXT+X^2			2n^2
-		maximum(XXT,0)	n^2
-						n^2p + 4n^2 + np
-	New complexity:
-		sym X @ XT 		n^2p/2
-		rowSum(X^2)		np	
-		sym XXT*-2		n^2/2	
-		sym XXT+X^2		n^2
-		maximum(XXT,0)	n^2/2
-						n^2p/2 + 2n^2 + np
-
-	So New complexity approx= 1/2(Old complexity)
 	"""
 	norm_rows = rowSum_sparse(val, colPointer, rowIndices, norm = True)
 

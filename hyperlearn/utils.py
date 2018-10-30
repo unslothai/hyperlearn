@@ -231,7 +231,7 @@ def _XXT(XT):
 
 
 @njit(fastmath = True, nogil = True, cache = True)
-def rowSum(X, norm = False):
+def rowSum_0(X, norm = False):
 	"""
 	[Added 17/10/2018]
 	Computes rowSum**2 for dense matrix efficiently, instead of using einsum
@@ -250,6 +250,29 @@ def rowSum(X, norm = False):
 		S**=0.5
 	return S
 
+@njit(fastmath = True, nogil = True, cache = True)
+def rowSum_A(X, norm = False):
+	"""
+	[Added 22/10/2018]
+	Computes rowSum**2 for dense array efficiently, instead of using einsum
+	"""
+	n = len(X)
+	s = 0
+	for i in range(n):
+		s += X[i]**2
+	if norm:
+		s **= 0.5
+	return s
+
+
+def rowSum(X, norm = False):
+	"""
+	[Added 22/10/2018]
+	Combines rowSum for matrices and arrays.
+	"""
+	if len(X.shape) > 1:
+		return rowSum_0(X, norm)
+	return rowSum_A(X, norm)
 
 
 def _reflect(X):

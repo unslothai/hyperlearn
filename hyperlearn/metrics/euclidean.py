@@ -4,6 +4,7 @@ from numpy import zeros, newaxis
 from numba import njit, prange
 from ..sparse.csr import _XXT as _XXT_sparse, rowSum as rowSum_sparse
 from ..sparse.tcsr import _XXT as _XXT_triangular
+from ..numba import maximum
 
 
 @njit(fastmath = True, nogil = True, cache = True)
@@ -37,7 +38,7 @@ def _maximum0(XXT, squared = True):
 		for j in range(i):
 			if XXT[i, j] < 0:
 				XXT[i, j] = 0
-			if ~squared:
+			if not squared:
 				XXT[i, j] **= 0.5
 				
 	return XXT
@@ -82,7 +83,7 @@ def euclidean_triangular(S, D, squared = False):
 			# maximum(D, 0)
 			if D[c] < 0:
 				D[c] = 0
-			if ~squared:
+			if not squared:
 				D[c] **= 0.5
 	return D
 euclidean_triangular_single = njit(euclidean_triangular, fastmath = True, nogil = True, cache = True)
@@ -90,9 +91,12 @@ euclidean_triangular_parallel = njit(euclidean_triangular, fastmath = True, nogi
 
 
 
-def euclidean_distances(X, triangular = False, squared = False, n_jobs = 1):
+def euclidean_distances(X, Y = None, triangular = False, squared = False, n_jobs = 1):
 	"""
 	[Added 15/10/2018] [Edited 16/10/2018]
+	[Edited 22/10/2018 Added Y option]
+	Notice: parsing in Y will result in only 10% - 15% speed improvement, not 30%.
+
 	Much much faster than Sklearn's implementation. Approx ~30% faster. Probably
 	even faster if using n_jobs = -1. Uses the idea that distance(X, X) is symmetric,
 	and thus algorithm runs only on 1/2 triangular part.
@@ -114,17 +118,30 @@ def euclidean_distances(X, triangular = False, squared = False, n_jobs = 1):
 
 	So New complexity approx= 1/2(Old complexity)
 	"""
-	XXT = _XXT(X.T)
-	XXT = mult_minus2(XXT)
 	S = rowSum(X)
-	
-	XXT += S[:, newaxis]
-	XXT += S #[newaxis,:]
-	
-	XXT = maximum0_parallel(XXT, squared) if n_jobs != 1 else maximum0(XXT, squared)
-	if not triangular: 
-		XXT = reflect(XXT, n_jobs)
-	return XXT
+	if Y is X:
+		# if X == Y, then defaults to fast triangular L2 distance algo
+		Y = None
+
+	if Y is None:
+		XXT = _XXT(X.T)
+		XXT = mult_minus2(XXT)
+		
+		XXT += S[:, newaxis]
+		XXT += S #[newaxis,:]
+		
+		D = maximum0_parallel(XXT, squared) if n_jobs != 1 else maximum0(XXT, squared)
+		if not triangular: 
+			D = reflect(XXT, n_jobs)
+	else:
+		D = X @ Y.T
+		D *= -2
+		D += S[:, newaxis]
+		D += rowSum(Y)
+		D = maximum(D, 0)
+		if not squared:
+			D **= 0.5
+	return D
 
 
 def euclidean_distances_sparse(val, colPointer, rowIndices, n, p, triangular = False, dense_output = True,

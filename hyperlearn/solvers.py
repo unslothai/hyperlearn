@@ -113,6 +113,7 @@ def solveCholesky(X, y, alpha = None, fast = True):
 	[Added 23/9/2018 added matrix multiplication decisions (faster multiply)
 	 ie: if (XTX)^1(XTy) or ((XTX)^-1XT)y is faster]
 	[Edited 20/10/2018 Major update - added LAPACK cholSolve --> 20% faster]
+	[Edited 30/10/2018 Reduced RAM usage by clearing unused variables]
 
 	Computes the Least Squares solution to X @ theta = y using Cholesky
 	Decomposition. This is the default solver in HyperLearn.
@@ -154,6 +155,8 @@ def solveCholesky(X, y, alpha = None, fast = True):
 	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
 	cho = cholesky(gram, alpha = alpha, fast = fast)
+	del gram; gram = None; # saving memory
+
 
 	if n >= p:
 		# Use spotrs solve from LAPACK
@@ -203,6 +206,8 @@ def solveSVD(X, y, alpha = None, fast = True):
 
 def solveEig(X, y, alpha = None, fast = True):
 	"""
+	[Edited 30/10/2018 Reduced RAM usage by clearing unused variables]
+	
 	Computes the Least Squares solution to X @ theta = y using
 	Eigendecomposition on the covariance matrix XTX or XXT.
 	Medium speed and accurate, where this lies between
@@ -238,6 +243,7 @@ def solveEig(X, y, alpha = None, fast = True):
 	gram = _XTX(XT) if n >= p else _XXT(XT)
 	
 	inv = pinvh(gram, alpha = alpha, fast = fast)
+	del gram; gram = None; # saving memory
 
 	return fastDot(inv, XT, y) if n >= p else fastDot(XT, inv, y)
 

@@ -12,7 +12,7 @@ __all__ = ['cholesky', 'invCholesky', 'pinvCholesky', 'cholSolve',
 			'eigh', 'pinvEig', 'eig']
 
 
-def cholesky(X, alpha = None, fast = True):
+def cholesky(XTX, alpha = None, fast = True):
 	"""
 	Computes the Cholesky Decompsition of a Hermitian Matrix
 	(Positive Symmetric Matrix) giving a Upper Triangular Matrix.
@@ -36,14 +36,14 @@ def cholesky(X, alpha = None, fast = True):
 	Alpha is added for regularization purposes. This prevents system
 	rounding errors and promises better convergence rates.
 	"""
-	n,p = X.shape
+	n,p = XTX.shape
 	assert n == p
 	check = 1
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 
 	decomp = lapack.dpotrf
-	if fast: decomp = lapack.spotrf if X.dtype == float32 else lapack.dpotrf
+	if fast: decomp = lapack.spotrf if XTX.dtype == float32 else lapack.dpotrf
 
 	solver = numba.cholesky if USE_NUMBA else decomp
 
@@ -55,9 +55,9 @@ def cholesky(X, alpha = None, fast = True):
 		# Add epsilon jitter to diagonal. Note adding
 		# np.eye(p)*alpha is slower and uses p^2 memory
 		# whilst flattening uses only p memory.
-		X.flat[::n+1] += (alpha - old_alpha)
+		XTX.flat[::n+1] += (alpha - old_alpha)
 		try:
-			cho = solver(X)
+			cho = solver(XTX)
 			if USE_NUMBA: 
 				cho = cho.T
 				check = 0
@@ -69,7 +69,7 @@ def cholesky(X, alpha = None, fast = True):
 			alpha *= 10
 
 
-	X.flat[::n+1] -= alpha
+	XTX.flat[::n+1] -= alpha
 	return cho
 
 
@@ -281,7 +281,7 @@ def pinv(X, alpha = None, fast = True):
 	
 
 
-def eigh(XTX, alpha = None, fast = True, svd = False, positive = False):
+def eigh(XTX, alpha = None, fast = True, svd = False, positive = False, qr = False):
 	"""
 	Computes the Eigendecomposition of a Hermitian Matrix
 	(Positive Symmetric Matrix).
@@ -323,9 +323,13 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False):
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 	
-	eig = lapack.dsyevd
-	if fast: eig = lapack.ssyevd if XTX.dtype == float32 else lapack.dsyevd
-			
+	if not qr:
+		eig = lapack.dsyevd
+		if fast: eig = lapack.ssyevd if XTX.dtype == float32 else lapack.dsyevd
+	else:
+		eig = lapack.dsyevr
+		if fast: eig = lapack.ssyevr if XTX.dtype == float32 else lapack.dsyevr
+				
 	solver = numba.eigh if USE_NUMBA else eig
 
 
