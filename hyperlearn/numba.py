@@ -1,7 +1,7 @@
 
 from numpy import ones, eye, float32, float64, \
 				sum as __sum, arange as _arange, sign as __sign, uint as _uint, \
-				abs as __abs, minimum as _minimum, maximum as _maximum
+				abs as __abs, minimum as _minimum, maximum as _maximum, isnan as _isnan
 from numpy.linalg import svd as _svd, pinv as _pinv, eigh as _eigh, \
 					cholesky as _cholesky, lstsq as _lstsq, qr as _qr, \
 					norm as _norm
@@ -10,7 +10,7 @@ from .base import USE_NUMBA
 
 __all__ = ['svd', 'pinv', 'eigh', 'cholesky', 'lstsq', 'qr','norm',
 			'mean', '_sum', 'sign', 'arange', '_abs', 'minimum', 'maximum',
-			'multsum', 'squaresum', '_sign']
+			'multsum', 'squaresum', '_sign', 'isnan']
 
 
 @njit(fastmath = True, nogil = True, cache = True)
@@ -128,6 +128,9 @@ def squaresum(v):
 	# else:
 
  #    return s
+@njit(fastmath = True, nogil = True, cache = True)
+def isnan(X):
+	return _isnan(X)
 
 
 ## TEST
@@ -181,6 +184,9 @@ A = squaresum(y64)
 A = _sign(-1)
 A = _sign(-1.2)
 A = _sign(1.2)
+A = isnan(X)
+A = isnan(y32)
+A = isnan(y64)
 
 
 X = eye(2, dtype = float64)
@@ -200,6 +206,7 @@ A = _abs(X)
 A = maximum(X, 0)
 A = minimum(X, 0)
 A = squaresum(X)
+A = isnan(X)
 
 A = None
 X = None

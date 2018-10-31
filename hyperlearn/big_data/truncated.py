@@ -30,6 +30,7 @@ def truncatedEigh(XTX, n_components = 2, tol = None, svd = False):
 	EIGH FLIP is called to flip the eigenvector signs for deterministic
 	output.
 	"""
+	n_components = int(n_components)
 	n,p = XTX.shape
 	dtype = XTX.dtype
 	assert n == p
@@ -75,6 +76,7 @@ def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision =
 	output. Note uses VT based decision and not U based decision.
 	U_decision can be changed to TRUE for Sklearn convention
 	"""
+	n_components = int(n_components)
 	dtype = X.dtype
 	n, p = X.shape
 	transpose = True if (transpose and p > n) else False

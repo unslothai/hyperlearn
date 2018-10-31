@@ -75,11 +75,11 @@ def partialSVD(batch, S, VT, ratio = 1, solver = 'full', tol = None, max_iter = 
 		return S, VT
 
 	elif solver == 'truncated':
-		__, S, VT = truncatedSVD(data, n_components = k, tol = tol)
+		U, S, VT = truncatedSVD(data, n_components = k, tol = tol)
 	else:
-		__, S, VT = randomizedSVD(data, n_components = k, max_iter = max_iter)
+		U, S, VT = randomizedSVD(data, n_components = k, max_iter = max_iter)
 
-	return S[:k], VT[:k]
+	return U[:,:k], S[:k], VT[:k]
 
 
 
