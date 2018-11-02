@@ -6,7 +6,7 @@ from ..big_data.randomized import randomizedEig
 from ..big_data.incremental import partialSVD
 
 
-def fit(X, n_components = 'auto', copy = True):
+def fit(X, n_components = 'auto', standardise = True, copy = True):
 	"""
 	[Added 31/10/2018] [Edited 2/11/2018 Fixed SVDImpute]
 
@@ -24,32 +24,35 @@ def fit(X, n_components = 'auto', copy = True):
 	k = int(sqrt(p)-1) if n_components in ('auto', None) else n_components        
 	if k <= 0: k = 1
 	if k >= p: k = p
-	
-	mask = isnan(X)
-	mean = nanmean(X, 0)
-	std = nanstd(X, 0)
-	std[std == 0] = 1
-	
-	mins = nanmin(X, 0)
-	
+
 	C = X.copy() if copy else X
-	C -= mean
-	C /= std
+	mask = isnan(X)
+
+	if standardise:
+		mean = nanmean(X, 0)
+		std = nanstd(X, 0)
+		mins = nanmin(X, 0)
+		std[std == 0] = 1
+		C -= mean
+		C /= std
+	else:
+		mean, std, mins = None, None, None
 	C[mask] = 0
-	
+
 	S, VT = randomizedEig(C, k)
 	S **= 0.5
 	VT = VT.T
 
 	if copy == False:
 		C[mask] = nan
-		C *= std
-		C += mean
+		if standardise:
+			C *= std
+			C += mean
 
-	return S, VT, mean, std, mins
+	return S, VT, mean, std, mins, standardise
 
 
-def transform(X, S, VT, mean, std, mins, copy = True):
+def transform(X, S, VT, mean, std, mins, standardise, copy = True):
 	"""
 	[Added 31/10/2018] [Edited 2/11/2018 FIxed SVDImpute]
 
@@ -60,23 +63,27 @@ def transform(X, S, VT, mean, std, mins, copy = True):
 	n, p = X.shape
 	D = X.copy() if copy else X
 	mask = isnan(X)
-	D -= mean
-	D /= std
+
+	if standardise:
+		D -= mean
+		D /= std
 	D[mask] = 0
 	
 	U, S, VT = partialSVD(D, S, VT, solver = 'randomized')
 	reconstruction = U * S @ VT
 	D[mask] = reconstruction[mask]
-	D *= std
-	D += mean
-	
-	for j in range(p):
-		min_ = mins[j]
-		what = D[:,j]
-		what[what < min_] = min_
+
+	if standardise:
+		D *= std
+		D += mean
+		for j in range(p):
+			min_ = mins[j]
+			what = D[:,j]
+			what[what < min_] = min_
 
 	if copy == False:
 		X[mask] = nan
-		X *= std
-		X += mean
+		if standardise:
+			X *= std
+			X += mean
 	return D

@@ -2,7 +2,7 @@
 from ..linalg import lu, svd, qr, eig
 from numpy import random as _random
 from numpy.linalg import norm
-from ..utils import _float
+from ..utils import _float, _svdCond
 
 # __all__ = ['randomizedSVD', 'randomizedEig']
 
@@ -17,7 +17,8 @@ def randomized_projection(X, k, solver = 'lu', max_iter = 4):
 	"""
 	if max_iter == 'auto':
 		max_iter = 7 if k < 0.1*min(X.shape) else 4
-		
+	k = int(k)
+
 	Q = _random.normal(size = (X.shape[1], k) ).astype(X.dtype)
 	XT = X.T
 
@@ -69,12 +70,12 @@ def randomizedSVD(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 	"""
 	n,p = X.shape
 	transpose = (n < p)
-	X = X if ~transpose else X.T
+	X = X if not transpose else X.T
 	X = _float(X)
 
 	Q = randomized_projection(X, n_components + n_oversamples, solver, max_iter)
 
-	U, S, VT = svd(Q.T @ X, U_decision = ~transpose, transpose = True)
+	U, S, VT = svd(Q.T @ X, U_decision = not transpose, transpose = True)
 	U = Q @ U
 
 	return U[:, :n_components], S[:n_components], VT[:n_components, :]
@@ -106,11 +107,23 @@ def randomizedEig(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 	"""
 	n,p = X.shape
 	transpose = (n < p)
-	X = X if ~transpose else X.T
+	X = X if not transpose else X.T
 	X = _float(X)
 
 	Q = randomized_projection(X, n_components + n_oversamples, solver, max_iter)
 	
-	S2, V = eig(Q.T @ X, U_decision = ~transpose)
+	S2, V = eig(Q.T @ X, U_decision = not transpose)
 	return S2[:n_components], V[:, :n_components]
 
+
+
+def randomizedPinv(X, n_components = None, alpha = None):
+	if alpha is not None: assert alpha >= 0
+	alpha = 0 if alpha is None else alpha
+	X = _float(X)
+
+	U, S, VT = svd(X, fast = fast)
+	U, S, VT = _svdCond(U, S, VT, alpha)
+	
+	return VT.T * S @ U.T
+	

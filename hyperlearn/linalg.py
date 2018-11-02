@@ -225,7 +225,7 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 	if X.dtype not in (float32, float64):
 		X = X.astype(float32)
 	if transpose: 
-		X, U_decision = X.T, ~U_decision
+		X, U_decision = X.T, not U_decision
 
 	#### TO DO: If memory usage exceeds LWORK, use GESVD
 	if USE_NUMBA:
@@ -406,7 +406,7 @@ def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = 
 
 	# Note when p >= n, EIGH will return incorrect results, and hence HyperLearn
 	# will default to SVD or QR/SVD
-	if stable or ~memCheck or p > n:
+	if stable or not memCheck or p > n:
 		if n >= 5/3*p:
 			# Q, R = qr(X)
 			# U, S, VT = svd(R)
@@ -417,7 +417,7 @@ def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = 
 			# either computes svd(X) or svd(X.T)
 			# whichever is faster. [p >= n --> svd(X.T)]
 			__, S, V = _svd(X, transpose = True, fast = fast, U_decision = U_decision)
-		if ~svd:
+		if not svd:
 			S **= 2
 			V = V.T
 	else:

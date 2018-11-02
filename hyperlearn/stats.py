@@ -9,7 +9,7 @@ def corr(X, y):
     same = y is X
     
     _X = X - mean(X, 0)
-    _y = y - mean(y, 0) if ~same else _X
+    _y = y - mean(y, 0) if not same else _X
     
     if len(X.shape) == 1:
         _X2 = einsum('i,i', _X, _X)**0.5
@@ -20,7 +20,7 @@ def corr(X, y):
     if len(y.shape) == 1:
         _y2 = einsum('i,i',_y,_y)**0.5
     else:
-        _y2 = einsum('ij,ij->j',_y,_y)**0.5 if ~same else _X2
+        _y2 = einsum('ij,ij->j',_y,_y)**0.5 if not same else _X2
         _X2 = _X2[:,newaxis]
         
     corr = (_X.T @ _y) / _X2 /_y2

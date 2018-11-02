@@ -93,13 +93,13 @@ def solve(X, y, tol = 1e-6, condition_limit = 1e8, alpha = None, weights = None,
 	alpha = 0 if alpha is None else alpha
 
 	good = True
-	while ~good:
+	while not good:
 		theta_hat, good = LSMR(X, y, tol = tol, condition_limit = condition_limit, alpha = alpha,
 								non_negative = non_negative, max_iter = max_iter)
 		alpha = ALPHA_DEFAULT if alpha == 0 else alpha*10
 
 	# Return X back to its original state
-	if ~copy and weights is not None:
+	if not copy and weights is not None:
 		X /= W
 		y /= weights
 

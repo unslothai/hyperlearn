@@ -97,7 +97,7 @@ def euclidean_distances(X, Y = None, triangular = False, squared = False, n_jobs
 	[Edited 22/10/2018 Added Y option]
 	Notice: parsing in Y will result in only 10% - 15% speed improvement, not 30%.
 
-	Much much faster than Sklearn's implementation. Approx ~30% faster. Probably
+	Much much faster than Sklearn's implementation. Approx not 30% faster. Probably
 	even faster if using n_jobs = -1. Uses the idea that distance(X, X) is symmetric,
 	and thus algorithm runs only on 1/2 triangular part.
 
@@ -148,7 +148,7 @@ def euclidean_distances_sparse(val, colPointer, rowIndices, n, p, triangular = F
 	squared = False, n_jobs = 1):
 	"""
 	[Added 15/10/2018] [Edited 21/10/2018]
-	Much much faster than Sklearn's implementation. Approx ~60% faster. Probably
+	Much much faster than Sklearn's implementation. Approx not 60% faster. Probably
 	even faster if using n_jobs = -1 (actually 73% faster). [n = 10,000 p = 1,000]
 	Uses the idea that distance(X, X) is symmetric,	and thus algorithm runs only on 
 	1/2 triangular part. Also notice memory usage is now 60% better than Sklearn.

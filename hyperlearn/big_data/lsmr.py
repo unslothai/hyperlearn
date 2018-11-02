@@ -249,7 +249,7 @@ def lsmr(X, y, tol = 1e-6, condition_limit = 1e8, alpha = 0, threshold = 1e12, n
 			break
 
 
-	return theta_hat, ~check
+	return theta_hat, not check
 	# check is TRUE is good, FALSE is cond(X) is too large.
 
 

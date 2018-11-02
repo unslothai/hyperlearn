@@ -81,7 +81,7 @@ def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision =
 	n, p = X.shape
 	transpose = True if (transpose and p > n) else False
 	if transpose: 
-		X, U_decision = X.T, ~U_decision
+		X, U_decision = X.T, not U_decision
 
 	if tol is None: tol = finfo(dtype).resolution
 	size = n if p >= n else p  # min(n,p)
