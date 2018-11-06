@@ -4,11 +4,13 @@ from .base import *
 from .utils import _svdCond, _float, _XTX, _XXT, fastDot
 from .numba import lstsq as _lstsq
 from .big_data import LSMR
-from numpy import newaxis, cumsum, sqrt
+from numpy import newaxis, cumsum, sqrt, hstack
 from .big_data.randomized import randomizedSVD
+from .big_data.truncated import truncatedEig
 
 
-__all__ = ['solve', 'solveCholesky', 'solveSVD', 'solveEig', 'solvePartial', 'lstsq']
+__all__ = ['solve', 'solveCholesky', 'solveSVD', 'solveEig', 'solvePartial', 'lstsq',
+			'solveTLS']
 
 
 def solve(X, y, tol = 1e-6, condition_limit = 1e8, alpha = None, weights = None, copy = False,
@@ -295,7 +297,6 @@ def solveEig(X, y, alpha = None, fast = True):
 
 
 
-
 def lstsq(X, y):
 	"""
 	Returns normal Least Squares solution using LAPACK and Numba if
@@ -304,4 +305,38 @@ def lstsq(X, y):
 	X, y = _float(X), _float(y)
 	return _lstsq(X, y)
 
+
+
+def solveTLS(X, y, solver = 'truncated'):
+	"""
+	[Added 6/11/2018]
+	Performs Total Least Squares based on the implementation in Wikipedia:
+	https://en.wikipedia.org/wiki/Total_least_squares.
+	The naming is rather deceptive, as it doesn't mean it'll yield better
+	results than pure SVD solving.
+	Normal linear regression assumes Y|X has gaussian noise. TLS assumes this
+	AND X|Y has noise.
+
+	Two solvers - full, truncated. Truncated is much much faster, as smallest
+	eigen component is needed. Full solver uses Eigendecomposition, which is
+	much much slower, but more accurate.
+	"""
+	p = X.shape[1]
+	X, y = _float(X), _float(y)
+	Z = hstack((X, y[:, newaxis]))
+
+	if solver == 'full':
+		__, V = eig(Z)
+
+		VXY = V[:p, p]
+		VYY = V[p:, p]
+	else:
+		# Uses truncatedEig
+		V = truncatedEig(Z, 1, which = 'smallest')[1].flatten()
+		VXY = V[:p]
+		VYY = V[p]
+
+	theta_hat = -VXY / VYY
+
+	return theta_hat
 

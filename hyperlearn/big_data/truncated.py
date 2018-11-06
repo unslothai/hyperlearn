@@ -1,13 +1,15 @@
 
 from scipy.sparse import linalg as sparse
-from numpy import random as _random, finfo
+from numpy import finfo
 from ..utils import *
+from ..random import uniform
 
-__all__ = ['truncatedEigh', 'truncatedSVD']
+__all__ = ['truncatedEigh', 'truncatedSVD', 'truncatedEig']
 
 
-def truncatedEigh(XTX, n_components = 2, tol = None, svd = False):
+def truncatedEigh(XTX, n_components = 2, tol = None, svd = False, which = 'largest'):
 	"""
+	[Edited 6/11/2018 Added smallest / largest command]
 	Computes the Truncated Eigendecomposition of a Hermitian Matrix
 	(positive definite). K = 2 for default.
 	Return format is LARGEST eigenvalue first.
@@ -37,9 +39,13 @@ def truncatedEigh(XTX, n_components = 2, tol = None, svd = False):
 	
 	if tol is None: tol = finfo(dtype).resolution
 	size = n if p >= n else p  # min(n,p)
-	v = _random.uniform(-1, 1, size = size ).astype(dtype)
+	v = uniform(-1, 1, size, dtype = dtype)
 
-	S2, V = sparse.eigsh(XTX, k = n_components, tol = tol, v0 = v)
+	if which == 'largest':
+		S2, V = sparse.eigsh(XTX, k = n_components, tol = tol, v0 = v)
+	else:
+		# Uses shift invert mode to get smallest
+		S2, V = sparse.eigsh(XTX, k = n_components, tol = tol, v0 = v, sigma = 0)
 	V = eig_flip(V)
 	
 	# Note ARPACK provides SMALLEST to LARGEST S2. Hence, reverse.
@@ -52,9 +58,29 @@ def truncatedEigh(XTX, n_components = 2, tol = None, svd = False):
 	return S2, V
 
 
-
-def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision = False):
+def truncatedEig(X, n_components = 2, tol = None, svd = False, which = 'largest'):
 	"""
+	[Added 6/11/2018]
+	Computes truncated eigendecomposition given any matrix X. Directly
+	uses TruncatedSVD if memory is not enough, and returns eigen vectors/values.
+	Also argument for smallest eigen components are provided.
+	"""
+	if memoryXTX(X):
+		covariance = _XTX(X.T)
+		S, VT = truncatedEigh(covariance, n_components, tol, which = which, svd = svd)
+	else:
+		__, S, VT = truncatedSVD(X, n_components, tol, which = which)
+		if svd:
+			return S, VT
+		S **= 2
+		VT = VT.T
+	return S, VT
+
+
+
+def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision = False, which = 'largest'):
+	"""
+	[Edited 6/11/2018 Added which command - can get largest or smallest eigen components]
 	Computes the Truncated SVD of any matrix. K = 2 for default.
 	Return format is LARGEST singular first first.
 	
@@ -85,9 +111,10 @@ def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision =
 
 	if tol is None: tol = finfo(dtype).resolution
 	size = n if p >= n else p  # min(n,p)
-	v = _random.uniform(-1, 1, size = size ).astype(dtype)
+	v = uniform(-1, 1, size, dtype = dtype)
 
-	U, S, VT = sparse.svds(X, k = n_components, tol = tol, v0 = v)
+	which = 'LM' if which == 'largest' else 'SM'
+	U, S, VT = sparse.svds(X, k = n_components, tol = tol, v0 = v, which = which)
 
 	# Note ARPACK provides SMALLEST to LARGEST S. Hence, reverse.
 	U, S, VT = U[:, ::-1], S[::-1], VT[::-1]
@@ -99,3 +126,28 @@ def truncatedSVD(X, n_components = 2, tol = None, transpose = True, U_decision =
 	return U, S, VT
 
 
+
+def truncatedPinv(X, n_components = None, alpha = None):
+	"""
+	[Added 6/11/2018]
+	Implements fast truncated pseudoinverse with regularization.
+	Can be used as an approximation to the matrix inverse.
+	"""
+	if alpha != None: assert alpha >= 0
+	alpha = 0 if alpha is None else alpha
+
+	if n_components == None:
+		# will provide approx sqrt(p) - 1 components.
+		# A heuristic, so not guaranteed to work.
+		k = int(sqrt(X.shape[1]))-1
+		if k <= 0: k = 1
+	else:
+		k = int(n_components) if n_components > 0 else 1
+
+	X = _float(X)
+
+	U, S, VT = truncatedSVD(X, n_components)
+	U, S, VT = _svdCond(U, S, VT, alpha)
+	
+	return VT.T * S @ U.T
+	
