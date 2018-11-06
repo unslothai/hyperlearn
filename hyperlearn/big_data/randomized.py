@@ -1,8 +1,9 @@
 
 from ..linalg import lu, svd, qr, eig
-from numpy import random as _random
+from numpy import random as _random, sqrt
 from numpy.linalg import norm
-from ..utils import _float, _svdCond
+from ..utils import _float, _svdCond, traceXTX
+from ..random import uniform
 
 # __all__ = ['randomizedSVD', 'randomizedEig']
 
@@ -15,11 +16,12 @@ def randomized_projection(X, k, solver = 'lu', max_iter = 4):
 	
 	Solver can be QR or LU or None.
 	"""
+	n, p = X.shape
 	if max_iter == 'auto':
-		max_iter = 7 if k < 0.1*min(X.shape) else 4
-	k = int(k)
+		_min = n if n <= p else p
+		max_iter = 7 if k < 0.1*_min else 4
 
-	Q = _random.normal(size = (X.shape[1], k) ).astype(X.dtype)
+	Q = uniform(-5, 5, p, int(k), X.dtype)
 	XT = X.T
 
 	_solver =                       lambda x: lu(x)[0]
@@ -118,11 +120,25 @@ def randomizedEig(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 
 
 def randomizedPinv(X, n_components = None, alpha = None):
-	if alpha is not None: assert alpha >= 0
+	"""
+	[Added 6/11/2018]
+	Implements fast randomized pseudoinverse with regularization.
+	Can be used as an approximation to the matrix inverse.
+	"""
+	if alpha != None: assert alpha >= 0
 	alpha = 0 if alpha is None else alpha
+
+	if n_components == None:
+		# will provide approx sqrt(p) - 1 components.
+		# A heuristic, so not guaranteed to work.
+		k = int(sqrt(X.shape[1]))-1
+		if k <= 0: k = 1
+	else:
+		k = int(n_components) if n_components > 0 else 1
+
 	X = _float(X)
 
-	U, S, VT = svd(X, fast = fast)
+	U, S, VT = randomizedSVD(X, n_components)
 	U, S, VT = _svdCond(U, S, VT, alpha)
 	
 	return VT.T * S @ U.T

@@ -4,10 +4,11 @@ from .base import *
 from .utils import _svdCond, _float, _XTX, _XXT, fastDot
 from .numba import lstsq as _lstsq
 from .big_data import LSMR
-from numpy import newaxis
+from numpy import newaxis, cumsum, sqrt
+from .big_data.randomized import randomizedSVD
 
 
-__all__ = ['solve', 'solveCholesky', 'solveSVD', 'solveEig', 'lstsq']
+__all__ = ['solve', 'solveCholesky', 'solveSVD', 'solveEig', 'solvePartial', 'lstsq']
 
 
 def solve(X, y, tol = 1e-6, condition_limit = 1e8, alpha = None, weights = None, copy = False,
@@ -89,10 +90,9 @@ def solve(X, y, tol = 1e-6, condition_limit = 1e8, alpha = None, weights = None,
 			X *= W
 			y *= weights
 
-	
 	alpha = 0 if alpha is None else alpha
 
-	good = True
+	good = False
 	while not good:
 		theta_hat, good = LSMR(X, y, tol = tol, condition_limit = condition_limit, alpha = alpha,
 								non_negative = non_negative, max_iter = max_iter)
@@ -150,12 +150,12 @@ def solveCholesky(X, y, alpha = None, fast = True):
 	Set it to FALSE if theres issues.
 	"""
 	n,p = X.shape
-	X = _float(X)
+	X, y = _float(X), _float(y)
 	XT = X.T
-	gram = _XTX(XT) if n >= p else _XXT(XT)
+	covariance = _XTX(XT) if n >= p else _XXT(XT)
 	
-	cho = cholesky(gram, alpha = alpha, fast = fast)
-	del gram; gram = None; # saving memory
+	cho = cholesky(covariance, alpha = alpha, fast = fast)
+	del covariance; covariance = None; # saving memory
 
 
 	if n >= p:
@@ -170,10 +170,12 @@ def solveCholesky(X, y, alpha = None, fast = True):
 
 
 
-def solveSVD(X, y, alpha = None, fast = True):
+def solveSVD(X, y, n_components = None, alpha = None, fast = True):
 	"""
+	[Edited 6/11/2018 Added n_components for Partial Solving]
 	Computes the Least Squares solution to X @ theta = y using SVD.
-	Slow, but most accurate.
+	Slow, but most accurate. Specify n_components to reduce overfitting.
+	Heurestic is 95% of variance is captured, if set to 'auto'.
 	
 	Optional alpha is used for regularization purposes.
 	
@@ -193,11 +195,55 @@ def solveSVD(X, y, alpha = None, fast = True):
 		float32 = 1e3 * eps * max(S)
 		float64 = 1e6 * eps * max(S)
 	"""
-	if alpha is not None: assert alpha >= 0
+	if alpha != None: assert alpha >= 0
 	alpha = 0 if alpha is None else alpha
-	X = _float(X)
+	X, y = _float(X), _float(y)
 
 	U, S, VT = svd(X, fast = fast)
+	U, S, VT = _svdCond(U, S, VT, alpha)
+
+	if type(n_components) == float:
+		if n_components > 1:
+			n_components = int(n_components)
+
+	if n_components == 'auto' or type(n_components) == int:
+		# Notice heuristic of 90% variance explained.
+		s = S / S.sum()
+		s = cumsum(s)
+
+		if n_components == 'auto':
+			for i in range(len(s)):
+				if s[i] >= 0.95: break
+		else:
+			i = n_components
+		U, S, VT = U[:,:i], S[:i], VT[:i]
+
+	return fastDot(VT.T * S,   U.T,   y)
+
+
+
+def solvePartial(X, y, n_components = None, alpha = None, fast = True):
+	"""
+	[Added 6/11/2018]
+	Computes the Least Squares solution to X @ theta = y using Randomized SVD.
+	Much faster than normal SVD solving, and is not prone is overfitting.
+	
+	Optional alpha is used for regularization purposes.
+	"""
+	if alpha != None: assert alpha >= 0
+	alpha = 0 if alpha is None else alpha
+
+	if n_components == None or n_components == 'auto':
+		# will provide approx sqrt(p) - 1 components.
+		# A heuristic, so not guaranteed to work.
+		k = int(sqrt(X.shape[1]))-1
+		if k <= 0: k = 1
+	else:
+		k = int(n_components) if n_components > 0 else 1
+
+	X, y = _float(X), _float(y)
+
+	U, S, VT = randomizedSVD(X, k)
 	U, S, VT = _svdCond(U, S, VT, alpha)
 	
 	return fastDot(VT.T * S,   U.T,   y)
@@ -238,12 +284,12 @@ def solveEig(X, y, alpha = None, fast = True):
 	rounding errors and promises better convergence rates.
 	"""
 	n,p = X.shape
-	X = _float(X)
+	X, y = _float(X), _float(y)
 	XT = X.T
-	gram = _XTX(XT) if n >= p else _XXT(XT)
+	covariance = _XTX(XT) if n >= p else _XXT(XT)
 	
-	inv = pinvh(gram, alpha = alpha, fast = fast)
-	del gram; gram = None; # saving memory
+	inv = pinvh(covariance, alpha = alpha, fast = fast)
+	del covariance; covariance = None; # saving memory
 
 	return fastDot(inv, XT, y) if n >= p else fastDot(XT, inv, y)
 
@@ -255,7 +301,7 @@ def lstsq(X, y):
 	Returns normal Least Squares solution using LAPACK and Numba if
 	installed. PyTorch will default to Cholesky Solve.
 	"""
-	X,y = _float(X), _float(y)
+	X, y = _float(X), _float(y)
 	return _lstsq(X, y)
 
 

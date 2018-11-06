@@ -7,7 +7,7 @@ from .exceptions import FutureExceedsMemory
 from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
 
 __all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
-			'memoryXTX', 'memoryGram', 'memorySVD', '_float',
+			'memoryXTX', 'memoryCovariance', 'memorySVD', '_float',
 			'traceXTX', 'fastDot', '_XTX', '_XXT',
 			'rowSum', 'reflect']
 
@@ -96,7 +96,7 @@ def memoryXTX(X):
 
 
 
-def memoryGram(X):
+def memoryCovariance(X):
 	"""
 	Computes the memory usage for X.T @ X or X @ X.T so that error messages
 	can be broadcast without submitting to a memory error.

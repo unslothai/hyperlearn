@@ -48,7 +48,6 @@ def fit(X, n_components = 'auto', standardise = True, copy = True):
 		if standardise:
 			C *= std
 			C += mean
-
 	return S, VT, mean, std, mins, standardise
 
 
