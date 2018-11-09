@@ -1,6 +1,7 @@
 
 from scipy.linalg import lapack, lu as _lu, qr as _qr
 from . import numba
+from numba import njit
 from .base import *
 from .utils import *
 from numpy import float32, float64
@@ -107,23 +108,107 @@ def cholSolve(A, b, alpha = None):
 	return coef
 
 
-def lu(X):
+def lu(X, L_only = False, U_only = False):
 	"""
+	[Edited 8/11/2018 Changed to LAPACK LU if L/U only wanted]
 	Computes the LU Decomposition of any matrix with pivoting.
-	Uses Scipy. Will utilise LAPACK later.
+	Provides L only or U only if specified.
+
+	Much faster than Scipy if only U/L wanted, and more memory efficient,
+	since data is altered inplace.
 	"""
-	return _lu(X, permute_l = True, check_finite = False)
+	n, p = X.shape
+	if L_only or U_only:
+		decomp = lapack.sgetrf if X.dtype == float32 else lapack.dgetrf
+
+		A, P, __ = decomp(X)
+		if L_only:
+			A, k = L_process(n, p, A)
+			# inc = -1 means reverse order pivoting
+			swap = lapack.slaswp if X.dtype == float32 else lapack.dlaswp
+			A = swap(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
+		else:
+			A = triu_process(n, p, A)
+		return A
+	else:
+		return _lu(X, permute_l = True, check_finite = False)
 
 
-
-def qr(X):
+@njit(fastmath = True, nogil = True, cache = True)
+def L_process(n, p, L):
 	"""
+	Auxiliary function to modify data in place to only get L from LU decomposition.
+	"""
+	wide = (p > n)
+	k = p
+
+	if wide:
+		# wide matrix
+		# L get all n rows, but only n columns
+		L = L[:, :n]
+		k = n
+
+	# tall / wide matrix
+	for i in range(k):
+		li = L[i]
+		li[i+1:] = 0
+		li[i] = 1
+	# Set diagonal to 1
+	return L, k
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def triu_process(n, p, U):
+	"""
+	Auxiliary function to modify data in place to only get upper triangular
+	part of matrix. Used in QR (get R) and LU (get U) decompositon.
+	"""
+	tall = (n > p)
+	k = n
+
+	if tall:
+		# tall matrix
+		# U get all p rows
+		U = U[:p]
+		k = p
+
+	for i in range(1, k):
+		U[i, :i] = 0
+	return U
+
+
+
+def qr(X, Q_only = False, R_only = False, overwrite = False):
+	"""
+	[Edited 8/11/2018 Added Q, R only parameters. Faster than Numba]
+	[Edited 9/11/2018 Made R only more memory efficient (no data copying)]
 	Computes the reduced QR Decomposition of any matrix.
 	Uses optimized NUMBA QR if avaliable else use's Scipy's
 	version.
+
+	Provides Q or R only if specified, and is must faster + more memory
+	efficient since data is changed inplace.
 	"""
+	if Q_only or R_only:
+		# Compute R
+		n, p = X.shape
+		decomp = lapack.sgeqrf if X.dtype == float32 else lapack.dgeqrf
+		R, tau, __, __ = decomp(X, overwrite_a = overwrite)
+
+		if Q_only:
+			if p > n:
+				R = R[:, :n]
+			# Compute Q
+			ortho = lapack.sorgqr if X.dtype == float32 else lapack.dorgqr
+			Q, __, __ = ortho(R, tau, overwrite_a = True)
+			return Q
+		else:
+			# Do nothing, as R is already computed.
+			R = triu_process(n, p, R)
+			return R
+
 	if USE_NUMBA: return numba.qr(X)
-	return _qr(X, mode = 'economic', check_finite = False)
+	return _qr(X, mode = 'economic', check_finite = False, overwrite_a = overwrite)
 
 
 
@@ -236,7 +321,7 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 		_svd = lapack.dgesdd
 		if fast: _svd = lapack.sgesdd if X.dtype == float32 else lapack.dgesdd
 
-		U, S, VT, __ = _svd(X, full_matrices = 0)
+		U, S, VT, __ = _svd(X, full_matrices = False)
 		
 	U, VT = svd_flip(U, VT, U_decision = U_decision)
 	
@@ -368,6 +453,7 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False, qr = Fal
 _svd = svd
 def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = False):
 	"""
+	[Edited 8/11/2018 Made QR-SVD even faster --> changed to n >= p from n >= 5/3p]
 	Computes the Eigendecomposition of any matrix using either
 	QR then SVD or just SVD. This produces much more stable solutions 
 	that pure eigh(covariance), and thus will be necessary in some cases.
@@ -407,11 +493,13 @@ def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = 
 	# Note when p >= n, EIGH will return incorrect results, and hence HyperLearn
 	# will default to SVD or QR/SVD
 	if stable or not memCheck or p > n:
-		if n >= 5/3*p:
+		# From Daniel Han-Chen's Modern Big Data Algorithms --> if n is larger
+		# than p, then use QR. Old is >= 5/3*p.
+		if n >= p:
 			# Q, R = qr(X)
 			# U, S, VT = svd(R)
 			# S, VT is kept.
-			__, S, V = _svd( qr(X)[1], fast = fast, U_decision = U_decision)
+			__, S, V = _svd( qr(X, R_only = True), fast = fast, U_decision = U_decision)
 		else:
 			# Force turn on transpose:
 			# either computes svd(X) or svd(X.T)

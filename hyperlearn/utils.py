@@ -9,7 +9,7 @@ from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
 __all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
 			'memoryXTX', 'memoryCovariance', 'memorySVD', '_float',
 			'traceXTX', 'fastDot', '_XTX', '_XXT',
-			'rowSum', 'reflect']
+			'rowSum', 'rowSum_A','reflect']
 
 _condition = {'f': 1e3, 'd': 1e6}
 
@@ -249,6 +249,7 @@ def rowSum_0(X, norm = False):
 	if norm:
 		S**=0.5
 	return S
+
 
 @njit(fastmath = True, nogil = True, cache = True)
 def rowSum_A(X, norm = False):

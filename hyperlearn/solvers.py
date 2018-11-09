@@ -323,6 +323,9 @@ def solveTLS(X, y, solver = 'truncated'):
 	"""
 	p = X.shape[1]
 	X, y = _float(X), _float(y)
+	if len(y.shape) > 1:
+		print("solveTLS works only on single column Ys.")
+		return
 	Z = hstack((X, y[:, newaxis]))
 
 	if solver == 'full':

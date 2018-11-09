@@ -1,13 +1,12 @@
 
 from ..numba import _min, _max, maximum, minimum, norm, njit, prange, squaresum
 from numpy import zeros, float32, float64
-from ..utils import _float
+from ..utils import _float, reflect, _XTX, _XXT
 from ..big_data.randomized import randomizedSVD
 from ..solvers import solveCholesky
 
 
 def intialize_NMF(X, n_components = 2, eps = 1e-6, init = 'nndsvd', HT = True):
-	X = _float(X)
 	U, S, VT = randomizedSVD(X, n_components = n_components)
 
 	dtype = U.dtype
@@ -107,6 +106,7 @@ def nmf_cd(X, n_components = 2, tol = 1e-4, max_iter = 200, init = 'nndsvd', spe
 
 	for n_iter in range(max_iter):
 		# Update W
+		#HHT = reflect()
 		violation = update_CD_i(W, HT.T@HT, X@HT, n, k, speed)
 		# Update H
 		violation += update_CD_i(HT, W.T@W, XT@W, p, k, speed)

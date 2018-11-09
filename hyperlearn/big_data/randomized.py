@@ -2,7 +2,7 @@
 from ..linalg import lu, svd, qr, eig
 from numpy import random as _random, sqrt
 from numpy.linalg import norm
-from ..utils import _float, _svdCond, traceXTX
+from ..utils import _float, _svdCond, traceXTX, eig_flip, svd_flip
 from ..random import uniform
 
 # __all__ = ['randomizedSVD', 'randomizedEig']
@@ -10,6 +10,7 @@ from ..random import uniform
 
 def randomized_projection(X, k, solver = 'lu', max_iter = 4):
 	"""
+	[Edited 8/11/2018 Added QR Q_only parameter]
 	Projects X onto some random eigenvectors, then using a special
 	variant of Orthogonal Iteration, finds the closest orthogonal
 	representation for X.
@@ -24,8 +25,8 @@ def randomized_projection(X, k, solver = 'lu', max_iter = 4):
 	Q = uniform(-5, 5, p, int(k), X.dtype)
 	XT = X.T
 
-	_solver =                       lambda x: lu(x)[0]
-	if solver == 'qr': _solver =    lambda x: qr(x)[0]
+	_solver =                       lambda x: lu(x, L_only = True)
+	if solver == 'qr': _solver =    lambda x: qr(x, Q_only = True)
 	elif solver == None: 
 		_solver =	lambda x: x/norm(x, axis = 0)
 		max_iter = 1
@@ -37,12 +38,13 @@ def randomized_projection(X, k, solver = 'lu', max_iter = 4):
 	for __ in range(max_iter):
 		Q = _solver(XT @ _solver(X @ Q))
 
-	return qr(X @ Q)[0]
+	return qr(X @ Q, Q_only = True)
 
 
 
 def randomizedSVD(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_oversamples = 10):
 	"""
+	[Edited 9/11/2018 Fixed SVD_flip]
 	HyperLearn's Fast Randomized SVD is approx 10 - 30 % faster than
 	Sklearn's implementation depending on n_components and max_iter.
 	
@@ -77,7 +79,7 @@ def randomizedSVD(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 
 	Q = randomized_projection(X, n_components + n_oversamples, solver, max_iter)
 
-	U, S, VT = svd(Q.T @ X, U_decision = not transpose, transpose = True)
+	U, S, VT = svd(Q.T @ X, U_decision = transpose, transpose = True)
 	U = Q @ U
 
 	return U[:, :n_components], S[:n_components], VT[:n_components, :]
@@ -86,6 +88,7 @@ def randomizedSVD(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 
 def randomizedEig(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_oversamples = 10):
 	"""
+	[Edited 9/11/2018 Fixed Eig_Flip]
 	HyperLearn's Randomized Eigendecomposition is an extension of Sklearn's
 	randomized SVD. HyperLearn notices that the computation of U is not necessary,
 	hence will use QR followed by SVD or just SVD depending on the situation.
@@ -114,7 +117,7 @@ def randomizedEig(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 
 	Q = randomized_projection(X, n_components + n_oversamples, solver, max_iter)
 	
-	S2, V = eig(Q.T @ X, U_decision = not transpose)
+	S2, V = eig(Q.T @ X, U_decision = transpose)
 	return S2[:n_components], V[:, :n_components]
 
 
