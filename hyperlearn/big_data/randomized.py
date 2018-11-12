@@ -19,21 +19,16 @@ def randomized_projection(X, k, solver = 'lu', max_iter = 4):
 	"""
 	n, p = X.shape
 	if max_iter == 'auto':
+		# From Modern Big Data Algorithms --> seems like <= 4 is enough.
 		_min = n if n <= p else p
-		max_iter = 7 if k < 0.1*_min else 4
+		max_iter = 5 if k < 0.1 * _min else 4
 
 	Q = uniform(-5, 5, p, int(k), X.dtype)
 	XT = X.T
 
 	_solver =                       lambda x: lu(x, L_only = True)
 	if solver == 'qr': _solver =    lambda x: qr(x, Q_only = True)
-	elif solver == None: 
-		_solver =	lambda x: x/norm(x, axis = 0)
-		max_iter = 1
-		# elif solver == None: _solver =  lambda x:
-		# Disabled no solver, as inf, nans were present (overflow)
-		# Instead, dividing by the column norm for stability.
-		# Also, max_iter is set to 1
+	elif solver == None: _solver = 	lambda x: x
 
 	for __ in range(max_iter):
 		Q = _solver(XT @ _solver(X @ Q))
@@ -81,6 +76,8 @@ def randomizedSVD(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 
 	U, S, VT = svd(Q.T @ X, U_decision = transpose, transpose = True)
 	U = Q @ U
+	if transpose:
+		U, VT = VT.T, U.T
 
 	return U[:, :n_components], S[:n_components], VT[:n_components, :]
 
@@ -116,8 +113,13 @@ def randomizedEig(X, n_components = 2, max_iter = 'auto', solver = 'lu', n_overs
 	X = _float(X)
 
 	Q = randomized_projection(X, n_components + n_oversamples, solver, max_iter)
-	
-	S2, V = eig(Q.T @ X, U_decision = transpose)
+
+	if transpose:
+		V, S2, __ = svd(Q.T @ X, U_decision = transpose, transpose = True)
+		V = Q @ V
+		S2 **= 2
+	else:
+		S2, V = eig(Q.T @ X, U_decision = transpose)
 	return S2[:n_components], V[:, :n_components]
 
 

@@ -215,7 +215,7 @@ def solveSVD(X, y, n_components = None, alpha = None, fast = True):
 
 		if n_components == 'auto':
 			for i in range(len(s)):
-				if s[i] >= 0.95: break
+				if s[i] >= 0.9: break
 		else:
 			i = n_components
 		U, S, VT = U[:,:i], S[:i], VT[:i]

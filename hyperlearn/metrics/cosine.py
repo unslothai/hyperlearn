@@ -1,6 +1,6 @@
 
 
-from ..utils import _XXT, rowSum, reflect
+from ..utils import _XXT, rowSum, reflect, setDiagonal
 from numpy import zeros, newaxis
 from numba import njit, prange
 from ..sparse.csr import div_1 ,mult_1, _XXT as _XXT_sparse, rowSum as rowSum_sparse
@@ -94,7 +94,7 @@ def cosine_similarity(X, Y = None, triangular = False, n_jobs = 1, copy = False)
 			XXT = reflect(XXT, n_jobs)
 
 		# diagonal is set to 1
-		XXT.flat[::len(XXT)+1] = 1
+		setDiagonal(XXT, 1)
 		return XXT
 	else:
 		D = X @ Y.T
@@ -130,7 +130,7 @@ def cosine_similarity_sparse(val, colPointer, rowIndices, n, p, triangular = Fal
 			XXT = reflect(XXT, n_jobs)
 
 		# diagonal is set to 1
-		XXT.flat[::len(XXT)+1] = 1
+		setDiagonal(XXT, 1)
 	else:
 		XXT = _XXT_triangular(val, colPointer, rowIndices, n, p, n_jobs)
 
@@ -171,7 +171,7 @@ def cosine_distances(X, Y = None, triangular = False, n_jobs = 1, copy = False):
 			XXT = reflect(XXT, n_jobs)
 
 		# diagonal is set to 0 as zero distance between row i and i
-		XXT.flat[::len(XXT)+1] = 0
+		setDiagonal(XXT, 0)
 		return XXT
 	else:
 		D = X @ Y.T
@@ -212,7 +212,7 @@ def cosine_distances_sparse(val, colPointer, rowIndices, n, p, triangular = Fals
 			XXT = reflect(XXT, n_jobs)
 
 		# diagonal is set to 0 as zero distance between row i and i
-		XXT.flat[::len(XXT)+1] = 0
+		setDiagonal(XXT, 0)
 	else:
 		XXT = _XXT_triangular(val, colPointer, rowIndices, n, p, n_jobs)
 

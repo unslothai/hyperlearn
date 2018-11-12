@@ -127,7 +127,7 @@ def nmf_cd(X, n_components = 2, tol = 1e-4, max_iter = 200, init = 'nndsvd', spe
 def nmf_als(X, n_components = 2, max_iter = 100, init = 'nndsvd', alpha = None):
 	W, H, X = intialize_NMF(X, n_components, HT = False)
 	XT = X.T
-	n = len(X)
+	n = X.shape[0]
 	past_error = 1e100
 
 	for i in range(max_iter):

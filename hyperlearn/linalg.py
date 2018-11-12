@@ -1,5 +1,5 @@
 
-from scipy.linalg import lapack, lu as _lu, qr as _qr
+from scipy.linalg import lu as _lu, qr as _qr
 from . import numba
 from numba import njit
 from .base import *
@@ -37,40 +37,34 @@ def cholesky(XTX, alpha = None, fast = True):
 	Alpha is added for regularization purposes. This prevents system
 	rounding errors and promises better convergence rates.
 	"""
-	n,p = XTX.shape
-	assert n == p
-	check = 1
-	alpha = ALPHA_DEFAULT if alpha is None else alpha
+	n,p = XTX.shape;  assert n==p
+	error = 1
+	alpha = ALPHA_DEFAULT if alpha == None else alpha
 	old_alpha = 0
 
-	decomp = lapack.dpotrf
-	if fast: decomp = lapack.spotrf if XTX.dtype == float32 else lapack.dpotrf
+	decomp = lapack(XTX.dtype, "potrf", fast, "cholesky")
 
-	solver = numba.cholesky if USE_NUMBA else decomp
-
-
-	while check != 0:
+	while error != 0:
 		if PRINT_ALL_WARNINGS: 
 			print('cholesky Alpha = {}'.format(alpha))
 
 		# Add epsilon jitter to diagonal. Note adding
 		# np.eye(p)*alpha is slower and uses p^2 memory
 		# whilst flattening uses only p memory.
-		XTX.flat[::n+1] += (alpha - old_alpha)
+		addDiagonal(XTX, alpha-old_alpha)
 		try:
 			cho = solver(XTX)
 			if USE_NUMBA: 
 				cho = cho.T
-				check = 0
+				error = 0
 			else:
-				cho, check = cho
+				cho, error = cho
 		except: pass
-		if check != 0:
+		if error != 0:
 			old_alpha = alpha
 			alpha *= 10
 
-
-	XTX.flat[::n+1] -= alpha
+	addDiagonal(XTX, -alpha)
 	return cho
 
 
@@ -81,30 +75,29 @@ def cholSolve(A, b, alpha = None):
 	allowing A @ theta = b.
 	Notice auto adds epsilon jitter if solver fails.
 	"""
-	n,p = A.shape
-	assert n == p and b.shape[0] == n
-	check = 1
+	n,p = A.shape;	assert n == p and b.shape[0] == n
+	error = 1
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 
-	solver = lapack.spotrs if A.dtype == float32 else lapack.dpotrs
+	solver = lapack(A.dtype, "potrs")
 
-	while check != 0:
+	while error != 0:
 		if PRINT_ALL_WARNINGS: 
 			print('cholSolve Alpha = {}'.format(alpha))
 
 		# Add epsilon jitter to diagonal. Note adding
 		# np.eye(p)*alpha is slower and uses p^2 memory
 		# whilst flattening uses only p memory.
-		A.flat[::n+1] += (alpha - old_alpha)
+		addDiagonal(A, alpha-old_alpha)
 		try:
-			coef, check = solver(A, b)
+			coef, error = solver(A, b)
 		except: pass
-		if check != 0:
+		if error != 0:
 			old_alpha = alpha
 			alpha *= 10
 
-	A.flat[::n+1] -= alpha
+	addDiagonal(A, -alpha)
 	return coef
 
 
@@ -119,14 +112,12 @@ def lu(X, L_only = False, U_only = False):
 	"""
 	n, p = X.shape
 	if L_only or U_only:
-		decomp = lapack.sgetrf if X.dtype == float32 else lapack.dgetrf
 
-		A, P, __ = decomp(X)
+		A, P, __ = lapack(X.dtype, "getrf")(X)
 		if L_only:
 			A, k = L_process(n, p, A)
 			# inc = -1 means reverse order pivoting
-			swap = lapack.slaswp if X.dtype == float32 else lapack.dlaswp
-			A = swap(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
+			A = lapack(X.dtype, "laswp")(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
 		else:
 			A = triu_process(n, p, A)
 		return A
@@ -192,15 +183,13 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 	if Q_only or R_only:
 		# Compute R
 		n, p = X.shape
-		decomp = lapack.sgeqrf if X.dtype == float32 else lapack.dgeqrf
-		R, tau, __, __ = decomp(X, overwrite_a = overwrite)
+		R, tau, __, __ = lapack(X.dtype, "geqrf")(X, overwrite_a = overwrite)
 
 		if Q_only:
 			if p > n:
 				R = R[:, :n]
 			# Compute Q
-			ortho = lapack.sorgqr if X.dtype == float32 else lapack.dorgqr
-			Q, __, __ = ortho(R, tau, overwrite_a = True)
+			Q, __, __ = lapack(X.dtype, "orgqr")(R, tau, overwrite_a = True)
 			return Q
 		else:
 			# Do nothing, as R is already computed.
@@ -235,10 +224,8 @@ def invCholesky(X, fast = False):
 	However, speeds are reduced by 50%.
 	"""
 	assert X.shape[0] == X.shape[1]
-	inverse = lapack.dtrtri
-	if fast: inverse = lapack.strtri if X.dtype == float32 else lapack.dtrtri
-		
-	choInv = inverse(X)[0]
+	choInv = lapack(X.dtype, "trtri", fast)(X)[0]
+
 	return choInv @ choInv.T
 
 	
@@ -283,6 +270,7 @@ def pinvCholesky(X, alpha = None, fast = False):
 
 def svd(X, fast = True, U_decision = False, transpose = True):
 	"""
+	[Edited 9/11/2018 --> Modern Big Data Algorithms p/n ratio check]
 	Computes the Singular Value Decomposition of any matrix.
 	So, X = U * S @ VT. Note will compute svd(X.T) if p > n.
 	Should be 99% same result. This means this implementation's
@@ -307,21 +295,22 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 	This flips the signs of U and VT, using VT_based decision.
 	"""
 	transpose = True if (transpose and X.shape[1] > X.shape[0]) else False
-	if X.dtype not in (float32, float64):
-		X = X.astype(float32)
+	X = _float(X)
+	dtype = X.dtype
 	if transpose: 
 		X, U_decision = X.T, not U_decision
 
+	n, p = X.shape
+	ratio = p/n
 	#### TO DO: If memory usage exceeds LWORK, use GESVD
-	if USE_NUMBA:
-		U, S, VT = numba.svd(X)
+	if ratio >= 0.001:
+		if USE_NUMBA:
+			U, S, VT = numba.svd(X)
+		else:
+			#### TO DO: If memory usage exceeds LWORK, use GESVD
+			U, S, VT, __ = lapack(dtype, "gesdd", fast)(X, full_matrices = False)
 	else:
-		#### TO DO: If memory usage exceeds LWORK, use GESVD
-
-		_svd = lapack.dgesdd
-		if fast: _svd = lapack.sgesdd if X.dtype == float32 else lapack.dgesdd
-
-		U, S, VT, __ = _svd(X, full_matrices = False)
+		U, S, VT = lapack(dtype, "gesvd", fast)(X, full_matrices = False)
 		
 	U, VT = svd_flip(U, VT, U_decision = U_decision)
 	
@@ -357,9 +346,6 @@ def pinv(X, alpha = None, fast = True):
 	if alpha is not None: assert alpha >= 0
 	alpha = 0 if alpha is None else alpha
 	
-#     if USE_NUMBA:
-#         return numba.pinv(X)
-#     else:
 	U, S, VT = svd(X, fast = fast)
 	U, S, VT = _svdCond(U, S, VT, alpha)
 	return (VT.T * S) @ U.T
@@ -404,42 +390,37 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False, qr = Fal
 	"""
 	n,p = XTX.shape
 	assert n == p
-	check = 1
+	error = 1
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 	
 	if not qr:
-		eig = lapack.dsyevd
-		if fast: eig = lapack.ssyevd if XTX.dtype == float32 else lapack.dsyevd
+		eig = lapack(X.dtype, "syevd", fast, "eigh")
 	else:
-		eig = lapack.dsyevr
-		if fast: eig = lapack.ssyevr if XTX.dtype == float32 else lapack.dsyevr
-				
-	solver = numba.eigh if USE_NUMBA else eig
+		eig = lapack(X.dtype, "syevr", fast, "eigh")
 
 
-	while check != 0:
+	while error != 0:
 		if PRINT_ALL_WARNINGS: 
 			print('eigh Alpha = {}'.format(alpha))
 
 		# Add epsilon jitter to diagonal. Note adding
 		# np.eye(p)*alpha is slower and uses p^2 memory
 		# whilst flattening uses only p memory.
-		XTX.flat[::n+1] += (alpha - old_alpha)
+		addDiagonal(XTX, alpha-old_alpha)
 		try:
 			output = solver(XTX)
 			if USE_NUMBA: 
 				S2, V = output
-				check = 0
+				error = 0
 			else: 
-				S2, V, check = output
+				S2, V, error = output
 		except: pass
-		if check != 0:
+		if error != 0:
 			old_alpha = alpha
 			alpha *= 10
 
-
-	XTX.flat[::n+1] -= alpha
+	addDiagonal(XTX, -alpha)
 	S2, V = S2[::-1], eig_flip(V[:,::-1])
 
 	if svd or positive: 

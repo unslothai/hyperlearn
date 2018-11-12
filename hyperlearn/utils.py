@@ -5,13 +5,31 @@ from numba import njit, prange
 from psutil import virtual_memory
 from .exceptions import FutureExceedsMemory
 from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
+from scipy.linalg import lapack as _lapack
+from . import numba
+from .base import USE_NUMBA
 
-__all__ = ['svd_flip', 'eig_flip', '_svdCond', '_eighCond',
+__all__ = ['lapack','svd_flip', 'eig_flip', '_svdCond', '_eighCond',
 			'memoryXTX', 'memoryCovariance', 'memorySVD', '_float',
 			'traceXTX', 'fastDot', '_XTX', '_XXT',
-			'rowSum', 'rowSum_A','reflect']
+			'rowSum', 'rowSum_A','reflect', 
+			'addDiagonal', 'setDiagonal']
 
 _condition = {'f': 1e3, 'd': 1e6}
+
+def lapack(dtype, function, fast = True, numba = None):
+	"""
+	[Added 11/11/2018]
+	Get a LAPACK function based on the dtype(X). Acts like Scipy.
+	"""
+	f = "_lapack.d"+function
+	if dtype == float32 and fast:
+		f = "_lapack.s"+function
+	if numba != None and USE_NUMBA:
+		try: return eval('numba.'+function)
+		except: pass
+	return eval(f)
+
 
 
 def svd_flip(U, VT, U_decision = True):
@@ -307,4 +325,21 @@ def reflect(X, n_jobs = 1):
 	"""
 	X = reflect_parallel(X) if n_jobs != 1 else reflect_single(X)
 	return X
+
+
+def addDiagonal(X, c = 1):
+	"""
+	[Added 11/11/2018]
+	Add c to diagonal of matrix
+	"""
+	n = X.shape[0]
+	X.flat[::n+1] += c
+
+def setDiagonal(X, c = 1):
+	"""
+	[Added 11/11/2018]
+	Set c to diagonal of matrix
+	"""
+	n = X.shape[0]
+	X.flat[::n+1] = c
 
