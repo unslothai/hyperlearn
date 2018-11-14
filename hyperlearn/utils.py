@@ -17,19 +17,42 @@ __all__ = ['lapack','svd_flip', 'eig_flip', '_svdCond', '_eighCond',
 
 _condition = {'f': 1e3, 'd': 1e6}
 
-def lapack(dtype, function, fast = True, numba = None):
+
+class lapack():
 	"""
-	[Added 11/11/2018]
+	[Added 11/11/2018] [Edited 13/11/2018 -> made into a class]
+	[Edited 14/11/2018 -> fixed class]
 	Get a LAPACK function based on the dtype(X). Acts like Scipy.
 	"""
-	f = "_lapack.d"+function
-	if dtype == float32 and fast:
-		f = "_lapack.s"+function
-	if numba != None and USE_NUMBA:
-		try: return eval('numba.'+function)
-		except: pass
-	return eval(f)
+	def __init__(self, function, fast = True, numba = None):
+		self.function = function
+		self.fast = fast
+		self.f = None
 
+		if numba != None and USE_NUMBA:
+			try: f = eval(f'numba.{function}')
+			except: pass
+			f = eval(f)
+			self.f = f
+
+	def __repr__(self):
+		return f"Calls LAPACK or Numba function {self.function}"
+
+	def __call__(self, *args, **kwargs):
+		if self.f == None:
+			self.f = f"_lapack.d{self.function}"
+			
+			if len(args) == 0:
+				a = next(iter(kwargs.values()))
+			else:
+				a = args[0]
+			
+			if a.dtype == np.float32 and self.fast:
+				self.f = f"_lapack.s{self.function}"
+			self.f = eval(self.f)
+
+		return self.f(*args, **kwargs)
+		
 
 
 def svd_flip(U, VT, U_decision = True):

@@ -42,7 +42,7 @@ def cholesky(XTX, alpha = None, fast = True):
 	alpha = ALPHA_DEFAULT if alpha == None else alpha
 	old_alpha = 0
 
-	decomp = lapack(XTX.dtype, "potrf", fast, "cholesky")
+	decomp = lapack("potrf", fast, "cholesky")
 
 	while error != 0:
 		if PRINT_ALL_WARNINGS: 
@@ -53,7 +53,7 @@ def cholesky(XTX, alpha = None, fast = True):
 		# whilst flattening uses only p memory.
 		addDiagonal(XTX, alpha-old_alpha)
 		try:
-			cho = solver(XTX)
+			cho = decomp(XTX)
 			if USE_NUMBA: 
 				cho = cho.T
 				error = 0
@@ -80,7 +80,7 @@ def cholSolve(A, b, alpha = None):
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 
-	solver = lapack(A.dtype, "potrs")
+	solver = lapack("potrs")
 
 	while error != 0:
 		if PRINT_ALL_WARNINGS: 
@@ -113,11 +113,11 @@ def lu(X, L_only = False, U_only = False):
 	n, p = X.shape
 	if L_only or U_only:
 
-		A, P, __ = lapack(X.dtype, "getrf")(X)
+		A, P, __ = lapack("getrf")(X)
 		if L_only:
 			A, k = L_process(n, p, A)
 			# inc = -1 means reverse order pivoting
-			A = lapack(X.dtype, "laswp")(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
+			A = lapack("laswp")(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
 		else:
 			A = triu_process(n, p, A)
 		return A
@@ -183,13 +183,13 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 	if Q_only or R_only:
 		# Compute R
 		n, p = X.shape
-		R, tau, __, __ = lapack(X.dtype, "geqrf")(X, overwrite_a = overwrite)
+		R, tau, __, __ = lapack("geqrf")(X, overwrite_a = overwrite)
 
 		if Q_only:
 			if p > n:
 				R = R[:, :n]
 			# Compute Q
-			Q, __, __ = lapack(X.dtype, "orgqr")(R, tau, overwrite_a = True)
+			Q, __, __ = lapack("orgqr")(R, tau, overwrite_a = True)
 			return Q
 		else:
 			# Do nothing, as R is already computed.
@@ -205,7 +205,7 @@ def invCholesky(X, fast = False):
 	"""
 	Computes the Inverse of a Hermitian Matrix
 	(Positive Symmetric Matrix) after provided with Cholesky's
-	Upper Triangular Matrix.
+	Lower Triangular Matrix.
 	
 	This is used in conjunction in solveCholesky, where the
 	inverse of the covariance matrix is needed.
@@ -224,7 +224,7 @@ def invCholesky(X, fast = False):
 	However, speeds are reduced by 50%.
 	"""
 	assert X.shape[0] == X.shape[1]
-	choInv = lapack(X.dtype, "trtri", fast)(X)[0]
+	choInv = lapack("trtri", fast)(X)[0]
 
 	return choInv @ choInv.T
 
@@ -296,7 +296,6 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 	"""
 	transpose = True if (transpose and X.shape[1] > X.shape[0]) else False
 	X = _float(X)
-	dtype = X.dtype
 	if transpose: 
 		X, U_decision = X.T, not U_decision
 
@@ -308,9 +307,9 @@ def svd(X, fast = True, U_decision = False, transpose = True):
 			U, S, VT = numba.svd(X)
 		else:
 			#### TO DO: If memory usage exceeds LWORK, use GESVD
-			U, S, VT, __ = lapack(dtype, "gesdd", fast)(X, full_matrices = False)
+			U, S, VT, __ = lapack("gesdd", fast)(X, full_matrices = False)
 	else:
-		U, S, VT = lapack(dtype, "gesvd", fast)(X, full_matrices = False)
+		U, S, VT = lapack("gesvd", fast)(X, full_matrices = False)
 		
 	U, VT = svd_flip(U, VT, U_decision = U_decision)
 	
@@ -394,11 +393,7 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False, qr = Fal
 	alpha = ALPHA_DEFAULT if alpha is None else alpha
 	old_alpha = 0
 	
-	if not qr:
-		eig = lapack(X.dtype, "syevd", fast, "eigh")
-	else:
-		eig = lapack(X.dtype, "syevr", fast, "eigh")
-
+	decomp = lapack("syevd", fast, "eigh") if not qr else lapack("syevr", fast) 
 
 	while error != 0:
 		if PRINT_ALL_WARNINGS: 
@@ -409,7 +404,7 @@ def eigh(XTX, alpha = None, fast = True, svd = False, positive = False, qr = Fal
 		# whilst flattening uses only p memory.
 		addDiagonal(XTX, alpha-old_alpha)
 		try:
-			output = solver(XTX)
+			output = decomp(XTX)
 			if USE_NUMBA: 
 				S2, V = output
 				error = 0
