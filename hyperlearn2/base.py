@@ -1,13 +1,12 @@
 
 from functools import wraps
 from psutil import virtual_memory
-from numpy import float32, float64, complex, array, ndarray, matrix
+import numpy as np
 from scipy.linalg import lapack as _lapack, blas as _blas
-from . import numba
-from numba import njit
+from . import numba as _numba
 
-dtypes = (float32, float64, complex)
-array = (array, ndarray)
+dtypes = set((np.dtype(np.float32), np.dtype(np.float64), np.dtype(np.complex)))
+array = set((np.array, np.ndarray))
 
 ###
 def memory(X, dtype, memcheck):
@@ -29,8 +28,8 @@ def memory(X, dtype, memcheck):
 	if memcheck == None: return 1, True
 	
 	free = virtual_memory().free * 0.97
-	if dtype == float32: byte = 4
-	elif dtype == float64: byte = 8
+	if dtype == np.float32: byte = 4
+	elif dtype == np.float64: byte = 8
 	else: byte = 12
 	
 	multiplier = memcheck(*X.shape)
@@ -41,7 +40,7 @@ def memory(X, dtype, memcheck):
 	return need, surplus > 0
 
 ###
-def process(f = None, memcheck = None):
+def process(f = None, memcheck = None, square = False):
 	"""
 	[Added 14/11/2018]
 	Decorator onto HyperLearn functions. Does 2 things:
@@ -59,41 +58,54 @@ def process(f = None, memcheck = None):
 	"""
 	###
 	def _float(x):
-		mem = True
-		if type(x) == matrix:
+		m = True
+		a = 0  # if array
+		n = 0  # need memory
+		if type(x) == np.matrix:
 			x = x.A
 		if type(x) in array:
+			a = 1
 			if len(x.shape) > 1:
+				# if matrix has to be a square one:
+				if square:
+					assert x.shape[0] == x.shape[1]
 				d = x.dtype
 				if d not in dtypes:
+					# cast dtype to correct one if not f32, f64, complex
 					dt = str(d)
 					if '64' in dt:
 						x = x.astype(np.float64)
 					elif 'complex' not in dt:
-						x = x.astype(float32)
+						x = x.astype(np.float32)
 				n, m = memory(x, d, memcheck)
-		return x, n, m
+		return x, n, m, a
 	###
 	def decorate(f):
 		@wraps(f)
 		def wrapper(*args, **kwargs):
-			mem = True
+			l, L = len(args), len(kwargs)
+			if l + L == 0:
+				# No arguments seen
+				raise IndexError("Function needs >= 1 function arguments")
+			A = 0  # check how many arrays were seen in arguments
+			mem, skip = True, False
 			args = list(args)
-			skip = False
-			l = len(args)
+			
 			# First check *args list (eg: f(A, B))
 			if l > 0:
 				for i in range(l): 
-					args[i], n, m = _float(args[i])
-					mem &= m
+					args[i], n, m, a = _float(args[i])
+					A += a
+					mem &= m  # memory must work for ALL arguments
 					if not mem:
 						skip = True
 						break
-			l = len(kwargs)
+
 			# Check **kwargs: f(a = A, b = B)
-			if l > 0 and not skip:
+			if L > 0 and not skip:
 				for i in kwargs: 
-					kwargs[i], n, m = _float(kwargs[i])
+					kwargs[i], n, m, a = _float(kwargs[i])
+					A += a
 					mem &= m
 					if not mem:
 						skip = True
@@ -106,7 +118,10 @@ def process(f = None, memcheck = None):
 				
 				raise MemoryError(f"""Operation requires {n} MB, but {free} MB is free,
 				so an extra {u} MB is required.""")
-				
+			if A == 0:
+				# No array was present in arguments
+				raise TypeError(f"No array or matrix was provided as input.")
+			
 			return f(*args, **kwargs)
 		return wrapper
 	
@@ -123,36 +138,36 @@ class lapack(object):
 	input:		1 argument, 2 optional
 	----------------------------------------------------------
 	function:	String for lapack function eg: "getrf"
-	fast:		Boolean to indicate if float32 can be used.
+	turbo:		Boolean to indicate if float32 can be used.
 	numba:		String for numba function.
 
 	returns: 	LAPACK or Numba function.
 	----------------------------------------------------------
 	"""
-	def __init__(self, function, fast = True, numba = None):
+	def __init__(self, function, numba = None, turbo = True):
 		self.function = function
-		self.fast = fast
+		self.turbo = turbo
 		self.f = None
+		self.numba = False
 
 		if numba != None:
-			try: f = eval(f'numba.{function}')
+			try: 
+				self.f = eval(f'_numba.{numba}')
+				self.function = numba
+				self.numba = True
 			except: pass
-			f = eval(f)
-			self.f = f
-
-	def __repr__(self):
-		return f"Calls function {self.function}"
 
 	def __call__(self, *args, **kwargs):
 		if self.f == None:
 			self.f = f"_lapack.d{self.function}"
 			
 			if len(args) == 0:
+				# get first item
 				a = next(iter(kwargs.values()))
 			else:
 				a = args[0]
 			
-			if a.dtype == float32 and self.fast:
+			if a.dtype == np.float32 and self.turbo:
 				self.f = f"_lapack.s{self.function}"
 			self.f = eval(self.f)
 
@@ -175,47 +190,19 @@ class blas(object):
 		self.function = function
 		self.f = None
 
-	def __repr__(self):
-		return f"Calls function {self.function}"
 
 	def __call__(self, *args, **kwargs):
 		if self.f == None:
 			self.f = f"_blas.d{self.function}"
 			
 			if len(args) == 0:
+				# get first item
 				a = next(iter(kwargs.values()))
 			else:
 				a = args[0]
 			
-			if a.dtype == float32:
+			if a.dtype == np.float32:
 				self.f = f"_blas.s{self.function}"
 			self.f = eval(self.f)
 
 		return self.f(*args, **kwargs)
-
-###
-def jit(f, parallel = False):
-	"""
-	[Added 14/11/2018]
-	Decorator onto Numba NJIT compiled code.
-
-	input:		1 argument, 1 optional
-	----------------------------------------------------------
-	function:	Function to decorate
-	parallel:	If true, sets cache automatically to false
-
-	returns: 	CPU Dispatcher function
-	----------------------------------------------------------
-	"""
-	cache = False if parallel else True
-
-	def decorate(f):
-		f = njit(f, fastmath = True, nogil = True, parallel = parallel, cache = cache)
-		@wraps(f)
-		def wrapper(*args, **kwargs):
-			return f(*args, **kwargs)
-		return wrapper
-	
-	if f:
-		return decorate(f)
-	return decorate
