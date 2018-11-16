@@ -1,13 +1,12 @@
 
 from .base import lapack, blas, process
-from .utils import do_until_success
+from .utils import do_until_success, triu
 import scipy.linalg as scipy
 from .numba import jit
-from .utils import triu
 
 ###
-@process(square = True, memcheck = lambda n,p:n**2)
-def cholesky(X, alpha = None, turbo = True):
+@process(square = True, memcheck = "squared")
+def cholesky(X, alpha = None):
 	"""
 	[Added 15/11/2018] [Edited 16/11/2018 Numpy is slower. Uses LAPACK only]
 	Uses Epsilon Jitter Solver to compute the Cholesky Decomposition
@@ -22,12 +21,12 @@ def cholesky(X, alpha = None, turbo = True):
 	returns: 	Upper triangular cholesky factor (U)
 	----------------------------------------------------------
 	"""
-	decomp = lapack("potrf", None, turbo)
-	X = do_until_success(decomp, alpha, X)
-	return X
+	decomp = lapack("potrf", None)
+	U = do_until_success(decomp, alpha, X)
+	return U
 
 ###
-@process(square = True, memcheck = lambda n,p:n)
+@process(square = True, memcheck = "columns")
 def cho_solve(U, rhs, alpha = None):
 	"""
 	[Added 15/11/2018]
@@ -43,12 +42,73 @@ def cho_solve(U, rhs, alpha = None):
 	returns: 	Upper triangular cholesky factor (U)
 	----------------------------------------------------------
 	"""
-	solve = lapack("potrs")
-	theta = solve(U, rhs)[0]
+	theta = lapack("potrs")(U, rhs)[0]
 	return theta
 
 ###
-@process(memcheck = lambda n,p:n*p)
+@process(square = True, memcheck = "squared")
+def cho_inv(U, turbo = True):
+	"""
+	[Added 17/11/2018]
+	Computes an inverse to the Cholesky Decomposition.
+
+	input:		1 argument, 1 optional
+	----------------------------------------------------------
+	X:			Upper Triangular Cholesky Factor U. Use cholesky.
+	turbo:		Boolean to use float32, rather than more accurate float64.
+
+	returns: 	Upper Triangular Inverse(X)
+	----------------------------------------------------------
+	"""
+	inv = lapack("potri", None, turbo)(U)
+	return inv
+
+###
+@process(square = True, memcheck = "full")
+def pinvc(X, alpha = None, turbo = True, n_jobs = 1):
+	"""
+	[Added 17/11/2018]
+	Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
+	Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to
+	gaurantee convergence. Allows Ridge Regularization - default 1e-6.
+
+	input:		1 argument, 3 optional
+	----------------------------------------------------------
+	X:			Upper Triangular Cholesky Factor U. Use cholesky.
+	alpha:		Ridge alpha regularization parameter. Default 1e-6
+	turbo:		Boolean to use float32, rather than more accurate float64.
+	n_jobs:		Number of CPU cores to use. Default 1. WARNING - only use
+				-1, or > 1 when data is very large. Smaller data is slow.
+
+	returns: 	Pseudoinverse of X. Allows X @ pinv(X) = I, pinv(X) @ X = I.
+	----------------------------------------------------------
+	"""
+	n, p = X.shape
+	XXT = True if n >= p else False  # determine under / over-determined
+
+	# determine if matrix is Fortran or C --> want Fortran for speed
+	if X.flags['F_CONTIGUOUS']:
+		a = X
+		XXT = not XXT # negate transpose
+	else:
+		a = X.T
+
+	# get covariance or gram matrix
+	cov = blas("syrk")(a = a, trans = XXT, alpha = 1)
+
+	decomp = lapack("potrf", None)
+	U = do_until_success(decomp, alpha, cov)
+	U = lapack("potri", None, turbo)(U, overwrite_c = True)[0]
+	inv = reflect(U.T, n_jobs = n_jobs)
+
+	# if XXT:
+		
+
+
+
+
+###
+@process(memcheck = ("full", "same", "triu"))
 def lu(X, L_only = False, U_only = False, overwrite = False):
 	"""
 	[Added 16/11/2018]
@@ -99,7 +159,7 @@ def lu(X, L_only = False, U_only = False, overwrite = False):
 		return scipy.lu(X, permute_l = True, check_finite = False, overwrite_a = overwrite)
 
 ###
-@process(memcheck = lambda n,p: max(3*p, 1))  # lwork from Scipy docs
+@process(memcheck = ("full", "same", "triu"))
 def qr(X, Q_only = False, R_only = False, overwrite = False):
 	"""
 	[Added 16/11/2018]
@@ -117,7 +177,6 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 	----------------------------------------------------------
 	"""
 	if Q_only or R_only:
-		# Compute R
 		n, p = X.shape
 		R, tau, __, __ = lapack("geqrf")(X, overwrite_a = overwrite)
 

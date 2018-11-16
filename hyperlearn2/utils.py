@@ -1,6 +1,6 @@
 
 import numpy as np
-from .numba import jit
+from .numba import jit, prange
 dtypes = (np.uint8, np.uint16, np.uint32, np.uint64)
 
 def uint(i):
@@ -25,12 +25,12 @@ def uint(i):
 
 def do_until_success(function, alpha = None, *args, **kwargs):
 	X = args[0]
-	n = X.shape[0]
+	n = X.shape[0] + 1
 	alpha = 1e-6 if alpha == None else alpha
 	old_alpha = 0
 	error = 1
 	while error != 0:
-		X.flat[::n+1] += (alpha - old_alpha)
+		X.flat[::n] += (alpha - old_alpha)
 		try:
 			out = function(*args, **kwargs)
 			if type(out) == tuple:
@@ -46,7 +46,7 @@ def do_until_success(function, alpha = None, *args, **kwargs):
 			old_alpha = alpha
 			alpha *= 10
 
-	X.flat[::n+1] -= alpha
+	X.flat[::n] -= alpha
 	return out
 
 
@@ -65,3 +65,13 @@ def triu(n, p, U):
 	for i in range(1, k):
 		U[i, :i] = 0
 	return U
+
+###
+@jit(parallel = True)
+def _reflect(X):
+	n = len(X)
+	for i in prange(1, n):
+		Xi = X[i]
+		for j in range(i):
+			X[j, i] = Xi[j]
+	return X

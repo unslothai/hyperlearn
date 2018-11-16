@@ -1,13 +1,13 @@
 
 from functools import wraps
-from numba import njit
+from numba import njit, prange
 import numpy as np
 from numpy import linalg
 
 ###
-def jit(f, parallel = False):
+def jit(f = None, parallel = False):
 	"""
-	[Added 14/11/2018]
+	[Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
 	Decorator onto Numba NJIT compiled code.
 
 	input:		1 argument, 1 optional
@@ -18,12 +18,21 @@ def jit(f, parallel = False):
 	returns: 	CPU Dispatcher function
 	----------------------------------------------------------
 	"""
-	cache = False if parallel else True
-
 	def decorate(f):
-		f = njit(f, fastmath = True, nogil = True, parallel = parallel, cache = cache)
+		if parallel:
+			f_multi = njit(f, fastmath = True, nogil = True, parallel = True, cache = False)
+		f_single = njit(f, fastmath = True, nogil = True, parallel = False, cache = True)
+		
 		@wraps(f)
-		def wrapper(*args, **kwargs): return f(*args, **kwargs)
+		def wrapper(*args, **kwargs):
+			# If n_jobs is an argument --> try to execute in parallel
+			if "n_jobs" in kwargs.keys():
+				n_jobs = kwargs["n_jobs"]
+				kwargs.pop("n_jobs")
+			if parallel:
+				if n_jobs < 0 or n_jobs > 1:
+					return f_multi(*args, **kwargs)
+			return f_single(*args, **kwargs)
 		return wrapper
 
 	if f: return decorate(f)
