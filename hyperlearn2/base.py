@@ -6,10 +6,11 @@ from scipy.linalg import lapack as _lapack, blas as _blas
 from . import numba as _numba
 from .numba import _min
 from inspect import signature
+import sys
 
 MAX_MEMORY = 0.94
-lists = set((tuple, list))
-type_function = type(lambda f: 1)
+_is64 = sys.maxsize > (1 << 32)
+maxFloat = np.float64 if _is64 else np.float32
 
 memory_usage = {
 	"full" : 	lambda n,p: n*p + _min(n**2, p**2),
@@ -18,11 +19,12 @@ memory_usage = {
 	"squared" :	lambda n,p: n**2,
 	"columns" :	lambda n,p: p,
 	}
+f_same_memory = memory_usage["same"]
 
 ###
-def memory(X, dtype, memcheck):
+def memory(shape, dtype, memcheck):
 	"""
-	[Added 14/11/2018]
+	[Edited 18/11/2018 Slightly faster]
 	Checks if an operation on a matrix is within memory bounds.
 
 	input:		3 arguments
@@ -37,43 +39,18 @@ def memory(X, dtype, memcheck):
 	surplus:	Boolean - True means within memory bounds.
 	"""
 	if memcheck == None: return 0
-	
-	if dtype == np.float32: byte = 4
-	elif dtype in (np.float64, np.complex64): byte = 8
-	else: byte = 12
+	byte = np.dtype(dtype).itemsize
 
-	shape = X.shape
 	if len(shape) == 1:
 		shape = (1, shape[0])
-	
-	multiplier = memcheck(*shape)
-	if type(multiplier) == tuple:
-		multiplier = multiplier[0]
-	need = (multiplier * byte) >> 20 # 10 == KB, 20 == MB
 
-	# not enough memory, so show MemoryError
-	# Compute memory missing and raise Error if not good.   
-	free = int(virtual_memory().available * MAX_MEMORY) >> 20
-	extra = need-free
-	if need > free:
-		raise MemoryError(f"""Operation requires {need} MB, but {free} MB is free,
-	so an extra {extra} MB is required.""")
+	multiplier = memcheck(*shape)
+	need = (multiplier * byte) >> 20 # 10 == KB, 20 == MB
 	return need
 
 ###
-def arg_process(args, index, need, square):
-	## confirm there are more than 1 matrices
-	## and confirm if matrix is square if optional square argument is True
-	## also check if matrix is type int, uint, and check memory first.
-	dt = None # final dtype conversion
-	isArray = 0 # count number of arrays seen
-	x = args[index]
-	if type(x) == np.matrix:
-		if x.shape[0] == 1:
-			args[index] = x.A1 # flatten down
-		else:
-			args[index] = x.A
-	x = args[index]
+def arg_process(x, square):
+	# Internal checks if object is a matrix and checks the datatype
 	if type(x) == np.ndarray:
 		shape = x.shape
 		if len(shape) > 1:
@@ -83,39 +60,26 @@ def arg_process(args, index, need, square):
 					raise AssertionError(f"2D array is not square. Dimensions seen are {shape}.")
 			# if float:
 			dtype, dt = x.dtype, x.dtype
-			same = memory_usage["same"]
-			if dtype == np.float16:
-				# float16 is not supported on CPU
-				dt = np.float32
+			if dtype == np.float32 or dtype == maxFloat or np.issubdtype(dtype, np.complexfloating):
+				return 0, False
 			elif np.issubdtype(dtype, np.integer):
 				# conversion is needed, so check memory
-				dt = np.float64 if dtype in (np.uint64, np.int64) else np.float32
-			elif np.issubdtype(dtype, np.complexfloating) or np.issubdtype(dtype, np.floating):
-				pass
+				dt = maxFloat if (dtype == np.uint64 or dtype == np.int64) else np.float32
+			elif dtype == np.float16:
+				# float16 is not supported on CPU
+				dt = np.float32
 			else:
 				# not any numerical data dtype
 				raise TypeError(f"Data type of {dtype} is not a numerical type.")
-			if dt != dtype:	
-				need += memory(x, dt, same)
-			isArray = 1
-	return dt, isArray
-
-###
-def arg_memory(data, x, data_dtype, check, memory_size):
-	# now check memory allocation for algorithm
-	need = 0
-	if memory_size > 0:
-		if type(x) == bool:
-			if x:
-				need = memory(data, data_dtype, check)
-		elif x is data:
-			need = memory(data, data_dtype, check)
-	return need
+			# calculate memory usage if dtype needs to be converted
+			if dt != dtype:
+				return memory(shape, dt, f_same_memory), dt
+	return 0, None
 
 ###
 def process(f = None, memcheck = None, square = False):
 	"""
-	[Added 14/11/2018]
+	[Added 14/11/2018] [Edited 18/11/2018 for speed]
 	Decorator onto HyperLearn functions. Does 2 things:
 	1. Convert datatypes to appropriate ones
 	2. Convert matrices to arrays
@@ -132,142 +96,156 @@ def process(f = None, memcheck = None, square = False):
 	# convert all memory arguments to function checks
 	if memcheck != None:
 		if type(memcheck) == str:
-			memcheck = [memcheck]
-		if type(memcheck) in lists:
-			memcheck = list(memcheck)
-			for i, m in enumerate(memcheck):
-				if type(memcheck[i]) != type_function:
-					try:
-						memcheck[i] = memory_usage[m]
-					except:
-						memcheck[i] = memory_usage["full"]
+			memcheck = {"X":memcheck}
+		if type(memcheck) == dict:
+			for key in memcheck:
+				try:
+					memcheck[key] = memory_usage[memcheck[key]]
+				except:
+					raise KeyError(f"Memory usage argument for {key} not recognised.")
 	###
 	def decorate(f):
 		# get function signature
-		layout = signature(f)
-		function_kwargs = set(layout.parameters.keys())
+		memory_length = len(memcheck)
+		memory_keys = list(memcheck.keys())
+		function_signature = signature(f)
+		function_args = function_signature.parameters
 
 		@wraps(f)
 		def wrapper(*args, **kwargs):
-			memory_size = len(memcheck)
-			## confirm there exists >= 1 arguments
-			l, L = len(args), len(kwargs)
+			no_args = len(function_args)
+			l = len(args)
+			L = len(kwargs)
 			size = l + L
-			if size == 0:
+
+			if size == 0 or l == 0:
 				# No arguments seen
 				raise IndexError("Function needs >= 1 function arguments.")
 
 			# determine if kwargs names are within the scope of the function
-			length = len(function_kwargs)
-			if size > length:
-				raise IndexError(f"Function has too many inputs. Only {length} is needed.")
+			if size > no_args:
+				raise IndexError(f"Function has too many inputs. Only {no_args} is needed.")
+				
+			# check if first item is an array
+			X = args[0]
+			if type(X) == np.matrix:
+				if X.shape[0] == 1:
+					X = X.A1 # flatten down
+				else:
+					X = X.A
+				args[0] = X
+			if type(X) != np.ndarray:
+				raise IndexError("First argument is not a 2D array. Must be an array.")
+
+			# check booleans and if an array is seen
+			otherYes = 0
+			duplicate = np.zeros(l, dtype = bool)
+
+			for i,x in enumerate(args):
+				if type(x) == bool:
+					kwargs[memory_keys[i]] = x
+					otherYes += x
+					duplicate[i] = True
+
+			# check function arguments
 			for x in kwargs:
-				if x not in function_kwargs:
-					raise NameError(f"Argument '{x}' is not recognised in function. Function accepted signature is {layout}.")
-
-			need = 0 # total memory needed
-			arg = 0 # keep track of which argument
-			new_datatypes = [] # convert old data with new dtypes
-			data, data_type = None, None
-			seenArray = 0 # needs to be >= 1
-			if l > 0:
-				for i in range(l):
-					dt, isArray = arg_process(args, i, need, square)
-					new_datatypes.append(dt)
-					seenArray += isArray
-
-					if arg == 0:
-						data = args[i]
-						data_type = new_datatypes[-1]
-						arg = 1
-
-			if L > 0:
-				for x in kwargs:
-					dt, isArray = arg_process(kwargs, x, need, square)
-					new_datatypes.append(dt)
-					seenArray += isArray
-
-					if arg == 0:
-						data = kwargs[x]
-						data_type = new_datatypes[-1]
-						arg = 1
-
-			# if no arrays seen, raise error
-			if seenArray == 0:
-				raise IndexError("Function needs >= 1 2D arrays as input. Now, 0 is seen.")
-			# also, first item must be an array:
-			if data_type is None:
-				raise IndexError("First argument is not an array. Must be an array.")
-
-			# check algorithm memory allocation:
-			# first check if boolean arguments are provided beforehand.
-			seenBool = False
-			for i in range(l):
-				a = args[i]
-				if type(a) == bool:
-					seenBool |= a
-			for x in kwargs:
-				a = kwargs[x]
-				if type(a) == bool:
-					seenBool |= a
-
-			# now if seenBool is True, then skip first memcheck
-			if seenBool:
-				if l > 0:
-					l -= 1
-				elif L > 0:
-					L -= 1
-				arg = 1
-				memory_size -= 1
+				try:
+					check_arg = function_args[x]
+					t = kwargs[x]
+					if type(t) == bool:
+						otherYes += t
+				except:
+					raise NameError("Argument '{x}' is not recognised in function. "
+					f"Function accepted signature is {function_signature}.")
+					
+			# update X memory check
+			if otherYes == memory_length-1 or otherYes == 0:
+				for i in kwargs:
+					t = kwargs[i]
+					if type(t) == bool:
+						kwargs[i] = False # set to all False
+				kwargs["X"] = True # all true
 			else:
-				arg = 0
+				kwargs["X"] = False
+				
+			# kwargs leftovers
+			for x in memory_keys:
+				try:
+					i = kwargs[x]
+				except:
+					kwargs[x] = False
+				
+			# Now check data types of arrays
+			need = 0 # how much memory needed
+			new_dtypes = [] # new datatypes
 
-			# now check if memory can be allocated
-			if memory_size > 0:
-				if l > 0:
-					for i in range(l):
-						need += arg_memory(data, args[i], data_type, memcheck[arg], memory_size)
-						memory_size -= 1
-						arg += 1
-						if memory_size == 0: break
-				if L > 0 and memory_size > 0:
-					for x in kwargs:
-						need += arg_memory(data, kwargs[x], data_type, memcheck[arg], memory_size)
-						memory_size -= 1
-						arg += 1
-						if memory_size == 0: break
+			for i in range(l):
+				x = args[i]
+				if i != 0:
+					if type(x) == np.matrix:
+						args[i] = x.A1 if x.shape[0] == 1 else x.A
+						x = args[i]
+				n, dtype = arg_process(x, square)
+				if i == 0:
+					if dtype == False:
+						X_dtype = x.dtype
+						dtype = None
+					else:
+						X_dtype = dtype
+				need += n
+				new_dtypes.append(dtype)
+				
+			for i in kwargs:
+				x = kwargs[i]
+				if type(x) == np.matrix:
+					kwargs[i] = x.A1 if x.shape[0] == 1 else x.A
+					x = kwargs[i]
+				n, dtype = arg_process(x, square)
+				need += n
+				new_dtypes.append(dtype)
+				
 
-
-			# check final total memory
-			free = int(virtual_memory().available * MAX_MEMORY) >> 20
-			extra = need-free
-			if need > free:
-				raise MemoryError(f"""Operation requires {need} MB, but {free} MB is free,
-			so an extra {extra} MB is required.""")
-
-			# since memory is good, change datatypes
+			# check X satisfying boolean arguments in order of importance
+			shape = X.shape
+			for i in memory_keys:
+				if kwargs[i] == True:
+					need += memory(shape, X_dtype, memcheck[i])
+					break
+				
+			# confirm memory is enough for data conversion
+			if need > 0:
+				free = int(virtual_memory().available * MAX_MEMORY) >> 20
+				if need > free:
+					raise MemoryError(f"Operation requires {need} MB, but {free} MB is free, "
+				f"so an extra {need-free} MB is required.")
+					
+			# convert data dtypes
 			arg = 0
-			if l > 0:
-				for i in range(l):
-					dt = new_datatypes[arg]
-					if dt is None:
-						args[i] = args[i].astype(dt)
-						arg += 1
-
-			if L > 0:
-				for x in kwargs:
-					dt = new_datatypes[arg]
-					if dt is None:
-						kwargs[x] = kwargs[x].astype(dt)
-						arg += 1
+			for i in range(l):
+				dtype = new_dtypes[arg]
+				if dtype != None:
+					args[i] = args[i].astype(dtype)
+				arg += 1
+			for i in kwargs:
+				dtype = new_dtypes[arg]
+				if dtype != None:
+					kwargs[i] = kwargs[i].astype(dtype)
+				arg += 1
+				
+			# clean up args so no duplicates are seen
+			l -= 1
+			while l > 0:
+				if duplicate[l]:
+					del args[l]
+				l -= 1
+			del kwargs["X"]  # no need for first argument
 
 			# finally execute function
 			try:
 				return f(*args, **kwargs)
 			except MemoryError:
 				# Memory Error again --> didnt catch
-				raise MemoryError(f"""Operation requires more than {free} MB, which
-				which more than system resources.""")
+				raise MemoryError(f"Operation requires more memory than what the system resources offer.")
 		return wrapper
 
 	if f:
@@ -275,7 +253,7 @@ def process(f = None, memcheck = None, square = False):
 	return decorate
 	
 ###
-class lapack(object):
+class lapack():
 	"""
 	[Added 14/11/2018]
 	Get a LAPACK function based on the dtype(X). Acts like Scipy's get lapack function.
@@ -293,37 +271,35 @@ class lapack(object):
 		self.function = function
 		self.turbo = turbo
 		self.f = None
-		self.numba = False
 
 		if numba != None:
 			try: 
 				self.f = eval(f'_numba.{numba}')
 				self.function = numba
-				self.numba = True
 			except: pass
 
 	def __call__(self, *args, **kwargs):
 		if self.f == None:
-			self.f = f"_lapack.d{self.function}"
-			
-			if len(args) == 0:
-				# get first item
-				a = next(iter(kwargs.values()))
+
+			if len(args) > 0:
+				dtype = args[0].dtype
 			else:
-				a = args[0]
+				dtype = next(iter(kwargs.values())).dtype
 			
-			if a.dtype == np.float32 and self.turbo:
+			if dtype == np.float32 and self.turbo:
 				self.f = f"_lapack.s{self.function}"
-			elif a.dtype == np.complex64:
+			elif dtype == np.float64 or not self.turbo:
+				self.f = f"_lapack.d{self.function}"
+			elif dtype == np.complex64:
 				self.f = f"_lapack.c{self.function}"
-			elif a.dtype == np.complex128:
+			else:
 				self.f = f"_lapack.z{self.function}"
 			self.f = eval(self.f)
 
 		return self.f(*args, **kwargs)
 
 ###
-class blas(object):
+class blas():
 	"""
 	[Added 14/11/2018]
 	Get a BLAS function based on the dtype(X). Acts like Scipy's get blas function.
@@ -339,22 +315,20 @@ class blas(object):
 		self.function = function
 		self.f = None
 
-
 	def __call__(self, *args, **kwargs):
 		if self.f == None:
-			self.f = f"_blas.d{self.function}"
-			
-			if len(args) == 0:
-				# get first item
-				a = next(iter(kwargs.values()))
+			if len(args) > 0:
+				dtype = args[0].dtype
 			else:
-				a = args[0]
+				dtype = next(iter(kwargs.values())).dtype
 			
-			if a.dtype == np.float32:
+			if dtype == np.float32:
 				self.f = f"_blas.s{self.function}"
-			elif a.dtype == np.complex64:
+			elif dtype == np.float64:
+				self.f = f"_blas.d{self.function}"
+			elif dtype == np.complex64:
 				self.f = f"_blas.c{self.function}"
-			elif a.dtype == np.complex128:
+			else:
 				self.f = f"_blas.z{self.function}"
 			self.f = eval(self.f)
 

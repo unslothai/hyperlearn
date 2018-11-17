@@ -26,7 +26,7 @@ def uint(i):
 def do_until_success(function, alpha = None, *args, **kwargs):
 	X = args[0]
 	n = X.shape[0] + 1
-	alpha = 1e-6 if alpha == None else alpha
+	alpha = 1e-8 if alpha == None else alpha
 	old_alpha = 0
 	error = 1
 	while error != 0:
