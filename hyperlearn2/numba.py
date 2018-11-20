@@ -29,9 +29,9 @@ def jit(f = None, parallel = False):
 			if "n_jobs" in kwargs.keys():
 				n_jobs = kwargs["n_jobs"]
 				kwargs.pop("n_jobs")
-			if parallel:
-				if n_jobs < 0 or n_jobs > 1:
-					return f_multi(*args, **kwargs)
+				if parallel:
+					if n_jobs < 0 or n_jobs > 1:
+						return f_multi(*args, **kwargs)
 			return f_single(*args, **kwargs)
 		return wrapper
 
@@ -40,7 +40,8 @@ def jit(f = None, parallel = False):
 
 
 @jit
-def svd(X): return linalg.svd(X, full_matrices = False)
+def svd(X, full_matrices = False): 
+	return linalg.svd(X, full_matrices = full_matrices)
 
 @jit
 def pinv(X): return linalg.pinv(X)
@@ -108,6 +109,7 @@ y64 = np.ones(2, dtype = np.float64)
 
 X = np.eye(2, dtype = np.float32)
 A = svd(X)
+A = svd(X, False)
 A = eigh(X)
 # A = cholesky(X)
 A = pinv(X)
@@ -144,6 +146,7 @@ A = _sign(1.2)
 
 X = np.eye(2, dtype = np.float64)
 A = svd(X)
+A = svd(X, False)
 A = eigh(X)
 # A = cholesky(X)
 A = pinv(X)

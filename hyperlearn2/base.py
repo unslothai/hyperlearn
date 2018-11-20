@@ -14,12 +14,14 @@ maxFloat = np.float64 if _is64 else np.float32
 
 memory_usage = {
 	"full" : 	lambda n,p: n*p + _min(n**2, p**2),
+	"extended":	lambda n,p: n*p + _min(n**2, p**2) + _min(n, p),
 	"same" : 	lambda n,p: n*p,
 	"triu" : 	lambda n,p: p**2 if p < n else n*p,
 	"squared" :	lambda n,p: n**2,
 	"columns" :	lambda n,p: p,
 	}
 f_same_memory = memory_usage["same"]
+
 
 ###
 def memory(shape, dtype, memcheck):
@@ -311,9 +313,10 @@ class blas():
 	returns: 	BLAS function
 	----------------------------------------------------------
 	"""
-	def __init__(self, function):
+	def __init__(self, function, left = ""):
 		self.function = function
 		self.f = None
+		self.left = left
 
 	def __call__(self, *args, **kwargs):
 		if self.f == None:
@@ -323,13 +326,14 @@ class blas():
 				dtype = next(iter(kwargs.values())).dtype
 			
 			if dtype == np.float32:
-				self.f = f"_blas.s{self.function}"
+				self.f = f"_blas.{self.left}s{self.function}"
 			elif dtype == np.float64:
-				self.f = f"_blas.d{self.function}"
+				self.f = f"_blas.{self.left}d{self.function}"
 			elif dtype == np.complex64:
-				self.f = f"_blas.c{self.function}"
+				self.f = f"_blas.{self.left}c{self.function}"
 			else:
-				self.f = f"_blas.z{self.function}"
+				self.f = f"_blas.{self.left}z{self.function}"
 			self.f = eval(self.f)
 
 		return self.f(*args, **kwargs)
+
