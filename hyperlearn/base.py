@@ -1,226 +1,375 @@
-from torch import from_numpy as _Tensor, einsum as t_einsum, \
-				transpose as __transpose, Tensor as typeTensor, stack as __stack, \
-				float32, int32
-from functools import wraps    
-from numpy import finfo as np_finfo, einsum as np_einsum, log as np_log, array as np_array
-from numpy import float32 as np_float32, float64 as np_float64, int32 as np_int32, \
-					int64 as np_int64, bool_ as np_bool, uint8 as np_uint8, ndarray, \
-					round as np_round
-from numpy import newaxis
-from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
-from inspect import isclass as isClass
-from torch import matmul as torch_dot, diag, ones
-from numpy import diag as np_diag, ones as np_ones # dot as np_dot
 
-USE_NUMPY_EINSUM = True
-PRINT_ALL_WARNINGS = False
-USE_GPU = False
-ALPHA_DEFAULT = 0.00001
-USE_NUMBA = True
+from functools import wraps
+from psutil import virtual_memory
+import numpy as np
+from scipy.linalg import lapack as _lapack, blas as _blas
+from . import numba as _numba
+from .numba import _min
+from inspect import signature
+import sys
+from array import array
 
-"""
-------------------------------------------------------------
-Type Checks
-Updated 27/8/2018
-------------------------------------------------------------
-"""
-FloatInt = (float, int)
-ListTuple = (list, tuple)
-ArrayType = (np_array, ndarray)
-KeysValues = ( type({}.keys()), type({}.values()), dict )
+MAX_MEMORY = 0.94
+_is64 = sys.maxsize > (1 << 32)
+maxFloat = np.float64 if _is64 else np.float32
 
-def isList(X):
-	return type(X) in ListTuple
-
-def isArray(X):
-	return type(X) in ArrayType
-
-def isIterable(X):
-	if isArray(X):
-		if len(X.shape) == 1: return True
-	return isList(X)
-
-def isDict(X):
-	return type(X) in KeysValues
-
-def array(X):
-	if isDict(X):
-		X = list(X)
-	return np_array(X)
-
-def Tensor(X):
-	if type(X) is typeTensor:
-		return X
-	if isDict(X):
-		X = list(X)
-	if isList(X):
-		X = np_array(X)
-	try:
-		if X.dtype == np_bool:
-			X = X.astype(np_uint8)
-		return _Tensor(X)
-	except:
-		return X
-
-def isTensor(X):
-	return type(X) is typeTensor
+memory_usage = {
+	"full" : 	lambda n,p: n*p + _min(n**2, p**2),
+	"extended":	lambda n,p: n*p + _min(n**2, p**2) + _min(n, p),
+	"same" : 	lambda n,p: n*p,
+	"triu" : 	lambda n,p: p**2 if p < n else n*p,
+	"squared" :	lambda n,p: n**2,
+	"columns" :	lambda n,p: p,
+	"extra" :	lambda n,p: n**2 + _min(n, p)
+	}
+f_same_memory = memory_usage["same"]
 
 
-def Tensors(*args):
-	out = []
-	for x in args:
-		if x is None: out.append(None)
-		if isTensor(x):
-			out.append(  x  )
-		else:
-			out.append(  Tensor(x)  )
-	return out
+###
+def available_memory():
+	return int(virtual_memory().available * MAX_MEMORY) >> 20
+
+###
+def memory(shape, dtype, memcheck):
+	"""
+	[Edited 18/11/2018 Slightly faster]
+	Checks if an operation on a matrix is within memory bounds.
+
+	input:		3 arguments
+	----------------------------------------------------------
+	X:			Input matrix
+	dtype:		Input datatype(matrix)
+	memcheck:	lambda n,p: ... function or f(n,p)
+
+	returns: 	2 arguments
+	----------------------------------------------------------
+	need:		Total memory required for operation
+	surplus:	Boolean - True means within memory bounds.
+	"""
+	if memcheck == None: return 0
+	byte = np.dtype(dtype).itemsize
+
+	if len(shape) == 1:
+		shape = (1, shape[0])
+
+	multiplier = memcheck(*shape)
+	need = (multiplier * byte) >> 20 # 10 == KB, 20 == MB
+	return need
+
+###
+def arg_process(x, square):
+	# Internal checks if object is a matrix and checks the datatype
+	if type(x) == np.ndarray:
+		shape = x.shape
+		if len(shape) > 1:
+			if square:
+				# matrix must be a square one (n == p)
+				if shape[0] != shape[1]:
+					raise AssertionError(f"2D array is not square. Dimensions seen are {shape}.")
+			# if float:
+			dtype, dt = x.dtype, x.dtype
+			if dtype == np.float32 or dtype == maxFloat or np.issubdtype(dtype, np.complexfloating):
+				return 0, False
+			elif np.issubdtype(dtype, np.integer):
+				# conversion is needed, so check memory
+				dt = maxFloat if (dtype == np.uint64 or dtype == np.int64) else np.float32
+			elif dtype == np.float16:
+				# float16 is not supported on CPU
+				dt = np.float32
+			else:
+				# not any numerical data dtype
+				raise TypeError(f"Data type of {dtype} is not a numerical type.")
+			# calculate memory usage if dtype needs to be converted
+			if dt != dtype:
+				return memory(shape, dt, f_same_memory), dt.char
+	return 0, '?'
+
+###
+def process(f = None, memcheck = None, square = False):
+	"""
+	[Added 14/11/2018] [Edited 18/11/2018 for speed]
+	Decorator onto HyperLearn functions. Does 2 things:
+	1. Convert datatypes to appropriate ones
+	2. Convert matrices to arrays
+	3. (Optional) checks memory bounds.
+
+	input:		1 argument, 1 optional
+	----------------------------------------------------------
+	f:			The function to be decorated
+	memcheck:	lambda n,p: ... function or f(n,p)
+
+	returns: 	X arguments from function f
+	----------------------------------------------------------
+	"""
+	# convert all memory arguments to function checks
+	if memcheck != None:
+		if type(memcheck) == str:
+			memcheck = {"X":memcheck}
+		if type(memcheck) == dict:
+			for key in memcheck:
+				try:
+					memcheck[key] = memory_usage[memcheck[key]]
+				except:
+					raise KeyError(f"Memory usage argument for {key} not recognised.")
+	###
+	def decorate(f):
+		# get function signature
+		memory_length = len(memcheck)
+		memory_keys = list(memcheck.keys())
+		function_signature = signature(f)
+		function_args = function_signature.parameters
+
+		@wraps(f)
+		def wrapper(*args, **kwargs):
+			no_args = len(function_args)
+
+			# check if alpha is in function:
+			whereAlpha = 0
+			hasAlpha = False
+			for i in function_args: # O(n)
+				if i == "alpha": 
+					hasAlpha = True
+					break
+				whereAlpha += 1
 
 
-def Numpy(*args):
-	out = []
-	if isList(args[0]):
-		args = args[0]
+			l = len(args)
+			L = len(kwargs)
+			size = l + L
 
-	for x in args:
-		if x is None: out.append(None)
-		if isTensor(x):
-			out.append(  x.numpy()  )
-		else:
-			out.append(  x  )
-	return out
+			if size == 0:
+				# No arguments seen
+				raise IndexError("Function needs >= 1 function arguments.")
 
+			# determine if kwargs names are within the scope of the function
+			if size > no_args:
+				raise IndexError(f"Function has too many inputs. Only {no_args} is needed.")
+				
+			# check if first item is an array
+			X = args[0]
+			if type(X) == np.matrix:
+				if X.shape[0] == 1:
+					X = X.A1 # flatten down
+				else:
+					X = X.A
+				args[0] = X
+			if type(X) != np.ndarray:
+				raise IndexError("First argument is not a 2D array. Must be an array.")
 
-def return_numpy(args):
-	args = [args] if not isList(args) else args
-	result = Numpy(*args)
-	if len(result) == 1:
-		return result[0]
-	else:
-		return tuple(result)
+			# check alpha
+			if l > whereAlpha:
+				if args[whereAlpha] is None:
+					args[whereAlpha] = 1e-8
+				hasAlpha = False
 
-def return_torch(args):
-	args = [args] if not isList(args) else args
-	result = Tensors(*args)
-	if len(result) == 1:
-		return result[0]
-	else:
-		return tuple(result)
+			# check booleans and if an array is seen
+			otherYes = 0
+			duplicate = array('b')
 
-"""
-------------------------------------------------------------
-Decorators:
-	check
-Updated 31/8/2018
-------------------------------------------------------------
-"""
+			for i,x in enumerate(args):
+				if type(x) == bool:
+					kwargs[memory_keys[i]] = x
+					otherYes += x
+					duplicate.append(True)
+				else:
+					duplicate.append(False)
 
-def check(f):
-	@wraps(f)
-	def wrapper(*args, **kwargs):
-		if USE_GPU:
-			if isClass(args[0]):
-				returned = f(args[0], *Tensors(*args[1:]), **kwargs)
-			returned = f(*Tensors(*args), **kwargs)
-			return return_torch(returned)
+			# check function arguments
+			for x in kwargs:
+				# check alpha
+				try:
+					check_arg = function_args[x]
+					t = kwargs[x]
+					if type(t) == bool:
+						otherYes += t
+					if hasAlpha:
+						if x == "alpha":
+							if t is None:
+								kwargs[x] = 1e-8
+							hasAlpha = False
+				except:
+					raise NameError("Argument '{x}' is not recognised in function. "
+					f"Function accepted signature is {function_signature}.")
 
-		returned = f(*args, **kwargs)
-		return return_numpy(returned)
-	return wrapper
+					
+			# update X memory check
+			if otherYes == memory_length-1 or otherYes == 0:
+				for i in kwargs:
+					t = kwargs[i]
+					if type(t) == bool:
+						kwargs[i] = False # set to all False
+				kwargs["X"] = True # all true
+			else:
+				kwargs["X"] = False
+				
+			# kwargs leftovers
+			for x in memory_keys:
+				try:
+					i = kwargs[x]
+				except:
+					kwargs[x] = False
+				
+			# Now check data types of arrays
+			need = 0 # how much memory needed
+			new_dtypes = array('u') # new datatypes
 
-"""
-------------------------------------------------------------
-Matrix Manipulation
-	>>> Now can specify the backend either GPU or CPU
-	>>> Note on CPU --> Numpy is considerably faster
-		when X(n,p) p>>n
-Updated 30/8/2018
-------------------------------------------------------------
-"""
-#dot = torch_dot if USE_GPU else np_dot
+			for i in range(l):
+				x = args[i]
+				if i != 0:
+					if type(x) == np.matrix:
+						args[i] = x.A1 if x.shape[0] == 1 else x.A
+						x = args[i]
+				n, dtype = arg_process(x, square)
+				if i == 0:
+					if dtype == False:
+						X_dtype = x.dtype
+						dtype = '?'
+					else:
+						X_dtype = dtype
+				need += n
+				new_dtypes.append(dtype)
+				
+			for i in kwargs:
+				x = kwargs[i]
+				if type(x) == np.matrix:
+					kwargs[i] = x.A1 if x.shape[0] == 1 else x.A
+					x = kwargs[i]
+				n, dtype = arg_process(x, square)
+				need += n
+				new_dtypes.append(dtype)
+				
 
-def T(X):
-	A = X.reshape(-1,1) if len(X.shape) == 1 else X
-	if USE_GPU: return A.t()
-	return A.T
+			# check X satisfying boolean arguments in order of importance
+			shape = X.shape
+			for i in memory_keys:
+				if kwargs[i] == True:
+					need += memory(shape, X_dtype, memcheck[i])
+					break
+				
+			# confirm memory is enough for data conversion
+			if need > 0:
+				free = available_memory()
+				if need > free:
+					raise MemoryError(f"Operation requires {need} MB, but {free} MB is free, "
+				f"so an extra {need-free} MB is required.")
+					
+			# convert data dtypes
+			arg = 0
+			for i in range(l):
+				dtype = new_dtypes[arg]
+				if dtype != '?':
+					args[i] = args[i].astype(dtype)
+				arg += 1
+			for i in kwargs:
+				dtype = new_dtypes[arg]
+				if dtype != '?':
+					kwargs[i] = kwargs[i].astype(dtype)
+				arg += 1
+				
+			# clean up args so no duplicates are seen
+			l -= 1
+			while l > 0:
+				if duplicate[l]:
+					del args[l]
+				l -= 1
+			del kwargs["X"]  # no need for first argument
 
-def cast(X, dtype):
-	if USE_GPU: return X.type(dtype)
-	return X.astype(dtype)
+			# update kwargs if alpha not seen in args or kwargs:
+			if hasAlpha:
+				kwargs["alpha"] = 1e-8
 
-#def ravel(X):
-#	if USE_GPU: return X.unsqueeze(1)
-#	return X.ravel()
+			# finally execute function
+			try:
+				return f(*args, **kwargs)
+			except MemoryError:
+				# Memory Error again --> didnt catch
+				raise MemoryError(f"Operation requires more memory than what the system resources offer.")
+		return wrapper
 
-def constant(X):
-	if USE_GPU: return X.item()
-	return X
-
-def eps(X):
-	try:
-		return np_finfo(dtype(X)).eps
-	except:
-		return np_finfo(np_float64).eps
-
-def resolution(X):
-	try:
-		return np_finfo(dtype(X)).resolution
-	except:
-		return np_finfo(np_float32).resolution
+	if f:
+		return decorate(f)
+	return decorate
 	
+###
+class lapack():
+	"""
+	[Added 14/11/2018]
+	Get a LAPACK function based on the dtype(X). Acts like Scipy's get lapack function.
 
-def dtype(tensor):
-	string = str(tensor.dtype)
-	if 'float32' in string: return np_float32
-	elif 'float64' in string: return np_float64
-	elif 'int32' in string: return np_int32
-	elif 'int64' in string: return np_int64
-	else: return np_float32
-	
+	input:		1 argument, 2 optional
+	----------------------------------------------------------
+	function:	String for lapack function eg: "getrf"
+	turbo:		Boolean to indicate if float32 can be used.
+	numba:		String for numba function.
 
-def stack(*args):
-	if isList(args[0]): args = args[0]
-	toStack = Tensors(*args)
-	return __stack(toStack)
+	returns: 	LAPACK or Numba function.
+	----------------------------------------------------------
+	"""
+	def __init__(self, function, numba = None, turbo = True):
+		self.function = function
+		self.turbo = turbo
+		self.f = None
 
-"""
-------------------------------------------------------------
-EINSUM, Einstein Notation Summation
-Updated 28/8/2018
-------------------------------------------------------------
-"""
-def einsum(notation, *args, tensor = False):
-	if USE_NUMPY_EINSUM:
-		args = Numpy(*args)
-		out = np_einsum(notation, *args)
-	else:
-		args = Tensors(*args)
-		try:
-			out = t_einsum(notation, *args)
-		except:
-			out = t_einsum(notation, args)
-	if tensor:
-		return Tensor(out)
-	return out
+		if numba != None:
+			try: 
+				self.f = eval(f'_numba.{numba}')
+				self.function = numba
+			except: pass
 
+	def __call__(self, *args, **kwargs):
+		if self.f == None:
 
-def squareSum(X):
-	if len(X.shape) == 1:
-		return einsum('i,i->', X, X)
-	return einsum('ij,ij->i', X, X )
+			if len(args) > 0:
+				dtype = args[0].dtype
+			else:
+				dtype = next(iter(kwargs.values())).dtype
+			
+			if dtype == np.float32 and self.turbo:
+				self.f = f"_lapack.s{self.function}"
+			elif dtype == np.float64 or not self.turbo:
+				self.f = f"_lapack.d{self.function}"
+			elif dtype == np.complex64:
+				self.f = f"_lapack.c{self.function}"
+			else:
+				self.f = f"_lapack.z{self.function}"
+			self.f = eval(self.f)
 
+		return self.f(*args, **kwargs)
 
-def rowSum(X, Y = None, transpose_a = False):
-	if Y is None:
-		return einsum('ij->i',X)
-	if transpose_a:
-		return einsum('ji,ij->i', X , Y )
-	return einsum('ij,ij->i', X , Y )
+###
+class blas():
+	"""
+	[Added 14/11/2018]
+	Get a BLAS function based on the dtype(X). Acts like Scipy's get blas function.
 
+	input:		1 argument
+	----------------------------------------------------------
+	function:	String for blas function eg: "getrf"
 
-def diagSum(X, Y, transpose_a = False):
-	if transpose_a:
-		return einsum('ji,ij->', X , Y )
-	return einsum('ij,ij->', X , Y )
+	returns: 	BLAS function
+	----------------------------------------------------------
+	"""
+	def __init__(self, function, left = ""):
+		self.function = function
+		self.f = None
+		self.left = left
 
+	def __call__(self, *args, **kwargs):
+		if self.f == None:
+			if len(args) > 0:
+				dtype = args[0].dtype
+			else:
+				dtype = next(iter(kwargs.values())).dtype
+			
+			if dtype == np.float32:
+				self.f = f"_blas.{self.left}s{self.function}"
+			elif dtype == np.float64:
+				self.f = f"_blas.{self.left}d{self.function}"
+			elif dtype == np.complex64:
+				self.f = f"_blas.{self.left}c{self.function}"
+			else:
+				self.f = f"_blas.{self.left}z{self.function}"
+			self.f = eval(self.f)
+
+		return self.f(*args, **kwargs)
 

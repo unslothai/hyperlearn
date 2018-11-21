@@ -1,57 +1,68 @@
 
-from numpy import ones, eye, float32, float64, \
-				sum as __sum, arange as _arange, sign as __sign, uint as _uint, \
-				abs as __abs, minimum as _minimum, maximum as _maximum
-from numpy.linalg import svd as _svd, pinv as _pinv, eigh as _eigh, \
-					cholesky as _cholesky, lstsq as _lstsq, qr as _qr, \
-					norm as _norm
+from functools import wraps
 from numba import njit, prange
-from .base import USE_NUMBA
+import numpy as np
+from numpy import linalg
 
-__all__ = ['svd', 'pinv', 'eigh', 'cholesky', 'lstsq', 'qr','norm',
-			'mean', '_sum', 'sign', 'arange', '_abs', 'minimum', 'maximum',
-			'multsum', 'squaresum', '_sign']
+###
+def jit(f = None, parallel = False):
+	"""
+	[Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
+	Decorator onto Numba NJIT compiled code.
 
+	input:		1 argument, 1 optional
+	----------------------------------------------------------
+	function:	Function to decorate
+	parallel:	If true, sets cache automatically to false
 
-@njit(fastmath = True, nogil = True, cache = True)
-def svd(X):
-	return _svd(X, full_matrices = False)
+	returns: 	CPU Dispatcher function
+	----------------------------------------------------------
+	"""
+	def decorate(f):
+		if parallel:
+			f_multi = njit(f, fastmath = True, nogil = True, parallel = True, cache = False)
+		f_single = njit(f, fastmath = True, nogil = True, parallel = False, cache = True)
+		
+		@wraps(f)
+		def wrapper(*args, **kwargs):
+			# If n_jobs is an argument --> try to execute in parallel
+			if "n_jobs" in kwargs.keys():
+				n_jobs = kwargs["n_jobs"]
+				kwargs.pop("n_jobs")
+				if parallel:
+					if n_jobs < 0 or n_jobs > 1:
+						return f_multi(*args, **kwargs)
+			return f_single(*args, **kwargs)
+		return wrapper
 
-
-@njit(fastmath = True, nogil = True, cache = True)
-def pinv(X):
-	return _pinv(X)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def eigh(XTX):
-	return _eigh(XTX)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def cholesky(XTX):
-	return _cholesky(XTX)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def lstsq(X, y):
-	return _lstsq(X, y.astype(X.dtype))[0]
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def qr(X):
-	return _qr(X)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def norm(v, d = 2):
-	return _norm(v, d)
+	if f: return decorate(f)
+	return decorate
 
 
-@njit(fastmath = True, nogil = True, cache = True)
-def _0mean(X, axis = 0):
-	return __sum(X, axis)/X.shape[axis]
+@jit
+def svd(X, full_matrices = False): 
+	return linalg.svd(X, full_matrices = full_matrices)
 
+@jit
+def pinv(X): return linalg.pinv(X)
+
+@jit
+def eigh(X): return linalg.eigh(X)
+
+# @jit
+# def cholesky(X): return linalg.cholesky(X)
+
+@jit
+def lstsq(X, y): return linalg.lstsq(X, y.astype(X.dtype))[0]
+
+@jit
+def qr(X): return linalg.qr(X)
+
+@jit
+def norm(v, d = 2): return linalg.norm(v, d)
+
+@jit
+def _0mean(X, axis = 0): return np.sum(X, axis)/X.shape[axis]
 
 def mean(X, axis = 0):
 	if axis == 0 and X.flags['C_CONTIGUOUS']:
@@ -59,90 +70,48 @@ def mean(X, axis = 0):
 	else:
 		return X.mean(axis)
 
+@jit
+def sign(X): return np.sign(X)
 
-@njit(fastmath = True, nogil = True, cache = True)
-def sign(X):
-	return __sign(X)
+@jit
+def _sum(X, axis = 0): return np.sum(X, axis)
 
+@jit
+def _abs(v): return np.abs(v)
 
-@njit(fastmath = True, nogil = True, cache = True)
-def arange(i):
-	return _arange(i)
+@jit
+def maximum(X, i): return np.maximum(X, i)
 
+@jit
+def minimum(X, i): return np.minimum(X, i)
 
-@njit(fastmath = True, nogil = True, cache = True)
-def _sum(X, axis = 0):
-	return __sum(X, axis)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def _abs(v):
-	return __abs(v)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def maximum(X, i):
-    return _maximum(X, i)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
-def minimum(X, i):
-    return _minimum(X, i)
-
-
-@njit(fastmath = True, nogil = True, cache = True)
+@jit
 def _min(a,b):
-    if a < b:
-        return a
-    return b
+	if a < b: return a
+	return b
 
-
-@njit(fastmath = True, nogil = True, cache = True)
+@jit
 def _max(a,b):
-    if a < b:
-        return b
-    return a
+	if a < b: return b
+	return a
 
-
-@njit(fastmath = True, nogil = True, cache = True)
+@jit
 def _sign(x):
-    if x < 0:
-        return -1
-    return 1
+	if x < 0: return -1
+	return 1
+
+###
+# Run all algorithms to allow caching
+
+y32 = np.ones(2, dtype = np.float32)
+y64 = np.ones(2, dtype = np.float64)
 
 
-@njit(fastmath = True, nogil = True, parallel = True)
-def multsum(a,b):
-    s = a[0]*b[0]
-    for i in prange(1,len(a)):
-        s += a[i]*b[i]
-    return s
-
-
-@njit(fastmath = True, nogil = True, parallel = True)
-def squaresum(v):
-	if len(v.shape) == 1:
-	    s = v[0]**2
-	    for i in prange(1,len(v)):
-	        s += v[i]**2
-	# else:
-
- #    return s
-
-
-## TEST
-print("""Note that first time import of HyperLearn will be slow, """
-		"""since NUMBA code has to be compiled to machine code """
-		"""for optimization purposes.""")
-
-y32 = ones(2, dtype = float32)
-y64 = ones(2, dtype = float64)
-
-
-X = eye(2, dtype = float32)
+X = np.eye(2, dtype = np.float32)
 A = svd(X)
+A = svd(X, False)
 A = eigh(X)
-A = cholesky(X)
+# A = cholesky(X)
 A = pinv(X)
 A = lstsq(X, y32)
 A = lstsq(X, y64)
@@ -156,7 +125,6 @@ A = _sum(X)
 A = _sum(y32)
 A = _sum(y64)
 A = sign(X)
-A = arange(100)
 A = _abs(y32)
 A = _abs(y64)
 A = _abs(X)
@@ -172,21 +140,15 @@ A = _min(0,1)
 A = _min(0.1,1.1)
 A = _max(0,1)
 A = _max(0.1,1.1)
-A = multsum(y32, y32)
-A = multsum(y32, y64)
-A = multsum(y64, y64)
-A = squaresum(y32)
-A = squaresum(X)
-A = squaresum(y64)
 A = _sign(-1)
 A = _sign(-1.2)
 A = _sign(1.2)
 
-
-X = eye(2, dtype = float64)
+X = np.eye(2, dtype = np.float64)
 A = svd(X)
+A = svd(X, False)
 A = eigh(X)
-A = cholesky(X)
+# A = cholesky(X)
 A = pinv(X)
 A = lstsq(X, y32)
 A = lstsq(X, y64)
@@ -199,9 +161,8 @@ A = sign(X)
 A = _abs(X)
 A = maximum(X, 0)
 A = minimum(X, 0)
-A = squaresum(X)
 
-
+del X, A, y32, y64
 A = None
 X = None
 y32 = None
