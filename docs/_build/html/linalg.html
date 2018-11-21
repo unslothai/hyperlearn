@@ -49,6 +49,92 @@
 <p>The linalg module contains all mathematical methods, decompositions and mirrors both Numpy&#8217;s linalg and Scipy&#8217;s linalg modules. HyperLearn&#8217;s modules are all optimized and I also showcase some novel new algorithms.</p>
 <div class="section" id="matrix-decompositions">
 <h2>Matrix Decompositions<a class="headerlink" href="#matrix-decompositions" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="37%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Cholesky Decomposition</td>
+<td>cholesky(X, [alpha])</td>
+<td>X = U.T &#64; U</td>
+<td>Symmetric Square</td>
+</tr>
+<tr class="row-even"><td>LU Decomposition</td>
+<td>lu(X, [L_only, U_only, overwrite])</td>
+<td>X = L &#64; U</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-odd"><td>Singular Value Decomposition</td>
+<td>svd(X, [U_decision, overwrite])</td>
+<td>X = U * S &#64; V.T</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-even"><td>QR Decomposition</td>
+<td>qr(X, [Q_only, R_only, overwrite])</td>
+<td>X = Q &#64; R</td>
+<td>Any Matrix</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="eigenvalue-problems">
+<h2>Eigenvalue Problems<a class="headerlink" href="#eigenvalue-problems" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="37%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Symmetric EigenDecomposition</td>
+<td>eigh(X, [alpha, svd, overwrite])</td>
+<td>X = V * L &#64; V^-1</td>
+<td>Symmetric Square</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="matrix-inversion">
+<h2>Matrix Inversion<a class="headerlink" href="#matrix-inversion" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="37%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Cholesky Inverse</td>
+<td>cho_inv(X, [turbo])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Symmetric Square</td>
+</tr>
+<tr class="row-even"><td>Pseudoinverse (Cholesky)</td>
+<td>pinvc(X, [alpha, turbo])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-odd"><td>Symmetric Pseudoinverse</td>
+<td>pinvh(X, [alpha, turbo, n_jobs])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Symmetric Square</td>
+</tr>
+<tr class="row-even"><td>Pseudoinverse (SVD)</td>
+<td>pinv(X, [alpha, overwrite])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-odd"><td>Pseudoinverse (LU Decomp)</td>
+<td>pinvl(X, [alpha, turbo, overwrite])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Square Matrix</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
@@ -63,6 +149,8 @@
   <ul>
 <li><a class="reference internal" href="#">hyperlearn.linalg</a><ul>
 <li><a class="reference internal" href="#matrix-decompositions">Matrix Decompositions</a></li>
+<li><a class="reference internal" href="#eigenvalue-problems">Eigenvalue Problems</a></li>
+<li><a class="reference internal" href="#matrix-inversion">Matrix Inversion</a></li>
 </ul>
 </li>
 </ul>
