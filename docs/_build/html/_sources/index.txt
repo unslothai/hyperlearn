@@ -50,11 +50,11 @@ QR Decomposition wanting only Q matrix
 .. toctree::
    :maxdepth: 10
 
-   modules
+   source/modules
    base
    linalg
-   utils
    license
+
    
 
 

@@ -63,13 +63,14 @@ def cho_inv(X, turbo = True):
     Computes an inverse to the Cholesky Decomposition.
     [Added 17/11/2018]
 
-    input:      1 argument, 1 optional
-    ----------------------------------------------------------
-    X:          Upper Triangular Cholesky Factor U. Use cholesky first.
-    turbo:      Boolean to use float32, rather than more accurate float64.
-
-    returns:    Upper Triangular Inverse(X)
-    ----------------------------------------------------------
+    Parameters
+    -----------
+    X :         Upper Triangular Cholesky Factor U. Use cholesky first.
+    turbo :     Boolean to use float32, rather than more accurate float64.
+    
+    Returns
+    -----------
+    inv(U) :     Upper Triangular Inverse(X)
     """
     inv = lapack("potri", None, turbo)(X)
     return inv
@@ -78,19 +79,20 @@ def cho_inv(X, turbo = True):
 @process(memcheck = "full")
 def pinvc(X, alpha = None, turbo = True):
     """
-    [Added 17/11/2018] [Edited 18/11/2018 for speed - uses more BLAS]
     Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
     Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to
     guarantee convergence. Allows Ridge Regularization - default 1e-6.
+    [Added 17/11/2018] [Edited 18/11/2018 for speed - uses more BLAS]
 
-    input:      1 argument, 2 optional
-    ----------------------------------------------------------
-    X:          Upper Triangular Cholesky Factor U. Use cholesky.
-    alpha:      Ridge alpha regularization parameter. Default 1e-6
-    turbo:      Boolean to use float32, rather than more accurate float64.
+    Parameters
+    -----------
+    X :         Upper Triangular Cholesky Factor U. Use cholesky.
+    alpha :     Ridge alpha regularization parameter. Default 1e-6
+    turbo :     Boolean to use float32, rather than more accurate float64.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I.
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     n, p = X.shape
     size = X.shape[0] + 1 # add items to diagonal
@@ -114,20 +116,21 @@ def pinvc(X, alpha = None, turbo = True):
 @process(square = True, memcheck = "full")
 def pinvh(X, alpha = None, turbo = True, n_jobs = 1):
     """
-    [Added 19/11/2018]
     Returns the inverse of a square Hermitian Matrix using Cholesky 
     Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. 
     Allows Ridge Regularization - default 1e-6.
+    [Added 19/11/2018]
 
-    input:      1 argument, 3 optional
-    ----------------------------------------------------------
-    X:          Upper Triangular Cholesky Factor U. Use cholesky.
-    alpha:      Ridge alpha regularization parameter. Default 1e-6
-    turbo:      Boolean to use float32, rather than more accurate float64.
-    n_jobs:     Whether to perform multiprocessing.
+    Parameters
+    -----------
+    X :         Upper Triangular Cholesky Factor U. Use cholesky.
+    alpha :     Ridge alpha regularization parameter. Default 1e-6
+    turbo :     Boolean to use float32, rather than more accurate float64.
+    n_jobs :    Whether to perform multiprocessing.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I.
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     decomp = lapack("potrf", None)
     U = do_until_success(decomp, add_jitter, X.shape[0] + 1, False, alpha, U)
@@ -140,19 +143,20 @@ def pinvh(X, alpha = None, turbo = True, n_jobs = 1):
 @process(memcheck = {"X":"full", "L_only":"same", "U_only":"same"})
 def lu(X, L_only = False, U_only = False, overwrite = False):
     """
-    [Added 16/11/2018]
     Computes the pivoted LU decomposition of a matrix. Optional to output
     only L or U components with minimal memory copying.
+    [Added 16/11/2018]
 
-    input:      1 argument, 3 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
     X:          Matrix to be decomposed. Can be retangular.
     L_only:     Output only L.
     U_only:     Output only U.
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    (L,U) or (L) or (U)
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    (L,U) or (L) or (U)
     """
     n, p = X.shape
     if L_only or U_only:
@@ -196,15 +200,16 @@ def pinvl(X, alpha = None, turbo = True, overwrite = False):
     Computes the pseudoinverse of a square matrix X using LU Decomposition.
     Notice, it's much faster to use pinvc (Choleksy Inverse).
 
-    input:      1 argument, 3 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
     X:          Matrix to be decomposed. Must be square.
     alpha:      Ridge alpha regularization parameter. Default 1e-6
     turbo:      Boolean to use float32, rather than more accurate float64.
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I = X @ pinv(X) 
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I = X @ pinv(X) 
     """
     n, p = X.shape
     size = n if n < p else p
@@ -227,19 +232,20 @@ def pinvl(X, alpha = None, turbo = True, overwrite = False):
 @process(memcheck = {"X":"full", "Q_only":"same", "R_only":"same"})
 def qr(X, Q_only = False, R_only = False, overwrite = False):
     """
-    [Added 16/11/2018]
     Computes the reduced economic QR Decomposition of a matrix. Optional
     to output only Q or R.
+    [Added 16/11/2018]
 
-    input:      1 argument, 3 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
     X:          Matrix to be decomposed. Can be retangular.
     Q_only:     Output only Q.
     R_only:     Output only R.
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    (Q,R) or (Q) or (R)
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    (Q,R) or (Q) or (R)
     """
     if Q_only or R_only:
         n, p = X.shape
@@ -263,7 +269,6 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 @process(memcheck = "extended")
 def svd(X, U_decision = False, n_jobs = 1, overwrite = False):
     """
-    [Added 19/11/2018]
     Computes the Singular Value Decomposition of a general matrix providing
     X = U S VT. Notice VT (V transpose) is returned, and not V.
     Also, by default, the signs of U and VT are swapped so that VT has the
@@ -273,16 +278,20 @@ def svd(X, U_decision = False, n_jobs = 1, overwrite = False):
     Modern Big Data Algorithms. If p/n >= 0.001, then GESDD is used. Else,
     GESVD is used. Also, svd(XT) is used if it's faster, bringing the complexity
     to O( min(np^2, n^2p) ).
+    [Added 19/11/2018]
     
-    input:      1 argument, 4 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
     X:          Matrix to be decomposed. General matrix.
     U_decision: Default = False. If True, uses max from U. If None. don't flip.
     n_jobs:     Whether to use more >= 1 CPU
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I = X @ pinv(X) 
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    U:          Orthogonal Left Eigenvectors
+    S:          Descending Singular Values
+    VT:         Orthogonal Right Eigenvectors
     """
     n, p = X.shape
     transpose = p > n # p > n
@@ -341,18 +350,19 @@ def svd(X, U_decision = False, n_jobs = 1, overwrite = False):
 @process(memcheck = "extended")
 def pinv(X, alpha = None, overwrite = False):
     """
-    [Added 21/11/2018]
     Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter 
     Algorithm to guarantee convergence. Allows Ridge Regularization - default 1e-6.
+    [Added 21/11/2018]
 
-    input:      1 argument, 2 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
     X:          Upper Triangular Cholesky Factor U. Use cholesky.
     alpha:      Ridge alpha regularization parameter. Default 1e-6.
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I.
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     U, S, VT = svd(X, U_decision = None, overwrite = overwrite)
     U, S, VT = svdCondition(U, S, VT, alpha)
@@ -363,23 +373,25 @@ def pinv(X, alpha = None, overwrite = False):
 @process(square = True, memcheck = "extra")
 def eigh(X, alpha = None, svd = False, n_jobs = 1, overwrite = False):
     """
-    [Added 21/11/2018]
     Returns sorted eigenvalues and eigenvectors from large to small of
     a symmetric square matrix X. Follows SVD convention. Also flips
     signs of eigenvectors using svd_flip. Uses the Epsilon Jitter 
     Algorithm to guarantee convergence. Allows Ridge Regularization
     default 1e-6.
+    [Added 21/11/2018]
 
-    input:      1 argument, 4 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
     X:          Symmetric Square Matrix.
     alpha:      Ridge alpha regularization parameter. Default 1e-6.
     svd:        Returns sqrt(W) and V.T
     n_jobs:     Whether to use more >= 1 CPU
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I.
-    ----------------------------------------------------------
+    Returns
+    -----------    
+    W:          Eigenvalues
+    V:          Eigenvectors
     """
     n = X.shape[0]
     byte = X.itemsize
@@ -434,7 +446,6 @@ def eigh(X, alpha = None, svd = False, n_jobs = 1, overwrite = False):
 @process(memcheck = "extra")
 def eig(X, alpha = None, svd = False, n_jobs = 1, overwrite = False):
     """
-    [Added 21/11/2018]
     Returns sorted eigenvalues and eigenvectors from large to small of
     a general matrix X. Follows SVD convention. Also flips signs of 
     eigenvectors using svd_flip. Uses the Epsilon Jitter 
@@ -445,17 +456,21 @@ def eig(X, alpha = None, svd = False, n_jobs = 1, overwrite = False):
     Van Loan, Chapter 5, section 5.4.4, pp 252-253.`], QR is better if
     n >= 5/3p. In Modern Big Data Algorithms, I find QR is better for
     all n > p.
+    [Added 21/11/2018]
 
-    input:      1 argument, 4 optional
-    ----------------------------------------------------------
+    Parameters
+    -----------
+    
     X:          Symmetric Square Matrix.
     alpha:      Ridge alpha regularization parameter. Default 1e-6.
     svd:        Returns sqrt(W) and V.T
     n_jobs:     Whether to use more >= 1 CPU
     overwrite:  Whether to directly alter the original matrix.
 
-    returns:    Pseudoinverse of X. Allows pinv(X) @ X = I.
-    ----------------------------------------------------------
+    Returns
+    -----------
+    W:          Eigenvalues
+    V:          Eigenvectors
     """
     n, p = X.shape
     byte = X.itemsize

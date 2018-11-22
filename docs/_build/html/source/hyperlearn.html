@@ -25,7 +25,9 @@
   
 
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" /> 
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="hyperlearn.base" href="../base.html" />
+    <link rel="prev" title="hyperlearn" href="modules.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -78,8 +80,22 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html">hyperlearn</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">hyperlearn</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">hyperlearn package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.base">hyperlearn.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.linalg">hyperlearn.linalg module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linalg-py">linalg.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.numba">hyperlearn.numba module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.utils">hyperlearn.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../base.html">hyperlearn.base</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../linalg.html">hyperlearn.linalg</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
@@ -128,6 +144,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">hyperlearn</a> &raquo;</li>
         
       <li>hyperlearn package</li>
     
@@ -225,8 +243,24 @@ memcheck:       lambda n,p: ... function or f(n,p)</p>
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">cho_inv</code><span class="sig-paren">(</span><em>X</em>, <em>turbo=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#cho_inv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.cho_inv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes an inverse to the Cholesky Decomposition.
 [Added 17/11/2018]</p>
-<p>X:          Upper Triangular Cholesky Factor U. Use cholesky first.
-turbo:      Boolean to use float32, rather than more accurate float64.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Upper Triangular Cholesky Factor U. Use cholesky first.</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>inv(U)</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Upper Triangular Inverse(X)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -287,8 +321,7 @@ until success. Default alpha ridge regularization = 1e-6.
 <dl class="function">
 <dt id="hyperlearn.linalg.eig">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">eig</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>svd=False</em>, <em>n_jobs=1</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#eig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.eig" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 21/11/2018]
-Returns sorted eigenvalues and eigenvectors from large to small of
+<dd><p>Returns sorted eigenvalues and eigenvectors from large to small of
 a general matrix X. Follows SVD convention. Also flips signs of
 eigenvectors using svd_flip. Uses the Epsilon Jitter
 Algorithm to guarantee convergence. Allows Ridge Regularization
@@ -296,76 +329,175 @@ default 1e-6.</p>
 <p>According to [<cite>Matrix Computations, Third Edition, G. Holub and C.
 Van Loan, Chapter 5, section 5.4.4, pp 252-253.</cite>], QR is better if
 n &gt;= 5/3p. In Modern Big Data Algorithms, I find QR is better for
-all n &gt; p.</p>
-<p>X:          Symmetric Square Matrix.
-alpha:      Ridge alpha regularization parameter. Default 1e-6.
-svd:        Returns sqrt(W) and V.T
-n_jobs:     Whether to use more &gt;= 1 CPU
-overwrite:  Whether to directly alter the original matrix.</p>
+all n &gt; p.
+[Added 21/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Symmetric Square Matrix.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6.</em>)</li>
+<li><strong>svd</strong> (<em>Returns sqrt(W) and V.T</em>)</li>
+<li><strong>n_jobs</strong> (<em>Whether to use more &gt;= 1 CPU</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>W</strong> (<em>Eigenvalues</em>)</li>
+<li><strong>V</strong> (<em>Eigenvectors</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.eigh">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">eigh</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>svd=False</em>, <em>n_jobs=1</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#eigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.eigh" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 21/11/2018]
-Returns sorted eigenvalues and eigenvectors from large to small of
+<dd><p>Returns sorted eigenvalues and eigenvectors from large to small of
 a symmetric square matrix X. Follows SVD convention. Also flips
 signs of eigenvectors using svd_flip. Uses the Epsilon Jitter
 Algorithm to guarantee convergence. Allows Ridge Regularization
-default 1e-6.</p>
-<p>X:          Symmetric Square Matrix.
-alpha:      Ridge alpha regularization parameter. Default 1e-6.
-svd:        Returns sqrt(W) and V.T
-n_jobs:     Whether to use more &gt;= 1 CPU
-overwrite:  Whether to directly alter the original matrix.</p>
+default 1e-6.
+[Added 21/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Symmetric Square Matrix.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6.</em>)</li>
+<li><strong>svd</strong> (<em>Returns sqrt(W) and V.T</em>)</li>
+<li><strong>n_jobs</strong> (<em>Whether to use more &gt;= 1 CPU</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>W</strong> (<em>Eigenvalues</em>)</li>
+<li><strong>V</strong> (<em>Eigenvectors</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.lu">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">lu</code><span class="sig-paren">(</span><em>X</em>, <em>L_only=False</em>, <em>U_only=False</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#lu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.lu" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 16/11/2018]
-Computes the pivoted LU decomposition of a matrix. Optional to output
-only L or U components with minimal memory copying.</p>
-<p>X:          Matrix to be decomposed. Can be retangular.
-L_only:     Output only L.
-U_only:     Output only U.
-overwrite:  Whether to directly alter the original matrix.</p>
+<dd><p>Computes the pivoted LU decomposition of a matrix. Optional to output
+only L or U components with minimal memory copying.
+[Added 16/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Matrix to be decomposed. Can be retangular.</em>)</li>
+<li><strong>L_only</strong> (<em>Output only L.</em>)</li>
+<li><strong>U_only</strong> (<em>Output only U.</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(L,U) or (L) or (U)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.pinv">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinv</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#pinv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinv" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 21/11/2018]
-Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter
-Algorithm to guarantee convergence. Allows Ridge Regularization - default 1e-6.</p>
-<p>X:          Upper Triangular Cholesky Factor U. Use cholesky.
-alpha:      Ridge alpha regularization parameter. Default 1e-6.
-overwrite:  Whether to directly alter the original matrix.</p>
+<dd><p>Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter
+Algorithm to guarantee convergence. Allows Ridge Regularization - default 1e-6.
+[Added 21/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Upper Triangular Cholesky Factor U. Use cholesky.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6.</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pinv(X)</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Pseudoinverse of X. Allows pinv(X) &#64; X = I.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.pinvc">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvc</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#pinvc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvc" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 17/11/2018] [Edited 18/11/2018 for speed - uses more BLAS]
-Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
+<dd><p>Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
 Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to
-guarantee convergence. Allows Ridge Regularization - default 1e-6.</p>
-<p>X:          Upper Triangular Cholesky Factor U. Use cholesky.
-alpha:      Ridge alpha regularization parameter. Default 1e-6
-turbo:      Boolean to use float32, rather than more accurate float64.</p>
+guarantee convergence. Allows Ridge Regularization - default 1e-6.
+[Added 17/11/2018] [Edited 18/11/2018 for speed - uses more BLAS]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Upper Triangular Cholesky Factor U. Use cholesky.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pinv(X)</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Pseudoinverse of X. Allows pinv(X) &#64; X = I.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.pinvh">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvh</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#pinvh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvh" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 19/11/2018]
-Returns the inverse of a square Hermitian Matrix using Cholesky
+<dd><p>Returns the inverse of a square Hermitian Matrix using Cholesky
 Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence.
-Allows Ridge Regularization - default 1e-6.</p>
-<p>X:          Upper Triangular Cholesky Factor U. Use cholesky.
-alpha:      Ridge alpha regularization parameter. Default 1e-6
-turbo:      Boolean to use float32, rather than more accurate float64.
-n_jobs:     Whether to perform multiprocessing.</p>
+Allows Ridge Regularization - default 1e-6.
+[Added 19/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Upper Triangular Cholesky Factor U. Use cholesky.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+<li><strong>n_jobs</strong> (<em>Whether to perform multiprocessing.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pinv(X)</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Pseudoinverse of X. Allows pinv(X) &#64; X = I.</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -374,40 +506,90 @@ n_jobs:     Whether to perform multiprocessing.</p>
 <dd><p>[Added 18/11/2018]
 Computes the pseudoinverse of a square matrix X using LU Decomposition.
 Notice, it&#8217;s much faster to use pinvc (Choleksy Inverse).</p>
-<p>X:          Matrix to be decomposed. Must be square.
-alpha:      Ridge alpha regularization parameter. Default 1e-6
-turbo:      Boolean to use float32, rather than more accurate float64.
-overwrite:  Whether to directly alter the original matrix.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Matrix to be decomposed. Must be square.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pinv(X)</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Pseudoinverse of X. Allows pinv(X) &#64; X = I = X &#64; pinv(X)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.qr">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">qr</code><span class="sig-paren">(</span><em>X</em>, <em>Q_only=False</em>, <em>R_only=False</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#qr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.qr" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 16/11/2018]
-Computes the reduced economic QR Decomposition of a matrix. Optional
-to output only Q or R.</p>
-<p>X:          Matrix to be decomposed. Can be retangular.
-Q_only:     Output only Q.
-R_only:     Output only R.
-overwrite:  Whether to directly alter the original matrix.</p>
+<dd><p>Computes the reduced economic QR Decomposition of a matrix. Optional
+to output only Q or R.
+[Added 16/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Matrix to be decomposed. Can be retangular.</em>)</li>
+<li><strong>Q_only</strong> (<em>Output only Q.</em>)</li>
+<li><strong>R_only</strong> (<em>Output only R.</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(Q,R) or (Q) or (R)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
 <dt id="hyperlearn.linalg.svd">
 <code class="descclassname">hyperlearn.linalg.</code><code class="descname">svd</code><span class="sig-paren">(</span><em>X</em>, <em>U_decision=False</em>, <em>n_jobs=1</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.svd" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 19/11/2018]
-Computes the Singular Value Decomposition of a general matrix providing
+<dd><p>Computes the Singular Value Decomposition of a general matrix providing
 X = U S VT. Notice VT (V transpose) is returned, and not V.
 Also, by default, the signs of U and VT are swapped so that VT has the
 sign of the maximum item as positive.</p>
 <p>HyperLearn&#8217;s SVD is optimized dramatically due to the findings made in
 Modern Big Data Algorithms. If p/n &gt;= 0.001, then GESDD is used. Else,
 GESVD is used. Also, svd(XT) is used if it&#8217;s faster, bringing the complexity
-to O( min(np^2, n^2p) ).</p>
-<p>X:          Matrix to be decomposed. General matrix.
-U_decision: Default = False. If True, uses max from U. If None. don&#8217;t flip.
-n_jobs:     Whether to use more &gt;= 1 CPU
-overwrite:  Whether to directly alter the original matrix.</p>
+to O( min(np^2, n^2p) ).
+[Added 19/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Matrix to be decomposed. General matrix.</em>)</li>
+<li><strong>U_decision</strong> (<em>Default = False. If True, uses max from U. If None. don&#8217;t flip.</em>)</li>
+<li><strong>n_jobs</strong> (<em>Whether to use more &gt;= 1 CPU</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to directly alter the original matrix.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>U</strong> (<em>Orthogonal Left Eigenvectors</em>)</li>
+<li><strong>S</strong> (<em>Descending Singular Values</em>)</li>
+<li><strong>VT</strong> (<em>Orthogonal Right Eigenvectors</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -548,6 +730,15 @@ size i</p>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../base.html" class="btn btn-neutral float-right" title="hyperlearn.base" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="hyperlearn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
