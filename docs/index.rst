@@ -45,13 +45,18 @@ QR Decomposition wanting only Q matrix
 	q, r = linalg.qr(X)
 
 
-.. toctree::
-   :maxdepth: 4
 
+
+.. toctree::
+   :maxdepth: 10
+
+   modules
    base
    linalg
    utils
    license
+   
+
 
 Directory
 ==================

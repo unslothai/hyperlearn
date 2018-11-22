@@ -10,6 +10,7 @@ import sys
 from array import array
 
 MAX_MEMORY = 0.94
+ALPHA_DEFAULT = 1e-6
 _is64 = sys.maxsize > (1 << 32)
 maxFloat = np.float64 if _is64 else np.float32
 
@@ -159,7 +160,7 @@ def process(f = None, memcheck = None, square = False):
 			# check alpha
 			if l > whereAlpha:
 				if args[whereAlpha] is None:
-					args[whereAlpha] = 1e-8
+					args[whereAlpha] = ALPHA_DEFAULT
 				hasAlpha = False
 
 			# check booleans and if an array is seen
@@ -185,7 +186,7 @@ def process(f = None, memcheck = None, square = False):
 					if hasAlpha:
 						if x == "alpha":
 							if t is None:
-								kwargs[x] = 1e-8
+								kwargs[x] = ALPHA_DEFAULT
 							hasAlpha = False
 				except:
 					raise NameError("Argument '{x}' is not recognised in function. "
@@ -276,7 +277,7 @@ def process(f = None, memcheck = None, square = False):
 
 			# update kwargs if alpha not seen in args or kwargs:
 			if hasAlpha:
-				kwargs["alpha"] = 1e-8
+				kwargs["alpha"] = ALPHA_DEFAULT
 
 			# finally execute function
 			try:

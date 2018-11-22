@@ -175,21 +175,27 @@ def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
 	"""
 	if U_decision is None:
 		return
-	if U_decision:
-		signs = sign_max(U, 0, n_jobs = n_jobs)
-	else:
-		signs = sign_max(VT, 1, n_jobs = n_jobs)
 
-	index = np.where(signs == -1)[0]
-	n = index.size
 	scal = blas("scal")
-	
-	for i in range(n):
-		VT[i] = scal(a = VT[i], x = -1)
-
 	if U is not None:
-		for i in range(n):
+		if U_decision:
+			signs = sign_max(U, 0, n_jobs = n_jobs)
+		else:
+			signs = sign_max(VT, 1, n_jobs = n_jobs)
+
+		index = np.where(signs == -1)[0]
+		
+		for i in index:
+			VT[i] = scal(a = VT[i], x = -1)
 			U[:,i] = scal(a = U[:,i], x = -1)
+	else:
+		# Eig flip on eigenvectors
+		signs = sign_max(VT, 0, n_jobs = n_jobs)
+		index = np.where(signs == -1)[0]
+
+		for i in index:
+			VT[:,i] = scal(a = VT[:,i], x = -1)			
+
 
 ###
 def svdCondition(U, S, VT, alpha = None):
@@ -211,18 +217,21 @@ def svdCondition(U, S, VT, alpha = None):
 	"""
 	dtype = S.dtype.char.lower()
 	if dtype == "f":
-	    cond = 1000 #1e3
+		cond = 1000 #1e3
 	else:
-	    cond = 1000000 #1e6
+		cond = 1000000 #1e6
 	eps = np.finfo(t).eps
 	first = S[0]
 	eps = eps*first*cond
 
 	rank = S.size-1
 	while rank > 0:
-	    if S[rank] >= eps: break
-	    rank -= 1
+		if S[rank] >= eps: break
+		rank -= 1
 	rank += 1
+
+	if rank != S.size:
+		U, S, VT = U[:, :rank], S[:rank], VT[:rank]
 
 	update = True
 	if alpha != 1e-8:
@@ -233,5 +242,5 @@ def svdCondition(U, S, VT, alpha = None):
 	if update:
 		S = np.divide(1, S, out = S)
 
-	return U[:, :rank], S[:rank], VT[:rank]
+	return U, S, VT
 
