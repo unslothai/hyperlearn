@@ -1,5 +1,7 @@
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="350"/></a>
 
+https://hyperlearn.readthedocs.io/en/latest/index.html
+
 *Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
 
 ![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
@@ -12,7 +14,7 @@
 **50%+ Faster, 50%+ less RAM usage, GPU support re-written Sklearn, Statsmodels combo with new novel algorithms.**
 
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
-HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_)
+HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_) Ongoing documentation: https://hyperlearn.readthedocs.io/en/latest/index.html
 
 I'm also writing a mini book! A sneak peak:
 <img src="Images/SVD.png" alt="drawing" width="600"/>
@@ -114,3 +116,4 @@ HyperLearn is under a GNU v3 License. This means:
 3. HyperLearn is intended for academic, research and personal purposes. Any explicit commercialisation of the algorithms and anything inside HyperLearn is strictly prohibited.
 
 HyperLearn promotes a free and just world. Hence, it is free to everyone, except for those who wish to commercialise on top of HyperLearn.
+Ongoing documentation: https://hyperlearn.readthedocs.io/en/latest/index.html
