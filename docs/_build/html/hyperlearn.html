@@ -1,0 +1,630 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn package &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="prev" title="hyperlearn" href="modules.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">hyperlearn</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">hyperlearn package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.base">hyperlearn.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.linalg">hyperlearn.linalg module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linalg-py">linalg.py</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.numba">hyperlearn.numba module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.utils">hyperlearn.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">hyperlearn</a> &raquo;</li>
+        
+      <li>hyperlearn package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/hyperlearn.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hyperlearn-package">
+<h1>hyperlearn package<a class="headerlink" href="#hyperlearn-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-hyperlearn.base">
+<span id="hyperlearn-base-module"></span><h2>hyperlearn.base module<a class="headerlink" href="#module-hyperlearn.base" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hyperlearn.base.arg_process">
+<code class="descclassname">hyperlearn.base.</code><code class="descname">arg_process</code><span class="sig-paren">(</span><em>x</em>, <em>square</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/base.html#arg_process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.arg_process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.base.available_memory">
+<code class="descclassname">hyperlearn.base.</code><code class="descname">available_memory</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/base.html#available_memory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.available_memory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="hyperlearn.base.blas">
+<em class="property">class </em><code class="descclassname">hyperlearn.base.</code><code class="descname">blas</code><span class="sig-paren">(</span><em>function</em>, <em>left=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/base.html#blas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.blas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>[Added 14/11/2018]
+Get a BLAS function based on the dtype(X). Acts like Scipy&#8217;s get blas function.</p>
+<p>function:       String for blas function eg: &#8220;getrf&#8221;</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.base.f_same_memory">
+<code class="descclassname">hyperlearn.base.</code><code class="descname">f_same_memory</code><span class="sig-paren">(</span><em>n</em>, <em>p</em><span class="sig-paren">)</span><a class="headerlink" href="#hyperlearn.base.f_same_memory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="hyperlearn.base.lapack">
+<em class="property">class </em><code class="descclassname">hyperlearn.base.</code><code class="descname">lapack</code><span class="sig-paren">(</span><em>function</em>, <em>numba=None</em>, <em>turbo=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/base.html#lapack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.lapack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal"><span class="pre">object</span></code></a></p>
+<p>[Added 14/11/2018]
+Get a LAPACK function based on the dtype(X). Acts like Scipy&#8217;s get lapack function.</p>
+<p>function:       String for lapack function eg: &#8220;getrf&#8221;
+turbo:          Boolean to indicate if float32 can be used.
+numba:          String for numba function.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.base.memory">
+<code class="descclassname">hyperlearn.base.</code><code class="descname">memory</code><span class="sig-paren">(</span><em>shape</em>, <em>dtype</em>, <em>memcheck</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/base.html#memory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.memory" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Edited 18/11/2018 Slightly faster]
+Checks if an operation on a matrix is within memory bounds.</p>
+<p>X:                      Input matrix
+dtype:          Input datatype(matrix)
+memcheck:       lambda n,p: ... function or f(n,p)</p>
+<p>need:           Total memory required for operation
+surplus:        Boolean - True means within memory bounds.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.base.process">
+<code class="descclassname">hyperlearn.base.</code><code class="descname">process</code><span class="sig-paren">(</span><em>f=None</em>, <em>memcheck=None</em>, <em>square=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/base.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 14/11/2018] [Edited 18/11/2018 for speed]
+Decorator onto HyperLearn functions. Does 2 things:
+1. Convert datatypes to appropriate ones
+2. Convert matrices to arrays
+3. (Optional) checks memory bounds.</p>
+<p>f:                      The function to be decorated
+memcheck:       lambda n,p: ... function or f(n,p)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hyperlearn.linalg">
+<span id="hyperlearn-linalg-module"></span><h2>hyperlearn.linalg module<a class="headerlink" href="#module-hyperlearn.linalg" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linalg-py">
+<h3>linalg.py<a class="headerlink" href="#linalg-py" title="Permalink to this headline">¶</a></h3>
+<p>Linear Algebra Functions for HyperLearn</p>
+<dl class="function">
+<dt id="hyperlearn.linalg.cho_inv">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">cho_inv</code><span class="sig-paren">(</span><em>X</em>, <em>turbo=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#cho_inv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.cho_inv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes an inverse to the Cholesky Decomposition.
+[Added 17/11/2018]</p>
+<p>X:          Upper Triangular Cholesky Factor U. Use cholesky first.
+turbo:      Boolean to use float32, rather than more accurate float64.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.cho_solve">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">cho_solve</code><span class="sig-paren">(</span><em>X</em>, <em>rhs</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#cho_solve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.cho_solve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given U from a cholesky decompostion and a RHS, find a least squares
+solution.
+[Added 15/11/2018]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Cholesky Factor. Use cholesky first.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>U</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Upper triangular cholesky factor (U)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.cholesky">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">cholesky</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#cholesky"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.cholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses Epsilon Jitter Solver to compute the Cholesky Decomposition
+until success. Default alpha ridge regularization = 1e-6.
+[Added 15/11/2018] [Edited 16/11/2018 Numpy is slower. Uses LAPACK only]
+[Edited 18/11/2018 Uses universal &#8220;do_until_success&#8221;]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Matrix to be decomposed. Has to be symmetric.</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>U</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Upper triangular cholesky factor (U)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.eig">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">eig</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>svd=False</em>, <em>n_jobs=1</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#eig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.eig" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 21/11/2018]
+Returns sorted eigenvalues and eigenvectors from large to small of
+a general matrix X. Follows SVD convention. Also flips signs of
+eigenvectors using svd_flip. Uses the Epsilon Jitter
+Algorithm to guarantee convergence. Allows Ridge Regularization
+default 1e-6.</p>
+<p>According to [<cite>Matrix Computations, Third Edition, G. Holub and C.
+Van Loan, Chapter 5, section 5.4.4, pp 252-253.</cite>], QR is better if
+n &gt;= 5/3p. In Modern Big Data Algorithms, I find QR is better for
+all n &gt; p.</p>
+<p>X:          Symmetric Square Matrix.
+alpha:      Ridge alpha regularization parameter. Default 1e-6.
+svd:        Returns sqrt(W) and V.T
+n_jobs:     Whether to use more &gt;= 1 CPU
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.eigh">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">eigh</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>svd=False</em>, <em>n_jobs=1</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#eigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.eigh" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 21/11/2018]
+Returns sorted eigenvalues and eigenvectors from large to small of
+a symmetric square matrix X. Follows SVD convention. Also flips
+signs of eigenvectors using svd_flip. Uses the Epsilon Jitter
+Algorithm to guarantee convergence. Allows Ridge Regularization
+default 1e-6.</p>
+<p>X:          Symmetric Square Matrix.
+alpha:      Ridge alpha regularization parameter. Default 1e-6.
+svd:        Returns sqrt(W) and V.T
+n_jobs:     Whether to use more &gt;= 1 CPU
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.lu">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">lu</code><span class="sig-paren">(</span><em>X</em>, <em>L_only=False</em>, <em>U_only=False</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#lu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.lu" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 16/11/2018]
+Computes the pivoted LU decomposition of a matrix. Optional to output
+only L or U components with minimal memory copying.</p>
+<p>X:          Matrix to be decomposed. Can be retangular.
+L_only:     Output only L.
+U_only:     Output only U.
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.pinv">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinv</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#pinv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinv" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 21/11/2018]
+Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter
+Algorithm to guarantee convergence. Allows Ridge Regularization - default 1e-6.</p>
+<p>X:          Upper Triangular Cholesky Factor U. Use cholesky.
+alpha:      Ridge alpha regularization parameter. Default 1e-6.
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.pinvc">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvc</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#pinvc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvc" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 17/11/2018] [Edited 18/11/2018 for speed - uses more BLAS]
+Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
+Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to
+guarantee convergence. Allows Ridge Regularization - default 1e-6.</p>
+<p>X:          Upper Triangular Cholesky Factor U. Use cholesky.
+alpha:      Ridge alpha regularization parameter. Default 1e-6
+turbo:      Boolean to use float32, rather than more accurate float64.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.pinvh">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvh</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#pinvh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvh" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 19/11/2018]
+Returns the inverse of a square Hermitian Matrix using Cholesky
+Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence.
+Allows Ridge Regularization - default 1e-6.</p>
+<p>X:          Upper Triangular Cholesky Factor U. Use cholesky.
+alpha:      Ridge alpha regularization parameter. Default 1e-6
+turbo:      Boolean to use float32, rather than more accurate float64.
+n_jobs:     Whether to perform multiprocessing.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.pinvl">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvl</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#pinvl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvl" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 18/11/2018]
+Computes the pseudoinverse of a square matrix X using LU Decomposition.
+Notice, it&#8217;s much faster to use pinvc (Choleksy Inverse).</p>
+<p>X:          Matrix to be decomposed. Must be square.
+alpha:      Ridge alpha regularization parameter. Default 1e-6
+turbo:      Boolean to use float32, rather than more accurate float64.
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.qr">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">qr</code><span class="sig-paren">(</span><em>X</em>, <em>Q_only=False</em>, <em>R_only=False</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#qr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.qr" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 16/11/2018]
+Computes the reduced economic QR Decomposition of a matrix. Optional
+to output only Q or R.</p>
+<p>X:          Matrix to be decomposed. Can be retangular.
+Q_only:     Output only Q.
+R_only:     Output only R.
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.svd">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">svd</code><span class="sig-paren">(</span><em>X</em>, <em>U_decision=False</em>, <em>n_jobs=1</em>, <em>overwrite=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/linalg.html#svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.svd" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 19/11/2018]
+Computes the Singular Value Decomposition of a general matrix providing
+X = U S VT. Notice VT (V transpose) is returned, and not V.
+Also, by default, the signs of U and VT are swapped so that VT has the
+sign of the maximum item as positive.</p>
+<p>HyperLearn&#8217;s SVD is optimized dramatically due to the findings made in
+Modern Big Data Algorithms. If p/n &gt;= 0.001, then GESDD is used. Else,
+GESVD is used. Also, svd(XT) is used if it&#8217;s faster, bringing the complexity
+to O( min(np^2, n^2p) ).</p>
+<p>X:          Matrix to be decomposed. General matrix.
+U_decision: Default = False. If True, uses max from U. If None. don&#8217;t flip.
+n_jobs:     Whether to use more &gt;= 1 CPU
+overwrite:  Whether to directly alter the original matrix.</p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-hyperlearn.numba">
+<span id="hyperlearn-numba-module"></span><h2>hyperlearn.numba module<a class="headerlink" href="#module-hyperlearn.numba" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hyperlearn.numba.eigh">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">eigh</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#eigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.eigh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.jit">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">jit</code><span class="sig-paren">(</span><em>f=None</em>, <em>parallel=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#jit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.jit" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
+Decorator onto Numba NJIT compiled code.</p>
+<p>function:       Function to decorate
+parallel:       If true, sets cache automatically to false</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.lstsq">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">lstsq</code><span class="sig-paren">(</span><em>X</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#lstsq"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.lstsq" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.maximum">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">maximum</code><span class="sig-paren">(</span><em>X</em>, <em>i</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#maximum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.maximum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.mean">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">mean</code><span class="sig-paren">(</span><em>X</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#mean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.mean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.minimum">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">minimum</code><span class="sig-paren">(</span><em>X</em>, <em>i</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#minimum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.minimum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.norm">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">norm</code><span class="sig-paren">(</span><em>v</em>, <em>d=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.norm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.pinv">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">pinv</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#pinv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.pinv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.qr">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">qr</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#qr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.qr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.sign">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">sign</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#sign"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.sign" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.svd">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">svd</code><span class="sig-paren">(</span><em>X</em>, <em>full_matrices=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/numba.html#svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.svd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-hyperlearn.utils">
+<span id="hyperlearn-utils-module"></span><h2>hyperlearn.utils module<a class="headerlink" href="#module-hyperlearn.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="hyperlearn.utils.add_jitter">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">add_jitter</code><span class="sig-paren">(</span><em>X</em>, <em>size</em>, <em>alpha</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#add_jitter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.add_jitter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.do_until_success">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">do_until_success</code><span class="sig-paren">(</span><em>f</em>, <em>epsilon_f</em>, <em>size</em>, <em>overwrite=False</em>, <em>alpha=None</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#do_until_success"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.do_until_success" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.sign_max">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">sign_max</code><span class="sig-paren">(</span><em>X</em>, <em>axis=0</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#sign_max"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.sign_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 19/11/2018]
+Returns the sign of the maximum absolute value of an axis of X.
+Uses BLAS if n_jobs = 1. Uses Numba otherwise.</p>
+<p>X:                      Matrix X to be processed. Must be 2D array.
+axis:           Default = 0. 0 = column-wise. 1 = row-wise.
+n_jobs:         Default = 1. Uses multiple CPUs if n*p &gt; 20,000^2.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.svdCondition">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">svdCondition</code><span class="sig-paren">(</span><em>U</em>, <em>S</em>, <em>VT</em>, <em>alpha=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#svdCondition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.svdCondition" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 21/11/2018]
+Uses Scipy&#8217;s SVD condition number calculation to improve pseudoinverse
+stability. Uses (1e3, 1e6) * eps(S) * S[0] as the condition number.
+Everythimg below cond is set to 0.</p>
+<p>U:                      U matrix from SVD
+S:                      S diagonal array from SVD
+VT:                     VT matrix (V transpose) from SVD
+alpha:          Default = None. Ridge regularization</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.svd_flip">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">svd_flip</code><span class="sig-paren">(</span><em>U=None</em>, <em>VT=None</em>, <em>U_decision=False</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#svd_flip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.svd_flip" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 19/11/2018] [Edited 21/11/2018 Uses BLAS]
+Flips the signs of U and VT from a SVD or eigendecomposition.
+Default opposite to Sklearn&#8217;s U decision. HyperLearn uses
+the maximum of rows of VT.</p>
+<p>U:                      U matrix from SVD
+VT:                     VT matrix (V transpose) from SVD
+U_decision:     Default = False. If True, uses max from U.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.triu">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">triu</code><span class="sig-paren">(</span><em>n</em>, <em>p</em>, <em>U</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#triu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.triu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.uint">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">uint</code><span class="sig-paren">(</span><em>i</em>, <em>array=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/hyperlearn/utils.html#uint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.uint" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 14/11/2018]
+Outputs a small array with the correct dtype that minimises
+memory usage for storing the maximal number of elements of
+size i</p>
+<p>i:                      Size of maximal elements you want to store</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-hyperlearn">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hyperlearn" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="hyperlearn" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: ''
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
