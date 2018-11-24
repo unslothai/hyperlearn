@@ -1,7 +1,7 @@
 
 import numpy as np
 from .numba import jit, prange, sign
-from .base import blas
+from .base import blas, ALPHA_DEFAULT
 dtypes = (np.uint8, np.uint16, np.uint32, np.uint64)
 
 ###
@@ -33,6 +33,9 @@ def do_until_success(f, epsilon_f, size, overwrite = False, alpha = None, *args,
 		X = args[0]
 	else:
 		X = next(iter(kwargs.values()))
+	if alpha is None:
+		alpha = 0
+
 	old_alpha = 0
 	error = 1
 	while error != 0:
@@ -50,8 +53,9 @@ def do_until_success(f, epsilon_f, size, overwrite = False, alpha = None, *args,
 			pass
 		if error != 0:
 			old_alpha = alpha
+			if alpha == 0:
+				alpha = ALPHA_DEFAULT
 			alpha *= 10
-			print(alpha)
 
 	if not overwrite:
 		epsilon_f(X, size, -alpha)
@@ -176,7 +180,6 @@ def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
 	else:
 		# Eig flip on eigenvectors
 		signs = sign_max(VT, 0, n_jobs = n_jobs)
-		index = np.where(signs == -1)[0]
 		VT *= signs
 
 

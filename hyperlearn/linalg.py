@@ -457,7 +457,8 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
     signs of eigenvectors using svd_flip. Uses the Epsilon Jitter 
     Algorithm to guarantee convergence. Allows Ridge Regularization
     default 1e-6.
-    [Added 21/11/18] [Edited 24/11/18 Added Complex Support]
+    [Added 21/11/18] [Edited 24/11/18 Added Complex Support, Eigh alpha
+    set to 0 since Eigh errors are rare.]
 
     Parameters
     -----------
@@ -494,11 +495,11 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
     # contradicts MKL's findings
     if evd:
         decomp = lapack("heevd") if isComplex(dtype) else lapack("syevd")
-        W, V = do_until_success(decomp, add_jitter, size, overwrite, alpha, 
+        W, V = do_until_success(decomp, add_jitter, size, overwrite, None, 
             a = X, lower = 0, overwrite_a = overwrite)
     else:
         decomp = lapack("heevr") if isComplex(dtype) else lapack("syevr")
-        W, V = do_until_success(decomp, add_jitter, size, overwrite, alpha, 
+        W, V = do_until_success(decomp, add_jitter, size, overwrite, None, 
             a = X, uplo = "U", overwrite_a = overwrite)
 
     # return with SVD convention: sort eigenvalues
@@ -520,7 +521,7 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
 
 
 ###
-# @process(memcheck = "extra")
+@process(memcheck = "extra")
 def eig(X, U_decision = False, alpha = None, turbo = True, svd = False, n_jobs = 1, conjugate = True, overwrite = False):
     """
     Returns sorted eigenvalues and eigenvectors from large to small of

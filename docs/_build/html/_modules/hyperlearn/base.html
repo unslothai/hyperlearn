@@ -170,10 +170,17 @@
 	<span class="s2">&quot;triu&quot;</span> <span class="p">:</span> 	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="k">else</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span><span class="p">,</span>
 	<span class="s2">&quot;squared&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
 	<span class="s2">&quot;columns&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
-	<span class="s2">&quot;extra&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+	<span class="s2">&quot;extra&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
 	<span class="p">}</span>
 <span class="n">f_same_memory</span> <span class="o">=</span> <span class="n">memory_usage</span><span class="p">[</span><span class="s2">&quot;same&quot;</span><span class="p">]</span>
 
+<span class="c1">###</span>
+<div class="viewcode-block" id="isComplex"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isComplex">[docs]</a><span class="k">def</span> <span class="nf">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">return</span> <span class="bp">False</span></div>
 
 <span class="c1">###</span>
 <div class="viewcode-block" id="available_memory"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.available_memory">[docs]</a><span class="k">def</span> <span class="nf">available_memory</span><span class="p">():</span>
@@ -218,7 +225,7 @@
 					<span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;2D array is not square. Dimensions seen are {shape}.&quot;</span><span class="p">)</span>
 			<span class="c1"># if float:</span>
 			<span class="n">dtype</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
-			<span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="ow">or</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">maxFloat</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complexfloating</span><span class="p">):</span>
+			<span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="ow">or</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">maxFloat</span> <span class="ow">or</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
 				<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">False</span>
 			<span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
 				<span class="c1"># conversion is needed, so check memory</span>
