@@ -21,10 +21,17 @@ memory_usage = {
 	"triu" : 	lambda n,p: p**2 if p < n else n*p,
 	"squared" :	lambda n,p: n**2,
 	"columns" :	lambda n,p: p,
-	"extra" :	lambda n,p: n**2 + _min(n, p)
+	"extra" :	lambda n,p: _min(n, p)**2 + _min(n, p)
 	}
 f_same_memory = memory_usage["same"]
 
+###
+def isComplex(dtype):
+    if dtype == np.complex64:
+        return True
+    elif dtype == np.complex128:
+        return True
+    return False
 
 ###
 def available_memory():
@@ -69,7 +76,7 @@ def arg_process(x, square):
 					raise AssertionError(f"2D array is not square. Dimensions seen are {shape}.")
 			# if float:
 			dtype, dt = x.dtype, x.dtype
-			if dtype == np.float32 or dtype == maxFloat or np.issubdtype(dtype, np.complexfloating):
+			if dtype == np.float32 or dtype == maxFloat or isComplex(dtype):
 				return 0, False
 			elif np.issubdtype(dtype, np.integer):
 				# conversion is needed, so check memory

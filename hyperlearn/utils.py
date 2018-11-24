@@ -88,11 +88,43 @@ def _reflect(X):
 	return X
 
 ###
+@jit(parallel = True)        
+def amax_numb_0(X, n, p):
+	indices = np.zeros(p, dtype = np.dtype('int'))
+	for i in prange(p):
+		_max = 0
+		s = 1
+		for j in range(n):
+			Xji = X[j, i]
+			a = abs(Xji)
+			if a > _max:
+				_max = a
+				s = np.sign(Xji)
+		indices[i] = s
+	return indices
+
+###
+@jit(parallel = True)
+def amax_numb_1(X, n, p):
+	indices = np.zeros(n, dtype = np.dtype('int'))
+	for i in prange(n):
+		_max = 0
+		s = 1
+		Xi = X[i]
+		for j in range(p):
+			Xij = Xi[j]
+			a = abs(Xij)
+			if a > _max:
+				_max = a
+				s = np.sign(Xij)
+		indices[i] = s
+	return indices
+
+###
 def sign_max(X, axis = 0, n_jobs = 1):
 	"""
-	[Added 19/11/2018]
+	[Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]
 	Returns the sign of the maximum absolute value of an axis of X.
-	Uses BLAS if n_jobs = 1. Uses Numba otherwise.
 
 	input:		1 argument, 2 optional
 	----------------------------------------------------------
@@ -102,64 +134,22 @@ def sign_max(X, axis = 0, n_jobs = 1):
 
 	returns: 	sign array of -1,1
 	----------------------------------------------------------
-	"""
-	def amax(X, axis, n, p):
-		idamax = blas("amax", "i")
-		if axis == 1:
-			indices = np.zeros(n, dtype = int)
-			for i in range(n):
-				indices[i] = idamax(X[i])
-			return sign(X[range(n), indices])
-		else:
-			indices = np.zeros(p, dtype = int)
-			for i in range(p):
-				indices[i] = idamax(X[:,i])
-			return sign(X[indices, range(p)])
-	
+	"""	
 	n, p = X.shape
-	if n_jobs != 1:
-		if n*p > 20000**2:
-			@jit(parallel = True)        
-			def amax_numb_0(X, n, p):
-				indices = np.zeros(p, dtype = np.dtype('int'))
-				for i in prange(p):
-					_max = 0
-					s = 1
-					for j in range(n):
-						Xji = X[j, i]
-						a = abs(Xji)
-						if a > _max:
-							_max = a
-							s = np.sign(Xji)
-					indices[i] = s
-				return indices
-
-			@jit(parallel = True)
-			def amax_numb_1(X, n, p):
-				indices = np.zeros(n, dtype = np.dtype('int'))
-				for i in prange(n):
-					_max = 0
-					s = 1
-					Xi = X[i]
-					for j in range(p):
-						Xij = Xi[j]
-						a = abs(Xij)
-						if a > _max:
-							_max = a
-							s = np.sign(Xij)
-					indices[i] = s
-				return indices
-			
-			if axis == 0:
-				return amax_numb_0(X, n, p, n_jobs = -1)
-			return amax_numb_1(X, n, p, n_jobs = -1)
-	return amax(X, axis, n, p)
+	if n_jobs != 1 and n*p > 20000**2:
+		if axis == 0:
+			return amax_numb_0(X, n, p, n_jobs = -1)
+		return amax_numb_1(X, n, p, n_jobs = -1)
+	else:
+		if axis == 0:
+			return amax_numb_0(X, n, p, n_jobs = 1)
+		return amax_numb_1(X, n, p, n_jobs = 1)
 
 
 ###
 def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
 	"""
-	[Added 19/11/2018] [Edited 21/11/2018 Uses BLAS]
+	[Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]
 	Flips the signs of U and VT from a SVD or eigendecomposition.
 	Default opposite to Sklearn's U decision. HyperLearn uses
 	the maximum of rows of VT.
@@ -176,29 +166,32 @@ def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
 	if U_decision is None:
 		return
 
-	scal = blas("scal")
 	if U is not None:
 		if U_decision:
 			signs = sign_max(U, 0, n_jobs = n_jobs)
 		else:
 			signs = sign_max(VT, 1, n_jobs = n_jobs)
-
-		index = np.where(signs == -1)[0]
-		
-		for i in index:
-			VT[i] = scal(a = VT[i], x = -1)
-			U[:,i] = scal(a = U[:,i], x = -1)
+		U *= signs
+		VT *= signs[:,np.newaxis]
 	else:
 		# Eig flip on eigenvectors
 		signs = sign_max(VT, 0, n_jobs = n_jobs)
 		index = np.where(signs == -1)[0]
+		VT *= signs
 
-		for i in index:
-			VT[:,i] = scal(a = VT[:,i], x = -1)			
+
+#### Load JIT
+U = np.eye(2, dtype = np.float32)
+svd_flip(U, U)
+del U;
+U = np.eye(2, dtype = np.float64)
+svd_flip(U, U)
+del U;
+
 
 
 ###
-def svdCondition(U, S, VT, alpha = None):
+def svd_condition(U, S, VT, alpha = None):
 	"""
 	[Added 21/11/2018]
 	Uses Scipy's SVD condition number calculation to improve pseudoinverse
@@ -220,17 +213,22 @@ def svdCondition(U, S, VT, alpha = None):
 		cond = 1000 #1e3
 	else:
 		cond = 1000000 #1e6
-	eps = np.finfo(t).eps
+	eps = np.finfo(dtype).eps
 	first = S[0]
 	eps = eps*first*cond
 
-	rank = S.size-1
-	while rank > 0:
-		if S[rank] >= eps: break
+	# Binary search O(logn) is not useful
+	# since most singular values are not going to be 0
+	size = S.size
+	rank = size-1
+	if S[rank] < eps:
 		rank -= 1
+		while rank > 0:
+			if S[rank] >= eps: break
+			rank -= 1
 	rank += 1
 
-	if rank != S.size:
+	if rank != size:
 		U, S, VT = U[:, :rank], S[:rank], VT[:rank]
 
 	update = True
