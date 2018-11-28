@@ -10,7 +10,8 @@ import sys
 from array import array
 
 MAX_MEMORY = 0.94
-ALPHA_DEFAULT = 1e-6
+ALPHA_DEFAULT32 = 1e-3
+ALPHA_DEFAULT64 = 1e-6
 _is64 = sys.maxsize > (1 << 32)
 maxFloat = np.float64 if _is64 else np.float32
 
@@ -21,7 +22,9 @@ memory_usage = {
 	"triu" : 	lambda n,p: p**2 if p < n else n*p,
 	"squared" :	lambda n,p: n**2,
 	"columns" :	lambda n,p: p,
-	"extra" :	lambda n,p: _min(n, p)**2 + _min(n, p)
+	"extra" :	lambda n,p: _min(n, p)**2 + _min(n, p),
+	"truncated":lambda n,p,k: k*(n + p) + _min(n, p)*k + k + k**2,
+	"minimum":	lambda n,p,k: k*(n + p) + k + k**2
 	}
 f_same_memory = memory_usage["same"]
 
@@ -31,6 +34,8 @@ def isComplex(dtype):
         return True
     elif dtype == np.complex128:
         return True
+    elif dtype == complex:
+    	return True
     return False
 
 ###
@@ -40,7 +45,7 @@ def available_memory():
 ###
 def memory(shape, dtype, memcheck):
 	"""
-	[Edited 18/11/2018 Slightly faster]
+	[Edited 18/11/18 Slightly faster]
 	Checks if an operation on a matrix is within memory bounds.
 
 	input:		3 arguments
@@ -95,7 +100,9 @@ def arg_process(x, square):
 ###
 def process(f = None, memcheck = None, square = False):
 	"""
-	[Added 14/11/2018] [Edited 18/11/2018 for speed]
+	[Added 14/11/18] [Edited 18/11/18 for speed]
+	[Edited 25/11/18 Array deprecation of unicode]
+	[Edited 27/11/18 Allows support for n_components]
 	Decorator onto HyperLearn functions. Does 2 things:
 	1. Convert datatypes to appropriate ones
 	2. Convert matrices to arrays
@@ -130,16 +137,7 @@ def process(f = None, memcheck = None, square = False):
 		@wraps(f)
 		def wrapper(*args, **kwargs):
 			no_args = len(function_args)
-
-			# check if alpha is in function:
-			whereAlpha = 0
-			hasAlpha = False
-			for i in function_args: # O(n)
-				if i == "alpha": 
-					hasAlpha = True
-					break
-				whereAlpha += 1
-
+			args = list(args)
 
 			l = len(args)
 			L = len(kwargs)
@@ -164,11 +162,46 @@ def process(f = None, memcheck = None, square = False):
 			if type(X) != np.ndarray:
 				raise IndexError("First argument is not a 2D array. Must be an array.")
 
+			# check if alpha and n_components is in function:
+			whereAlpha = 0
+			whereK = 0
+
+			hasAlpha = False
+			hasK = False
+			n_components = None
+			for i in function_args: # O(n)
+				if i == "alpha": 
+					hasAlpha = True
+				if not hasAlpha:
+					whereAlpha += 1
+				if i == "n_components":
+					hasK = True
+				if not hasK:
+					whereK += 1
+				
 			# check alpha
+			size = X.itemsize
+			if size < 8:
+				ALPHA_DEFAULT = ALPHA_DEFAULT32
+			else:
+				ALPHA_DEFAULT = ALPHA_DEFAULT64
+
+			# update alpha and n_components
 			if l > whereAlpha:
 				if args[whereAlpha] is None:
 					args[whereAlpha] = ALPHA_DEFAULT
 				hasAlpha = False
+
+			# get n_components
+			if l > whereK:
+				n_components = args[whereK]
+				try:
+					n_components = int(n_components)
+					args[whereK] = n_components
+				except:
+					raise AssertionError(f"n_components = {n_components} of type {type(n_components)} is not "
+					"the correct type. Must be int or float.")
+				hasK = False
 
 			# check booleans and if an array is seen
 			otherYes = 0
@@ -184,19 +217,29 @@ def process(f = None, memcheck = None, square = False):
 
 			# check function arguments
 			for x in kwargs:
-				# check alpha
 				try:
 					check_arg = function_args[x]
 					t = kwargs[x]
-					if type(t) == bool:
+					if type(t) == bool and "only" in x:
 						otherYes += t
+					# determine if alpha argument
 					if hasAlpha:
 						if x == "alpha":
 							if t is None:
 								kwargs[x] = ALPHA_DEFAULT
 							hasAlpha = False
+					# get n_components
+					if hasK:
+						if x == 'n_components':
+							try:
+								n_components = int(t)
+								kwargs[x] = n_components
+							except:
+								raise AssertionError(f"n_components = '{n_components}' is not "
+								"the correct type. Must be int or float.")
+							hasK = False
 				except:
-					raise NameError("Argument '{x}' is not recognised in function. "
+					raise NameError(f"Argument '{x}' is not recognised in function. "
 					f"Function accepted signature is {function_signature}.")
 
 					
@@ -204,7 +247,7 @@ def process(f = None, memcheck = None, square = False):
 			if otherYes == memory_length-1 or otherYes == 0:
 				for i in kwargs:
 					t = kwargs[i]
-					if type(t) == bool:
+					if type(t) == bool and "only" in i:
 						kwargs[i] = False # set to all False
 				kwargs["X"] = True # all true
 			else:
@@ -216,10 +259,14 @@ def process(f = None, memcheck = None, square = False):
 					i = kwargs[x]
 				except:
 					kwargs[x] = False
+			if hasK:
+				# add default n_components = 2
+				kwargs["n_components"] = 2
+				n_components = 2
 				
 			# Now check data types of arrays
 			need = 0 # how much memory needed
-			new_dtypes = array('u') # new datatypes
+			new_dtypes = array('B') # new datatypes
 
 			for i in range(l):
 				x = args[i]
@@ -235,7 +282,7 @@ def process(f = None, memcheck = None, square = False):
 					else:
 						X_dtype = dtype
 				need += n
-				new_dtypes.append(dtype)
+				new_dtypes.append(ord(dtype))
 				
 			for i in kwargs:
 				x = kwargs[i]
@@ -244,11 +291,15 @@ def process(f = None, memcheck = None, square = False):
 					x = kwargs[i]
 				n, dtype = arg_process(x, square)
 				need += n
-				new_dtypes.append(dtype)
+				new_dtypes.append(ord(dtype))
 				
 
 			# check X satisfying boolean arguments in order of importance
 			shape = X.shape
+			if n_components != None:
+				shape = list(shape)
+				shape.append(n_components)
+
 			for i in memory_keys:
 				if kwargs[i] == True:
 					need += memory(shape, X_dtype, memcheck[i])
@@ -264,12 +315,12 @@ def process(f = None, memcheck = None, square = False):
 			# convert data dtypes
 			arg = 0
 			for i in range(l):
-				dtype = new_dtypes[arg]
+				dtype = chr(new_dtypes[arg])
 				if dtype != '?':
 					args[i] = args[i].astype(dtype)
 				arg += 1
 			for i in kwargs:
-				dtype = new_dtypes[arg]
+				dtype = chr(new_dtypes[arg])
 				if dtype != '?':
 					kwargs[i] = kwargs[i].astype(dtype)
 				arg += 1
@@ -301,7 +352,7 @@ def process(f = None, memcheck = None, square = False):
 ###
 class lapack():
 	"""
-	[Added 14/11/2018]
+	[Added 14/11/18]
 	Get a LAPACK function based on the dtype(X). Acts like Scipy's get lapack function.
 
 	input:		1 argument, 2 optional
@@ -347,7 +398,7 @@ class lapack():
 ###
 class blas():
 	"""
-	[Added 14/11/2018]
+	[Added 14/11/18]
 	Get a BLAS function based on the dtype(X). Acts like Scipy's get blas function.
 
 	input:		1 argument

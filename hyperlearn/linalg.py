@@ -1,10 +1,4 @@
 
-"""
-linalg.py
-====================================
-Linear Algebra Functions for HyperLearn
-"""
-
 from .base import *
 from .utils import *
 import scipy.linalg as scipy
@@ -37,8 +31,84 @@ def transpose(X, overwrite = True, dtype = None):
 
 
 ###
+def matmul(pattern, X, Y = None):
+    """
+    Using BLAS routines GEMM, SYRK, SYMM, multiplies 2 matrices together
+    assuming X has some special structure or the output is special. Supports
+    symmetric constructions: X.H @ X and X @ X.H; symmetric multiplies:
+    S @ Y and Y @ S where S is a symmetric matrix; general multiplies:
+    X @ Y and X.H @ Y.
+    [Added 28/11/18 Changed from transpose since it didn't work]
+
+    Parameters
+    -----------
+    pattern:    Can include: X.H @ X | X @ X.H | S @ Y | Y @ S | X @ Y | X.H @ Y
+    X:          Compulsory left side matrix.
+    Y:          Optional right side matrix.
+
+    Returns
+    -----------
+    out:        Special matrix output according to pattern.
+    """
+    pattern = pattern.upper().replace(' ','')
+    dtypeX = X.dtype
+    XT = X.T
+    
+    if pattern == "X.H@X":
+        if isComplex(dtypeX):
+            # BLAS SYRK doesn't work
+            out = blas("gemm")(a = XT, b = XT, trans_a = 0, trans_b = 2, alpha = 1)
+            out = np.conjugate(out, out = out)
+        else:
+            # Use BLAS SYRK
+            out = blas("syrk")(a = XT, trans = 0, alpha = 1)
+
+    elif pattern == "X@X.H":
+        if isComplex(dtypeX):
+            # BLAS SYRK doesn't work
+            out = blas("gemm")(a = XT, b = XT, trans_a = 2, trans_b = 0, alpha = 1)
+            out = np.conjugate(out, out = out)
+        else:
+            # Use BLAS SYRK
+            out = blas("syrk")(a = XT, trans = 1, alpha = 1)
+
+    elif pattern == "X.H@Y":
+        if isComplex(dtypeX):
+            dtypeY = Y.dtype
+            if isComplex(dtypeY):
+                out = blas("gemm")(a = XT, b = Y.T, trans_a = 0, trans_b = 2, alpha = 1)
+            else:
+                out = XT @ Y
+            out = np.conjugate(out, out = out)
+        else:
+            out = XT @ Y
+
+    elif pattern == "X@Y":
+        out = X @ Y
+        
+    # Symmetric Multiply
+    # If it's F Contiguous, I assume it's UPPER. If not, it's transposed.
+    elif pattern == "S@Y":
+
+        if X.flags["F_CONTIGUOUS"]:
+            out = blas("symm")(a = X, b = Y, side = 0, alpha = 1)
+        else:
+            out = blas("symm")(a = XT, b = Y, side = 0, alpha = 1, lower = 1)
+
+    elif pattern == "Y@S":
+
+        if X.flags["F_CONTIGUOUS"]:
+            out = blas("symm")(a = X, b = Y, side = 1, alpha = 1)
+        else:
+            out = blas("symm")(a = X, b = Y, side = 1, alpha = 1, lower = 1)
+    else:
+        raise NameError(f"Pattern = {pattern} is not recognised.")
+    return out
+
+
+###
 @process(square = True, memcheck = "columns")
-def cholesky(X, alpha = None):
+def cholesky(X, alpha = None, overwrite = False):
     """
     Uses Epsilon Jitter Solver to compute the Cholesky Decomposition
     until success. Default alpha ridge regularization = 1e-6.
@@ -49,16 +119,16 @@ def cholesky(X, alpha = None):
     -----------
     X :         Matrix to be decomposed. Has to be symmetric.
     alpha :     Ridge alpha regularization parameter. Default 1e-6
-    turbo :     Boolean to use float32, rather than more accurate float64.
+    overwrite:  Whether to inplace change data.
 
     Returns
     -----------
     U :         Upper triangular cholesky factor (U)
     """
     decomp = lapack("potrf", None)
-    size = X.shape[0] + 1 # add items to diagonal
-    U = do_until_success(decomp, add_jitter, size, False, alpha, X) # overwrite matters
+    U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, X)
     return U
+
 
 ###
 @process(square = True, memcheck = "columns")
@@ -81,6 +151,7 @@ def cho_solve(X, rhs, alpha = None):
     theta = lapack("potrs")(X, rhs)[0]
     return theta
 
+
 ###
 @process(square = True, memcheck = "squared")
 def cho_inv(X, turbo = True):
@@ -100,9 +171,10 @@ def cho_inv(X, turbo = True):
     inv = lapack("potri", None, turbo)(X)
     return inv
 
+
 ###
 @process(memcheck = "full")
-def pinvc(X, alpha = None, turbo = True, conjugate = True, overwrite = False):
+def pinvc(X, alpha = None, turbo = True, overwrite = False):
     """
     Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
     Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to
@@ -115,8 +187,8 @@ def pinvc(X, alpha = None, turbo = True, conjugate = True, overwrite = False):
     X :         General matrix X.
     alpha :     Ridge alpha regularization parameter. Default 1e-6
     turbo :     Boolean to use float32, rather than more accurate float64.
-    conjugate:  Whether to inplace conjugate but and inplace return original.
-    overwrite:  Whether to conjugate transpose inplace.
+    overwrite:  Whether to overwrite intermmediate results. Will cause
+                alpha to be increased by a factor of 10.
 
     Returns
     -----------    
@@ -124,30 +196,26 @@ def pinvc(X, alpha = None, turbo = True, conjugate = True, overwrite = False):
                 @ pinv(X) = I for p > n.
     """
     n, p = X.shape
-    size = X.shape[0] + 1 # add items to diagonal
     # determine under / over-determined
-    XXT = p > n
+    XTX = n > p
     dtype = X.dtype
-    a = transpose(X, conjugate, dtype)
 
     # get covariance or gram matrix
-    U = blas("syrk")(a = a, trans = XXT, alpha = 1)
+    U = matmul("X.H @ X", X) if XTX else matmul("X @ X.H", X)
 
     decomp = lapack("potrf", None)
-    U = do_until_success(decomp, add_jitter, size, True, alpha, U) # overwrite shouldnt matter
+    U = do_until_success(decomp, add_jitter, _min(n,p), overwrite, alpha, U)
     U = lapack("potri", None, turbo)(U, overwrite_c = True)[0]
 
     # if XXT -> XT * (XXT)^-1
     # if XTX -> (XTX)^-1 * XT
-    inv = blas("symm")(a = U, b = a, side = XXT, alpha = 1)
-    if not overwrite and conjugate and isComplex(dtype):
-        transpose(X, True, dtype);
+    inv = matmul("S @ Y", U, X.T) if XTX else matmul("Y @ S", U, X.T)
     return inv
 
 
 ###
 @process(square = True, memcheck = "full")
-def pinvh(X, alpha = None, turbo = True, n_jobs = 1):
+def pinvh(X, alpha = None, turbo = True, n_jobs = 1, overwrite = False):
     """
     Returns the inverse of a square Hermitian Matrix using Cholesky 
     Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. 
@@ -160,13 +228,14 @@ def pinvh(X, alpha = None, turbo = True, n_jobs = 1):
     alpha :     Ridge alpha regularization parameter. Default 1e-6
     turbo :     Boolean to use float32, rather than more accurate float64.
     n_jobs :    Whether to perform multiprocessing.
+    overwrite:  Whether to overwrite X inplace with pinvh.
 
     Returns
     -----------    
     pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     decomp = lapack("potrf", None)
-    U = do_until_success(decomp, add_jitter, X.shape[0] + 1, False, alpha, U)
+    U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, U)
     U = lapack("potri", None, turbo)(U, overwrite_c = True)[0]
 
     return _reflect(U, n_jobs = n_jobs)
@@ -193,27 +262,8 @@ def lu(X, L_only = False, U_only = False, overwrite = False):
     """
     n, p = X.shape
     if L_only or U_only:
-        A, P, __ = lapack("getrf")(X, overwrite_a = overwrite)
+        A, P, _ = lapack("getrf")(X, overwrite_a = overwrite)
         if L_only:
-            ###
-            @jit  # Output only L part. Overwrites LU matrix to save memory.
-            def L_process(n, p, L):
-                wide = (p > n)
-                k = p
-
-                if wide:
-                    # wide matrix
-                    # L get all n rows, but only n columns
-                    L = L[:, :n]
-                    k = n
-
-                # tall / wide matrix
-                for i in range(k):
-                    li = L[i]
-                    li[i+1:] = 0
-                    li[i] = 1
-                # Set diagonal to 1
-                return L, k
             A, k = L_process(n, p, A)
             # inc = -1 means reverse order pivoting
             A = lapack("laswp")(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
@@ -229,9 +279,9 @@ def lu(X, L_only = False, U_only = False, overwrite = False):
 @process(square = True, memcheck = "same")
 def pinvl(X, alpha = None, turbo = True, overwrite = False):
     """
-    [Added 18/11/18]
     Computes the pseudoinverse of a square matrix X using LU Decomposition.
     Notice, it's much faster to use pinvc (Choleksy Inverse).
+    [Added 18/11/18] [Edited 26/11/18 Fixed ridge regularization]
 
     Parameters
     -----------
@@ -245,19 +295,11 @@ def pinvl(X, alpha = None, turbo = True, overwrite = False):
     pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I = X @ pinv(X) 
     """
     n, p = X.shape
-    size = n if n < p else p
-
-    A, P, __ = lapack("getrf")(X, overwrite_a = overwrite)
-
-    @jit # Force triangular matrix U to be invertible using ridge regularization
-    def U_process(A, size, alpha):
-        for i in range(size):
-            if A[i, i] == 0:
-                A[i, i] += alpha
+    A, P, _ = lapack("getrf")(X, overwrite_a = overwrite)
 
     inv = lapack("getri")
-    A = do_until_success(inv, U_process, size, True, alpha, lu = A, piv = P, overwrite_lu = True) 
-    # overwrite shouldnt matter
+    A = do_until_success(inv, U_process, _min(n,p), True, alpha, lu = A, piv = P, overwrite_lu = True) 
+    # overwrite shouldnt matter in first go
     return A
 
 
@@ -282,13 +324,13 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
     """
     if Q_only or R_only:
         n, p = X.shape
-        R, tau, __, __ = lapack("geqrf")(X, overwrite_a = overwrite)
+        R, tau, _, _ = lapack("geqrf")(X, overwrite_a = overwrite)
 
         if Q_only:
             if p > n:
                 R = R[:, :n]
             # Compute Q
-            Q, __, __ = lapack("orgqr")(R, tau, overwrite_a = True)
+            Q, _, _ = lapack("orgqr")(R, tau, overwrite_a = True)
             return Q
         else:
             # get only upper triangle
@@ -344,7 +386,7 @@ def svd(X, U_decision = False, n_jobs = 1, conjugate = True, overwrite = False):
     X:          Matrix to be decomposed. General matrix.
     U_decision: Default = False. If True, uses max from U. If None. don't flip.
     n_jobs:     Whether to use more >= 1 CPU
-    conjugate:  Whether to inplace conjugate but and inplace return original.
+    conjugate:  Whether to inplace conjugate but inplace return original.
     overwrite:  Whether to conjugate transpose inplace.
 
     Returns
@@ -377,22 +419,23 @@ def svd(X, U_decision = False, n_jobs = 1, conjugate = True, overwrite = False):
     # From Modern Big Data Algorithms -> GESVD better if matrix is very skinny
     if ratio >= 0.001:
         if overwrite:
-            U, S, VT, __ = lapack("gesdd")(X, full_matrices = False, overwrite_a = overwrite)
+            U, S, VT, _ = lapack("gesdd")(X, full_matrices = False, overwrite_a = overwrite)
         else:
             U, S, VT = numba.svd(X, full_matrices = False)
     else:
-        U, S, VT, __ = lapack("gesvd")(X, full_matrices = False, overwrite_a  = overwrite)
+        U, S, VT, _ = lapack("gesvd")(X, full_matrices = False, overwrite_a  = overwrite)
         
     # Return original X if X.H
     if not overwrite and conjugate and isComplex(dtype):
         transpose(X, True, dtype);
-
-    # In place flips sign according to max(abs(VT))
-    svd_flip(U, VT, U_decision = U_decision, n_jobs = n_jobs)
     
     # Flip if svd(X.T) was performed.
     if ifTranspose:
-        return transpose(VT, True, dtype), S, transpose(U, True, dtype)
+        U, VT = transpose(VT, True, dtype), transpose(U, True, dtype)
+
+    # In place flips sign according to max(abs(VT))
+    svd_flip(U, VT, U_decision = U_decision, n_jobs = n_jobs)
+
     return U, S, VT
 
 
@@ -416,8 +459,8 @@ def pinv(X, alpha = None, overwrite = False):
     """
     dtype = X.dtype
     U, S, VT = svd(X, U_decision = None, overwrite = overwrite)
-    U, S, VT = svd_condition(U, S, VT, alpha)
-    return (transpose(VT, True, dtype) * S) @ transpose(U, True, dtype)
+    U, _S, VT = svd_condition(U, S, VT, alpha)
+    return (transpose(VT, True, dtype) * _S) @ transpose(U, True, dtype)
 
 
 ###
@@ -490,16 +533,17 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
     else:
         evd = True
     
-    size = n + 1 # add items to diagonal
     # From Modern Big Data Algorithms: SYEVD mostly faster than SYEVR
     # contradicts MKL's findings
     if evd:
         decomp = lapack("heevd") if isComplex(dtype) else lapack("syevd")
-        W, V = do_until_success(decomp, add_jitter, size, overwrite, None, 
+        W, V = do_until_success(
+            decomp, add_jitter, n, overwrite, None, 
             a = X, lower = 0, overwrite_a = overwrite)
     else:
         decomp = lapack("heevr") if isComplex(dtype) else lapack("syevr")
-        W, V = do_until_success(decomp, add_jitter, size, overwrite, None, 
+        W, V = do_until_success(
+            decomp, add_jitter, n, overwrite, None, 
             a = X, uplo = "U", overwrite_a = overwrite)
 
     # return with SVD convention: sort eigenvalues
@@ -521,8 +565,11 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
 
 
 ###
+_svd = svd
 @process(memcheck = "extra")
-def eig(X, U_decision = False, alpha = None, turbo = True, svd = False, n_jobs = 1, conjugate = True, overwrite = False):
+def eig(
+    X, U_decision = False, alpha = None, turbo = True, svd = False, 
+    n_jobs = 1, conjugate = True, overwrite = False):
     """
     Returns sorted eigenvalues and eigenvectors from large to small of
     a general matrix X. Follows SVD convention. Also flips signs of 
@@ -546,7 +593,7 @@ def eig(X, U_decision = False, alpha = None, turbo = True, svd = False, n_jobs =
                 where V = (X.T @ U) / sqrt(W)
     svd:        Returns sqrt(W) and V.T
     n_jobs:     Whether to use more >= 1 CPU
-    conjugate:  Whether to inplace conjugate but and inplace return original.
+    conjugate:  Whether to inplace conjugate but inplace return original.
     overwrite:  Whether to conjugate transpose inplace.
 
     Returns
@@ -557,7 +604,6 @@ def eig(X, U_decision = False, alpha = None, turbo = True, svd = False, n_jobs =
     n, p = X.shape
     byte = X.itemsize
     dtype = X.dtype
-    a = transpose(X, conjugate, dtype)
 
     # check memory usage
     free = available_memory()
@@ -582,33 +628,17 @@ def eig(X, U_decision = False, alpha = None, turbo = True, svd = False, n_jobs =
         # From Modern Big Data Algorithms for p >= 1.1n
         if turbo and p >= 1.1*n:
             # Form XXT
-            cov = blas("syrk")(a = a, trans = True, alpha = 1)
-            W, V = eigh(cov, U_decision = None, overwrite = True)
+            cov = matmul("X @ X.H", X)
+            W, V = eigh(cov, U_decision = None, overwrite = True) # overwrite doesn't matter
 
-            # Condition number just in case W[i] <= 0
-            dtype = W.dtype.char.lower()
-            if dtype == "f":
-                cond = 1000 #1e3
-            else:
-                cond = 1000000 #1e6
-            eps = np.finfo(dtype).eps
-            first = W[-1]**0.5 # eigenvalues are sorted ascending
-            eps = eps*first*cond
-            eps **= 2 # since eigenvalues are squared of singular values
-
-            for i in range(W.size):
-                if W[i] > 0: break
-                # else set to condition number
-                W[i] = eps
-
-            V = (a @ V) / W**0.5
+            W, V = eig_condition(X, W, V)
         else:
             # Form XTX
-            cov = blas("syrk")(a = a, trans = False, alpha = 1)
+            cov = matmul("X.H @ X", X)
             W, V = eigh(cov, U_decision = None, overwrite = True)
 
     else:
-        __, W, V = svd( qr(X, R_only = True), U_decision = None, overwrite = True)
+        _, W, V = _svd( qr(X, R_only = True), U_decision = None, overwrite = True)
         if svd:
             return S, V
         W **= 2
@@ -634,3 +664,5 @@ def eig(X, U_decision = False, alpha = None, turbo = True, svd = False, n_jobs =
         W, V = W[::-1], V[:,::-1]
 
     return W, V
+
+
