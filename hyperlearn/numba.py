@@ -5,6 +5,16 @@ import numpy as np
 from numpy import linalg
 
 ###
+def isComplex(dtype):
+    if dtype == np.complex64:
+        return True
+    elif dtype == np.complex128:
+        return True
+    elif dtype == complex:
+    	return True
+    return False
+
+###
 def jit(f = None, parallel = False):
 	"""
 	[Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
@@ -71,7 +81,13 @@ def mean(X, axis = 0):
 		return X.mean(axis)
 
 @jit
-def sign(X): return np.sign(X)
+def __sign(X): return np.sign(X)
+
+def sign(X):
+	S = __sign(X)
+	if isComplex(X.dtype):
+		return S.real
+	return S
 
 @jit
 def _sum(X, axis = 0): return np.sum(X, axis)

@@ -36,13 +36,13 @@ def matmul(pattern, X, Y = None):
     Using BLAS routines GEMM, SYRK, SYMM, multiplies 2 matrices together
     assuming X has some special structure or the output is special. Supports
     symmetric constructions: X.H @ X and X @ X.H; symmetric multiplies:
-    S @ Y and Y @ S where S is a symmetric matrix; general multiplies:
+    S @ Y.H and Y.H @ S where S is a symmetric matrix; general multiplies:
     X @ Y and X.H @ Y.
     [Added 28/11/18 Changed from transpose since it didn't work]
 
     Parameters
     -----------
-    pattern:    Can include: X.H @ X | X @ X.H | S @ Y | Y @ S | X @ Y | X.H @ Y
+    pattern:    Can include: X.H @ X | X @ X.H | S @ Y.H | Y.H @ S | X @ Y | X.H @ Y
     X:          Compulsory left side matrix.
     Y:          Optional right side matrix.
 
@@ -53,6 +53,7 @@ def matmul(pattern, X, Y = None):
     pattern = pattern.upper().replace(' ','')
     dtypeX = X.dtype
     XT = X.T
+    n = X.shape[0]
     
     if pattern == "X.H@X":
         if isComplex(dtypeX):
@@ -88,19 +89,33 @@ def matmul(pattern, X, Y = None):
         
     # Symmetric Multiply
     # If it's F Contiguous, I assume it's UPPER. If not, it's transposed.
-    elif pattern == "S@Y":
+    elif pattern == "S@Y.H":
+        dtypeY = Y.dtype
 
-        if X.flags["F_CONTIGUOUS"]:
-            out = blas("symm")(a = X, b = Y, side = 0, alpha = 1)
+        if isComplex(dtypeY):
+            a = X if X.flags["F_CONTIGUOUS"] else XT
+            # Symmetric doesn't work
+            out = blas("gemm")(a = a, b = Y, trans_b = 2, alpha = 1)
         else:
-            out = blas("symm")(a = XT, b = Y, side = 0, alpha = 1, lower = 1)
+            YT = Y.T
+            if X.flags["F_CONTIGUOUS"]:
+                out = blas("symm")(a = X, b = YT, side = 0, alpha = 1)
+            else:
+                out = blas("symm")(a = XT, b = YT, side = 0, alpha = 1, lower = 1)
 
-    elif pattern == "Y@S":
+    elif pattern == "Y.H@S":
+        dtypeY = Y.dtype
 
-        if X.flags["F_CONTIGUOUS"]:
-            out = blas("symm")(a = X, b = Y, side = 1, alpha = 1)
+        if isComplex(dtypeY):
+            a = X if X.flags["F_CONTIGUOUS"] else XT
+            # Symmetric doesn't work
+            out = blas("gemm")(a = Y, b = a, trans_a = 2, alpha = 1)
         else:
-            out = blas("symm")(a = X, b = Y, side = 1, alpha = 1, lower = 1)
+            YT = Y.T
+            if X.flags["F_CONTIGUOUS"]:
+                out = blas("symm")(a = X, b = YT, side = 1, alpha = 1)
+            else:
+                out = blas("symm")(a = XT, b = YT, side = 1, alpha = 1, lower = 1)
     else:
         raise NameError(f"Pattern = {pattern} is not recognised.")
     return out
@@ -125,7 +140,7 @@ def cholesky(X, alpha = None, overwrite = False):
     -----------
     U :         Upper triangular cholesky factor (U)
     """
-    decomp = lapack("potrf", None)
+    decomp = lapack("potrf")
     U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, X)
     return U
 
@@ -168,7 +183,7 @@ def cho_inv(X, turbo = True):
     -----------
     inv(U) :     Upper Triangular Inverse(X)
     """
-    inv = lapack("potri", None, turbo)(X)
+    inv = lapack("potri", turbo)(X)
     return inv
 
 
@@ -203,19 +218,19 @@ def pinvc(X, alpha = None, turbo = True, overwrite = False):
     # get covariance or gram matrix
     U = matmul("X.H @ X", X) if XTX else matmul("X @ X.H", X)
 
-    decomp = lapack("potrf", None)
+    decomp = lapack("potrf")
     U = do_until_success(decomp, add_jitter, _min(n,p), overwrite, alpha, U)
-    U = lapack("potri", None, turbo)(U, overwrite_c = True)[0]
+    U = lapack("potri", turbo)(U, overwrite_c = True)[0]
 
     # if XXT -> XT * (XXT)^-1
     # if XTX -> (XTX)^-1 * XT
-    inv = matmul("S @ Y", U, X.T) if XTX else matmul("Y @ S", U, X.T)
+    inv = matmul("S @ Y.H", U, X) if XTX else matmul("Y.H @ S", U, X)
     return inv
 
 
 ###
 @process(square = True, memcheck = "full")
-def pinvh(X, alpha = None, turbo = True, n_jobs = 1, overwrite = False):
+def pinvh(X, alpha = None, turbo = True, overwrite = False):
     """
     Returns the inverse of a square Hermitian Matrix using Cholesky 
     Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. 
@@ -227,22 +242,21 @@ def pinvh(X, alpha = None, turbo = True, n_jobs = 1, overwrite = False):
     X :         Upper Symmetric Matrix X
     alpha :     Ridge alpha regularization parameter. Default 1e-6
     turbo :     Boolean to use float32, rather than more accurate float64.
-    n_jobs :    Whether to perform multiprocessing.
     overwrite:  Whether to overwrite X inplace with pinvh.
 
     Returns
     -----------    
     pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
-    decomp = lapack("potrf", None)
-    U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, U)
-    U = lapack("potri", None, turbo)(U, overwrite_c = True)[0]
+    decomp = lapack("potrf")
+    U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, X)
+    U = lapack("potri", turbo)(U, overwrite_c = True)[0]
 
-    return _reflect(U, n_jobs = n_jobs)
+    return reflect(U)
 
 
 ###
-@process(memcheck = {"X":"full", "L_only":"same", "U_only":"same"})
+#@process(memcheck = {"X":"full", "L_only":"same", "U_only":"same"})
 def lu(X, L_only = False, U_only = False, overwrite = False):
     """
     Computes the pivoted LU decomposition of a matrix. Optional to output
@@ -309,7 +323,7 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
     """
     Computes the reduced economic QR Decomposition of a matrix. Optional
     to output only Q or R.
-    [Added 16/11/18]
+    [Added 16/11/18] [Edited 28/11/18 Complex support]
 
     Parameters
     -----------
@@ -322,6 +336,8 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
     -----------    
     (Q,R) or (Q) or (R)
     """
+    dtype = X.dtype
+
     if Q_only or R_only:
         n, p = X.shape
         R, tau, _, _ = lapack("geqrf")(X, overwrite_a = overwrite)
@@ -330,7 +346,10 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
             if p > n:
                 R = R[:, :n]
             # Compute Q
-            Q, _, _ = lapack("orgqr")(R, tau, overwrite_a = True)
+            if isComplex(dtype):
+                Q, _, _ = lapack("ungqr")(R, tau, overwrite_a = True)
+            else:
+                Q, _, _ = lapack("orgqr")(R, tau, overwrite_a = True)
             return Q
         else:
             # get only upper triangle
@@ -546,9 +565,6 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
             decomp, add_jitter, n, overwrite, None, 
             a = X, uplo = "U", overwrite_a = overwrite)
 
-    # return with SVD convention: sort eigenvalues
-    svd_flip(None, V, U_decision = U_decision, n_jobs = n_jobs)
-
     # if svd -> return V.T and sqrt(S)
     if svd:
         for i in range(W.size):
@@ -561,6 +577,10 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
     if svd:
         W **= 0.5
         V = transpose(V, True, dtype)
+
+    # return with SVD convention: sort eigenvalues
+    svd_flip(None, V, U_decision = U_decision, n_jobs = n_jobs)
+
     return W, V
 
 
@@ -569,7 +589,7 @@ _svd = svd
 @process(memcheck = "extra")
 def eig(
     X, U_decision = False, alpha = None, turbo = True, svd = False, 
-    n_jobs = 1, conjugate = True, overwrite = False):
+    n_jobs = 1, conjugate = True, overwrite = False, use_svd = False):
     """
     Returns sorted eigenvalues and eigenvectors from large to small of
     a general matrix X. Follows SVD convention. Also flips signs of 
@@ -595,6 +615,7 @@ def eig(
     n_jobs:     Whether to use more >= 1 CPU
     conjugate:  Whether to inplace conjugate but inplace return original.
     overwrite:  Whether to conjugate transpose inplace.
+    use_svd:    Use SVD instead of EIGH (slower, but more robust)
 
     Returns
     -----------
@@ -610,7 +631,6 @@ def eig(
     evd, evr = eigh_lwork(dtype, byte, n, p)
     eigh_work = _min(evd, evr)
 
-    use_svd = False
     if eigh_work > free:
         use_svd = True
         # check SVD since less memory usage
@@ -633,23 +653,21 @@ def eig(
 
             W, V = eig_condition(X, W, V)
         else:
-            # Form XTX
+        # Form XTX
             cov = matmul("X.H @ X", X)
             W, V = eigh(cov, U_decision = None, overwrite = True)
-
+        W, V = W[::-1], V[:,::-1]
+        
     else:
         _, W, V = _svd( qr(X, R_only = True), U_decision = None, overwrite = True)
         if svd:
-            return S, V
+            return W, V
         W **= 2
         V = transpose(V, True, dtype)
 
     # revert matrix X back
     if not overwrite and conjugate and isComplex(dtype):
         transpose(X, True, dtype);
-
-    # return with SVD convention: flip signs
-    svd_flip(None, V, U_decision = U_decision, n_jobs = n_jobs)
 
     # if svd -> return V.T and sqrt(S)
     if svd:
@@ -660,8 +678,8 @@ def eig(
         W **= 0.5
         V = transpose(V, True, dtype)
 
-    if U_decision is not None:
-        W, V = W[::-1], V[:,::-1]
+    # return with SVD convention: flip signs
+    svd_flip(None, V, U_decision = U_decision, n_jobs = n_jobs)
 
     return W, V
 

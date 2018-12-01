@@ -120,14 +120,13 @@ def triu(n, p, U):
 ###
 @jit  # Output only L part. Overwrites LU matrix to save memory.
 def L_process(n, p, L):
-    wide = (p > n)
-    k = p
-
-    if wide:
+    if p > n:
         # wide matrix
         # L get all n rows, but only n columns
         L = L[:, :n]
         k = n
+    else:
+        k = p
 
     # tall / wide matrix
     for i in range(k):
@@ -152,12 +151,25 @@ def U_process(A, size, alpha):
 ###
 @jit(parallel = True)
 def _reflect(X):
-    n = len(X)
+    n = X.shape[0]
     for i in prange(1, n):
         Xi = X[i]
         for j in range(i):
             X[j, i] = Xi[j]
     return X
+
+###
+def reflect(X):
+    n = X.shape[0]
+    if n > 5000:
+        n_jobs = -1
+    else:
+        n_jobs = 1
+
+    if X.flags["F_CONTIGUOUS"]:
+        return _reflect(X.T, n_jobs = n_jobs)
+    else:
+        return _reflect(X, n_jobs = n_jobs)
 
 ###
 @jit(parallel = True)        
@@ -193,6 +205,39 @@ def amax_numb_1(X, n, p):
     return indices
 
 ###
+@jit(parallel = True)        
+def amax_numb_0c(X, n, p):
+    indices = np.zeros(p, dtype = np.dtype('int'))
+    for i in prange(p):
+        _max = 0
+        s = 1
+        for j in range(n):
+            Xji = X[j, i]
+            a = abs(Xji)
+            if a > _max:
+                _max = a
+                s = np.sign(Xji)
+        indices[i] = s.real
+    return indices
+
+###
+@jit(parallel = True)
+def amax_numb_1c(X, n, p):
+    indices = np.zeros(n, dtype = np.dtype('int'))
+    for i in prange(n):
+        _max = 0
+        s = 1
+        Xi = X[i]
+        for j in range(p):
+            Xij = Xi[j]
+            a = abs(Xij)
+            if a > _max:
+                _max = a
+                s = np.sign(Xij)
+        indices[i] = s.real
+    return indices
+
+###
 def sign_max(X, axis = 0, n_jobs = 1):
     """
     [Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]
@@ -208,14 +253,15 @@ def sign_max(X, axis = 0, n_jobs = 1):
     ----------------------------------------------------------
     """ 
     n, p = X.shape
-    if n_jobs != 1 and n*p > 20000**2:
-        if axis == 0:
-            return amax_numb_0(X, n, p, n_jobs = -1)
-        return amax_numb_1(X, n, p, n_jobs = -1)
+    if isComplex(X.dtype):
+        amax = eval(f"amax_numb_{axis}c")
     else:
-        if axis == 0:
-            return amax_numb_0(X, n, p, n_jobs = 1)
-        return amax_numb_1(X, n, p, n_jobs = 1)
+        amax = eval(f"amax_numb_{axis}")
+
+    if n_jobs != 1 and n*p > 20000**2:
+        return amax(X, n, p, n_jobs = -1)
+    else:
+        return amax(X, n, p, n_jobs = 1)
 
 
 ###
@@ -323,7 +369,8 @@ def eig_condition(X, W, V):
         W[i] = eps
 
     # X.H @ V / W**0.5
-    XT = X.T
+    XT = X if X.flags["F_CONTIGUOUS"] else X.T
+    
     if isComplex(dtype):
         if isComplex(dtypeY):
             out = blas("gemm")(a = XT, b = V.T, trans_a = 0, trans_b = 2, alpha = 1)
@@ -333,8 +380,8 @@ def eig_condition(X, W, V):
     else:
         out = XT @ V
 
-    V /= W**0.5
-    return W, V
+    out /= W**0.5
+    return W, out
 
     
 # #### Load JIT
@@ -346,3 +393,30 @@ def eig_condition(X, W, V):
 # svd_flip(X, X)
 # do_until_success(lapack("potrf"), add_jitter, 2, False, None, X)
 # del X;
+
+###
+@jit
+def row_norm(X):
+    n, p = X.shape
+    norm = np.zeros(n, dtype = X.dtype)
+    
+    for i in range(n):
+        row = X[i]
+        s = 0
+        for j in range(p):
+            s += row[j]**2
+        norm[i] = s
+    return norm
+
+###
+@jit
+def col_norm(X):
+    n, p = X.shape
+    norm = np.zeros(p, dtype = X.dtype)
+    
+    for i in range(n):
+        row = X[i]
+        for j in range(p):
+            norm[j] += row[j]**2
+    return norm
+
