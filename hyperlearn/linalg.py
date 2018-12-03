@@ -39,10 +39,12 @@ def matmul(pattern, X, Y = None):
     S @ Y.H and Y.H @ S where S is a symmetric matrix; general multiplies:
     X @ Y and X.H @ Y.
     [Added 28/11/18 Changed from transpose since it didn't work]
+    [Edited 1/12/18 Added S @ Y]
 
     Parameters
     -----------
-    pattern:    Can include: X.H @ X | X @ X.H | S @ Y.H | Y.H @ S | X @ Y | X.H @ Y
+    pattern:    Can include: X.H @ X | X @ X.H | S @ Y.H | 
+                Y.H @ S | X @ Y | X.H @ Y | S @ Y
     X:          Compulsory left side matrix.
     Y:          Optional right side matrix.
 
@@ -116,6 +118,13 @@ def matmul(pattern, X, Y = None):
                 out = blas("symm")(a = X, b = YT, side = 1, alpha = 1)
             else:
                 out = blas("symm")(a = XT, b = YT, side = 1, alpha = 1, lower = 1)
+
+    elif pattern == "S@Y":
+        if X.flags["F_CONTIGUOUS"]:
+            out = blas("symm")(a = X, b = Y, side = 0, alpha = 1)
+        else:
+            out = blas("symm")(a = XT, b = Y, side = 0, alpha = 1, lower = 1)
+
     else:
         raise NameError(f"Pattern = {pattern} is not recognised.")
     return out
@@ -229,8 +238,9 @@ def pinvc(X, alpha = None, turbo = True, overwrite = False):
 
 
 ###
+_reflect = reflect
 @process(square = True, memcheck = "full")
-def pinvh(X, alpha = None, turbo = True, overwrite = False):
+def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
     """
     Returns the inverse of a square Hermitian Matrix using Cholesky 
     Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. 
@@ -243,6 +253,7 @@ def pinvh(X, alpha = None, turbo = True, overwrite = False):
     alpha :     Ridge alpha regularization parameter. Default 1e-6
     turbo :     Boolean to use float32, rather than more accurate float64.
     overwrite:  Whether to overwrite X inplace with pinvh.
+    reflect:    Output full matrix or 1/2 triangular
 
     Returns
     -----------    
@@ -252,11 +263,11 @@ def pinvh(X, alpha = None, turbo = True, overwrite = False):
     U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, X)
     U = lapack("potri", turbo)(U, overwrite_c = True)[0]
 
-    return reflect(U)
+    return _reflect(U) if reflect else U
 
 
 ###
-#@process(memcheck = {"X":"full", "L_only":"same", "U_only":"same"})
+@process(memcheck = {"X":"full", "L_only":"same", "U_only":"same"})
 def lu(X, L_only = False, U_only = False, overwrite = False):
     """
     Computes the pivoted LU decomposition of a matrix. Optional to output
