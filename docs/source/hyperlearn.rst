@@ -36,6 +36,21 @@ hyperlearn.utils module
     :undoc-members:
     :show-inheritance:
 
+hyperlearn.random module
+-----------------------
+
+.. automodule:: hyperlearn.random
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hyperlearn.randomized module
+-----------------------
+
+.. automodule:: hyperlearn.randomized
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 Module contents
 ---------------
