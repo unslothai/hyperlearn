@@ -1,11 +1,18 @@
 
-from .linalg import transpose
-from . import linalg
+from .. import linalg
 import numpy as np
-from .numba import _min, jit
-from .random import normal
-from .base import *
-from .utils import *
+from ..numba import _min, jit, prange
+from ..base import *
+from ..utils import *
+from ..linalg import transpose
+from ..random import normal
+
+
+########################################################
+## 1. ColumnSelect
+## 2. Count Sketch (Fast JLT alternative)
+## 3. Fast Count Sketch multiply
+## 4. ColumnSelect Matrix Multiply (Nystrom Method)
 
 ###
 @jit
@@ -16,7 +23,6 @@ def proportion(X):
         s += X[i]
     X /= s
     return X
-
 
 ###
 def select(
@@ -159,6 +165,88 @@ def select(
 
 
 ###
+@jit
+def make_S_sketch(k ,n, sign, position):
+    S = np.zeros((k, n), dtype = np.dtype("int8"))
+    ones = np.ones(n, dtype = np.dtype("int8"))
+    ones[sign] = -1
+
+    for i in range(n):
+        S[position[i], i] = ones[i]
+    return S
+
+###
+def sketch(n, p, k = "auto", output = "sparse"):
+    """
+    Produces a CountSketch matrix which is similar in nature to
+    the Johnson–Lindenstrauss Transform (eps Fast-JLT) as shown
+    in Sklearn. But, as shown by David Woodruff, "Sketching as a 
+    Tool for Numerical Linear Algebra" [arxiv.org/abs/1411.4357],
+    super fast matrix multiplies can be done. Notice a difference
+    is HyperLearn's  K = min(n, p)/2, but david says k^2/eps is
+    needed (too memory taxing). [Added 4/12/18]
+
+    Parameters
+    -----------
+    n:              Number of rows
+    p:              Number of columns
+    k:              (auto, int). Auto is min(n, p) / 2
+    output:         (sparse, full). Sparse outputs 2 vectors of
+                    position and sign. Full outputs full count
+                    sketch matrix.
+    Returns
+    -----------
+    ((position, sign), matrix S) depending on output option.
+    """
+    if k == "auto":
+        k = _min(n, p) / 2
+    k = int(k)
+
+    sign = np.random.randint(0, 2, size = n, dtype = bool)
+    position = np.random.randint(0, k, size = n)
+
+    if output == "full":
+        return make_S_sketch(k, n, sign, position)
+    else:
+        return position, sign
+
+###
+@jit(parallel = True)
+def sketch_multiply(S, X):
+    """
+    Using the fact that S is sparse, SX can be computed in
+    approx NNZ(X) time, or O(kp) time.
+    """
+    k, n = S.shape
+    out = np.zeros((k, X.shape[1]), dtype = X.dtype)
+    
+    for i in prange(k):
+        s = S[i]
+        for j in prange(n):
+            if s[j] != 0:
+                out[i] += X[j]*s[j]
+    return out
+
+###
+@jit(parallel = True)
+def sparse_sketch_multiply(k ,position, sign, X):
+    """
+    Using the fact that S is sparse, SX can be computed in
+    approx NNZ(X) time, or O(kp) time.
+    """
+    n, p = X.shape
+    out = np.zeros((k, p), dtype = X.dtype)
+    
+    for pos in prange(n):
+        row = position[pos]
+        if sign[pos]:
+            out[row] -= X[pos]
+        else:
+            out[row] += X[pos]
+    return out
+
+
+###
 def matmul(
     pattern, X, n_components = 0.5, solver = "euclidean",
     n_oversamples = "klogk", axis = 1):
@@ -205,6 +293,7 @@ def matmul(
         A = X[indices] * scaler
     
     return linalg.matmul(pattern, X = A, Y = None), indices, scaler
+
 
 
 ###
@@ -330,297 +419,3 @@ def svd(
     svd_flip(U, VT, U_decision = ifTranspose, n_jobs = n_jobs)
 
     return U, S, VT
-
-
-###
-@process(memcheck = "same")
-def pinv(
-    X, alpha = None, n_components = "auto", max_iter = 'auto', solver = 'lu', 
-    n_jobs = 1, conjugate = True):
-    """
-    Returns the Pseudoinverse of the matrix X using randomizedSVD.
-    Extremely fast. If n_components = "auto", will get the top sqrt(p)+1
-    singular vectors.
-    [Added 30/11/18]
-
-    Parameters
-    -----------
-    X:              General matrix X.
-    alpha :         Ridge alpha regularization parameter. Default 1e-6
-    n_components:   Default = auto. Provide less to speed things up.
-    max_iter:       Default is 'auto'. Can be int.
-    solver:         (auto, lu, qr, None) Default is LU Decomposition
-    n_jobs:         Whether to use more >= 1 CPU
-    conjugate:      Whether to inplace conjugate but inplace return original.
-
-    Returns
-    -----------    
-    pinv(X) :       Randomized Pseudoinverse of X. Approximately allows
-                    pinv(X) @ X = I. Not exact.
-    """
-    dtype = X.dtype
-    n, p = X.shape
-
-    if n_components == "auto":
-        n_components = int(np.sqrt(p))+1
-    n_components = n_components if n_components < p else p
-
-    if n_components > p/2:
-        print(f"n_components >= {n_components} will be slow. Consider full pinv or pinvc")
-
-
-    U, S, VT = svd(
-                X, U_decision = None, n_components = n_components, max_iter = max_iter,
-                solver = solver, n_jobs = n_jobs, conjugate = conjugate)
-
-    U, _S, VT = svd_condition(U, S, VT, alpha)
-    return (transpose(VT, True, dtype) * _S)   @ transpose(U, True, dtype)
-
-
-###
-@process(memcheck = "minimum")
-def eig(
-    X, n_components = 2, max_iter = 'auto', solver = 'lu', 
-    n_oversamples = 5, conjugate = True, n_jobs = 1):
-    """
-    HyperLearn's Fast Randomized Eigendecomposition is approx 20 - 40 % faster than
-    Sklearn's implementation depending on n_components and max_iter.
-    [Added 27/11/18]
-
-    Parameters
-    -----------
-    X:              General Matrix.
-    n_components:   How many eigenvectors you want.
-    max_iter:       Default is 'auto'. Can be int.
-    solver:         (auto, lu, qr, None) Default is LU Decomposition
-    n_oversamples:  Samples more components than necessary. Used for
-                    convergence purposes. More is slower, but allows
-                    better eigenvectors. Default = 5
-    conjugate:      Whether to inplace conjugate but inplace return original.
-    n_jobs:         Whether to use more >= 1 CPU
-
-    Returns
-    -----------
-    W:              Eigenvalues
-    V:              Eigenvectors
-    """
-    n, p = X.shape
-    dtype = X.dtype
-    ifTranspose = p > n
-    if ifTranspose:
-        X = transpose(X, conjugate, dtype)
-
-    Q = randomized_projection(X, n_components + n_oversamples, solver, max_iter)
-    B = Q.T @ X
-
-
-    if ifTranspose:
-        # use SVD instead
-        V, W, _ = linalg.svd(B, U_decision = None, overwrite = True)
-        W = W[:n_components]
-        V = Q @ V[:, :n_components]
-        if conjugate:
-            transpose(X, True, dtype);
-        W **= 2
-    else:
-        W, V = linalg.eig(B, U_decision = None, overwrite = True)
-        W = W[:n_components]
-        V = V[:,:n_components]
-    del B
-
-    # Flip signs
-    svd_flip(None, V, U_decision = False, n_jobs = n_jobs)
-
-    return W, V
-
-
-###
-@process(square = True, memcheck = "minimum")
-def eigh(
-    X, n_components = 2, max_iter = 'auto', solver = 'lu', 
-    n_oversamples = 5, conjugate = True, n_jobs = 1):
-    """
-    HyperLearn's Fast Randomized Hermitian Eigendecomposition uses
-    QR Orthogonal Iteration. 
-    [Added 27/11/18]
-
-    Parameters
-    -----------
-    X:              General Matrix.
-    n_components:   How many eigenvectors you want.
-    max_iter:       Default is 'auto'. Can be int.
-    solver:         (auto, lu, qr, None) Default is LU Decomposition
-    n_oversamples:  Samples more components than necessary. Used for
-                    convergence purposes. More is slower, but allows
-                    better eigenvectors. Default = 5
-    conjugate:      Whether to inplace conjugate but inplace return original.
-    n_jobs:         Whether to use more >= 1 CPU
-
-    Returns
-    -----------
-    W:              Eigenvalues
-    V:              Eigenvectors
-    """
-    Q = randomized_projection(
-        X, n_components + n_oversamples, solver, max_iter, symmetric = True)
-
-    B = linalg.matmul("S @ Y", X, Q).T
-    W, V = linalg.eig(B, U_decision = None, overwrite = True)
-    W = W[:n_components]**0.5
-
-    V = V[:,:n_components]
-    # Flip signs
-    svd_flip(None, V, U_decision = False, n_jobs = n_jobs)
-
-    return W, V
-
-
-###
-@process(memcheck = "truncated")
-def cur(
-    X, n_components = 2, solver = "euclidean", n_oversamples = "klogk", success = 0.5):
-    """
-    Outputs the CUR Decomposition of a general matrix. Similar
-    in spirit to SVD, but this time only uses exact columns
-    and rows of the matrix. C = columns, U = some projective
-    matrix connecting C and R, and R = rows.
-    [Added 2/12/18]
-
-    Parameters
-    -----------
-    X:              General Matrix.
-    n_components:   How many "row eigenvectors" you want.
-    solver:         (euclidean, leverage, optimal) Selects columns based 
-                    on separate squared norms of each property.
-                    
-                    Error bounds: (eps = 1-success)
-                    nystrom:        Nystrom method (Slightly different)
-                                    C @ pinv(C intersect R) @ R
-                    euclidean:      ||A - A*|| + eps||A||
-                    leverage:       (2 + eps)||A - A*||
-                    optimal:        (1 + eps)||A - A*||
-
-    n_oversamples:  (klogk, None, k) How many extra samples is taken.
-                    Default = k*log2(k) which guarantees (1+e)||X-X*||
-                    error.
-    success:        Probability of success. Default = 50%. Higher success
-                    rates make the algorithm run slower.
-
-    Returns
-    -----------
-    C:              Column sample
-    U:              Connection between columns and rows
-    R:              Row sample
-    """
-    eps = 1 - success
-    eps = 1 if eps > 1 else eps
-    eps **= 2
-
-    n, p = X.shape
-    dtype = X.dtype
-    k = n_components
-    k_col = k if type(k) is int else int(k*p)
-    k_row = k if type(k) is int else int(k*n)
-    k = k if type(k) is int else int(k * _min(n, p))
-
-    if solver == "euclidean":
-        # LinearTime CUR 2015 www.cs.utah.edu/~jeffp/teaching/cs7931-S15/cs7931/5-cur.pdf
-
-        c = int(k_col / eps**2)
-        r = int(k_row / eps)
-        C = select(X, c, n_oversamples = None, axis = 0)
-        r, s = select(X, r, n_oversamples = None, axis = 1, output = "indices")
-        R = X[r]*s
-        phi = C[r]*s
-
-        CTC = linalg.matmul("X.H @ X", C)
-        inv = linalg.pinvh(CTC, reflect = False, overwrite = True)
-        U = linalg.matmul("S @ Y.H", inv, phi)
-
-    elif solver == "leverage":
-        # LeverageScore CUR 2014
-
-        c = int(k*np.log2(k) / eps)
-        C, R = select(X, c, n_oversamples = None, axis = 2, solver = "leverage")
-        U = linalg.pinvc(C) @ X @ linalg.pinvc(R)
-
-    elif solver == "nystrom":
-        # Nystrom Method. Microsoft 2016 "Kernel Nyström Method for Light Transport"
-
-        c = n_components if n_components < p else p
-        r = n_components if n_components < n else n
-
-        c = np.random.choice(range(p), size = c, replace = False)
-        r = np.random.choice(range(n), size = r, replace = False)
-        c.sort(); r.sort();
-
-        C = X[:,c]
-        R = X[r]
-        U = linalg.pinvc(C[r])
-
-    elif solver == "optimal":
-        # Optimal CUR Matrix Decompositions - David Woodruff 2014
-        # Slightly changed - uses double sampling since too taxing
-        # to compute full spectrum.
-
-        k1 = int(k_col * np.log2(k_col))
-        k2 = int(k_col/eps)
-        K = k_col + k2
-        P = range(p)
-
-        col, row = select(
-            X, n_components = k, solver = "euclidean", output = "statistics", axis = 2,
-            duplicates = True)
-
-        # Get Columns from BSS sampling
-        indices1 = np.random.choice(P, size = k1, p = col)
-        indices1 = np.random.choice(indices1, size = k_col, p = proportion(col[indices1]) )
-
-        indices1, count1 = np.unique(indices1, return_counts = True)
-        scaler1 = count1 / (col[indices1] * k1)
-        scaler1 **= 0.5
-
-        # Compute error after projecting onto columns
-        C = X[:,indices1] * scaler1
-
-        # Double pass (reduce number of rows)
-        indicesTemp, scalerTemp = select(C, n_components = k_col, axis = 1, output = "indices")
-        CC = C[indicesTemp] * scalerTemp
-
-        XTemp = X[indicesTemp] * row[indicesTemp][:,np.newaxis]
-        CCX = CC @ linalg.pinvc(CC) @ XTemp
-        c = proportion(col_norm(XTemp - CCX))
-
-        # Select extra columns from column residual norms
-        indices2 = np.random.choice(P, size = k2, p = c)
-        indicesP = np.hstack((indices1, indices2))
-
-        # Determine final scaling factors for C
-        indicesP, countP = np.unique(indicesP, return_counts = True)
-        scalerP = countP / (col[indicesP] * K)
-        scalerP **= 0.5
-
-        return indicesP, scalerP
-
-
-
-
-
-
-        # R = X[indicesP]
-        # RTR = linalg.pinvc(R) @ R
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,7 +4,7 @@ from psutil import virtual_memory
 import numpy as np
 from scipy.linalg import lapack as _lapack, blas as _blas
 from . import numba as _numba
-from .numba import _min
+from .numba import _min, _max
 from inspect import signature
 import sys
 from array import array
@@ -97,11 +97,12 @@ def arg_process(x, square):
 	return 0, '?'
 
 ###
-def process(f = None, memcheck = None, square = False):
+def process(f = None, memcheck = None, square = False, fractional = True):
 	"""
 	[Added 14/11/18] [Edited 18/11/18 for speed]
 	[Edited 25/11/18 Array deprecation of unicode]
 	[Edited 27/11/18 Allows support for n_components]
+	[Edited 4/12/18 Supports Fast JLT methods]
 	Decorator onto HyperLearn functions. Does 2 things:
 	1. Convert datatypes to appropriate ones
 	2. Convert matrices to arrays
@@ -111,6 +112,7 @@ def process(f = None, memcheck = None, square = False):
 	----------------------------------------------------------
 	f:			The function to be decorated
 	memcheck:	lambda n,p: ... function or f(n,p)
+	fractional:	Whether to change float n_components to ints
 
 	returns: 	X arguments from function f
 	----------------------------------------------------------
@@ -170,6 +172,8 @@ def process(f = None, memcheck = None, square = False):
 					args[0] = X
 				if type(X) != np.ndarray:
 					raise IndexError("First argument is not a 2D array. Must be an array.")
+				shape = X.shape
+				n, p = shape
 
 				# check if alpha and n_components is in function:
 				whereAlpha = 0
@@ -178,6 +182,7 @@ def process(f = None, memcheck = None, square = False):
 				hasAlpha = False
 				hasK = False
 				n_components = None
+				default_n_components = None
 
 				for i in function_args: # O(n)
 					if i == "alpha":
@@ -203,8 +208,11 @@ def process(f = None, memcheck = None, square = False):
 				# get n_components
 				if l > whereK:
 					n_components = args[whereK]
+					default_n_components = n_components
 					try:
-						n_components = int(n_components)
+						if type(n_components) is float:
+							n_components *= _min(n, p)
+						n_components = _max(int(n_components), 1)
 						args[whereK] = n_components
 					except:
 						raise AssertionError(f"n_components = {n_components} of type {type(n_components)} is not "
@@ -238,9 +246,12 @@ def process(f = None, memcheck = None, square = False):
 								hasAlpha = False
 						# get n_components
 						if hasK:
+							default_n_components = t
 							if x == 'n_components':
 								try:
-									n_components = int(t)
+									if type(t) is float:
+										t *= _min(n, p)
+									n_components = _max(int(t), 1)
 									kwargs[x] = n_components
 								except:
 									raise AssertionError(f"n_components = '{n_components}' is not "
@@ -268,9 +279,10 @@ def process(f = None, memcheck = None, square = False):
 					except:
 						kwargs[x] = False
 				if hasK:
-					# add default n_components = 2
-					kwargs["n_components"] = 2
-					n_components = 2
+					# add default n_components = 1
+					kwargs["n_components"] = 1
+					n_components = 1
+					default_n_components = 1
 					
 				# Now check data types of arrays
 				need = 0 # how much memory needed
@@ -303,7 +315,6 @@ def process(f = None, memcheck = None, square = False):
 					
 
 				# check X satisfying boolean arguments in order of importance
-				shape = X.shape
 				if n_components is not None:
 					shape = list(shape)
 					shape.append(n_components)
@@ -340,6 +351,10 @@ def process(f = None, memcheck = None, square = False):
 						del args[l]
 					l -= 1
 				del kwargs["X"]  # no need for first argument
+
+				# if default n_components:
+				if fractional is False:
+					kwargs["n_components"] = default_n_components
 
 				# update kwargs if alpha not seen in args or kwargs:
 				if hasAlpha:

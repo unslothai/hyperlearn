@@ -396,7 +396,7 @@ def eig_condition(X, W, V):
 
 ###
 @jit
-def row_norm(X):
+def _row_norm(X):
     n, p = X.shape
     norm = np.zeros(n, dtype = X.dtype)
     
@@ -410,7 +410,7 @@ def row_norm(X):
 
 ###
 @jit
-def col_norm(X):
+def _col_norm(X):
     n, p = X.shape
     norm = np.zeros(p, dtype = X.dtype)
     
@@ -419,4 +419,51 @@ def col_norm(X):
         for j in range(p):
             norm[j] += row[j]**2
     return norm
+
+###
+@jit
+def normA(X):
+    s = 0
+    for i in range(X.size):
+        s += X[i]**2
+    return s
+
+###
+def col_norm(X):
+    if len(X.shape) > 1:
+        return _col_norm(X)
+    return normA(X)
+
+###
+def row_norm(X):
+    if len(X.shape) > 1:
+        return _row_norm(X)
+    return normA(X)
+
+
+###
+@jit
+def gram_schmidt(X, P, n, k):
+    """
+    Modified stable Gram Schmidt process.
+    Gram-Schmidt Orthogonalization
+    Instructor: Ana Rita Pires (MIT 18.06SC)
+    """
+    Q = np.zeros((k, n), dtype = X.dtype)
+    Z = np.zeros(n, dtype = X.dtype)
+
+    for i in range(k):
+        x = X[:,P[i]].copy()
+        for k in range(i):
+            x -= (x @ Q[k]) * Q[k]
+            
+        norm = np.linalg.norm(x)
+        if norm == 0:
+            # Fix degenerate all zero case
+            x = Z.copy()
+            x[i] = 1
+        else:
+            x /= norm
+        Q[i] = x
+    return Q
 
