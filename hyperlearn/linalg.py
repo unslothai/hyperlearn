@@ -5,6 +5,38 @@ import scipy.linalg as scipy
 from .numba import jit, _max, _min
 from . import numba
 
+###
+def dot(A, B, C):
+    """
+    Implements fast matrix multiplication of 3 matrices X = ABC
+    From left: X = (AB)C. From right: X = A(BC). This function
+    calculates which is faster, and outputs the result.
+    [Added 10/12/18]
+    """
+    n, a_b = A.shape    # A and B share sizes. Size of A determines
+                        # final number of rows
+    b_c = B.shape[1]
+    c = C.shape[1]      # final columns
+
+    # From left X = (AB)C
+    AB = a_b*b_c  # First row of AB
+    AB *= n       # n * AB rows
+    AB_C = b_c*c  # First row of AB_C
+    AB_C *= n     # n * AB_C rows
+    left = AB + AB_C
+
+    # From right X = A(BC)
+    BC = b_c*c    # First row of BC
+    BC *= a_b     # a_b * first row BC
+    A_BC = a_b*c  # First row of A_BC
+    A_BC *= n     # n times
+    right = BC + A_BC
+
+    if left <= right:
+        return A @ B @ C
+    return A @ (B @ C)
+
+
 
 ###
 def transpose(X, overwrite = True, dtype = None):

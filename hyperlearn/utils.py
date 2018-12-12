@@ -453,17 +453,16 @@ def gram_schmidt(X, P, n, k):
     Z = np.zeros(n, dtype = X.dtype)
 
     for i in range(k):
-        x = X[:,P[i]].copy()
-        for k in range(i):
-            x -= (x @ Q[k]) * Q[k]
+        Q[i] = X[:,P[i]]
+        x = Q[i]
+        for j in range(i):
+            x -= (x @ Q[j]) * Q[j]
             
         norm = np.linalg.norm(x)
         if norm == 0:
-            # Fix degenerate all zero case
-            x = Z.copy()
-            x[i] = 1
+            Q[i] = Z
+            Q[i,i] = 1
         else:
             x /= norm
-        Q[i] = x
     return Q
 

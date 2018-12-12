@@ -24,7 +24,9 @@ memory_usage = {
 	"columns" :	lambda n,p: p,
 	"extra" :	lambda n,p: _min(n, p)**2 + _min(n, p),
 	"truncated":lambda n,p,k: k*(n + p) + _min(n, p)*k + k + k**2,
-	"minimum":	lambda n,p,k: k*(n + p) + k + k**2
+	"minimum":	lambda n,p,k: k*(n + p) + k + k**2,
+	"min_left":	lambda n,p,k: k*n,
+	"min_right":lambda n,p,k: k*p,
 	}
 f_same_memory = memory_usage["same"]
 
