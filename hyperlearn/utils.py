@@ -2,39 +2,17 @@
 import numpy as np
 from .numba import jit, prange, sign, _max
 from .base import *
-dtypes = (np.uint8, np.uint16, np.uint32, np.uint64)
 from array import array
 
 ###
-def uint(i, array = True):
-    """
-    [Added 14/11/2018]
-    Outputs a small array with the correct dtype that minimises
-    memory usage for storing the maximal number of elements of
-    size i
-
-    input:      1 argument
-    ----------------------------------------------------------
-    i:          Size of maximal elements you want to store
-
-    returns:    array of size 1 with correct dtype
-    ----------------------------------------------------------
-    """
-    for x in dtypes:
-        if np.iinfo(x).max >= i:
-            break
-    if array:
-        return np.empty(1, dtype = x)
-    return x
-
-
-###
-def do_until_success(f, epsilon_f, size, overwrite = False, alpha = None, *args, **kwargs):
+def do_until_success(
+    f, epsilon_f, size, overwrite = False, alpha = None, *args, **kwargs):
     """
     Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain
     algorithms to converge via ridge regularization.
     [Added 15/11/18] [Edited 25/11/18 Fixed Alpha setting, can now run in
     approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]
+    [Edited 14/12/18 Some overwrite errors]
 
     Parameters
     -----------
@@ -51,9 +29,13 @@ def do_until_success(f, epsilon_f, size, overwrite = False, alpha = None, *args,
     
     if alpha is None:
         alpha = 0
-    alpha = _max(alpha, ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64)
+
     if overwrite:
+        alpha = _max(alpha, ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64)
         alpha *= 10
+
+    if not overwrite:
+        previous = X.diagonal().copy()
 
     old_alpha = 0
     error = 1
@@ -73,13 +55,18 @@ def do_until_success(f, epsilon_f, size, overwrite = False, alpha = None, *args,
         if error != 0:
             old_alpha = alpha
             alpha *= 2
+
+            if alpha == 0:
+                alpha = ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64
+            
             print(f"Epsilon Jitter Algorithm Restart with alpha = {alpha}.")
             if overwrite:
                 print("Overwriting maybe have issues, please turn it off.")
                 overwrite = False
 
     if not overwrite:
-        epsilon_f(X, size, -alpha)
+        X.flat[::X.shape[0]+1] = previous
+        #epsilon_f(X, size, -alpha)
     return out
 
 
@@ -359,7 +346,10 @@ def eig_condition(X, W, V):
     else:
         cond = 1000000 #1e6
     eps = np.finfo(dtype).eps
-    first = W[-1]**0.5 # eigenvalues are sorted ascending
+    if W[-1] >= 0:
+        first = W[-1]**0.5 # eigenvalues are sorted ascending
+    else:
+        first = 0
     eps = eps*first*cond
     eps **= 2 # since eigenvalues are squared of singular values
 
@@ -439,6 +429,26 @@ def row_norm(X):
     if len(X.shape) > 1:
         return _row_norm(X)
     return normA(X)
+
+
+###
+@jit
+def _frobenius_norm(X):
+    n, p = X.shape
+    norm = 0
+    
+    for i in range(n):
+        row = X[i]
+        for j in range(p):
+            norm += row[j]**2
+    return norm
+
+###
+def frobenius_norm(X):
+    if len(X.shape) > 1:
+        return _frobenius_norm(X)
+    return normA(X)
+
 
 
 ###

@@ -89,7 +89,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.numba">hyperlearn.numba module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn.utils">hyperlearn.utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hyperlearn-random-module">hyperlearn.random module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hyperlearn-randomized-module">hyperlearn.randomized module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hyperlearn-randomized-base-module">hyperlearn.randomized.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hyperlearn-randomized-linalg-module">hyperlearn.randomized.linalg module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-hyperlearn">Module contents</a></li>
 </ul>
 </li>
@@ -226,16 +227,18 @@ surplus:        Boolean - True means within memory bounds.</p>
 
 <dl class="function">
 <dt id="hyperlearn.base.process">
-<code class="descclassname">hyperlearn.base.</code><code class="descname">process</code><span class="sig-paren">(</span><em>f=None</em>, <em>memcheck=None</em>, <em>square=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/base.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.process" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">hyperlearn.base.</code><code class="descname">process</code><span class="sig-paren">(</span><em>f=None</em>, <em>memcheck=None</em>, <em>square=False</em>, <em>fractional=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/base.html#process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.base.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>[Added 14/11/18] [Edited 18/11/18 for speed]
 [Edited 25/11/18 Array deprecation of unicode]
 [Edited 27/11/18 Allows support for n_components]
+[Edited 4/12/18 Supports Fast JLT methods]
 Decorator onto HyperLearn functions. Does 2 things:
 1. Convert datatypes to appropriate ones
 2. Convert matrices to arrays
 3. (Optional) checks memory bounds.</p>
 <p>f:                      The function to be decorated
-memcheck:       lambda n,p: ... function or f(n,p)</p>
+memcheck:       lambda n,p: ... function or f(n,p)
+fractional:     Whether to change float n_components to ints</p>
 </dd></dl>
 
 </div>
@@ -315,6 +318,35 @@ until success. Default alpha ridge regularization = 1e-6.
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Upper triangular cholesky factor (U)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.dot">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">dot</code><span class="sig-paren">(</span><em>A</em>, <em>B</em>, <em>C</em>, <em>message=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#dot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.dot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements fast matrix multiplication of 3 matrices X = ABC
+From left: X = (AB)C. From right: X = A(BC). This function
+calculates which is faster, and outputs the result.
+[Added 10/12/18] [Edited 13/12/18 Added left or right statement]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>A</strong> (<em>First matrix</em>)</li>
+<li><strong>B</strong> (<em>Multiplied with 2nd matrix</em>)</li>
+<li><strong>C</strong> (<em>Multiplied with 3rd matrix</em>)</li>
+<li><strong>message</strong> (<em>Default = False. If True, doesn&#8217;t output result, but</em>) &#8211; outputs TRUE if left to right, else FALSE right to left.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(A&#64;B&#64;C or message)</p>
 </td>
 </tr>
 </tbody>
@@ -525,10 +557,40 @@ guarantee convergence. Allows Ridge Regularization - default 1e-6.
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.linalg.pinvh">
-<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvh</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em>, <em>overwrite=False</em>, <em>reflect=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#pinvh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvh" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.linalg.pinvch">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvch</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em>, <em>overwrite=False</em>, <em>reflect=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#pinvch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the inverse of a square Hermitian Matrix using Cholesky
 Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence.
+Allows Ridge Regularization - default 1e-6.
+[Added 19/11/18]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Upper Symmetric Matrix X</em>)</li>
+<li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
+<li><strong>turbo</strong> (<em>Boolean to use float32, rather than more accurate float64.</em>)</li>
+<li><strong>overwrite</strong> (<em>Whether to overwrite X inplace with pinvh.</em>)</li>
+<li><strong>reflect</strong> (<em>Output full matrix or 1/2 triangular</em>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>pinv(X)</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Pseudoinverse of X. Allows pinv(X) &#64; X = I.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.linalg.pinvh">
+<code class="descclassname">hyperlearn.linalg.</code><code class="descname">pinvh</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>turbo=True</em>, <em>overwrite=False</em>, <em>reflect=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/linalg.html#pinvh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.linalg.pinvh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the inverse of a square Hermitian Matrix using Eigendecomposition.
+Uses the Epsilon Jitter Algorithm to guarantee convergence.
 Allows Ridge Regularization - default 1e-6.
 [Added 19/11/18]</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -682,6 +744,11 @@ to O( min(np^2, n^2p) ).
 <div class="section" id="module-hyperlearn.numba">
 <span id="hyperlearn-numba-module"></span><h2>hyperlearn.numba module<a class="headerlink" href="#module-hyperlearn.numba" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="hyperlearn.numba.arange">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">arange</code><span class="sig-paren">(</span><em>size</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/numba.html#arange"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.arange" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="hyperlearn.numba.eigh">
 <code class="descclassname">hyperlearn.numba.</code><code class="descname">eigh</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/numba.html#eigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.eigh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -696,8 +763,8 @@ to O( min(np^2, n^2p) ).
 <code class="descclassname">hyperlearn.numba.</code><code class="descname">jit</code><span class="sig-paren">(</span><em>f=None</em>, <em>parallel=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/numba.html#jit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.jit" title="Permalink to this definition">¶</a></dt>
 <dd><p>[Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
 Decorator onto Numba NJIT compiled code.</p>
-<p>function:       Function to decorate
-parallel:       If true, sets cache automatically to false</p>
+<p>function:   Function to decorate
+parallel:   If true, sets cache automatically to false</p>
 </dd></dl>
 
 <dl class="function">
@@ -744,6 +811,16 @@ parallel:       If true, sets cache automatically to false</p>
 <dt id="hyperlearn.numba.svd">
 <code class="descclassname">hyperlearn.numba.</code><code class="descname">svd</code><span class="sig-paren">(</span><em>X</em>, <em>full_matrices=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/numba.html#svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.svd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.numba.uint">
+<code class="descclassname">hyperlearn.numba.</code><code class="descname">uint</code><span class="sig-paren">(</span><em>i</em>, <em>array=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/numba.html#uint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.numba.uint" title="Permalink to this definition">¶</a></dt>
+<dd><p>[Added 14/11/2018]
+Outputs a small array with the correct dtype that minimises
+memory usage for storing the maximal number of elements of
+size i</p>
+<p>i:          Size of maximal elements you want to store</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-hyperlearn.utils">
@@ -797,7 +874,8 @@ algorithms to converge via ridge regularization.
 <dd><p>Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain
 algorithms to converge via ridge regularization.
 [Added 15/11/18] [Edited 25/11/18 Fixed Alpha setting, can now run in
-approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]</p>
+approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]
+[Edited 14/12/18 Some overwrite errors]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -818,6 +896,24 @@ approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]</p>
 <dl class="function">
 <dt id="hyperlearn.utils.eig_condition">
 <code class="descclassname">hyperlearn.utils.</code><code class="descname">eig_condition</code><span class="sig-paren">(</span><em>X</em>, <em>W</em>, <em>V</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/utils.html#eig_condition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.eig_condition" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.frobenius_norm">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">frobenius_norm</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/utils.html#frobenius_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.frobenius_norm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.gram_schmidt">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">gram_schmidt</code><span class="sig-paren">(</span><em>X</em>, <em>P</em>, <em>n</em>, <em>k</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/utils.html#gram_schmidt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.gram_schmidt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modified stable Gram Schmidt process.
+Gram-Schmidt Orthogonalization
+Instructor: Ana Rita Pires (MIT 18.06SC)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.utils.normA">
+<code class="descclassname">hyperlearn.utils.</code><code class="descname">normA</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/utils.html#normA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.normA" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -869,16 +965,6 @@ U_decision: Default = False. If True, uses max from U.</p>
 <dt id="hyperlearn.utils.triu">
 <code class="descclassname">hyperlearn.utils.</code><code class="descname">triu</code><span class="sig-paren">(</span><em>n</em>, <em>p</em>, <em>U</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/utils.html#triu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.triu" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="function">
-<dt id="hyperlearn.utils.uint">
-<code class="descclassname">hyperlearn.utils.</code><code class="descname">uint</code><span class="sig-paren">(</span><em>i</em>, <em>array=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/utils.html#uint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.utils.uint" title="Permalink to this definition">¶</a></dt>
-<dd><p>[Added 14/11/2018]
-Outputs a small array with the correct dtype that minimises
-memory usage for storing the maximal number of elements of
-size i</p>
-<p>i:          Size of maximal elements you want to store</p>
-</dd></dl>
 
 </div>
 <div class="section" id="hyperlearn-random-module">
@@ -948,49 +1034,33 @@ memory efficient] [Edited 28/11/18 Supports complex entries]</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="hyperlearn-randomized-module">
-<h2>hyperlearn.randomized module<a class="headerlink" href="#hyperlearn-randomized-module" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-hyperlearn.randomized"></span><dl class="function">
-<dt id="hyperlearn.randomized.cur">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">cur</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>solver='euclidean'</em>, <em>n_oversamples='klogk'</em>, <em>success=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#cur"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.cur" title="Permalink to this definition">¶</a></dt>
-<dd><p>Outputs the CUR Decomposition of a general matrix. Similar
-in spirit to SVD, but this time only uses exact columns
-and rows of the matrix. C = columns, U = some projective
-matrix connecting C and R, and R = rows.
-[Added 2/12/18]</p>
+<div class="section" id="hyperlearn-randomized-base-module">
+<h2>hyperlearn.randomized.base module<a class="headerlink" href="#hyperlearn-randomized-base-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-hyperlearn.randomized.base"></span><dl class="function">
+<dt id="hyperlearn.randomized.base.sketch">
+<code class="descclassname">hyperlearn.randomized.base.</code><code class="descname">sketch</code><span class="sig-paren">(</span><em>n</em>, <em>p</em>, <em>k=10</em>, <em>method='left'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/base.html#sketch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.base.sketch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produces a CountSketch matrix which is similar in nature to
+the Johnson–Lindenstrauss Transform (eps Fast-JLT) as shown
+in Sklearn. But, as shown by David Woodruff, &#8220;Sketching as a
+Tool for Numerical Linear Algebra&#8221; [arxiv.org/abs/1411.4357],
+super fast matrix multiplies can be done. Notice a difference
+is HyperLearn&#8217;s  K = min(n, p)/2, but david says k^2/eps is
+needed (too memory taxing). [Added 4/12/18] [Edited 14/12/18]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first">
-<li><p class="first"><strong>X</strong> (<em>General Matrix.</em>)</p>
-</li>
-<li><p class="first"><strong>n_components</strong> (<em>How many &#8220;row eigenvectors&#8221; you want.</em>)</p>
-</li>
-<li><p class="first"><strong>solver</strong> (<em>(euclidean, leverage, optimal) Selects columns based</em>) &#8211; on separate squared norms of each property.</p>
-<p>Error bounds: (eps = 1-success)
-nystrom:        Nystrom method (Slightly different)</p>
-<blockquote>
-<div><p>C &#64; pinv(C intersect R) &#64; R</p>
-</div></blockquote>
-<p>euclidean:      ||A - A*|| + eps||A||
-leverage:       (2 + eps)||A - A*||
-optimal:        (1 + eps)||A - A*||</p>
-</li>
-<li><p class="first"><strong>n_oversamples</strong> (<em>(klogk, None, k) How many extra samples is taken.</em>) &#8211; Default = k*log2(k) which guarantees (1+e)||X-X*||
-error.</p>
-</li>
-<li><p class="first"><strong>success</strong> (<em>Probability of success. Default = 50%. Higher success</em>) &#8211; rates make the algorithm run slower.</p>
-</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>Data matrix.</em>)</li>
+<li><strong>k</strong> (<em>(auto, int). Auto is min(n, p) / 2</em>)</li>
+<li><strong>method</strong> (<em>(left, right). Left is S &#64; X. Right X &#64; S.</em>)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><strong>C</strong> (<em>Column sample</em>)</li>
-<li><strong>U</strong> (<em>Connection between columns and rows</em>)</li>
-<li><strong>R</strong> (<em>Row sample</em>)</li>
-</ul>
-</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(Sketch Matrix S or indices)</p>
 </td>
 </tr>
 </tbody>
@@ -998,11 +1068,37 @@ error.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.eig">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">eig</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_oversamples=5</em>, <em>conjugate=True</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#eig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.eig" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.base.sketch_multiply">
+<code class="descclassname">hyperlearn.randomized.base.</code><code class="descname">sketch_multiply</code><span class="sig-paren">(</span><em>X</em>, <em>S=None</em>, <em>k=10</em>, <em>method='left'</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/base.html#sketch_multiply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.base.sketch_multiply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies a sketch matrix S onto X either giving SX or XS.
+Tries to be fast and complexity is O(np).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.randomized.base.sketch_multiply_left">
+<code class="descclassname">hyperlearn.randomized.base.</code><code class="descname">sketch_multiply_left</code><span class="sig-paren">(</span><em>X</em>, <em>S</em>, <em>k=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/base.html#sketch_multiply_left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.base.sketch_multiply_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies sketch matrix S onto X giving S &#64; X.
+Very fast and uses little to no memory.
+[Added 14/12/18]</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.randomized.base.sketch_multiply_right">
+<code class="descclassname">hyperlearn.randomized.base.</code><code class="descname">sketch_multiply_right</code><span class="sig-paren">(</span><em>X</em>, <em>S</em>, <em>k=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/base.html#sketch_multiply_right"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.base.sketch_multiply_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplies sketch matrix S onto X giving X &#64; S.
+Can be slow if k is small.
+[Added 14/12/18]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="hyperlearn-randomized-linalg-module">
+<h2>hyperlearn.randomized.linalg module<a class="headerlink" href="#hyperlearn-randomized-linalg-module" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-hyperlearn.randomized.linalg"></span><dl class="function">
+<dt id="hyperlearn.randomized.linalg.eig">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">eig</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_oversamples=5</em>, <em>conjugate=True</em>, <em>n_jobs=1</em>, <em>U_decision=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#eig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.eig" title="Permalink to this definition">¶</a></dt>
 <dd><p>HyperLearn&#8217;s Fast Randomized Eigendecomposition is approx 20 - 40 % faster than
 Sklearn&#8217;s implementation depending on n_components and max_iter.
-[Added 27/11/18]</p>
+[Added 27/11/18] [Edited 12/12/18 Added U_decision]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1016,6 +1112,7 @@ Sklearn&#8217;s implementation depending on n_components and max_iter.
 better eigenvectors. Default = 5</li>
 <li><strong>conjugate</strong> (<em>Whether to inplace conjugate but inplace return original.</em>)</li>
 <li><strong>n_jobs</strong> (<em>Whether to use more &gt;= 1 CPU</em>)</li>
+<li><strong>U_decision</strong> (<em>(False, None)</em>)</li>
 </ul>
 </td>
 </tr>
@@ -1031,8 +1128,8 @@ better eigenvectors. Default = 5</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.eigh">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">eigh</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_oversamples=5</em>, <em>conjugate=True</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#eigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.eigh" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.eigh">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">eigh</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_oversamples=5</em>, <em>conjugate=True</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#eigh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.eigh" title="Permalink to this definition">¶</a></dt>
 <dd><p>HyperLearn&#8217;s Fast Randomized Hermitian Eigendecomposition uses
 QR Orthogonal Iteration.
 [Added 27/11/18]</p>
@@ -1064,8 +1161,8 @@ better eigenvectors. Default = 5</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.matmul">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">matmul</code><span class="sig-paren">(</span><em>pattern</em>, <em>X</em>, <em>n_components=0.5</em>, <em>solver='euclidean'</em>, <em>n_oversamples='klogk'</em>, <em>axis=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#matmul"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.matmul" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.matmul">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">matmul</code><span class="sig-paren">(</span><em>pattern</em>, <em>X</em>, <em>n_components=0.5</em>, <em>solver='euclidean'</em>, <em>n_oversamples='klogk'</em>, <em>axis=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#matmul"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.matmul" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mirrors hyperlearn.linalg&#8217;s matmul functionality, but extends it by
 using the randomized ColumnSelect algorithm. This can dramatically
 reduce compute time, but still allows good approximate guarantees.
@@ -1078,8 +1175,8 @@ reduce compute time, but still allows good approximate guarantees.
 <li><strong>pattern</strong> (<em>Can include: X.H &#64; X | X &#64; X.H</em>)</li>
 <li><strong>X</strong> (<em>Compulsory left side matrix.</em>)</li>
 <li><strong>n_components</strong> (<em>(int, float). Can be a ratio of total number of</em>) &#8211; columns or rows.</li>
-<li><strong>solver</strong> (<em>(euclidean, uniform, leverage) Selects columns</em>) &#8211; based on separate squared norms of each property.</li>
-<li><strong>n_oversamples</strong> (<em>(klogk, None, k) How many extra samples is taken.</em>) &#8211; Default = k*log2(k) which guarantees (1+e)||X-X*||
+<li><strong>solver</strong> (<em>(euclidean, uniform, leverage, adaptive) Selects columns</em>) &#8211; based on separate squared norms of each property.</li>
+<li><strong>n_oversamples</strong> (<em>(klogk, 0, k) How many extra samples is taken.</em>) &#8211; Default = k*log2(k) which guarantees (1+e)||X-X*||
 error.</li>
 <li><strong>axis</strong> (<em>(0, 1). Can be 0 (columns) which reduces the total</em>) &#8211; dimensionality of the data or 1 (rows) which just
 reduces the compute time of forming XTX or XXT.</li>
@@ -1099,12 +1196,15 @@ reduces the compute time of forming XTX or XXT.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.pinv">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">pinv</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>n_components='auto'</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_jobs=1</em>, <em>conjugate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#pinv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.pinv" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.pinv">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">pinv</code><span class="sig-paren">(</span><em>X</em>, <em>alpha=None</em>, <em>n_components='auto'</em>, <em>max_iter='auto'</em>, <em>solver='SATAX'</em>, <em>n_jobs=1</em>, <em>conjugate=True</em>, <em>converge=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#pinv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.pinv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the Pseudoinverse of the matrix X using randomizedSVD.
 Extremely fast. If n_components = &#8220;auto&#8221;, will get the top sqrt(p)+1
 singular vectors.
-[Added 30/11/18]</p>
+[Added 30/11/18] [Edited 14/12/18 Added Newton Schulz and 2016 Gower&#8217;s
+Linearly Convergent Randomized Pseudoinverse - R. M. Gower and Peter
+Richtarik. &#8220;Linearly Convergent Randomized Iterative Methods for
+Computing the Pseudoinverse&#8221;, arXiv:1612.06255]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1114,7 +1214,10 @@ singular vectors.
 <li><strong>alpha</strong> (<em>Ridge alpha regularization parameter. Default 1e-6</em>)</li>
 <li><strong>n_components</strong> (<em>Default = auto. Provide less to speed things up.</em>)</li>
 <li><strong>max_iter</strong> (<em>Default is &#8216;auto&#8217;. Can be int.</em>)</li>
-<li><strong>solver</strong> (<em>(auto, lu, qr, None) Default is LU Decomposition</em>)</li>
+<li><strong>solver</strong> (<em>(auto, satax, newton, sketch, lu, qr, None) Default is SATAX.</em>) &#8211; SATAX is from Gower&#8217;s 2016 paper. (lu, qr and None) use 2011
+Halko&#8217;s Randomized Range Finder. Newton is Newton Schulz solver.
+SKETCH is Newton + sketching.</li>
+<li><strong>converge</strong> (<em>Default = True. If True, uses a newly discovered approach inspired</em>) &#8211; from Newton Schulz (inv -= 2*inv*X*inv)</li>
 <li><strong>n_jobs</strong> (<em>Whether to use more &gt;= 1 CPU</em>)</li>
 <li><strong>conjugate</strong> (<em>Whether to inplace conjugate but inplace return original.</em>)</li>
 </ul>
@@ -1131,13 +1234,45 @@ singular vectors.
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.proportion">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">proportion</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#proportion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.proportion" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.proportion">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">proportion</code><span class="sig-paren">(</span><em>X</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#proportion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.proportion" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.randomized_projection">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">randomized_projection</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>solver='lu'</em>, <em>max_iter=4</em>, <em>symmetric=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#randomized_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.randomized_projection" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.qr">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">qr</code><span class="sig-paren">(</span><em>X</em>, <em>Q_only=False</em>, <em>R_only=False</em>, <em>y=None</em>, <em>n_components=2</em>, <em>solver='euclidean'</em>, <em>n_oversamples=5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#qr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.qr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Approximate QR Decomposition using the Gram Schmidt Process. Not very
+accurate, but uses Euclidean Norm sampling from the ColumnSelect algo
+to appropriately select the first columns to orthogonalise. You can
+also set solver to &#8220;variance&#8221;, &#8220;correlation&#8221; or &#8220;euclidean&#8221;.
+[Added 8/12/18] [Edited 12/12/18 Uses argpartititon]</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>X</strong> (<em>General Matrix.</em>)</li>
+<li><strong>y</strong> (<em>Optional. Used for &#8220;correlation&#8221; solver.</em>)</li>
+<li><strong>n_components</strong> (<em>How many columns to orthogonalise. Default = 2</em>)</li>
+<li><strong>solver</strong> (<em>(euclidean, variance, correlation) Which method</em>) &#8211; to choose columns. Default = euclidean.</li>
+<li><strong>n_oversamples</strong> (<em>Samples more components than necessary. Used for</em>) &#8211; convergence purposes. More is slower, but allows
+better eigenvectors. Default = 5</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(Q,R) or (Q) or (R) depends on option Q_only or R_only</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="hyperlearn.randomized.linalg.randomized_projection">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">randomized_projection</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>solver='lu'</em>, <em>max_iter=4</em>, <em>symmetric=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#randomized_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.randomized_projection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Projects X onto some random eigenvectors, then using a special
 variant of Orthogonal Iteration, finds the closest orthogonal
 representation for X.
@@ -1167,12 +1302,13 @@ representation for X.
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.select">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">select</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>solver='euclidean'</em>, <em>output='columns'</em>, <em>duplicates=False</em>, <em>n_oversamples='klogk'</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.select" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.select">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">select</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>solver='euclidean'</em>, <em>output='columns'</em>, <em>duplicates=False</em>, <em>n_oversamples=0</em>, <em>axis=0</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Selects columns from the matrix X using many solvers. Also
 called ColumnSelect or LinearSelect, HyperLearn&#8217;s select allows
 randomized algorithms to select important columns.
-[Added 30/11/18] [Edited 2/12/18 Added BSS sampling]</p>
+[Added 30/11/18] [Edited 2/12/18 Added BSS sampling]
+[Edited 10/12/18 Fixed BSS Sampling]</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1180,13 +1316,14 @@ randomized algorithms to select important columns.
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>X</strong> (<em>General Matrix.</em>)</li>
 <li><strong>n_components</strong> (<em>How many columns you want.</em>)</li>
-<li><strong>solver</strong> (<em>(euclidean, uniform, leverage, BSS) Selects columns</em>) &#8211; based on separate squared norms of each property.</li>
+<li><strong>solver</strong> (<em>(euclidean, uniform, leverage, adaptive) Selects columns</em>) &#8211; based on separate squared norms of each property.
+[NEW Adaptive]. Iteratively adds parts. (Most accuarate)</li>
 <li><strong>output</strong> (<em>(columns, statistics, indices) Whether to output actual</em>) &#8211; columns or just indices of the selected columns.
 Also can choose statistics to get norms only.</li>
 <li><strong>duplicates</strong> (<em>If True, then leaves duplicates as is. If False,</em>) &#8211; uses sqrt(count) as a scaling factor.</li>
-<li><strong>n_oversamples</strong> (<em>(klogk, None, k) How many extra samples is taken.</em>) &#8211; Default = k*log2(k) which guarantees (1+e)||X-X*||
-error.</li>
+<li><strong>n_oversamples</strong> (<em>(klogk, 0) How many extra samples is taken.</em>) &#8211; Default = 0. Not much difference.</li>
 <li><strong>axis</strong> (<em>(0, 1, 2) 0 is columns. 1 is rows. 2 means both.</em>)</li>
+<li><strong>n_jobs</strong> (<em>Default = 1. Whether to use &gt;= 1 CPU.</em>)</li>
 </ul>
 </td>
 </tr>
@@ -1201,8 +1338,8 @@ error.</li>
 </dd></dl>
 
 <dl class="function">
-<dt id="hyperlearn.randomized.svd">
-<code class="descclassname">hyperlearn.randomized.</code><code class="descname">svd</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_oversamples=5</em>, <em>U_decision=False</em>, <em>n_jobs=1</em>, <em>conjugate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized.html#svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.svd" title="Permalink to this definition">¶</a></dt>
+<dt id="hyperlearn.randomized.linalg.svd">
+<code class="descclassname">hyperlearn.randomized.linalg.</code><code class="descname">svd</code><span class="sig-paren">(</span><em>X</em>, <em>n_components=2</em>, <em>max_iter='auto'</em>, <em>solver='lu'</em>, <em>n_oversamples=5</em>, <em>U_decision=False</em>, <em>n_jobs=1</em>, <em>conjugate=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/hyperlearn/randomized/linalg.html#svd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hyperlearn.randomized.linalg.svd" title="Permalink to this definition">¶</a></dt>
 <dd><p>HyperLearn&#8217;s Fast Randomized SVD is approx 20 - 40 % faster than
 Sklearn&#8217;s implementation depending on n_components and max_iter.
 [Added 27/11/18]</p>

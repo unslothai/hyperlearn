@@ -1,11 +1,12 @@
 
 import numpy as np
 from .. import linalg
-from ..numba import _min, jit, _max, prange
+from ..numba import _min, jit
 from ..utils import *
 from ..stats import corr, corr_sum
 from ..linalg import transpose
 from ..random import normal
+from .base import *
 
 
 ########################################################
@@ -144,14 +145,14 @@ def select(
     # Adaptive solver from Woodruff's 2014 Optimal CUR Decomp paper.
     # Changed and upgraded into incremental solver. (Approx 1+e||A-A*|| error)
     if adaptive and c:
-        kk = int(n/np.log2(k+1))
+        kk = int(n/2/np.log2(k+1))
 
         # Use Woodruff's CountSketch matrix to reduce space complexity.
-        pos, sign = sketch(n, p, kk)
-        SX = sparse_sketch_multiply(kk, pos, sign, X, n_jobs = n_jobs)
+        S = sketch(n, p, kk, method = "left")
+        SX = sketch_multiply_left(X, S, kk, n_jobs = n_jobs)
 
         # Only want top eigenvector
-        _, V = eig(X, n_components = 1, n_oversamples = 1, U_decision = None)
+        _, V = eig(SX, n_components = 1, n_oversamples = 1, U_decision = None)
 
         # Find maximum column norm -> determinstic algorithm
         norm = proportion(row_norm(V))
@@ -167,29 +168,43 @@ def select(
 
         seen = 1
         for i in range(k-1):
+            I = i+1
             # Produce S*C, which is a smaller matrix
-            SC = sparse_sketch_multiply(kk, pos, sign, C[:,:i+1], n_jobs = n_jobs)
+            SC = sketch_multiply_left(C[:,:I], S, kk, n_jobs = n_jobs)
 
             # Find projection residual
-            norm = col_norm(SX - \
-                    linalg.dot(SC, linalg.pinvc(SC, overwrite = True), SX)  
-                    )
+            # Notice left to right sometimes faster -> so check.
+            inv = linalg.pinv(SC)
+            left_to_right = linalg.dot(SC, inv, SX, message = True)
+
+            if left_to_right:
+                # Better to do CC+ by itself.
+                CinvC = SC @ inv
+                CinvC *= -1
+                CinvC.flat[::CinvC.shape[0]+1] += 1
+                norm = col_norm(CinvC @ SX)
+            else:
+                norm = col_norm(SX -  (SC @ (inv @ SX)) )
+
+            # Convert to probabilities
             norm = proportion(norm)
             select = norm.argmax()
-            indicesP[i+1] = select    
+            indicesP[I] = select    
             
+            # Have to rescale old slcaers, and update new.
             old = seen**0.5
             seen += 1
             new = seen**0.5
             s = old/new
-            C[:,:i+1] *= s
-            scalerP[:i+1] *= s
+            C[:,:I] *= s
+            scalerP[:I] *= s
 
             # Update C
             s = 1/((norm[select] * seen)**0.5)
-            C[:,i+1] = X[:,select]*s
-            scalerP[i+1] = s
+            C[:,I] = X[:,select]*s
+            scalerP[I] = s
 
+    # Return output
     if output == "columns":
         if not adaptive:
             if c:
@@ -209,88 +224,6 @@ def select(
 
 
 ###
-@jit
-def make_S_sketch(k, n, sign, position):
-    S = np.zeros((k, n), dtype = np.dtype("int8"))
-    ones = np.ones(n, dtype = np.dtype("int8"))
-    ones[sign] = -1
-
-    for i in range(n):
-        S[position[i], i] = ones[i]
-    return S
-
-###
-def sketch(n, p, k = "auto", output = "sparse"):
-    """
-    Produces a CountSketch matrix which is similar in nature to
-    the Johnson–Lindenstrauss Transform (eps Fast-JLT) as shown
-    in Sklearn. But, as shown by David Woodruff, "Sketching as a 
-    Tool for Numerical Linear Algebra" [arxiv.org/abs/1411.4357],
-    super fast matrix multiplies can be done. Notice a difference
-    is HyperLearn's  K = min(n, p)/2, but david says k^2/eps is
-    needed (too memory taxing). [Added 4/12/18]
-
-    Parameters
-    -----------
-    n:              Number of rows
-    p:              Number of columns
-    k:              (auto, int). Auto is min(n, p) / 2
-    output:         (sparse, full). Sparse outputs 2 vectors of
-                    position and sign. Full outputs full count
-                    sketch matrix.
-    Returns
-    -----------
-    ((position, sign), matrix S) depending on output option.
-    """
-    if k == "auto":
-        k = _min(n, p) / 2
-    k = int(k)
-
-    sign = np.random.randint(0, 2, size = n, dtype = bool)
-    position = np.random.randint(0, k, size = n)
-
-    if output == "full":
-        return make_S_sketch(k, n, sign, position)
-    else:
-        return position, sign
-
-###
-@jit(parallel = True)
-def sketch_multiply(S, X):
-    """
-    Using the fact that S is sparse, SX can be computed in
-    approx NNZ(X) time, or O(kp) time.
-    """
-    k, n = S.shape
-    out = np.zeros((k, X.shape[1]), dtype = X.dtype)
-    
-    for i in prange(k):
-        s = S[i]
-        for j in prange(n):
-            if s[j] != 0:
-                out[i] += X[j]*s[j]
-    return out
-
-###
-@jit(parallel = True)
-def sparse_sketch_multiply(k ,position, sign, X):
-    """
-    Using the fact that S is sparse, SX can be computed in
-    approx NNZ(X) time, or O(kp) time.
-    """
-    n, p = X.shape
-    out = np.zeros((k, p), dtype = X.dtype)
-    
-    for pos in prange(n):
-        row = position[pos]
-        if sign[pos]:
-            out[row] -= X[pos]
-        else:
-            out[row] += X[pos]
-    return out
-
-
-###
 def matmul(
     pattern, X, n_components = 0.5, solver = "euclidean",
     n_oversamples = "klogk", axis = 1):
@@ -306,9 +239,9 @@ def matmul(
     X:              Compulsory left side matrix.
     n_components:   (int, float). Can be a ratio of total number of
                     columns or rows.
-    solver:         (euclidean, uniform, leverage) Selects columns
+    solver:         (euclidean, uniform, leverage, adaptive) Selects columns
                     based on separate squared norms of each property.
-    n_oversamples:  (klogk, None, k) How many extra samples is taken.
+    n_oversamples:  (klogk, 0, k) How many extra samples is taken.
                     Default = k*log2(k) which guarantees (1+e)||X-X*||
                     error.
     axis:           (0, 1). Can be 0 (columns) which reduces the total
@@ -384,11 +317,7 @@ def randomized_projection(
         solver == 'None': _solver = lambda x: x / col_norm(x)**0.5
 
     if symmetric:
-        # Get normal random numbers Q~N(0,1)
-        # First check if symmetric:
-        if X.flags["F_CONTIGUOUS"]:
-            X = reflect(X)
-
+        # # Get normal random numbers Q~N(0,1)
         Q = normal(0, 1, (n_components, p), dtype)
         Q /= (row_norm(Q)**0.5)[:,np.newaxis] # Normalize columns
         Q = Q.T
@@ -477,13 +406,16 @@ def svd(
 ###
 @process(memcheck = "same")
 def pinv(
-    X, alpha = None, n_components = "auto", max_iter = 'auto', solver = 'lu', 
-    n_jobs = 1, conjugate = True):
+    X, alpha = None, n_components = "auto", max_iter = 'auto', solver = 'SATAX', 
+    n_jobs = 1, conjugate = True, converge = True):
     """
     Returns the Pseudoinverse of the matrix X using randomizedSVD.
     Extremely fast. If n_components = "auto", will get the top sqrt(p)+1
     singular vectors.
-    [Added 30/11/18]
+    [Added 30/11/18] [Edited 14/12/18 Added Newton Schulz and 2016 Gower's
+    Linearly Convergent Randomized Pseudoinverse - R. M. Gower and Peter 
+    Richtarik. "Linearly Convergent Randomized Iterative Methods for 
+    Computing the Pseudoinverse", arXiv:1612.06255]
 
     Parameters
     -----------
@@ -491,7 +423,12 @@ def pinv(
     alpha :         Ridge alpha regularization parameter. Default 1e-6
     n_components:   Default = auto. Provide less to speed things up.
     max_iter:       Default is 'auto'. Can be int.
-    solver:         (auto, lu, qr, None) Default is LU Decomposition
+    solver:         (auto, satax, newton, sketch, lu, qr, None) Default is SATAX.
+                    SATAX is from Gower's 2016 paper. (lu, qr and None) use 2011
+                    Halko's Randomized Range Finder. Newton is Newton Schulz solver.
+                    SKETCH is Newton + sketching.
+    converge:       Default = True. If True, uses a newly discovered approach inspired
+                    from Newton Schulz (inv -= 2*inv*X*inv)
     n_jobs:         Whether to use more >= 1 CPU
     conjugate:      Whether to inplace conjugate but inplace return original.
 
@@ -502,21 +439,101 @@ def pinv(
     """
     dtype = X.dtype
     n, p = X.shape
+    solver = solver.lower()
 
     if n_components == "auto":
-        n_components = int(np.sqrt(p))+1
+        n_components = int(p**0.5 + 1)
     n_components = n_components if n_components < p else p
 
-    if n_components > p/2:
-        print(f"n_components >= {n_components} will be slow. Consider full pinv or pinvc")
+    # Gower's SATAX solver. Use's sketch and solve paradigm.
+    if solver == "satax":
+        if max_iter == "auto":
+            # No need to do a lot of iterations. But, can provide stability.
+            max_iter = 1
+
+        inv = _min(n, p) * X.T / row_norm(X)**2
+
+        # Tried just selecting via leverage scores, uniform etc. Sketch is best.
+        S = sketch(p, n, n_components, "right")
+        invS = sketch_multiply(inv, S, n_components, method = "right")
+        del S
+
+        BT = (X @ invS).T
+        C = BT @ X
+        CCT = linalg.matmul("X @ X.H", C)
+        invCCT = linalg.pinvh(CCT, overwrite = True)
+
+        for i in range(max_iter):
+            R = C @ inv - BT
+            inv -= linalg.dot(C.T, invCCT, R)
 
 
-    U, S, VT = svd(
-                X, U_decision = None, n_components = n_components, max_iter = max_iter,
-                solver = solver, n_jobs = n_jobs, conjugate = conjugate)
+    # Newton Schulz solver. Needs quite a lot of iterations
+    elif solver == "newton":
+        if max_iter == "auto":
+            max_iter = 10
+        
+        inv = X.T / (2*frobenius_norm(X))
 
-    U, _S, VT = svd_condition(U, S, VT, alpha)
-    return (transpose(VT, True, dtype) * _S)   @ transpose(U, True, dtype)
+        # Check X+ (2I - XX+)
+        left_to_right = linalg.dot(inv, X, inv, message = True)
+
+        for i in range(max_iter):
+            if left_to_right:
+                diff = linalg.dot(inv, X, inv)
+                inv *= 2
+                inv -= diff
+            else:
+                Xinv = X @ inv
+                Xinv *= -1
+                Xinv.flat[::Xinv.shape[0]+1] += 2
+                inv = inv @ Xinv
+
+
+    # Newton Schulz solver with sketching. Using too many iterations
+    # causes errors to actually explode. So, 1 iteration is OK.
+    elif solver == "sketch":
+        k = int(n ** 0.5 + 1)
+        S = sketch(n, p, k, "left")
+        SX = sketch_multiply(X, S, k, method = "left")
+
+        inv = X.T / (2*frobenius_norm(X))
+
+        S_first = sketch(p, n, k, "right")
+        S_second = sketch(p, p, n_components, "right")
+        S_third = sketch(p, n, n_components, "left")
+
+        # X+S * SX
+        invS = sketch_multiply(inv, S_first, k, "right")
+        invX = invS @ SX
+
+        # (X+S * SX)S
+        invXS = sketch_multiply(invX, S_second, n_components, "right")
+
+        # (X+S * SX)S * SX+
+        Sinv = sketch_multiply(inv, S_third, n_components, "left")
+
+        inv *= 2
+        inv -= invXS @ Sinv
+
+
+    # Else, use Halko's Randomized Range Finder for SVD. Least accurate.
+    else:
+        if n_components > p/2:
+            print(f"n_components >= {n_components} will be slow. Consider full pinv or pinvc")
+
+        U, S, VT = svd(
+                    X, U_decision = None, n_components = n_components, max_iter = max_iter,
+                    solver = solver, n_jobs = n_jobs, conjugate = conjugate)
+
+        U, _S, VT = svd_condition(U, S, VT, alpha)
+        inv = (transpose(VT, True, dtype) * _S)   @ transpose(U, True, dtype)
+
+    # I discovered that doing this allows better convergence (uses
+    # ideas from Newton Schulz). Works on all methods except SATAX
+    if solver != "satax" and converge:
+        inv -= 2*linalg.dot(inv, X, inv)
+    return inv
 
 
 ###
@@ -628,7 +645,7 @@ def qr(
     accurate, but uses Euclidean Norm sampling from the ColumnSelect algo
     to appropriately select the first columns to orthogonalise. You can
     also set solver to "variance", "correlation" or "euclidean".
-    [Added 8/12/18]
+    [Added 8/12/18] [Edited 12/12/18 Uses argpartititon]
 
     Parameters
     -----------
@@ -644,21 +661,23 @@ def qr(
     -----------
     (Q,R) or (Q) or (R) depends on option Q_only or R_only
     """
+    n, p = X.shape
+    k = n_components + n_oversamples
+    if k > p: k = p
+    kk = k*-1
+
     if solver == "correlation":
         if y is None:
             C = corr_sum( corr(X, X) )
         else:
             C = abs( corr(X, y) )
-        P = C.argsort()
+        P = np.argpartition( C, k )[:k]
     elif solver == "variance":
-        P = X.var(0).argsort()[::-1]
+        P = np.argpartition( X.var(0), kk)[kk:]
     else:
-        P = col_norm(X).argsort()[::-1]
+        P = np.argpartition( col_norm(X), kk)[kk:]
 
     # Gram Schmidt process
-    n, p = X.shape
-    k = n_components + n_oversamples
-    if k > p: k = p
     Q = gram_schmidt(X, P, n, k)
 
     if Q_only:

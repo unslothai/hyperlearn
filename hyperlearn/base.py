@@ -65,7 +65,7 @@ def memory(shape, dtype, memcheck):
 		multiplier = memcheck(*shape)
 	except:
 		multiplier = memcheck(shape[0], shape[1])
-	need = (multiplier * byte) >> 20 # 10 == KB, 20 == MB
+	need = int(multiplier * byte) >> 20 # 10 == KB, 20 == MB
 	return need
 
 ###

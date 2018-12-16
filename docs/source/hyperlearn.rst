@@ -44,10 +44,18 @@ hyperlearn.random module
     :undoc-members:
     :show-inheritance:
 
-hyperlearn.randomized module
+hyperlearn.randomized.base module
 -----------------------
 
-.. automodule:: hyperlearn.randomized
+.. automodule:: hyperlearn.randomized.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+hyperlearn.randomized.linalg module
+-----------------------
+
+.. automodule:: hyperlearn.randomized.linalg
     :members:
     :undoc-members:
     :show-inheritance:

@@ -6,12 +6,23 @@ from .numba import jit, _max, _min
 from . import numba
 
 ###
-def dot(A, B, C):
+def dot(A, B, C, message = False):
     """
     Implements fast matrix multiplication of 3 matrices X = ABC
     From left: X = (AB)C. From right: X = A(BC). This function
     calculates which is faster, and outputs the result.
-    [Added 10/12/18]
+    [Added 10/12/18] [Edited 13/12/18 Added left or right statement]
+
+    Parameters
+    -----------
+    A:          First matrix
+    B:          Multiplied with 2nd matrix
+    C:          Multiplied with 3rd matrix
+    message:    Default = False. If True, doesn't output result, but
+                outputs TRUE if left to right, else FALSE right to left.
+    Returns
+    -----------
+    (A@B@C or message)
     """
     n, a_b = A.shape    # A and B share sizes. Size of A determines
                         # final number of rows
@@ -31,6 +42,9 @@ def dot(A, B, C):
     A_BC = a_b*c  # First row of A_BC
     A_BC *= n     # n times
     right = BC + A_BC
+
+    if message:
+        return left <= right
 
     if left <= right:
         return A @ B @ C
@@ -225,7 +239,7 @@ def cho_inv(X, turbo = True):
     inv(U) :     Upper Triangular Inverse(X)
     """
     inv = lapack("potri", turbo)(X)
-    return inv
+    return inv[0]
 
 
 ###
@@ -272,7 +286,7 @@ def pinvc(X, alpha = None, turbo = True, overwrite = False):
 ###
 _reflect = reflect
 @process(square = True, memcheck = "full")
-def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
+def pinvch(X, alpha = None, turbo = True, overwrite = False, reflect = True):
     """
     Returns the inverse of a square Hermitian Matrix using Cholesky 
     Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. 
@@ -424,6 +438,7 @@ def svd_lwork(dtype, byte, n, p):
         gesvd = _max(3*MIN + MAX, 5*MIN)
 
     gesdd *= byte; gesvd *= byte;
+    gesdd = int(gesdd); gesvd = int(gesvd)
     gesdd >>= 20; gesvd >>= 20;
     return gesdd, gesvd
 
@@ -549,6 +564,7 @@ def eigh_lwork(dtype, byte, n, p):
         evd, evr = syevd, syevr
 
     evd *= byte; evr *= byte;
+    evd = int(evd); evr = int(evr)
     evd >>= 20; evr >>= 20;
     return evd, evr
 
@@ -727,3 +743,36 @@ def eig(
     return W, V
 
 
+###
+@process(square = True, memcheck = "full")
+def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
+    """
+    Returns the inverse of a square Hermitian Matrix using Eigendecomposition. 
+    Uses the Epsilon Jitter Algorithm to guarantee convergence. 
+    Allows Ridge Regularization - default 1e-6.
+    [Added 19/11/18]
+
+    Parameters
+    -----------
+    X :         Upper Symmetric Matrix X
+    alpha :     Ridge alpha regularization parameter. Default 1e-6
+    turbo :     Boolean to use float32, rather than more accurate float64.
+    overwrite:  Whether to overwrite X inplace with pinvh.
+    reflect:    Output full matrix or 1/2 triangular
+
+    Returns
+    -----------    
+    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
+    """
+    W, V = eigh(X, U_decision = None, alpha = alpha, overwrite = overwrite)
+    dtype = V.dtype.char.lower()
+    factor = {'f': 1E3, 'd': 1E6}
+    cond = factor[dtype] * np.finfo(dtype).eps
+
+    absW = abs(W)
+    above_cutoff = ( absW > cond * _max(absW[0], absW[-1]) )
+    invW = 1.0 / W[above_cutoff]
+    V = V[:, above_cutoff]
+
+    inv = V * invW @ transpose(V)
+    return inv

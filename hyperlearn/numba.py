@@ -3,6 +3,31 @@ from functools import wraps
 from numba import njit, prange
 import numpy as np
 from numpy import linalg
+dtypes = (np.uint8, np.uint16, np.uint32, np.uint64)
+
+
+###
+def uint(i, array = True):
+    """
+    [Added 14/11/2018]
+    Outputs a small array with the correct dtype that minimises
+    memory usage for storing the maximal number of elements of
+    size i
+
+    input:      1 argument
+    ----------------------------------------------------------
+    i:          Size of maximal elements you want to store
+
+    returns:    array of size 1 with correct dtype
+    ----------------------------------------------------------
+    """
+    for x in dtypes:
+        if np.iinfo(x).max >= i:
+            break
+    if array:
+        return np.empty(1, dtype = x)
+    return x
+
 
 ###
 def isComplex(dtype):
@@ -11,47 +36,47 @@ def isComplex(dtype):
     elif dtype == np.complex128:
         return True
     elif dtype == complex:
-    	return True
+        return True
     return False
 
 ###
 def jit(f = None, parallel = False):
-	"""
-	[Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
-	Decorator onto Numba NJIT compiled code.
+    """
+    [Added 14/11/2018] [Edited 17/11/2018 Auto add n_jobs argument to functions]
+    Decorator onto Numba NJIT compiled code.
 
-	input:		1 argument, 1 optional
-	----------------------------------------------------------
-	function:	Function to decorate
-	parallel:	If true, sets cache automatically to false
+    input:      1 argument, 1 optional
+    ----------------------------------------------------------
+    function:   Function to decorate
+    parallel:   If true, sets cache automatically to false
 
-	returns: 	CPU Dispatcher function
-	----------------------------------------------------------
-	"""
-	def decorate(f):
-		if parallel:
-			f_multi = njit(f, fastmath = True, nogil = True, parallel = True, cache = False)
-		f_single = njit(f, fastmath = True, nogil = True, parallel = False, cache = True)
-		
-		@wraps(f)
-		def wrapper(*args, **kwargs):
-			# If n_jobs is an argument --> try to execute in parallel
-			if "n_jobs" in kwargs.keys():
-				n_jobs = kwargs["n_jobs"]
-				kwargs.pop("n_jobs")
-				if parallel:
-					if n_jobs < 0 or n_jobs > 1:
-						return f_multi(*args, **kwargs)
-			return f_single(*args, **kwargs)
-		return wrapper
+    returns:    CPU Dispatcher function
+    ----------------------------------------------------------
+    """
+    def decorate(f):
+        if parallel:
+            f_multi = njit(f, fastmath = True, nogil = True, parallel = True, cache = False)
+        f_single = njit(f, fastmath = True, nogil = True, parallel = False, cache = True)
+        
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            # If n_jobs is an argument --> try to execute in parallel
+            if "n_jobs" in kwargs.keys():
+                n_jobs = kwargs["n_jobs"]
+                kwargs.pop("n_jobs")
+                if parallel:
+                    if n_jobs < 0 or n_jobs > 1:
+                        return f_multi(*args, **kwargs)
+            return f_single(*args, **kwargs)
+        return wrapper
 
-	if f: return decorate(f)
-	return decorate
+    if f: return decorate(f)
+    return decorate
 
 
 @jit
 def svd(X, full_matrices = False): 
-	return linalg.svd(X, full_matrices = full_matrices)
+    return linalg.svd(X, full_matrices = full_matrices)
 
 @jit
 def pinv(X): return linalg.pinv(X)
@@ -75,19 +100,19 @@ def norm(v, d = 2): return linalg.norm(v, d)
 def _0mean(X, axis = 0): return np.sum(X, axis)/X.shape[axis]
 
 def mean(X, axis = 0):
-	if axis == 0 and X.flags['C_CONTIGUOUS']:
-		return _0mean(X)
-	else:
-		return X.mean(axis)
+    if axis == 0 and X.flags['C_CONTIGUOUS']:
+        return _0mean(X)
+    else:
+        return X.mean(axis)
 
 @jit
 def __sign(X): return np.sign(X)
 
 def sign(X):
-	S = __sign(X)
-	if isComplex(X.dtype):
-		return S.real
-	return S
+    S = __sign(X)
+    if isComplex(X.dtype):
+        return S.real
+    return S
 
 @jit
 def _sum(X, axis = 0): return np.sum(X, axis)
@@ -103,18 +128,26 @@ def minimum(X, i): return np.minimum(X, i)
 
 @jit
 def _min(a,b):
-	if a < b: return a
-	return b
+    if a < b: return a
+    return b
 
 @jit
 def _max(a,b):
-	if a < b: return b
-	return a
+    if a < b: return b
+    return a
 
 @jit
 def _sign(x):
-	if x < 0: return -1
-	return 1
+    if x < 0: return -1
+    return 1
+
+@jit
+def arange(size):
+    out = np.zeros(size, dtype = np.dtype("uint32"))
+    for i in range(size):
+        out[i] = i
+    return out
+
 
 ###
 # Run all algorithms to allow caching
