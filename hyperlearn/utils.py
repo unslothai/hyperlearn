@@ -1,6 +1,6 @@
 
 import numpy as np
-from .numba import jit, prange, sign, _max
+from .numba import *
 from .base import *
 from array import array
 
@@ -12,7 +12,7 @@ def do_until_success(
     algorithms to converge via ridge regularization.
     [Added 15/11/18] [Edited 25/11/18 Fixed Alpha setting, can now run in
     approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]
-    [Edited 14/12/18 Some overwrite errors]
+    [Edited 14/12/18 Some overwrite errors] [Edited 21/12/18 If see a 0]
 
     Parameters
     -----------
@@ -26,13 +26,15 @@ def do_until_success(
         X = args[0]
     else:
         X = next(iter(kwargs.values()))
+
+    # Default alpha
+    default = ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64
     
     if alpha is None:
         alpha = 0
 
     if overwrite:
-        alpha = _max(alpha, ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64)
-        alpha *= 10
+        alpha = _max(alpha, default)
 
     if not overwrite:
         previous = X.diagonal().copy()
@@ -40,10 +42,11 @@ def do_until_success(
     old_alpha = 0
     error = 1
     while error != 0:
-        epsilon_f(X, size, alpha - old_alpha)
+        epsilon_f(X, size, alpha - old_alpha, default)
+        #print(X.diagonal())
         try:
             out = f(*args, **kwargs)
-            if type(out) == tuple:
+            if isList(out):
                 error = out[-1]
                 out = out[:-1]
                 if len(out) == 1:
@@ -72,19 +75,27 @@ def do_until_success(
 
 ###
 @jit
-def add_jitter(X, size, alpha):
+def add_jitter(X, size, alpha, default):
     """
     Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain
     algorithms to converge via ridge regularization.
-    [Added 15/11/18] [Edited 25/11/2018 for floating point errors]
+    [Added 15/11/18] [Edited 25/11/18 for floating point errors]
+    [Edited 21/12/18 first pass checks what should be added]
     """
+    jitter = alpha
+
     for i in range(size):
         old = X[i, i]
-        X[i, i] += alpha
-        multiplier = 2
-        while X[i, i] - old < alpha:
-            X[i, i] += multiplier*alpha
-            multiplier *= 2
+        if old == 0 and jitter == 0:
+            jitter = default
+
+        new = old + jitter
+        while new - old < alpha:
+            jitter *= 2
+            new = old + jitter            
+
+    for i in range(size):
+        X[i, i] += jitter
 
 
 ###
@@ -125,14 +136,23 @@ def L_process(n, p, L):
 
 
 @jit # Force triangular matrix U to be invertible using ridge regularization
-def U_process(A, size, alpha):
+def U_process(A, size, alpha, default):
+    jitter = alpha
+
+    for i in range(size):
+        old = A[i, i]
+        if old == 0:
+            if jitter == 0:
+                jitter = default
+
+            new = jitter
+            while old < alpha:
+                jitter *= 2
+                new = jitter
+
     for i in range(size):
         if A[i, i] == 0:
-            A[i, i] += alpha
-            multiplier = 2
-            if A[i, i] < alpha:
-                A[i, i] += multiplier*alpha
-                multiplier *= 2
+            A[i, i] += jitter
 
 
 ###
@@ -158,10 +178,14 @@ def reflect(X):
     else:
         return _reflect(X, n_jobs = n_jobs)
 
+
 ###
 @jit(parallel = True)        
 def amax_numb_0(X, n, p):
-    indices = np.zeros(p, dtype = np.dtype('int'))
+    """
+    Finds the sign(X[:,abs(X).argmax(0)])
+    """
+    indices = np.zeros(p, dtype = np.dtype("int8"))
     for i in prange(p):
         _max = 0
         s = 1
@@ -177,7 +201,10 @@ def amax_numb_0(X, n, p):
 ###
 @jit(parallel = True)
 def amax_numb_1(X, n, p):
-    indices = np.zeros(n, dtype = np.dtype('int'))
+    """
+    Finds the sign(X[abs(X).argmax(1)])
+    """
+    indices = np.zeros(n, dtype = np.dtype("int8"))
     for i in prange(n):
         _max = 0
         s = 1
@@ -191,38 +218,6 @@ def amax_numb_1(X, n, p):
         indices[i] = s
     return indices
 
-###
-@jit(parallel = True)        
-def amax_numb_0c(X, n, p):
-    indices = np.zeros(p, dtype = np.dtype('int'))
-    for i in prange(p):
-        _max = 0
-        s = 1
-        for j in range(n):
-            Xji = X[j, i]
-            a = abs(Xji)
-            if a > _max:
-                _max = a
-                s = np.sign(Xji)
-        indices[i] = s.real
-    return indices
-
-###
-@jit(parallel = True)
-def amax_numb_1c(X, n, p):
-    indices = np.zeros(n, dtype = np.dtype('int'))
-    for i in prange(n):
-        _max = 0
-        s = 1
-        Xi = X[i]
-        for j in range(p):
-            Xij = Xi[j]
-            a = abs(Xij)
-            if a > _max:
-                _max = a
-                s = np.sign(Xij)
-        indices[i] = s.real
-    return indices
 
 ###
 def sign_max(X, axis = 0, n_jobs = 1):
@@ -240,10 +235,7 @@ def sign_max(X, axis = 0, n_jobs = 1):
     ----------------------------------------------------------
     """ 
     n, p = X.shape
-    if isComplex(X.dtype):
-        amax = eval(f"amax_numb_{axis}c")
-    else:
-        amax = eval(f"amax_numb_{axis}")
+    amax = eval(f"amax_numb_{axis}")
 
     if n_jobs != 1 and n*p > 20000**2:
         return amax(X, n, p, n_jobs = -1)
@@ -283,6 +275,24 @@ def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
         signs = sign_max(VT, 0, n_jobs = n_jobs)
         VT *= signs
 
+
+###
+@jit
+def svd_search(S, eps, size):
+    """
+    Determines the rank of a matrix via the singular values.
+    (Counts how many are larger than eps.)
+    """
+    rank = size-1
+    if S[rank] < eps:
+        rank -= 1
+        while rank > 0:
+            if S[rank] >= eps: break
+            rank -= 1
+    rank += 1
+    return rank
+
+
 ###
 def svd_condition(U, S, VT, alpha = None):
     """
@@ -302,38 +312,51 @@ def svd_condition(U, S, VT, alpha = None):
     ----------------------------------------------------------
     """
     dtype = S.dtype.char.lower()
-    if dtype == "f":
+    is32 = (dtype == "f")
+    if is32:
         cond = 1000 #1e3
     else:
         cond = 1000000 #1e6
     eps = np.finfo(dtype).eps
     first = S[0]
-    eps = eps*first*cond
+    eps *= first*cond
 
     # Binary search O(logn) is not useful
     # since most singular values are not going to be 0
     size = S.size
-    rank = size-1
-    if S[rank] < eps:
-        rank -= 1
-        while rank > 0:
-            if S[rank] >= eps: break
-            rank -= 1
-    rank += 1
-
+    rank = svd_search(S, eps, size)
     if rank != size:
         U, S, VT = U[:, :rank], S[:rank], VT[:rank]
 
-    update = True
-    if alpha != 1e-8:
-        if alpha != None:
-            S /= (S**2 + alpha)
-            update = False
+    # Check if alpha needs to be added onto the singular values
+    alphaUpdate = False
+    if alpha is not None:
+        if is32:
+            if alpha != ALPHA_DEFAULT32:
+                alphaUpdate = True
+        else:
+            if alpha != ALPHA_DEFAULT64:
+                alphaUpdate = True
 
-    if update:
-        S = np.divide(1, S, out = S)
+    if alphaUpdate:
+        S /= (S**2 + alpha)
+    else:
+        S = 1/S
 
     return U, S, VT
+
+
+###
+@jit
+def eig_search(W, eps):
+    """
+    Corrects the eigenvalues if they're smaller than 0.
+    """
+    for i in range(W.size):
+        if W[i] > 0: break
+        # else set to condition number
+        W[i] = eps
+    return W
 
 
 ###
@@ -350,13 +373,10 @@ def eig_condition(X, W, V):
         first = W[-1]**0.5 # eigenvalues are sorted ascending
     else:
         first = 0
-    eps = eps*first*cond
+    eps *= first*cond
     eps **= 2 # since eigenvalues are squared of singular values
 
-    for i in range(W.size):
-        if W[i] > 0: break
-        # else set to condition number
-        W[i] = eps
+    W = eig_search(W, eps)    
 
     # X.H @ V / W**0.5
     XT = X if X.flags["F_CONTIGUOUS"] else X.T
@@ -373,7 +393,37 @@ def eig_condition(X, W, V):
     out /= W**0.5
     return W, out
 
+
+@jit
+def eigh_search(W, eps):
+    w0 = abs(W[0])
+
+    last = W[-1]
+    negative = (last < 0)
+    w1 = abs(last)
+
+    if w0 > w1:
+        cutoff = w0
+    else:
+        cutoff = w1
+    cutoff *= eps
     
+    size = len(W)
+    out = np.ones(size, dtype = np.dtype("bool"))
+    
+    if w0 < eps:
+        out[0] = False
+    if w1 < eps:
+        out[-1] = False
+    
+    # Check if abs(W) < eps
+    for i in range(1, size-1):
+        if abs(W[i]) < eps:
+            out[i] = False
+            
+    return out
+
+
 # #### Load JIT
 # X = np.eye(2, dtype = np.float32)
 # svd_flip(X, X)
@@ -444,11 +494,44 @@ def _frobenius_norm(X):
     return norm
 
 ###
-def frobenius_norm(X):
+@jit
+def _frobenius_norm_symmetric(X):
+    n = X.shape[0]
+    norm = 0
+    diag = 0
+    
+    for i in range(n):
+        row = X[i]
+        for j in range(i+1, n):
+            norm += row[j]**2
+        diag += row[i]**2
+    norm *= 2
+    norm += diag
+    return norm
+
+###
+def frobenius_norm(X, symmetric = False):
+    """
+    Outputs the ||X||_F ^ 2 norm of a matrix. If symmetric,
+    then computes the norm on 1/2 of the matrix and multiplies
+    it by 2.
+    """
     if len(X.shape) > 1:
+        if symmetric:
+            return _frobenius_norm_symmetric(X)
         return _frobenius_norm(X)
     return normA(X)
 
+
+###
+@jit
+def proportion(X):
+    s = 0
+    n = X.shape[0]
+    for i in range(n):
+        s += X[i]
+    X /= s
+    return X
 
 
 ###
@@ -457,16 +540,23 @@ def gram_schmidt(X, P, n, k):
     """
     Modified stable Gram Schmidt process.
     Gram-Schmidt Orthogonalization
-    Instructor: Ana Rita Pires (MIT 18.06SC)
+    Instructor: Ana Rita Pires (MIT 18.06SC).
+    Output is Q.T NOT Q. So you must transpose it.
     """
     Q = np.zeros((k, n), dtype = X.dtype)
     Z = np.zeros(n, dtype = X.dtype)
 
     for i in range(k):
-        Q[i] = X[:,P[i]]
+
         x = Q[i]
+        col = P[i]
+        # Q[i] = X[:,P[i]]
+        for a in range(n):
+            x[a] = X[a, col]
+        
         for j in range(i):
-            x -= (x @ Q[j]) * Q[j]
+            q = Q[j]
+            x -= np.vdot(x, q) * q
             
         norm = np.linalg.norm(x)
         if norm == 0:
@@ -475,4 +565,177 @@ def gram_schmidt(X, P, n, k):
         else:
             x /= norm
     return Q
+
+
+###
+@jit
+def _unique_int(a):
+    """
+    Assumes a is just integers, and returning unique elements
+    will be much easier. Uses a quick boolean array instead of
+    a hash table.
+    """
+    seen = np.zeros(np.max(a)+1, dtype = np.bool_)
+    count = 0
+    
+    for i in range(a.size):
+        element = a[i]
+        curr = seen[element]
+        if not curr:
+            seen[element] = True
+            count += 1
+
+    out = np.zeros(count, dtype = a.dtype)
+    j = 0
+    # fill up array with uniques
+    for i in range(seen.size):
+        if seen[i]:
+            out[j] = i
+            j += 1
+            if j > count: break
+    return out
+
+###
+@jit
+def _unique_count(a, size):
+    """
+    Returns the counts and unique values of an array a.
+    [Added 23/12/18]
+    """
+    maximum = np.max(a) + 1
+    seen = np.zeros(maximum, dtype = size.dtype)
+    count = 0
+    
+    for i in range(a.size):
+        element = a[i]
+        curr = seen[element]
+        if curr == 0: count += 1
+        seen[element] += 1
+
+    unique = np.zeros(count, dtype = a.dtype)
+    counts = np.zeros(count, dtype = np.uint32)
+    
+    j = 0
+    for i in range(seen.size):
+        curr = seen[i]
+        if curr > 0:
+            unique[j] = i
+            counts[j] = curr
+            j += 1
+            if j > count: break
+    return unique, counts
+
+###
+@njit(fastmath = True, nogil = True, cache = True)
+def _unique_sorted_size(a):
+    """
+    Returns how many uniques in a sorted list.
+    [Added 23/12/18]
+    """
+    size = 1
+    i = 0
+    old = a[i]
+    i += 1
+    while i < a.size:
+        new = a[i]
+        if new != old:
+            size += 1
+            old = new
+        i += 1
+    return size
+
+###
+@jit
+def _unique_sorted(a):
+    """
+    Returns only unique elements in a sorted list.
+    [Added 23/12/18]
+    """
+    size = _unique_sorted_size(a)
+        
+    out = np.zeros(size, dtype = a.dtype)
+    i = 0
+    old = a[i]
+    out[i] = old
+    
+    i += 1
+    j = 1
+    length = a.size
+    while i < length:
+        new = a[i]
+        if new != old:
+            out[j] = new
+            old = new
+            j += 1
+            if j > length: break
+        i += 1
+    return out
+
+###
+@jit
+def _unique_sorted_count(a):
+    """
+    Returns unique elements and their counts in a sorted list.
+    [Added 23/12/18]
+    """
+    size = _unique_sorted_size(a)
+        
+    out = np.zeros(size, dtype = a.dtype)
+    counts = np.zeros(size, dtype = np.uint32)
+    i = 0
+    old = a[i]
+    out[i] = old
+    
+    i += 1
+    j = 0
+    length = a.size
+    while i < length:
+        new = a[i]
+
+        # Add 1 to count
+        counts[j] += 1
+        if new != old:
+            j += 1
+            if j > length: break
+            out[j] = new
+            old = new
+        i += 1
+
+    # Need to update last element since loop forgets it.
+    counts[-1] += 1
+    return out, counts
+
+
+###
+def unique_int(a, return_counts = False):
+    """
+    Given a list of postive ints, returns the unique
+    elements accompanied with optional counts.
+    [Added 23/12/18]
+
+    Parameters
+    -----------
+    a:              Array of postive ints
+    return_counts:  Whether to return (unique, counts)
+    """
+    if return_counts:
+        return _unique_count(a, uinteger(a.size))
+    return _unique_int(a)
+
+
+###
+def unique_sorted(a, return_counts = False):
+    """
+    Given a list of sorted elements, returns the unique
+    elements accompanied with optional counts.
+    [Added 23/12/18]
+
+    Parameters
+    -----------
+    a:              Array of sorted elements
+    return_counts:  Whether to return (unique, counts)
+    """
+    if return_counts:
+        return _unique_sorted_count(a)
+    return _unique_sorted(a)
 

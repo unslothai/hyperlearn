@@ -30,6 +30,12 @@ memory_usage = {
 	}
 f_same_memory = memory_usage["same"]
 
+
+###
+def isList(x):
+	dtype = type(x)
+	return dtype is list or dtype is tuple
+
 ###
 def isComplex(dtype):
     string = str(dtype)
@@ -153,7 +159,7 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 					if i == "nocheck":
 						del kwargs[i]
 						check = False
-					break
+						break
 
 			if check:
 				if size == 0:
@@ -178,19 +184,19 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 				n, p = shape
 
 				# check if alpha and n_components is in function:
-				whereAlpha = 0
+				#whereAlpha = 0
 				whereK = 0
 
-				hasAlpha = False
+				#hasAlpha = False
 				hasK = False
 				n_components = None
 				default_n_components = None
 
-				for i in function_args: # O(n)
-					if i == "alpha":
-						hasAlpha = True
-						break
-					whereAlpha += 1
+				# for i in function_args: # O(n)
+				# 	if i == "alpha":
+				# 		hasAlpha = True
+				# 		break
+				# 	whereAlpha += 1
 
 				for i in function_args:
 					if i == "n_components":
@@ -199,13 +205,13 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 					whereK += 1
 					
 				# check alpha
-				ALPHA_DEFAULT = ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64
+				#ALPHA_DEFAULT = ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64
 
 				# update alpha and n_components
-				if l > whereAlpha:
-					if args[whereAlpha] is None:
-						args[whereAlpha] = ALPHA_DEFAULT
-					hasAlpha = False
+				# if l > whereAlpha:
+				# 	if args[whereAlpha] is None:
+				# 		args[whereAlpha] = ALPHA_DEFAULT
+				# 	hasAlpha = False
 
 				# get n_components
 				if l > whereK:
@@ -241,11 +247,11 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 						if type(t) is bool and "only" in x:
 							otherYes += t
 						# determine if alpha argument
-						if hasAlpha:
-							if x == "alpha":
-								if t is None:
-									kwargs[x] = ALPHA_DEFAULT
-								hasAlpha = False
+						# if hasAlpha:
+						# 	if x == "alpha":
+						# 		if t is None:
+						# 			kwargs[x] = ALPHA_DEFAULT
+						# 		hasAlpha = False
 						# get n_components
 						if hasK:
 							default_n_components = t
@@ -359,8 +365,8 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 					kwargs["n_components"] = default_n_components
 
 				# update kwargs if alpha not seen in args or kwargs:
-				if hasAlpha:
-					kwargs["alpha"] = ALPHA_DEFAULT
+				# if hasAlpha:
+				# 	kwargs["alpha"] = ALPHA_DEFAULT
 
 			# finally execute function
 			try:

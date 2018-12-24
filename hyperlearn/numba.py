@@ -3,41 +3,6 @@ from functools import wraps
 from numba import njit, prange
 import numpy as np
 from numpy import linalg
-dtypes = (np.uint8, np.uint16, np.uint32, np.uint64)
-
-
-###
-def uint(i, array = True):
-    """
-    [Added 14/11/2018]
-    Outputs a small array with the correct dtype that minimises
-    memory usage for storing the maximal number of elements of
-    size i
-
-    input:      1 argument
-    ----------------------------------------------------------
-    i:          Size of maximal elements you want to store
-
-    returns:    array of size 1 with correct dtype
-    ----------------------------------------------------------
-    """
-    for x in dtypes:
-        if np.iinfo(x).max >= i:
-            break
-    if array:
-        return np.empty(1, dtype = x)
-    return x
-
-
-###
-def isComplex(dtype):
-    if dtype == np.complex64:
-        return True
-    elif dtype == np.complex128:
-        return True
-    elif dtype == complex:
-        return True
-    return False
 
 ###
 def jit(f = None, parallel = False):
@@ -72,6 +37,69 @@ def jit(f = None, parallel = False):
 
     if f: return decorate(f)
     return decorate
+
+
+@jit
+def uint_sizes():
+    out = np.zeros(3, dtype = np.uint64)
+    out[0] = np.iinfo(np.uint8).max
+    out[1] = np.iinfo(np.uint16).max
+    out[2] = np.iinfo(np.uint32).max
+    return out
+uint_size = uint_sizes()
+uint_dtypes = (
+    np.zeros(1, dtype = np.uint8),
+    np.zeros(1, dtype = np.uint16),
+    np.zeros(1, dtype = np.uint32),
+    np.zeros(1, dtype = np.uint64))
+
+@jit
+def int_sizes():
+    out = np.zeros(3, dtype = np.int64)
+    out[0] = np.iinfo(np.int8).max
+    out[1] = np.iinfo(np.int16).max
+    out[2] = np.iinfo(np.int32).max
+    return out
+int_size = int_sizes()
+int_dtypes = (
+    np.zeros(1, dtype = np.int8),
+    np.zeros(1, dtype = np.int16),
+    np.zeros(1, dtype = np.int32),
+    np.zeros(1, dtype = np.int64))
+
+###
+@jit
+def _uinteger(i):
+    for j in range(3):
+        if i <= uint_size[j]:
+            break
+    return j
+
+###
+@jit
+def _integer(i):
+    for j in range(3):
+        if i <= int_size[j]:
+            break
+    return j
+
+###
+def uinteger(i):
+    return uint_dtypes[_uinteger(i)]
+
+###
+def integer(i):
+    return int_dtypes[_integer(i)]
+
+###
+def isComplex(dtype):
+    if dtype == np.complex64:
+        return True
+    elif dtype == np.complex128:
+        return True
+    elif dtype == complex:
+        return True
+    return False
 
 
 @jit
@@ -142,13 +170,15 @@ def _sign(x):
     return 1
 
 @jit
-def arange(size):
-    out = np.zeros(size, dtype = np.dtype("uint32"))
+def _arange(size, dtype):
+    out = np.zeros(size, dtype = dtype.dtype)
     for i in range(size):
         out[i] = i
     return out
 
-
+def arange(size):
+    return _arange(size, uinteger(size))
+    
 ###
 # Run all algorithms to allow caching
 

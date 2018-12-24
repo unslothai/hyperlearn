@@ -5,6 +5,25 @@ import scipy.linalg as scipy
 from .numba import jit, _max, _min
 from . import numba
 
+
+@jit
+def dot_left_right(n, a_b, b_c, c):
+    # From left X = (AB)C
+    AB = a_b*b_c  # First row of AB
+    AB *= n       # n * AB rows
+    AB_C = b_c*c  # First row of AB_C
+    AB_C *= n     # n * AB_C rows
+    left = AB + AB_C
+
+    # From right X = A(BC)
+    BC = b_c*c    # First row of BC
+    BC *= a_b     # a_b * first row BC
+    A_BC = a_b*c  # First row of A_BC
+    A_BC *= n     # n times
+    right = BC + A_BC
+
+    return left, right
+
 ###
 def dot(A, B, C, message = False):
     """
@@ -12,6 +31,7 @@ def dot(A, B, C, message = False):
     From left: X = (AB)C. From right: X = A(BC). This function
     calculates which is faster, and outputs the result.
     [Added 10/12/18] [Edited 13/12/18 Added left or right statement]
+    [Edited 20/12/18 Uses numba]
 
     Parameters
     -----------
@@ -29,19 +49,7 @@ def dot(A, B, C, message = False):
     b_c = B.shape[1]
     c = C.shape[1]      # final columns
 
-    # From left X = (AB)C
-    AB = a_b*b_c  # First row of AB
-    AB *= n       # n * AB rows
-    AB_C = b_c*c  # First row of AB_C
-    AB_C *= n     # n * AB_C rows
-    left = AB + AB_C
-
-    # From right X = A(BC)
-    BC = b_c*c    # First row of BC
-    BC *= a_b     # a_b * first row BC
-    A_BC = a_b*c  # First row of A_BC
-    A_BC *= n     # n times
-    right = BC + A_BC
+    left, right = dot_left_right(n, a_b, b_c, c)
 
     if message:
         return left <= right
@@ -85,12 +93,12 @@ def matmul(pattern, X, Y = None):
     S @ Y.H and Y.H @ S where S is a symmetric matrix; general multiplies:
     X @ Y and X.H @ Y.
     [Added 28/11/18 Changed from transpose since it didn't work]
-    [Edited 1/12/18 Added S @ Y]
+    [Edited 1/12/18 Added S @ Y] [Edited 17/12/18 Added Y @ S]
 
     Parameters
     -----------
     pattern:    Can include: X.H @ X | X @ X.H | S @ Y.H | 
-                Y.H @ S | X @ Y | X.H @ Y | S @ Y
+                Y.H @ S | X @ Y | X.H @ Y | S @ Y | Y @ S
     X:          Compulsory left side matrix.
     Y:          Optional right side matrix.
 
@@ -102,9 +110,10 @@ def matmul(pattern, X, Y = None):
     dtypeX = X.dtype
     XT = X.T
     n = X.shape[0]
+    isComplex_dtypeX = isComplex(dtypeX)
     
     if pattern == "X.H@X":
-        if isComplex(dtypeX):
+        if isComplex_dtypeX:
             # BLAS SYRK doesn't work
             out = blas("gemm")(a = XT, b = XT, trans_a = 0, trans_b = 2, alpha = 1)
             out = np.conjugate(out, out = out)
@@ -113,7 +122,7 @@ def matmul(pattern, X, Y = None):
             out = blas("syrk")(a = XT, trans = 0, alpha = 1)
 
     elif pattern == "X@X.H":
-        if isComplex(dtypeX):
+        if isComplex_dtypeX:
             # BLAS SYRK doesn't work
             out = blas("gemm")(a = XT, b = XT, trans_a = 2, trans_b = 0, alpha = 1)
             out = np.conjugate(out, out = out)
@@ -122,9 +131,9 @@ def matmul(pattern, X, Y = None):
             out = blas("syrk")(a = XT, trans = 1, alpha = 1)
 
     elif pattern == "X.H@Y":
-        if isComplex(dtypeX):
+        if isComplex_dtypeX:
             dtypeY = Y.dtype
-            if isComplex(dtypeY):
+            if isComplex_dtypeY:
                 out = blas("gemm")(a = XT, b = Y.T, trans_a = 0, trans_b = 2, alpha = 1)
             else:
                 out = XT @ Y
@@ -139,8 +148,9 @@ def matmul(pattern, X, Y = None):
     # If it's F Contiguous, I assume it's UPPER. If not, it's transposed.
     elif pattern == "S@Y.H":
         dtypeY = Y.dtype
+        isComplex_dtypeY = isComplex(dtypeY)
 
-        if isComplex(dtypeY):
+        if isComplex_dtypeY:
             a = X if X.flags["F_CONTIGUOUS"] else XT
             # Symmetric doesn't work
             out = blas("gemm")(a = a, b = Y, trans_b = 2, alpha = 1)
@@ -154,7 +164,7 @@ def matmul(pattern, X, Y = None):
     elif pattern == "Y.H@S":
         dtypeY = Y.dtype
 
-        if isComplex(dtypeY):
+        if isComplex_dtypeY:
             a = X if X.flags["F_CONTIGUOUS"] else XT
             # Symmetric doesn't work
             out = blas("gemm")(a = Y, b = a, trans_a = 2, alpha = 1)
@@ -164,6 +174,12 @@ def matmul(pattern, X, Y = None):
                 out = blas("symm")(a = X, b = YT, side = 1, alpha = 1)
             else:
                 out = blas("symm")(a = XT, b = YT, side = 1, alpha = 1, lower = 1)
+
+    elif pattern == "Y@S":
+        if X.flags["F_CONTIGUOUS"]:
+            out = blas("symm")(a = X, b = Y, side = 1, alpha = 1)
+        else:
+            out = blas("symm")(a = XT, b = Y, side = 1, alpha = 1, lower = 1)
 
     elif pattern == "S@Y":
         if X.flags["F_CONTIGUOUS"]:
@@ -417,9 +433,11 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 
 
 ###
-def svd_lwork(dtype, byte, n, p):
+@jit
+def svd_lwork(isComplex_dtype, byte, n, p):
     """
     Computes the work required for SVD (gesdd, gesvd)
+    [Updated 20/12/18 Uses Numba for some microsecond saving]
     """
     if n < p:
         MIN = n
@@ -429,13 +447,15 @@ def svd_lwork(dtype, byte, n, p):
         MAX = n
 
     # check memory usage for GESDD vs GESVD. Use one which is within memory limits.
-    if isComplex(dtype):
+    if isComplex_dtype:
         gesdd = (MIN + 3)*MIN  # updated from netlib
         gesvd = 2*MIN + MAX
     else:
         # min(n, p)*(6 + min(n,p)) + max(n, p)
         gesdd = (4*MIN + 7)*MIN   # updated from netlib
-        gesvd = _max(3*MIN + MAX, 5*MIN)
+        a = 3*MIN + MAX
+        b = 5*MIN
+        gesvd = a if a > b else b
 
     gesdd *= byte; gesvd *= byte;
     gesdd = int(gesdd); gesvd = int(gesvd)
@@ -475,13 +495,15 @@ def svd(X, U_decision = False, n_jobs = 1, conjugate = True, overwrite = False):
     n, p = X.shape
     dtype = X.dtype
     ifTranspose = p > n # p > n
+    isComplex_dtype = isComplex(dtype)
+
     if ifTranspose: 
         X = transpose(X, conjugate, dtype)
         U_decision = not U_decision
         n, p = X.shape
     byte = X.itemsize
 
-    gesdd, gesvd = svd_lwork(dtype, byte, n, p)
+    gesdd, gesvd = svd_lwork(isComplex_dtype, byte, n, p)
     free = available_memory()
     if gesdd > free:
         if gesvd > free:
@@ -503,7 +525,7 @@ def svd(X, U_decision = False, n_jobs = 1, conjugate = True, overwrite = False):
         U, S, VT, _ = lapack("gesvd")(X, full_matrices = False, overwrite_a  = overwrite)
         
     # Return original X if X.H
-    if not overwrite and conjugate and isComplex(dtype):
+    if not overwrite and conjugate and isComplex_dtype:
         transpose(X, True, dtype);
     
     # Flip if svd(X.T) was performed.
@@ -541,20 +563,22 @@ def pinv(X, alpha = None, overwrite = False):
 
 
 ###
-def eigh_lwork(dtype, byte, n, p):
+@jit
+def eigh_lwork(isComplex_dtype, byte, n, p):
     """
     Computes the work required for EIGH (syevr, syevd, heevr, heevd)
     SYEVD = 1 + 6n + 2n^2
     SYEVR = 26n
     HEEVD = 2n + n^2
     HEEVR = 2n
+    [Updated 20/12/18 Uses Numba for some microsecond saving]
     """
     if p >= 1.1*n:
         s = n
     else:
         s = p
 
-    if isComplex(dtype):
+    if isComplex_dtype:
         heevd = 2*s + s**2
         heevr = 2*s + 1
         evd, evr = heevd, heevr
@@ -595,12 +619,12 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
     W:          Eigenvalues
     V:          Eigenvectors
     """
-    alpha = 1e-6
     n = X.shape[0]
     byte = X.itemsize
     dtype = X.dtype
+    isComplex_dtype = isComplex(dtype)
 
-    evd, evr = eigh_lwork(dtype, byte, n, n)
+    evd, evr = eigh_lwork(isComplex_dtype, byte, n, n)
    
     free = available_memory()
     if evd > free:
@@ -614,21 +638,19 @@ def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite
     # From Modern Big Data Algorithms: SYEVD mostly faster than SYEVR
     # contradicts MKL's findings
     if evd:
-        decomp = lapack("heevd") if isComplex(dtype) else lapack("syevd")
+        decomp = lapack("heevd") if isComplex_dtype else lapack("syevd")
         W, V = do_until_success(
             decomp, add_jitter, n, overwrite, None, 
             a = X, lower = 0, overwrite_a = overwrite)
     else:
-        decomp = lapack("heevr") if isComplex(dtype) else lapack("syevr")
+        decomp = lapack("heevr") if isComplex_dtype else lapack("syevr")
         W, V = do_until_success(
             decomp, add_jitter, n, overwrite, None, 
             a = X, uplo = "U", overwrite_a = overwrite)
 
     # if svd -> return V.T and sqrt(S)
     if svd:
-        for i in range(W.size):
-            if W[i] > 0: break
-        W[:i] = 0
+        W = eig_search(W, 0)
 
     if U_decision is not None:
         W, V = W[::-1], V[:,::-1]
@@ -684,10 +706,11 @@ def eig(
     n, p = X.shape
     byte = X.itemsize
     dtype = X.dtype
+    isComplex_dtype = isComplex(dtype)
 
     # check memory usage
     free = available_memory()
-    evd, evr = eigh_lwork(dtype, byte, n, p)
+    evd, evr = eigh_lwork(isComplex_dtype, byte, n, p)
     eigh_work = _min(evd, evr)
 
     if eigh_work > free:
@@ -695,8 +718,8 @@ def eig(
         # check SVD since less memory usage
         # notice since QR used, upper triangular
         MIN = _min(n,p)
-        gesdd, gesvd = svd_lwork(dtype, byte, MIN, p)
-        gesddT, gesvdT = svd_lwork(dtype, byte, p, MIN) # also check transpose
+        gesdd, gesvd = svd_lwork(isComplex_dtype, byte, MIN, p)
+        gesddT, gesvdT = svd_lwork(isComplex_dtype, byte, p, MIN) # also check transpose
         svd_work = min(gesdd, gesvd, eigh_work, gesddT, gesvdT)
 
         if svd_work > free:
@@ -730,9 +753,7 @@ def eig(
 
     # if svd -> return V.T and sqrt(S)
     if svd:
-        for i in range(W.size):
-            if W[i] > 0: break
-        W[:i] = 0
+        W = eig_search(W, 0)
 
         W **= 0.5
         V = transpose(V, True, dtype)
@@ -765,14 +786,19 @@ def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
     pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     W, V = eigh(X, U_decision = None, alpha = alpha, overwrite = overwrite)
-    dtype = V.dtype.char.lower()
-    factor = {'f': 1E3, 'd': 1E6}
-    cond = factor[dtype] * np.finfo(dtype).eps
 
-    absW = abs(W)
-    above_cutoff = ( absW > cond * _max(absW[0], absW[-1]) )
-    invW = 1.0 / W[above_cutoff]
+    dtype = V.dtype.char.lower()
+    eps = np.finfo(dtype).eps
+
+    if dtype == 'f':
+        eps *= 1000
+    else:
+        eps *= 1000000
+
+    above_cutoff = eigh_search(W, eps)
+    _W = 1.0 / W[above_cutoff]
     V = V[:, above_cutoff]
 
-    inv = V * invW @ transpose(V)
+    inv = V * _W @ transpose(V)
     return inv
+

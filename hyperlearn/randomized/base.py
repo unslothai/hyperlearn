@@ -1,6 +1,7 @@
 
 import numpy as np
-from ..numba import jit, arange, prange
+from ..numba import jit, arange, prange, uinteger
+from ..random import shuffle, randbool
 
 
 # Sketching methods from David Woodruff.
@@ -28,12 +29,12 @@ def sketch(n, p, k = 10, method = "left"):
     """
     if method == "left":
         x = arange(n)
-        np.random.shuffle(x)
+        shuffle(x)
         return x
     else:
         if k < 20:
-            sign = np.random.randint(0, 2, size = p, dtype = bool)
-            position = np.random.randint(0, k, size = p)
+            sign = randbool(p)
+            position = np.random.randint(0, k, size = p, dtype = uinteger(k))
             return _sketch_right(k, n, p, sign, position)
         else:
             x = np.random.randint(0, k, size = p)
@@ -58,7 +59,7 @@ def sketch_multiply_left(X, S, k = 10):
         res = partial.copy()
         left = i*size
         right = (i+1)*size
-        middle = np.int( (i+0.5)*size )
+        middle = int( (i+0.5)*size )
 
         for j in range(left, middle):
             res += X[S[j]]
@@ -68,7 +69,7 @@ def sketch_multiply_left(X, S, k = 10):
     
     i = k-1
     left = i*size
-    middle = np.int( (i+0.5)*size )
+    middle = int( (i+0.5)*size )
 
     for j in range(left, middle):
         partial += X[S[j]]
@@ -93,10 +94,10 @@ def sketch_multiply_right(X, S, k = 10):
     for i in prange(n):
         Xi = X[i]
         if i % 2 == 0:
-            for j in prange(p):
+            for j in range(p):
                 out[i, S[j]] += Xi[j]
         else:
-            for b in prange(p):
+            for b in range(p):
                 out[i, S[j]] -= Xi[j]
     return out
 

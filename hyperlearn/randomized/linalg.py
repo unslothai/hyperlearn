@@ -15,15 +15,6 @@ from .base import *
 ## 3. Fast Count Sketch multiply
 ## 4. ColumnSelect Matrix Multiply (Nystrom Method)
 
-###
-@jit
-def proportion(X):
-    s = 0
-    n = X.shape[0]
-    for i in range(n):
-        s += X[i]
-    X /= s
-    return X
 
 ###
 def select(
@@ -416,6 +407,7 @@ def pinv(
     Linearly Convergent Randomized Pseudoinverse - R. M. Gower and Peter 
     Richtarik. "Linearly Convergent Randomized Iterative Methods for 
     Computing the Pseudoinverse", arXiv:1612.06255]
+    [16/12/18 Default changed to SKETCH (Newton with Sketching)]
 
     Parameters
     -----------
@@ -423,7 +415,7 @@ def pinv(
     alpha :         Ridge alpha regularization parameter. Default 1e-6
     n_components:   Default = auto. Provide less to speed things up.
     max_iter:       Default is 'auto'. Can be int.
-    solver:         (auto, satax, newton, sketch, lu, qr, None) Default is SATAX.
+    solver:         (auto, satax, newton, sketch, lu, qr, None) Default is SKETCH.
                     SATAX is from Gower's 2016 paper. (lu, qr and None) use 2011
                     Halko's Randomized Range Finder. Newton is Newton Schulz solver.
                     SKETCH is Newton + sketching.
@@ -529,10 +521,11 @@ def pinv(
         U, _S, VT = svd_condition(U, S, VT, alpha)
         inv = (transpose(VT, True, dtype) * _S)   @ transpose(U, True, dtype)
 
-    # I discovered that doing this allows better convergence (uses
-    # ideas from Newton Schulz). Works on all methods except SATAX
+    # Apply 1 extra iteration of Newton Schluz to allow convergence.
     if solver != "satax" and converge:
-        inv -= 2*linalg.dot(inv, X, inv)
+        diff = linalg.dot(inv, X, inv)
+        inv *= 2
+        inv -= diff
     return inv
 
 
@@ -584,6 +577,7 @@ def eig(
         W **= 2
     else:
         W, V = linalg.eig(B, U_decision = None, overwrite = True)
+        print(type(W), type(V), n_components)
         W = W[:n_components]
         V = V[:,:n_components]
     del B
