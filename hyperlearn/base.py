@@ -4,32 +4,31 @@ from psutil import virtual_memory
 import numpy as np
 from scipy.linalg import lapack as _lapack, blas as _blas
 from . import numba as _numba
-from .numba import _min, _max
+from .numba import _min, _max, njit
 from inspect import signature
-import sys
+from sys import maxsize as MAXSIZE
 from array import array
 
 MAX_MEMORY = 0.94
-ALPHA_DEFAULT32 = 1e-3
-ALPHA_DEFAULT64 = 1e-6
-_is64 = sys.maxsize > (1 << 32)
+ALPHA_DEFAULT32 = 0.001		# 1e-3
+ALPHA_DEFAULT64 = 0.000001	# 1e-6
+_is64 = MAXSIZE > 4294967296	# (1 << 32 or 2 ** 32)
 maxFloat = np.float64 if _is64 else np.float32
 
 memory_usage = {
-	"full" : 	lambda n,p: n*p + _min(n**2, p**2),
-	"extended":	lambda n,p: n*p + _min(n**2, p**2) + _min(n, p),
+	"full" : 	lambda n,p: n*p + _min(n*n, p*p),
+	"extended":	lambda n,p: n*p + _min(n*n, p*p) + _min(n, p),
 	"same" : 	lambda n,p: n*p,
-	"triu" : 	lambda n,p: p**2 if p < n else n*p,
-	"squared" :	lambda n,p: n**2,
+	"triu" : 	lambda n,p: p*p if p < n else n*p,
+	"squared" :	lambda n,p: n*n,
 	"columns" :	lambda n,p: p,
 	"extra" :	lambda n,p: _min(n, p)**2 + _min(n, p),
-	"truncated":lambda n,p,k: k*(n + p) + _min(n, p)*k + k + k**2,
-	"minimum":	lambda n,p,k: k*(n + p) + k + k**2,
+	"truncated":lambda n,p,k: k*(n + p + _min(n, p) + 1 + k),
+	"minimum":	lambda n,p,k: k*(n + p + 1 + k),
 	"min_left":	lambda n,p,k: k*n,
 	"min_right":lambda n,p,k: k*p,
 	}
 f_same_memory = memory_usage["same"]
-
 
 ###
 def isList(x):
@@ -127,9 +126,9 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 	"""
 	# convert all memory arguments to function checks
 	if memcheck != None:
-		if type(memcheck) == str:
+		if type(memcheck) is str:
 			memcheck = {"X":memcheck}
-		if type(memcheck) == dict:
+		if type(memcheck) is dict:
 			for key in memcheck:
 				try:
 					memcheck[key] = memory_usage[memcheck[key]]
@@ -172,13 +171,13 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 					
 				# check if first item is an array
 				X = args[0]
-				if type(X) == np.matrix:
+				if type(X) is np.matrix:
 					if X.shape[0] == 1:
 						X = X.A1 # flatten down
 					else:
 						X = X.A
 					args[0] = X
-				if type(X) != np.ndarray:
+				if type(X) is not np.ndarray:
 					raise IndexError("First argument is not a 2D array. Must be an array.")
 				shape = X.shape
 				n, p = shape
@@ -287,10 +286,12 @@ def process(f = None, memcheck = None, square = False, fractional = True):
 					except:
 						kwargs[x] = False
 				if hasK:
-					# add default n_components = 1
-					kwargs["n_components"] = 1
-					n_components = 1
-					default_n_components = 1
+					# add default n_components as per function
+					n_components = function_args["n_components"].default
+					if n_components is None:
+						n_components = 1
+					kwargs["n_components"] = n_components
+					default_n_components = n_components
 					
 				# Now check data types of arrays
 				need = 0 # how much memory needed

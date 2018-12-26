@@ -5,6 +5,16 @@ from .base import *
 from array import array
 
 ###
+def epsilon(X):
+    if X.itemsize < 8:
+        eps = 1000
+        eps *= FLOAT32_EPS
+    else:
+        eps = 1000000
+        eps *= FLOAT64_EPS
+    return eps
+
+###
 def do_until_success(
     f, epsilon_f, size, overwrite = False, alpha = None, *args, **kwargs):
     """
@@ -28,7 +38,8 @@ def do_until_success(
         X = next(iter(kwargs.values()))
 
     # Default alpha
-    default = ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64
+    small = X.itemsize < 8
+    default = ALPHA_DEFAULT32 if small else ALPHA_DEFAULT64
     
     if alpha is None:
         alpha = 0
@@ -60,7 +71,7 @@ def do_until_success(
             alpha *= 2
 
             if alpha == 0:
-                alpha = ALPHA_DEFAULT32 if X.itemsize < 8 else ALPHA_DEFAULT64
+                alpha = ALPHA_DEFAULT32 if small else ALPHA_DEFAULT64
             
             print(f"Epsilon Jitter Algorithm Restart with alpha = {alpha}.")
             if overwrite:
@@ -74,7 +85,7 @@ def do_until_success(
 
 
 ###
-@jit
+@fjit
 def add_jitter(X, size, alpha, default):
     """
     Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain
@@ -91,7 +102,7 @@ def add_jitter(X, size, alpha, default):
 
         new = old + jitter
         while new - old < alpha:
-            jitter *= 2
+            jitter *= jitter
             new = old + jitter            
 
     for i in range(size):
@@ -99,7 +110,7 @@ def add_jitter(X, size, alpha, default):
 
 
 ###
-@jit  # Output only triu part. Overwrites matrix to save memory.
+@njit  # Output only triu part. Overwrites matrix to save memory.
 def triu(n, p, U):
     tall = (n > p)
     k = n
@@ -116,7 +127,7 @@ def triu(n, p, U):
 
 
 ###
-@jit  # Output only L part. Overwrites LU matrix to save memory.
+@njit  # Output only L part. Overwrites LU matrix to save memory.
 def L_process(n, p, L):
     if p > n:
         # wide matrix
@@ -135,7 +146,7 @@ def L_process(n, p, L):
     return L, k
 
 
-@jit # Force triangular matrix U to be invertible using ridge regularization
+@njit # Force triangular matrix U to be invertible using ridge regularization
 def U_process(A, size, alpha, default):
     jitter = alpha
 
@@ -147,7 +158,7 @@ def U_process(A, size, alpha, default):
 
             new = jitter
             while old < alpha:
-                jitter *= 2
+                jitter *= jitter
                 new = jitter
 
     for i in range(size):
@@ -181,36 +192,35 @@ def reflect(X):
 
 ###
 @jit(parallel = True)        
-def amax_numb_0(X, n, p):
+def amax_0(X, n, p):
     """
     Finds the sign(X[:,abs(X).argmax(0)])
     """
-    indices = np.zeros(p, dtype = np.dtype("int8"))
-    for i in prange(p):
-        _max = 0
-        s = 1
-        for j in range(n):
-            Xji = X[j, i]
-            a = abs(Xji)
-            if a > _max:
-                _max = a
-                s = np.sign(Xji)
-        indices[i] = s
+    indices = np.ones(p, dtype = np.int8)
+    maximum = np.zeros(p, dtype = X.dtype)
+
+    for i in prange(n):
+        for j in range(p):
+            Xij = X[i, j]
+            a = abs(Xij)
+            if a > maximum[j]:
+                maximum[j] = a
+                indices[j] = np.sign(Xij)
     return indices
+
 
 ###
 @jit(parallel = True)
-def amax_numb_1(X, n, p):
+def amax_1(X, n, p):
     """
     Finds the sign(X[abs(X).argmax(1)])
     """
-    indices = np.zeros(n, dtype = np.dtype("int8"))
+    indices = np.zeros(n, dtype = np.int8)
     for i in prange(n):
         _max = 0
         s = 1
-        Xi = X[i]
         for j in range(p):
-            Xij = Xi[j]
+            Xij = X[i, j]
             a = abs(Xij)
             if a > _max:
                 _max = a
@@ -235,7 +245,7 @@ def sign_max(X, axis = 0, n_jobs = 1):
     ----------------------------------------------------------
     """ 
     n, p = X.shape
-    amax = eval(f"amax_numb_{axis}")
+    amax = eval(f"amax_{axis}")
 
     if n_jobs != 1 and n*p > 20000**2:
         return amax(X, n, p, n_jobs = -1)
@@ -277,7 +287,7 @@ def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
 
 
 ###
-@jit
+@fjit
 def svd_search(S, eps, size):
     """
     Determines the rank of a matrix via the singular values.
@@ -311,15 +321,7 @@ def svd_condition(U, S, VT, alpha = None):
     returns:    U, S/(S+alpha), VT updated.
     ----------------------------------------------------------
     """
-    dtype = S.dtype.char.lower()
-    is32 = (dtype == "f")
-    if is32:
-        cond = 1000 #1e3
-    else:
-        cond = 1000000 #1e6
-    eps = np.finfo(dtype).eps
-    first = S[0]
-    eps *= first*cond
+    eps = epsilon(S)*S[0]
 
     # Binary search O(logn) is not useful
     # since most singular values are not going to be 0
@@ -347,7 +349,7 @@ def svd_condition(U, S, VT, alpha = None):
 
 
 ###
-@jit
+@fjit
 def eig_search(W, eps):
     """
     Corrects the eigenvalues if they're smaller than 0.
@@ -362,18 +364,12 @@ def eig_search(W, eps):
 ###
 def eig_condition(X, W, V):
     # Condition number just in case W[i] <= 0
-
-    dtype = W.dtype.char.lower()
-    if dtype == "f":
-        cond = 1000 #1e3
-    else:
-        cond = 1000000 #1e6
-    eps = np.finfo(dtype).eps
+    eps = epsilon(W)
     if W[-1] >= 0:
         first = W[-1]**0.5 # eigenvalues are sorted ascending
     else:
         first = 0
-    eps *= first*cond
+    eps *= first
     eps **= 2 # since eigenvalues are squared of singular values
 
     W = eig_search(W, eps)    
@@ -394,7 +390,7 @@ def eig_condition(X, W, V):
     return W, out
 
 
-@jit
+@fjit
 def eigh_search(W, eps):
     w0 = abs(W[0])
 
@@ -402,70 +398,61 @@ def eigh_search(W, eps):
     negative = (last < 0)
     w1 = abs(last)
 
-    if w0 > w1:
-        cutoff = w0
-    else:
-        cutoff = w1
+    cutoff = w0 if w0 > w1 else w1
     cutoff *= eps
     
     size = len(W)
-    out = np.ones(size, dtype = np.dtype("bool"))
+    out = np.ones(size, dtype = np.bool_)
     
-    if w0 < eps:
+    if w0 < cutoff:
         out[0] = False
-    if w1 < eps:
+    if w1 < cutoff:
         out[-1] = False
     
     # Check if abs(W) < eps
     for i in range(1, size-1):
-        if abs(W[i]) < eps:
+        if abs(W[i]) < cutoff:
             out[i] = False
             
     return out
 
 
-# #### Load JIT
-# X = np.eye(2, dtype = np.float32)
-# svd_flip(X, X)
-# do_until_success(lapack("potrf"), add_jitter, 2, False, None, X)
-# del X;
-# X = np.eye(2, dtype = np.float64)
-# svd_flip(X, X)
-# do_until_success(lapack("potrf"), add_jitter, 2, False, None, X)
-# del X;
-
 ###
-@jit
+@njit
 def _row_norm(X):
     n, p = X.shape
     norm = np.zeros(n, dtype = X.dtype)
     
     for i in range(n):
-        row = X[i]
         s = 0
         for j in range(p):
-            s += row[j]**2
+            xij = X[i, j]
+            xij *= xij
+            s += xij
         norm[i] = s
     return norm
 
 ###
-@jit
+@njit
 def _col_norm(X):
     n, p = X.shape
     norm = np.zeros(p, dtype = X.dtype)
     
     for i in range(n):
-        row = X[i]
         for j in range(p):
-            norm[j] += row[j]**2
+            xij = X[i, j]
+            xij *= xij
+            norm[j] += xij
     return norm
 
 ###
-@jit
+@fjit
 def normA(X):
     s = 0
     for i in range(X.size):
-        s += X[i]**2
+        xi = X[i]
+        xi *= xi
+        s += xi
     return s
 
 ###
@@ -482,29 +469,34 @@ def row_norm(X):
 
 
 ###
-@jit
+@fjit
 def _frobenius_norm(X):
     n, p = X.shape
     norm = 0
     
     for i in range(n):
-        row = X[i]
         for j in range(p):
-            norm += row[j]**2
+            xij = X[i, j]
+            xij *= xij
+            norm += xij
     return norm
 
 ###
-@jit
+@fjit
 def _frobenius_norm_symmetric(X):
     n = X.shape[0]
     norm = 0
     diag = 0
     
     for i in range(n):
-        row = X[i]
         for j in range(i+1, n):
-            norm += row[j]**2
-        diag += row[i]**2
+            xij = X[i, j]
+            xij *= xij
+            norm += xij
+
+        xii = X[i, i]
+        xii *= xii
+        diag += xii
     norm *= 2
     norm += diag
     return norm
@@ -524,18 +516,14 @@ def frobenius_norm(X, symmetric = False):
 
 
 ###
-@jit
+@njit
 def proportion(X):
-    s = 0
-    n = X.shape[0]
-    for i in range(n):
-        s += X[i]
-    X /= s
+    X /= np.sum(X)
     return X
 
 
 ###
-@jit
+@njit
 def gram_schmidt(X, P, n, k):
     """
     Modified stable Gram Schmidt process.
@@ -568,7 +556,7 @@ def gram_schmidt(X, P, n, k):
 
 
 ###
-@jit
+@njit
 def _unique_int(a):
     """
     Assumes a is just integers, and returning unique elements
@@ -596,7 +584,7 @@ def _unique_int(a):
     return out
 
 ###
-@jit
+@njit
 def _unique_count(a, size):
     """
     Returns the counts and unique values of an array a.
@@ -626,7 +614,7 @@ def _unique_count(a, size):
     return unique, counts
 
 ###
-@njit(fastmath = True, nogil = True, cache = True)
+@NJIT(fastmath = True, cache = True)
 def _unique_sorted_size(a):
     """
     Returns how many uniques in a sorted list.
@@ -645,7 +633,7 @@ def _unique_sorted_size(a):
     return size
 
 ###
-@jit
+@fjit
 def _unique_sorted(a):
     """
     Returns only unique elements in a sorted list.
@@ -672,7 +660,7 @@ def _unique_sorted(a):
     return out
 
 ###
-@jit
+@fjit
 def _unique_sorted_count(a):
     """
     Returns unique elements and their counts in a sorted list.

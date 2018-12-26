@@ -2,11 +2,11 @@
 from .base import *
 from .utils import *
 import scipy.linalg as scipy
-from .numba import jit, _max, _min
+from .numba import fjit, _max, _min
 from . import numba
 
 
-@jit
+@fjit
 def dot_left_right(n, a_b, b_c, c):
     # From left X = (AB)C
     AB = a_b*b_c  # First row of AB
@@ -212,7 +212,9 @@ def cholesky(X, alpha = None, overwrite = False):
     U :         Upper triangular cholesky factor (U)
     """
     decomp = lapack("potrf")
-    U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, X)
+    U = do_until_success(
+        decomp, add_jitter, X.shape[0], overwrite, alpha, X
+        )
     return U
 
 
@@ -290,7 +292,9 @@ def pinvc(X, alpha = None, turbo = True, overwrite = False):
     U = matmul("X.H @ X", X) if XTX else matmul("X @ X.H", X)
 
     decomp = lapack("potrf")
-    U = do_until_success(decomp, add_jitter, _min(n,p), overwrite, alpha, U)
+    U = do_until_success(
+        decomp, add_jitter, _min(n,p), overwrite, alpha, U
+        )
     U = lapack("potri", turbo)(U, overwrite_c = True)[0]
 
     # if XXT -> XT * (XXT)^-1
@@ -322,7 +326,9 @@ def pinvch(X, alpha = None, turbo = True, overwrite = False, reflect = True):
     pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     decomp = lapack("potrf")
-    U = do_until_success(decomp, add_jitter, X.shape[0], overwrite, alpha, X)
+    U = do_until_success(
+        decomp, add_jitter, X.shape[0], overwrite, alpha, X
+        )
     U = lapack("potri", turbo)(U, overwrite_c = True)[0]
 
     return _reflect(U) if reflect else U
@@ -385,7 +391,9 @@ def pinvl(X, alpha = None, turbo = True, overwrite = False):
     A, P, _ = lapack("getrf")(X, overwrite_a = overwrite)
 
     inv = lapack("getri")
-    A = do_until_success(inv, U_process, _min(n,p), True, alpha, lu = A, piv = P, overwrite_lu = True) 
+    A = do_until_success(
+        inv, U_process, _min(n,p), True, alpha, lu = A, piv = P, overwrite_lu = True
+        ) 
     # overwrite shouldnt matter in first go
     return A
 
@@ -433,7 +441,7 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 
 
 ###
-@jit
+@fjit
 def svd_lwork(isComplex_dtype, byte, n, p):
     """
     Computes the work required for SVD (gesdd, gesvd)
@@ -563,7 +571,7 @@ def pinv(X, alpha = None, overwrite = False):
 
 
 ###
-@jit
+@fjit
 def eigh_lwork(isComplex_dtype, byte, n, p):
     """
     Computes the work required for EIGH (syevr, syevd, heevr, heevd)
@@ -717,7 +725,7 @@ def eig(
         use_svd = True
         # check SVD since less memory usage
         # notice since QR used, upper triangular
-        MIN = _min(n,p)
+        MIN = _min(n, p)
         gesdd, gesvd = svd_lwork(isComplex_dtype, byte, MIN, p)
         gesddT, gesvdT = svd_lwork(isComplex_dtype, byte, p, MIN) # also check transpose
         svd_work = min(gesdd, gesvd, eigh_work, gesddT, gesvdT)
@@ -786,15 +794,8 @@ def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
     pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
     """
     W, V = eigh(X, U_decision = None, alpha = alpha, overwrite = overwrite)
-
-    dtype = V.dtype.char.lower()
-    eps = np.finfo(dtype).eps
-
-    if dtype == 'f':
-        eps *= 1000
-    else:
-        eps *= 1000000
-
+    
+    eps = epsilon(W)*_
     above_cutoff = eigh_search(W, eps)
     _W = 1.0 / W[above_cutoff]
     V = V[:, above_cutoff]

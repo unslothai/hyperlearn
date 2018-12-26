@@ -3,7 +3,9 @@ from .linalg import *
 from .. import linalg
 
 ###
-@process(memcheck = {"X":"minimum","C_only":"min_left","R_only":"min_right"}, fractional = False)
+@process(memcheck = 
+    {"X":"minimum","C_only":"min_left","R_only":"min_right"}, 
+    fractional = False)
 def cur(
     X, C_only = False, R_only = False, n_components = 2, 
     solver = "euclidean", n_oversamples = "klogk", success = 0.5):
@@ -143,7 +145,7 @@ def cur(
         return c, C
 
         # Select extra columns from column residual norms
-        indices2 = np.random.choice(P, size = k2, p = c)
+        indices2 = np.random.choice(P, size = k2, p = c, dtype = uinteger(k2))
         indicesP = np.hstack((indices1, indices2))
 
         # Determine final scaling factors for C

@@ -1,7 +1,7 @@
 
 import numpy as np
 from ..numba import jit, arange, prange, uinteger
-from ..random import shuffle, randbool
+from ..random import shuffle, randbool, randint
 
 
 # Sketching methods from David Woodruff.
@@ -34,10 +34,10 @@ def sketch(n, p, k = 10, method = "left"):
     else:
         if k < 20:
             sign = randbool(p)
-            position = np.random.randint(0, k, size = p, dtype = uinteger(k))
+            position = randint(0, k, size = p)
             return _sketch_right(k, n, p, sign, position)
         else:
-            x = np.random.randint(0, k, size = p)
+            x = randint(0, k, size = p)
             return x
 
 
@@ -105,8 +105,8 @@ def sketch_multiply_right(X, S, k = 10):
 ###
 @jit
 def _sketch_right(k, n, p, sign, position):
-    S = np.zeros((p, k), dtype = np.dtype("int8"))
-    ones = np.ones(p, dtype = np.dtype("int8"))
+    S = np.zeros((p, k), dtype = np.int8)
+    ones = np.ones(p, dtype = np.int8)
     ones[sign] = -1
 
     for i in range(p):

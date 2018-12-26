@@ -1,11 +1,11 @@
 
 import numpy as np
 from .. import linalg
-from ..numba import _min, jit
+from ..numba import _min, jit, arange, var
 from ..utils import *
 from ..stats import corr, corr_sum
 from ..linalg import transpose
-from ..random import normal
+from ..random import normal, choice
 from .base import *
 
 
@@ -110,24 +110,24 @@ def select(
     # Make a probability drawing distribution.
     if not adaptive:
         if r:
-            N = range(n)
-            indicesN = np.random.choice(N, size = k, p = row)
+            N = arange(n)
+            indicesN = choice(N, size = k, p = row)
 
             # Use extra sqrt(count) scaling factor for repeated columns
             if not duplicates:
-                indicesN, countN = np.unique(indicesN, return_counts = True)
+                indicesN, countN = unique_int(indicesN, return_counts = True)
                 scalerN = countN.astype(dtype) / (row[indicesN] * k)
             else:
                 scalerN = 1 / (row[indicesN] * k)
             scalerN **= 0.5
             scalerN = scalerN[:,np.newaxis]
         if c:
-            P = range(p)
-            indicesP = np.random.choice(P, size = k, p = col)
+            P = arange(p)
+            indicesP = choice(P, size = k, p = col)
 
             # Use extra sqrt(count) scaling factor for repeated columns
             if not duplicates:
-                indicesP, countP = np.unique(indicesP, return_counts = True)
+                indicesP, countP = unique_int(indicesP, return_counts = True)
                 scalerP = countP.astype(dtype) / (col[indicesP] * k)
             else:
                 scalerP = 1 / (col[indicesP] * k)
@@ -148,8 +148,8 @@ def select(
         # Find maximum column norm -> determinstic algorithm
         norm = proportion(row_norm(V))
         select = norm.argmax()
-        C = np.zeros((n, k), dtype = X.dtype)
-        scalerP = np.zeros(k, dtype = X.dtype)
+        C = np.zeros((n, k), dtype = dtype)
+        scalerP = np.zeros(k, dtype = dtype)
         indicesP = np.zeros(k, dtype = int)
         indicesP[0] = select
 
@@ -577,7 +577,6 @@ def eig(
         W **= 2
     else:
         W, V = linalg.eig(B, U_decision = None, overwrite = True)
-        print(type(W), type(V), n_components)
         W = W[:n_components]
         V = V[:,:n_components]
     del B
@@ -667,7 +666,7 @@ def qr(
             C = abs( corr(X, y) )
         P = np.argpartition( C, k )[:k]
     elif solver == "variance":
-        P = np.argpartition( X.var(0), kk)[kk:]
+        P = np.argpartition( var(X,0), kk)[kk:]
     else:
         P = np.argpartition( col_norm(X), kk)[kk:]
 

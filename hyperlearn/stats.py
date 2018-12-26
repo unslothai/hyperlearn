@@ -1,5 +1,5 @@
 
-from . import numba
+from .numba import njit, mean, maximum
 from .utils import *
 import numpy as np
 from . import linalg
@@ -25,11 +25,11 @@ def corr(X, y, reflect = False):
     """
     same = y is X
     
-    _X = X - numba.mean(X, 0)
-    _y = y - numba.mean(y, 0) if not same else _X
+    _X = X - mean(X, 0)
+    _y = y - mean(y, 0) if not same else _X
     
     # Sometimes norm can be = 0
-    _X2 = numba.maximum( col_norm(_X)**0.5, 1)
+    _X2 = maximum( col_norm(_X)**0.5, 1)
     
     if len(y.shape) == 1:
         _y2 = col_norm(_y)**0.5
@@ -37,7 +37,7 @@ def corr(X, y, reflect = False):
             _y2 = 1
     else:
         _y2 = col_norm(_y)**0.5 if not same else _X2
-        _y2 = numba.maximum(_y2, 1)
+        _y2 = maximum(_y2, 1)
         _X2 = _X2[:,np.newaxis]
         
     if same:
@@ -51,7 +51,7 @@ def corr(X, y, reflect = False):
     return C
 
 
-@jit
+@njit
 def corr_sum(C):
     """
     Sums up all abs(correlation values). Used to find the

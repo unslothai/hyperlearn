@@ -1,8 +1,37 @@
 
 from functools import wraps
-from numba import njit, prange
+from numba import njit as NJIT, prange
 import numpy as np
-from numpy import linalg
+
+###
+FLOAT32_EPS = np.finfo(np.float32).eps
+FLOAT64_EPS = np.finfo(np.float64).eps
+
+###
+UINT_SIZE = (
+    np.iinfo(np.uint8).max,
+    np.iinfo(np.uint16).max,
+    np.iinfo(np.uint32).max
+    )
+UINT_DTYPES = (
+    np.zeros(1, dtype = np.uint8),
+    np.zeros(1, dtype = np.uint16),
+    np.zeros(1, dtype = np.uint32),
+    np.zeros(1, dtype = np.uint64)
+    )
+
+###
+INT_SIZE = (
+    np.iinfo(np.int8).max,
+    np.iinfo(np.int16).max,
+    np.iinfo(np.int32).max
+    )
+INT_DTYPES = (
+    np.zeros(1, dtype = np.int8),
+    np.zeros(1, dtype = np.int16),
+    np.zeros(1, dtype = np.int32),
+    np.zeros(1, dtype = np.int64)
+    )
 
 ###
 def jit(f = None, parallel = False):
@@ -20,8 +49,8 @@ def jit(f = None, parallel = False):
     """
     def decorate(f):
         if parallel:
-            f_multi = njit(f, fastmath = True, nogil = True, parallel = True, cache = False)
-        f_single = njit(f, fastmath = True, nogil = True, parallel = False, cache = True)
+            f_multi = NJIT(f, fastmath = True, nogil = True, parallel = True, cache = False)
+        f_single = NJIT(f, fastmath = True, nogil = True, parallel = False, cache = True)
         
         @wraps(f)
         def wrapper(*args, **kwargs):
@@ -38,58 +67,40 @@ def jit(f = None, parallel = False):
     if f: return decorate(f)
     return decorate
 
-
-@jit
-def uint_sizes():
-    out = np.zeros(3, dtype = np.uint64)
-    out[0] = np.iinfo(np.uint8).max
-    out[1] = np.iinfo(np.uint16).max
-    out[2] = np.iinfo(np.uint32).max
-    return out
-uint_size = uint_sizes()
-uint_dtypes = (
-    np.zeros(1, dtype = np.uint8),
-    np.zeros(1, dtype = np.uint16),
-    np.zeros(1, dtype = np.uint32),
-    np.zeros(1, dtype = np.uint64))
-
-@jit
-def int_sizes():
-    out = np.zeros(3, dtype = np.int64)
-    out[0] = np.iinfo(np.int8).max
-    out[1] = np.iinfo(np.int16).max
-    out[2] = np.iinfo(np.int32).max
-    return out
-int_size = int_sizes()
-int_dtypes = (
-    np.zeros(1, dtype = np.int8),
-    np.zeros(1, dtype = np.int16),
-    np.zeros(1, dtype = np.int32),
-    np.zeros(1, dtype = np.int64))
+###
+def njit(f):
+    """
+    Faster version of @jit. No parallel. Saves a few microseconds.
+    """
+    F = NJIT(f, fastmath = True, nogil = True, cache = True)
+    def wrapper(*args, **kwargs):
+        return F(*args, **kwargs)
+    return wrapper
 
 ###
-@jit
-def _uinteger(i):
-    for j in range(3):
-        if i <= uint_size[j]:
-            break
-    return j
-
-###
-@jit
-def _integer(i):
-    for j in range(3):
-        if i <= int_size[j]:
-            break
-    return j
+def fjit(f):
+    """
+    Fastest version of @jit. No parallel and GIL is NOT released.
+    Saves a few more microseconds.
+    """
+    F = NJIT(f, fastmath = True, cache = True)
+    def wrapper(*args, **kwargs):
+        return F(*args, **kwargs)
+    return wrapper
 
 ###
 def uinteger(i):
-    return uint_dtypes[_uinteger(i)]
+    for j in range(3):
+        if i <= UINT_SIZE[j]:
+            break
+    return UINT_DTYPES[j]
 
 ###
 def integer(i):
-    return int_dtypes[_integer(i)]
+    for j in range(3):
+        if i <= INT_SIZE[j]:
+            break
+    return INT_DTYPES[j]
 
 ###
 def isComplex(dtype):
@@ -101,150 +112,186 @@ def isComplex(dtype):
         return True
     return False
 
-
-@jit
+###
+@njit
 def svd(X, full_matrices = False): 
-    return linalg.svd(X, full_matrices = full_matrices)
+    return np.linalg.svd(X, full_matrices = full_matrices)
 
-@jit
-def pinv(X): return linalg.pinv(X)
+###
+@njit
+def pinv(X): return np.linalg.pinv(X)
 
-@jit
-def eigh(X): return linalg.eigh(X)
+###
+@njit
+def eigh(X): return np.linalg.eigh(X)
 
 # @jit
-# def cholesky(X): return linalg.cholesky(X)
+# def cholesky(X): return np.linalg.cholesky(X)
 
-@jit
-def lstsq(X, y): return linalg.lstsq(X, y.astype(X.dtype))[0]
+###
+@njit
+def lstsq(X, y): return np.linalg.lstsq(X, y.astype(X.dtype))[0]
 
-@jit
-def qr(X): return linalg.qr(X)
+###
+@njit
+def qr(X): return np.linalg.qr(X)
 
-@jit
-def norm(v, d = 2): return linalg.norm(v, d)
+###
+@njit
+def norm(v, d = 2): return np.linalg.norm(v, d)
 
-@jit
-def _0mean(X, axis = 0): return np.sum(X, axis)/X.shape[axis]
-
-def mean(X, axis = 0):
-    if axis == 0 and X.flags['C_CONTIGUOUS']:
-        return _0mean(X)
-    else:
-        return X.mean(axis)
-
-@jit
+###
+@njit
 def __sign(X): return np.sign(X)
 
+###
 def sign(X):
     S = __sign(X)
     if isComplex(X.dtype):
         return S.real
     return S
 
-@jit
+###
+@njit
 def _sum(X, axis = 0): return np.sum(X, axis)
 
-@jit
-def _abs(v): return np.abs(v)
-
-@jit
+###
+@njit
 def maximum(X, i): return np.maximum(X, i)
 
-@jit
+###
+@njit
 def minimum(X, i): return np.minimum(X, i)
 
-@jit
+###
 def _min(a,b):
     if a < b: return a
     return b
 
-@jit
+###
 def _max(a,b):
     if a < b: return b
     return a
 
-@jit
+###
 def _sign(x):
     if x < 0: return -1
     return 1
 
-@jit
-def _arange(size, dtype):
-    out = np.zeros(size, dtype = dtype.dtype)
-    for i in range(size):
-        out[i] = i
+###
+def arange(size):
+    return np.arange(size, dtype = uinteger(size))
+
+
+######################################################
+# Custom statistical functions
+# Mean, Variance
+######################################################
+
+###
+@NJIT(fastmath = True, nogil = True, cache = True)
+def mean_1(X):
+    n, p = X.shape
+    out = np.zeros(n, dtype = X.dtype)
+    for i in range(n):
+        s = 0
+        for j in range(p):
+            s += X[i, j]
+        s /= p
+        out[i] = s
     return out
 
-def arange(size):
-    return _arange(size, uinteger(size))
-    
 ###
-# Run all algorithms to allow caching
+@NJIT(fastmath = True, nogil = True, cache = True)
+def mean_0(X):
+    n, p = X.shape
+    out = np.zeros(p, dtype = X.dtype)
+    for i in range(n):
+        for j in range(p):
+            out[j] += X[i, j]
+    out /= n
+    return out
 
-# y32 = np.ones(2, dtype = np.float32)
-# y64 = np.ones(2, dtype = np.float64)
+###
+@NJIT(fastmath = True, nogil = True, cache = True)
+def mean_A(X):
+    n, p = X.shape
+    s = np.sum(X) / (n*p)
+    return 
 
 
-# X = np.eye(2, dtype = np.float32)
-# A = svd(X)
-# A = svd(X, False)
-# A = eigh(X)
-# # A = cholesky(X)
-# A = pinv(X)
-# A = lstsq(X, y32)
-# A = lstsq(X, y64)
-# A = qr(X)
-# A = norm(y32)
-# A = norm(y64)
-# A = mean(X)
-# A = mean(y32)
-# A = mean(y64)
-# A = _sum(X)
-# A = _sum(y32)
-# A = _sum(y64)
-# A = sign(X)
-# A = sign(y32)
-# A = sign(y64)
-# A = _abs(y32)
-# A = _abs(y64)
-# A = _abs(X)
-# A = _abs(10.0)
-# A = _abs(10)
-# A = minimum(X, 0)
-# A = minimum(y32, 0)
-# A = minimum(y64, 0)
-# A = maximum(X, 0)
-# A = maximum(y32, 0)
-# A = maximum(y64, 0)
-# A = _min(0,1)
-# A = _min(0.1,1.1)
-# A = _max(0,1)
-# A = _max(0.1,1.1)
-# A = _sign(-1)
-# A = _sign(-1.2)
-# A = _sign(1.2)
+###
+def mean(X, axis = None):
+    if axis == 0:
+        return mean_0(X)
+    elif axis == 1:
+        return mean_1(X)
+    return mean_A(X)
 
-# X = np.eye(2, dtype = np.float64)
-# A = svd(X)
-# A = svd(X, False)
-# A = eigh(X)
-# # A = cholesky(X)
-# A = pinv(X)
-# A = lstsq(X, y32)
-# A = lstsq(X, y64)
-# A = qr(X)
-# A = norm(y32, 2)
-# A = norm(y64, 2)
-# A = mean(X, 1)
-# A = _sum(X)
-# A = sign(X)
-# A = _abs(X)
-# A = maximum(X, 0)
-# A = minimum(X, 0)
 
-# del X, A, y32, y64
-# A = None
-# X = None
-# y32 = None
-# y64 = None
+###
+@NJIT(fastmath = True, nogil = True, cache = True)
+def var_0(X):
+    mu = mean_0(X)
+    n, p = X.shape
+    variance = np.zeros(p, dtype = mu.dtype)
+
+    for i in range(n):
+        for j in range(p):
+            v = X[i, j] - mu[j]
+            v *= v
+            variance[j] += v
+    variance /= n-1     # unbiased estimator
+    return variance
+
+###
+@NJIT(fastmath = True, nogil = True, cache = True)
+def var_1(X):
+    mu = mean_1(X)
+    n, p = X.shape
+    variance = np.zeros(n, dtype = mu.dtype)
+
+    for i in range(n):
+        _mu = mu[i]
+        var = 0
+        for j in range(p):
+            v = X[i, j] - _mu
+            v *= v
+            var += v
+        variance[i] = var
+    variance /= p-1     # unbiased estimator
+    return variance
+
+###
+@NJIT(fastmath = True, nogil = True, cache = True)
+def var_A(X):
+    mu = mean_A(X)
+    n, p = X.shape
+
+    var = 0
+    for i in range(n):
+        for j in range(p):
+            v = X[i, j] - mu
+            v *= v
+            var += v
+    var /= n*p-1        # unbiased estimator
+    return var
+
+###
+def var(X, axis = None):
+    if axis == 0:
+        return var_0(X)
+    elif axis == 1:
+        return var_1(X)
+    return var_A(X)
+
+###
+def std(X, axis = None):
+    if axis == 0:
+        V = var_0(X)
+    elif axis == 1:
+        V = var_1(X)
+    else:
+        V = var_A(X)
+    return V**0.5
+

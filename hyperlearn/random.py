@@ -1,5 +1,5 @@
 
-from .numba import jit
+from .numba import njit
 import numpy as np
 from .base import isComplex, isList
 
@@ -58,7 +58,7 @@ def random(left, right, shape = 1, dtype = np.float32, size = None):
 
 
 ###
-@jit
+@njit
 def uniform_vector(l, r, size, dtype):
     zero = np.zeros(size, dtype = dtype.dtype)
     for j in range(size):
@@ -91,12 +91,12 @@ def normal(mean, std, shape = 1, dtype = np.float32):
 
 
 ###
-@jit
+@njit
 def shuffle(x):
     np.random.shuffle(x)
 
 ###
-@jit
+@njit
 def boolean(n, p):
     out = np.zeros((n,p), dtype = np.bool_)
 
@@ -146,7 +146,7 @@ def randbool(size = 1):
 
 
 ###
-@jit
+@njit
 def _choice_p(a, p, size = 1, replace = True):
     """
     Deterministic selection of items in an array according
@@ -154,14 +154,14 @@ def _choice_p(a, p, size = 1, replace = True):
     [Added 23/12/18]
     """
     n = a.size
-    sort = p.argsort() # Sort probabilities, making more probable
+    sort = np.argsort(p) # Sort probabilities, making more probable
                         # to appear first.
     if replace:
         counts = np.zeros(n, dtype = np.uint32)
 
         # Get only top items that add to size
         seen = 0
-        for i in range(n, 0, -1):
+        for i in range(n-1, 0, -1):
             j = sort[i]
             prob = np.ceil(p[j] * size)
             counts[j] = prob
@@ -186,7 +186,7 @@ def _choice_p(a, p, size = 1, replace = True):
 
 
 ###
-@jit
+@njit
 def _choice_a(a, size = 1, replace = True):
     return np.random.choice(a, size = size, replace = replace)
 
@@ -213,3 +213,10 @@ def choice(a, size = 1, replace = True, p = None):
         out = _choice_p(a, p, size, replace)
     else:
         out = _choice_a(a, size, replace)
+    return out
+
+
+###
+def randint(low, high = None, size = 1):
+    dtype = uinteger(size)
+    return np.random.randint(low, high, size = size, dtype = dtype)
