@@ -1,26 +1,21 @@
 
-cython:     boundscheck = False
-cython:     wraparound = False
-cython:     initializedcheck = False
-cython:     cdivision = True
-cython:     language_level = 3
+from cpython cimport bool as BOOL
 
 cimport numpy as np
 import numpy as np
 np.import_array()
 
 ctypedef np.ndarray ARRAY
-ctypedef int bool
+ctypedef bint bool
 ctypedef long long LONG
 
 
-cdef float FLOAT32_EPS = np.finfo(np.float32).eps
-cdef float FLOAT64_EPS = np.finfo(np.float64).eps
+cdef double FLOAT32_EPS = np.finfo(np.float32).eps
+cdef double FLOAT64_EPS = np.finfo(np.float64).eps
 
-cdef float[3] UINT_SIZE = [
-    np.iinfo(np.uint8).max,
-    np.iinfo(np.uint16).max,
-    np.iinfo(np.uint32).max
+cdef LONG UINT_SIZE[3]
+UINT_SIZE[:] = [
+    np.iinfo(np.uint8).max,   np.iinfo(np.uint16).max,   np.iinfo(np.uint32).max
 ]
 
 cdef UINT_DTYPES = [
@@ -30,10 +25,9 @@ cdef UINT_DTYPES = [
     np.zeros(1, dtype = np.uint64)
 ]
 
-cdef float[3] INT_SIZE = [
-    np.iinfo(np.int8).max,
-    np.iinfo(np.int16).max,
-    np.iinfo(np.int32).max
+cdef LONG INT_SIZE[3]
+INT_SIZE[:] = [
+    np.iinfo(np.int8).max,   np.iinfo(np.int16).max,   np.iinfo(np.int32).max
 ]
 
 cdef INT_DTYPES = [
@@ -44,7 +38,24 @@ cdef INT_DTYPES = [
 ]
 
 
-###
+######
+cpdef ARRAY uinteger(LONG i):
+    cdef int j
+    for j in range(3):
+        if i <= UINT_SIZE[j]:
+            break
+    return UINT_DTYPES[j]
+
+######
+cpdef ARRAY integer(LONG i):
+    cdef int j
+    for j in range(3):
+        if i <= INT_SIZE[j]:
+            break
+    return INT_DTYPES[j]
+
+
+######
 cpdef (LONG, LONG) dot_left_right(LONG n, LONG a_b, LONG b_c, LONG c):
     cdef LONG AB, AB_C, left
     # From left X = (AB)C
@@ -65,39 +76,33 @@ cpdef (LONG, LONG) dot_left_right(LONG n, LONG a_b, LONG b_c, LONG c):
     return left, right
 
 
-###
-cpdef min_(a, b):
+######
+cpdef min(a, b):
     if a < b:   return a
     return b
     
-###
-cpdef max_(a, b):
+######
+cpdef max(a, b):
     if a < b:   return b
     return a
 
 
-###
-cpdef int toMB_(a, b):
-    cdef LONG mult = <LONG> (a*b)
-    return mult >> 20
-
-
-###
-cpdef float epsilon(ARRAY X):
+######
+cpdef double epsilon(ARRAY X):
     cdef int size = X.itemsize
-    cdef float eps
+    cdef double eps
     
     if size < 8:
-        eps = 1000
+        eps = 1000.0
         eps *= FLOAT32_EPS
     else:
-        eps = 1000000
+        eps = 1000000.0
         eps *= FLOAT64_EPS
     return eps
 
 
-###
-cpdef (int, int) svd_lwork(bool isComplex_dtype, int byte, LONG n, LONG p):
+######
+cpdef (int, int) svd_lwork(BOOL isComplex_dtype, int byte, LONG n, LONG p):
     """
     Computes the work required for SVD (gesdd, gesvd)
     [Updated 20/12/18 Uses Numba for some microsecond saving]
@@ -130,7 +135,7 @@ cpdef (int, int) svd_lwork(bool isComplex_dtype, int byte, LONG n, LONG p):
 
 
 ###
-cpdef (int, int) eigh_lwork(bool isComplex_dtype, int byte, LONG n, LONG p):
+cpdef (int, int) eigh_lwork(BOOL isComplex_dtype, int byte, LONG n, LONG p):
     """
     Computes the work required for EIGH (syevr, syevd, heevr, heevd)
     SYEVD = 1 + 6n + 2n^2
@@ -158,68 +163,4 @@ cpdef (int, int) eigh_lwork(bool isComplex_dtype, int byte, LONG n, LONG p):
     evd *= byte; evr *= byte;
     evd >>= 20; evr >>= 20;
     return evd, evr
-
-
-###
-cpdef LONG full_(LONG n, LONG p):
-    cdef LONG out = n*p
-    cdef LONG a = n*n
-    cdef LONG b = p*p
-
-    if a < b:   out += a
-    else:       out += b
-    return out
-
-###
-cpdef LONG extended_(LONG n, LONG p):
-    cdef LONG a = n*n
-    cdef LONG b = p*p
-    cdef LONG k = n if n < p else p
-    cdef LONG out = n*p + k
-
-    if a < b:   out += a
-    else:       out += b
-    return out
-
-###
-cpdef LONG same_(LONG n, LONG p):
-    return n*p
-
-###
-cpdef LONG triu_(LONG n, LONG p):
-    return p*p if p < n else n*p
-
-###
-cpdef LONG squared_(LONG n, LONG p):
-    return n*n
-
-###
-cpdef LONG columns_(LONG n, LONG p):
-    return p
-
-###
-cpdef LONG extra_(LONG n, LONG p):
-    cdef LONG a = n if n < p else p
-    cdef LONG b = a*a
-    a += b
-    return a
-
-###
-cpdef LONG truncated_(LONG n, LONG p, int k):
-    cdef LONG a = n if n < p else p
-    a += k + 1 + n + p
-    a *= k
-    return a
-
-###
-cpdef LONG minimum_(LONG n, LONG p, int k):
-    return k*(n + p + 1 + k)
-
-###
-cpdef LONG min_left_(LONG n, LONG p, int k):
-    return k*n
-
-###
-cpdef LONG min_right_(LONG n, LONG p, int k):
-    return k*p
 

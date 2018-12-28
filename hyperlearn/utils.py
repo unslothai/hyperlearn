@@ -57,7 +57,7 @@ def do_until_success(
         #print(X.diagonal())
         try:
             out = f(*args, **kwargs)
-            if isList(out):
+            if isList(type(out)):
                 error = out[-1]
                 out = out[:-1]
                 if len(out) == 1:
