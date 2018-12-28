@@ -2,27 +2,10 @@
 from .base import *
 from .utils import *
 import scipy.linalg as scipy
-from .numba import fjit, _max, _min
+from .numba import _max, _min
 from . import numba
+from .cython.utils import svd_lwork, eigh_lwork, dot_left_right
 
-
-@fjit
-def dot_left_right(n, a_b, b_c, c):
-    # From left X = (AB)C
-    AB = a_b*b_c  # First row of AB
-    AB *= n       # n * AB rows
-    AB_C = b_c*c  # First row of AB_C
-    AB_C *= n     # n * AB_C rows
-    left = AB + AB_C
-
-    # From right X = A(BC)
-    BC = b_c*c    # First row of BC
-    BC *= a_b     # a_b * first row BC
-    A_BC = a_b*c  # First row of A_BC
-    A_BC *= n     # n times
-    right = BC + A_BC
-
-    return left, right
 
 ###
 def dot(A, B, C, message = False):
@@ -441,37 +424,6 @@ def qr(X, Q_only = False, R_only = False, overwrite = False):
 
 
 ###
-@fjit
-def svd_lwork(isComplex_dtype, byte, n, p):
-    """
-    Computes the work required for SVD (gesdd, gesvd)
-    [Updated 20/12/18 Uses Numba for some microsecond saving]
-    """
-    if n < p:
-        MIN = n
-        MAX = p
-    else:
-        MIN = p
-        MAX = n
-
-    # check memory usage for GESDD vs GESVD. Use one which is within memory limits.
-    if isComplex_dtype:
-        gesdd = (MIN + 3)*MIN  # updated from netlib
-        gesvd = 2*MIN + MAX
-    else:
-        # min(n, p)*(6 + min(n,p)) + max(n, p)
-        gesdd = (4*MIN + 7)*MIN   # updated from netlib
-        a = 3*MIN + MAX
-        b = 5*MIN
-        gesvd = a if a > b else b
-
-    gesdd *= byte; gesvd *= byte;
-    gesdd = int(gesdd); gesvd = int(gesvd)
-    gesdd >>= 20; gesvd >>= 20;
-    return gesdd, gesvd
-
-
-###
 @process(memcheck = "extended")
 def svd(X, U_decision = False, n_jobs = 1, conjugate = True, overwrite = False):
     """
@@ -568,37 +520,6 @@ def pinv(X, alpha = None, overwrite = False):
     U, S, VT = svd(X, U_decision = None, overwrite = overwrite)
     U, _S, VT = svd_condition(U, S, VT, alpha)
     return (transpose(VT, True, dtype) * _S) @ transpose(U, True, dtype)
-
-
-###
-@fjit
-def eigh_lwork(isComplex_dtype, byte, n, p):
-    """
-    Computes the work required for EIGH (syevr, syevd, heevr, heevd)
-    SYEVD = 1 + 6n + 2n^2
-    SYEVR = 26n
-    HEEVD = 2n + n^2
-    HEEVR = 2n
-    [Updated 20/12/18 Uses Numba for some microsecond saving]
-    """
-    if p >= 1.1*n:
-        s = n
-    else:
-        s = p
-
-    if isComplex_dtype:
-        heevd = 2*s + s**2
-        heevr = 2*s + 1
-        evd, evr = heevd, heevr
-    else:
-        syevd = 1 + 6*s + 2*s**2
-        syevr = 26*s
-        evd, evr = syevd, syevr
-
-    evd *= byte; evr *= byte;
-    evd = int(evd); evr = int(evr)
-    evd >>= 20; evr >>= 20;
-    return evd, evr
 
 
 ###
@@ -795,7 +716,7 @@ def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
     """
     W, V = eigh(X, U_decision = None, alpha = alpha, overwrite = overwrite)
     
-    eps = epsilon(W)*_
+    eps = epsilon(W)
     above_cutoff = eigh_search(W, eps)
     _W = 1.0 / W[above_cutoff]
     V = V[:, above_cutoff]

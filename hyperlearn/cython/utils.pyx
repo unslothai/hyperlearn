@@ -15,7 +15,9 @@ cdef double FLOAT64_EPS = np.finfo(np.float64).eps
 
 cdef LONG UINT_SIZE[3]
 UINT_SIZE[:] = [
-    np.iinfo(np.uint8).max,   np.iinfo(np.uint16).max,   np.iinfo(np.uint32).max
+    <LONG> np.iinfo(np.uint8).max,
+    <LONG> np.iinfo(np.uint16).max,
+    <LONG> np.iinfo(np.uint32).max
 ]
 
 cdef UINT_DTYPES = [
@@ -27,7 +29,9 @@ cdef UINT_DTYPES = [
 
 cdef LONG INT_SIZE[3]
 INT_SIZE[:] = [
-    np.iinfo(np.int8).max,   np.iinfo(np.int16).max,   np.iinfo(np.int32).max
+    <LONG> np.iinfo(np.int8).max,
+    <LONG> np.iinfo(np.int16).max,
+    <LONG> np.iinfo(np.int32).max
 ]
 
 cdef INT_DTYPES = [
@@ -77,12 +81,12 @@ cpdef (LONG, LONG) dot_left_right(LONG n, LONG a_b, LONG b_c, LONG c):
 
 
 ######
-cpdef min(a, b):
+cpdef min_(a, b):
     if a < b:   return a
     return b
     
 ######
-cpdef max(a, b):
+cpdef max_(a, b):
     if a < b:   return b
     return a
 

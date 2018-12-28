@@ -2,36 +2,9 @@
 from functools import wraps
 from numba import njit as NJIT, prange
 import numpy as np
+from .cython.utils import uinteger, integer
+from .cython.utils import min_ as _min, max_ as _max
 
-###
-FLOAT32_EPS = np.finfo(np.float32).eps
-FLOAT64_EPS = np.finfo(np.float64).eps
-
-###
-UINT_SIZE = (
-    np.iinfo(np.uint8).max,
-    np.iinfo(np.uint16).max,
-    np.iinfo(np.uint32).max
-    )
-UINT_DTYPES = (
-    np.zeros(1, dtype = np.uint8),
-    np.zeros(1, dtype = np.uint16),
-    np.zeros(1, dtype = np.uint32),
-    np.zeros(1, dtype = np.uint64)
-    )
-
-###
-INT_SIZE = (
-    np.iinfo(np.int8).max,
-    np.iinfo(np.int16).max,
-    np.iinfo(np.int32).max
-    )
-INT_DTYPES = (
-    np.zeros(1, dtype = np.int8),
-    np.zeros(1, dtype = np.int16),
-    np.zeros(1, dtype = np.int32),
-    np.zeros(1, dtype = np.int64)
-    )
 
 ###
 def jit(f = None, parallel = False):
@@ -88,29 +61,6 @@ def fjit(f):
         return F(*args, **kwargs)
     return wrapper
 
-###
-def uinteger(i):
-    for j in range(3):
-        if i <= UINT_SIZE[j]:
-            break
-    return UINT_DTYPES[j]
-
-###
-def integer(i):
-    for j in range(3):
-        if i <= INT_SIZE[j]:
-            break
-    return INT_DTYPES[j]
-
-###
-def isComplex(dtype):
-    if dtype == np.complex64:
-        return True
-    elif dtype == np.complex128:
-        return True
-    elif dtype == complex:
-        return True
-    return False
 
 ###
 @njit
@@ -163,20 +113,6 @@ def maximum(X, i): return np.maximum(X, i)
 @njit
 def minimum(X, i): return np.minimum(X, i)
 
-###
-def _min(a,b):
-    if a < b: return a
-    return b
-
-###
-def _max(a,b):
-    if a < b: return b
-    return a
-
-###
-def _sign(x):
-    if x < 0: return -1
-    return 1
 
 ###
 def arange(size):

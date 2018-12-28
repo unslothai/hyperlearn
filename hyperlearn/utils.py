@@ -2,17 +2,8 @@
 import numpy as np
 from .numba import *
 from .base import *
-from array import array
+from .cython.utils import epsilon
 
-###
-def epsilon(X):
-    if X.itemsize < 8:
-        eps = 1000
-        eps *= FLOAT32_EPS
-    else:
-        eps = 1000000
-        eps *= FLOAT64_EPS
-    return eps
 
 ###
 def do_until_success(
@@ -57,7 +48,7 @@ def do_until_success(
         #print(X.diagonal())
         try:
             out = f(*args, **kwargs)
-            if isList(type(out)):
+            if isList(out):
                 error = out[-1]
                 out = out[:-1]
                 if len(out) == 1:

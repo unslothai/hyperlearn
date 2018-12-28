@@ -98,7 +98,6 @@ class lapack():
             else:
                 dtype = next(iter(kwargs.values())).dtype
             dtype = ord(dtype.char)
-            print(self.function)
 
             self.f = eval(
                 _base.lapack(dtype, self.turbo, self.function)

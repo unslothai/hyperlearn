@@ -1,5 +1,4 @@
 
-from setuptools import setup
 
 install_requires = [
         'numpy >= 1.13.0',
@@ -9,11 +8,33 @@ install_requires = [
         'pandas >= 0.21.0',
         'torch >= 0.4.0',
         'numba >= 0.37.0',
-        'psutil >= 4.0.0'
-    	]
+        'psutil >= 4.0.0',
+        'Cython'
+      ]
 
 dependency_links = [
-      	]
+        ]
+
+# python setup.py build_ext --inplace
+from distutils.core import setup
+from Cython.Build import cythonize
+import numpy as np
+
+setup(
+    ext_modules=cythonize("hyperlearn/cython/*.pyx",
+       compiler_directives = {
+       'language_level':3, 
+       'boundscheck':False, 
+       'wraparound':False,
+       'initializedcheck':False, 
+       'cdivision':True,
+       'nonecheck':False
+       }),
+    include_dirs=[np.get_include()],
+)
+
+
+from setuptools import setup
 
 
 desc = """\
