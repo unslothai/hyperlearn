@@ -20,7 +20,7 @@ UINT_SIZE[:] = [
     <LONG> np.iinfo(np.uint32).max
 ]
 
-cdef UINT_DTYPES = [
+cdef list UINT_DTYPES = [
     np.zeros(1, dtype = np.uint8),
     np.zeros(1, dtype = np.uint16),
     np.zeros(1, dtype = np.uint32),
@@ -34,7 +34,7 @@ INT_SIZE[:] = [
     <LONG> np.iinfo(np.int32).max
 ]
 
-cdef INT_DTYPES = [
+cdef list INT_DTYPES = [
     np.zeros(1, dtype = np.int8),
     np.zeros(1, dtype = np.int16),
     np.zeros(1, dtype = np.int32),

@@ -1,0 +1,34 @@
+Metadata-Version: 1.1
+Name: hyperlearn
+Version: 0.0.1
+Summary: UNKNOWN
+Home-page: https://github.com/danielhanchen/hyperlearn
+Author: Daniel Han-Chen & Others listed on Github
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: HyperLearn
+        
+        Faster, Leaner Scikit Learn (Sklearn) morphed with Statsmodels & 
+        Deep Learning drop in substitute. Designed for big data, HyperLearn 
+        can use 50%+ less memory, and runs 50%+ faster on some modules. 
+        Will have GPU support, and all modules are parallelized. 
+        Written completely in PyTorch, Numba, Numpy, Pandas, Scipy & LAPACK.
+        
+        https://github.com/danielhanchen/hyperlearn
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

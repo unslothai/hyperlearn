@@ -1,0 +1,7 @@
+README.md
+setup.py
+hyperlearn.egg-info/PKG-INFO
+hyperlearn.egg-info/SOURCES.txt
+hyperlearn.egg-info/dependency_links.txt
+hyperlearn.egg-info/requires.txt
+hyperlearn.egg-info/top_level.txt

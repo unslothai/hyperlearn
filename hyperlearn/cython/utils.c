@@ -1242,6 +1242,9 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
+/* ExtTypeTest.proto */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
+
 /* GetItemInt.proto */
 #define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
     (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
@@ -1263,9 +1266,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
 static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                      int is_list, int wraparound, int boundscheck);
-
-/* ExtTypeTest.proto */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* RaiseArgTupleInvalid.proto */
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
@@ -1879,7 +1879,6 @@ static __pyx_t_5utils_ARRAY __pyx_f_5utils_uinteger(__pyx_t_5utils_LONG __pyx_v_
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   int __pyx_t_2;
-  PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("uinteger", 0);
 
   /* "utils.pyx":48
@@ -1930,11 +1929,13 @@ static __pyx_t_5utils_ARRAY __pyx_f_5utils_uinteger(__pyx_t_5utils_LONG __pyx_v_
  * ######
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_v_5utils_UINT_DTYPES, __pyx_v_j, int, 1, __Pyx_PyInt_From_int, 0, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 51, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (!(likely(((__pyx_t_3) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_3, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 51, __pyx_L1_error)
-  __pyx_r = ((__pyx_t_5utils_ARRAY)__pyx_t_3);
-  __pyx_t_3 = 0;
+  if (unlikely(__pyx_v_5utils_UINT_DTYPES == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(0, 51, __pyx_L1_error)
+  }
+  if (!(likely(((PyList_GET_ITEM(__pyx_v_5utils_UINT_DTYPES, __pyx_v_j)) == Py_None) || likely(__Pyx_TypeTest(PyList_GET_ITEM(__pyx_v_5utils_UINT_DTYPES, __pyx_v_j), __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 51, __pyx_L1_error)
+  __Pyx_INCREF(PyList_GET_ITEM(__pyx_v_5utils_UINT_DTYPES, __pyx_v_j));
+  __pyx_r = ((__pyx_t_5utils_ARRAY)PyList_GET_ITEM(__pyx_v_5utils_UINT_DTYPES, __pyx_v_j));
   goto __pyx_L0;
 
   /* "utils.pyx":46
@@ -1947,7 +1948,6 @@ static __pyx_t_5utils_ARRAY __pyx_f_5utils_uinteger(__pyx_t_5utils_LONG __pyx_v_
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("utils.uinteger", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
@@ -6079,7 +6079,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
   /* "utils.pyx":24
  * 
- * cdef UINT_DTYPES = [
+ * cdef list UINT_DTYPES = [
  *     np.zeros(1, dtype = np.uint8),             # <<<<<<<<<<<<<<
  *     np.zeros(1, dtype = np.uint16),
  *     np.zeros(1, dtype = np.uint32),
@@ -6114,7 +6114,7 @@ static int __Pyx_modinit_global_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_global_init_code", 0);
   /*--- Global init code ---*/
-  __pyx_v_5utils_UINT_DTYPES = Py_None; Py_INCREF(Py_None);
+  __pyx_v_5utils_UINT_DTYPES = ((PyObject*)Py_None); Py_INCREF(Py_None);
   __pyx_v_5utils_INT_DTYPES = Py_None; Py_INCREF(Py_None);
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -6590,7 +6590,7 @@ if (!__Pyx_RefNanny) {
 
   /* "utils.pyx":24
  * 
- * cdef UINT_DTYPES = [
+ * cdef list UINT_DTYPES = [
  *     np.zeros(1, dtype = np.uint8),             # <<<<<<<<<<<<<<
  *     np.zeros(1, dtype = np.uint16),
  *     np.zeros(1, dtype = np.uint32),
@@ -6615,7 +6615,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "utils.pyx":25
- * cdef UINT_DTYPES = [
+ * cdef list UINT_DTYPES = [
  *     np.zeros(1, dtype = np.uint8),
  *     np.zeros(1, dtype = np.uint16),             # <<<<<<<<<<<<<<
  *     np.zeros(1, dtype = np.uint32),
@@ -6695,7 +6695,7 @@ if (!__Pyx_RefNanny) {
   /* "utils.pyx":23
  * ]
  * 
- * cdef UINT_DTYPES = [             # <<<<<<<<<<<<<<
+ * cdef list UINT_DTYPES = [             # <<<<<<<<<<<<<<
  *     np.zeros(1, dtype = np.uint8),
  *     np.zeros(1, dtype = np.uint16),
  */
@@ -6714,7 +6714,7 @@ if (!__Pyx_RefNanny) {
   __pyx_t_12 = 0;
   __pyx_t_13 = 0;
   __Pyx_XGOTREF(__pyx_v_5utils_UINT_DTYPES);
-  __Pyx_DECREF_SET(__pyx_v_5utils_UINT_DTYPES, __pyx_t_3);
+  __Pyx_DECREF_SET(__pyx_v_5utils_UINT_DTYPES, ((PyObject*)__pyx_t_3));
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_t_3 = 0;
 
@@ -7036,6 +7036,19 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
     return result;
 }
 
+/* ExtTypeTest */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
+    }
+    if (likely(__Pyx_TypeCheck(obj, type)))
+        return 1;
+    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
+                 Py_TYPE(obj)->tp_name, type->tp_name);
+    return 0;
+}
+
 /* GetItemInt */
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
@@ -7121,19 +7134,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
     }
 #endif
     return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
-/* ExtTypeTest */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (likely(__Pyx_TypeCheck(obj, type)))
-        return 1;
-    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
-                 Py_TYPE(obj)->tp_name, type->tp_name);
-    return 0;
 }
 
 /* RaiseArgTupleInvalid */

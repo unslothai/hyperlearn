@@ -167,7 +167,7 @@ cdef (int, char) arg_process(x, bool square):
     Checks if object is a matrix and checks the datatype.
     """
     cdef LONG a, b
-    cdef (LONG, LONG) shape
+    cdef tuple shape
     cdef char dtype, dt
     dtype, dt = 0, 0
     cdef type d = type(x)
