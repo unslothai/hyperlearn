@@ -3,6 +3,22 @@ from .numba import njit
 import numpy as np
 from .base import isComplex, isList
 
+###
+@njit
+def cov(size = 100, dtype = np.zeros(1, dtype = np.float32)):
+	out = np.zeros((size,size), dtype = dtype.dtype)
+	diag = np.random.randint(1, size**2, size = size)
+	
+	for i in range(size):
+		out[i, i] = diag[i]
+
+	for i in range(size-1):
+		for j in range(i+1,size):
+			rand = np.random.uniform(-size**2, size**2)
+			out[i, j] = rand
+			out[j, i] = rand
+	return out
+
 
 ###
 def random(left, right, shape = 1, dtype = np.float32, size = None):

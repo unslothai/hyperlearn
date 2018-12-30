@@ -60,7 +60,7 @@ cpdef ARRAY integer(LONG i):
 
 
 ######
-cpdef (LONG, LONG) dot_left_right(LONG n, LONG a_b, LONG b_c, LONG c):
+cpdef (LONG, LONG) dot_left_right(LONG n, LONG a_b, LONG b_c, LONG c) nogil:
     cdef LONG AB, AB_C, left
     # From left X = (AB)C
     AB = a_b*b_c  # First row of AB

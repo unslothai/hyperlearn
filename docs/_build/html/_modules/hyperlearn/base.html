@@ -25,7 +25,9 @@
   
 
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> 
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 
   
   <script src="../../_static/js/modernizr.min.js"></script>
@@ -148,463 +150,143 @@
             
   <h1>Source code for hyperlearn.base</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="kn">from</span> <span class="nn">psutil</span> <span class="kn">import</span> <span class="n">virtual_memory</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">lapack</span> <span class="k">as</span> <span class="n">_lapack</span><span class="p">,</span> <span class="n">blas</span> <span class="k">as</span> <span class="n">_blas</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">numba</span> <span class="k">as</span> <span class="n">_numba</span>
-<span class="kn">from</span> <span class="nn">.numba</span> <span class="kn">import</span> <span class="n">_min</span><span class="p">,</span> <span class="n">_max</span>
-<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">array</span> <span class="kn">import</span> <span class="n">array</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">lapack</span> <span class="k">as</span> <span class="n">_lapack</span><span class="p">,</span> <span class="n">blas</span> <span class="k">as</span> <span class="n">_blas</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numba</span> <span class="k">as</span> <span class="n">_numba</span>
 
-<span class="n">MAX_MEMORY</span> <span class="o">=</span> <span class="mf">0.94</span>
-<span class="n">ALPHA_DEFAULT32</span> <span class="o">=</span> <span class="mf">1e-3</span>
-<span class="n">ALPHA_DEFAULT64</span> <span class="o">=</span> <span class="mf">1e-6</span>
-<span class="n">_is64</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span>
-<span class="n">maxFloat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span> <span class="k">if</span> <span class="n">_is64</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span>
+<span class="c1"># Import from Cython / C code --&gt; much faster than pure Python.</span>
+<span class="kn">from</span> <span class="nn">.cython.base</span> <span class="k">import</span> <span class="n">isComplex</span><span class="p">,</span> <span class="n">available_memory</span><span class="p">,</span> <span class="n">isList</span>
+<span class="kn">from</span> <span class="nn">.cython</span> <span class="k">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">_base</span>
 
-<span class="n">memory_usage</span> <span class="o">=</span> <span class="p">{</span>
-	<span class="s2">&quot;full&quot;</span> <span class="p">:</span> 	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span>
-	<span class="s2">&quot;extended&quot;</span><span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span>
-	<span class="s2">&quot;same&quot;</span> <span class="p">:</span> 	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span><span class="p">,</span>
-	<span class="s2">&quot;triu&quot;</span> <span class="p">:</span> 	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="k">else</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span><span class="p">,</span>
-	<span class="s2">&quot;squared&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
-	<span class="s2">&quot;columns&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">p</span><span class="p">,</span>
-	<span class="s2">&quot;extra&quot;</span> <span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">:</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span>
-	<span class="s2">&quot;truncated&quot;</span><span class="p">:</span><span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">k</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
-	<span class="s2">&quot;minimum&quot;</span><span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="n">k</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
-	<span class="s2">&quot;min_left&quot;</span><span class="p">:</span>	<span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
-	<span class="s2">&quot;min_right&quot;</span><span class="p">:</span><span class="k">lambda</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="o">*</span><span class="n">p</span><span class="p">,</span>
-	<span class="p">}</span>
-<span class="n">f_same_memory</span> <span class="o">=</span> <span class="n">memory_usage</span><span class="p">[</span><span class="s2">&quot;same&quot;</span><span class="p">]</span>
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="isComplex"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isComplex">[docs]</a><span class="k">def</span> <span class="nf">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
-    <span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s2">&quot;x&quot;</span> <span class="ow">in</span> <span class="n">string</span></div>
+<span class="c1">######</span>
+<div class="viewcode-block" id="process"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">square</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">fractional</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    [Added 14/11/18] [Edited 18/11/18 for speed]</span>
+<span class="sd">    [Edited 25/11/18 Array deprecation of unicode]</span>
+<span class="sd">    [Edited 27/11/18 Allows support for n_components]</span>
+<span class="sd">    [Edited 4/12/18 Supports Fast JLT methods]</span>
+<span class="sd">    [Edited 28/12/18 Cythonized. Speed up of 50 or more.]</span>
+<span class="sd">    Decorator onto HyperLearn functions. Does 2 things:</span>
+<span class="sd">    1. Convert datatypes to appropriate ones</span>
+<span class="sd">    2. Convert matrices to arrays</span>
+<span class="sd">    3. (Optional) checks memory bounds.</span>
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="available_memory"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.available_memory">[docs]</a><span class="k">def</span> <span class="nf">available_memory</span><span class="p">():</span>
-	<span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">available</span> <span class="o">*</span> <span class="n">MAX_MEMORY</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">20</span></div>
+<span class="sd">    input:      1 argument, 1 optional</span>
+<span class="sd">    ----------------------------------------------------------</span>
+<span class="sd">    f:          The function to be decorated</span>
+<span class="sd">    memcheck:   lambda n,p: ... function or f(n,p)</span>
+<span class="sd">    fractional: Whether to change float n_components to ints</span>
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="memory"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.memory">[docs]</a><span class="k">def</span> <span class="nf">memory</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">memcheck</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	[Edited 18/11/18 Slightly faster]</span>
-<span class="sd">	Checks if an operation on a matrix is within memory bounds.</span>
+<span class="sd">    returns:    X arguments from function f</span>
+<span class="sd">    ----------------------------------------------------------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">memcheck</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">memcheck</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="n">memcheck</span><span class="p">}</span>
+    <span class="c1">###</span>
+    <span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="c1"># get function signature</span>
+        <span class="n">memory_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">memcheck</span><span class="p">)</span>
+        <span class="n">memory_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">memcheck</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">function_signature</span> <span class="o">=</span> <span class="n">signature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">function_args</span> <span class="o">=</span> <span class="n">function_signature</span><span class="o">.</span><span class="n">parameters</span>
 
-<span class="sd">	input:		3 arguments</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	X:			Input matrix</span>
-<span class="sd">	dtype:		Input datatype(matrix)</span>
-<span class="sd">	memcheck:	lambda n,p: ... function or f(n,p)</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">_base</span><span class="o">.</span><span class="n">wrapper</span><span class="p">(</span>
+                <span class="n">memcheck</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">fractional</span><span class="p">,</span> <span class="n">memory_length</span><span class="p">,</span>
+                <span class="n">memory_keys</span><span class="p">,</span> <span class="n">function_signature</span><span class="p">,</span> <span class="n">function_args</span><span class="p">,</span>
+                <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+                <span class="p">)</span> <span class="c1"># Process arguments via Cython</span>
+            <span class="c1"># try execute function</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="c1"># Memory Error again --&gt; didnt catch</span>
+                <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="s2">&quot;Operation requires more memory than &quot;</span>
+        <span class="s2">&quot;what the system resources offer.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
 
-<span class="sd">	returns: 	2 arguments</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	need:		Total memory required for operation</span>
-<span class="sd">	surplus:	Boolean - True means within memory bounds.</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">if</span> <span class="n">memcheck</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
-	<span class="n">byte</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span>
+    <span class="k">if</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">decorate</span></div>
 
-	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-		<span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-	<span class="k">try</span><span class="p">:</span>
-		<span class="n">multiplier</span> <span class="o">=</span> <span class="n">memcheck</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span>
-	<span class="k">except</span><span class="p">:</span>
-		<span class="n">multiplier</span> <span class="o">=</span> <span class="n">memcheck</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-	<span class="n">need</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">multiplier</span> <span class="o">*</span> <span class="n">byte</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">20</span> <span class="c1"># 10 == KB, 20 == MB</span>
-	<span class="k">return</span> <span class="n">need</span></div>
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="arg_process"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.arg_process">[docs]</a><span class="k">def</span> <span class="nf">arg_process</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">square</span><span class="p">):</span>
-	<span class="c1"># Internal checks if object is a matrix and checks the datatype</span>
-	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-		<span class="n">shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
-		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-			<span class="k">if</span> <span class="n">square</span><span class="p">:</span>
-				<span class="c1"># matrix must be a square one (n == p)</span>
-				<span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-					<span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;2D array is not square. Dimensions seen are {shape}.&quot;</span><span class="p">)</span>
-			<span class="c1"># if float:</span>
-			<span class="n">dtype</span><span class="p">,</span> <span class="n">dt</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
-			<span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-
-			<span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="ow">or</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">maxFloat</span> <span class="ow">or</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
-				<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">False</span>
-			<span class="k">elif</span> <span class="s2">&quot;in&quot;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span>
-				<span class="c1"># conversion is needed, so check memory</span>
-				<span class="n">dt</span> <span class="o">=</span> <span class="n">maxFloat</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">string</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span>
-			<span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">:</span>
-				<span class="c1"># float16 is not supported on CPU</span>
-				<span class="n">dt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="c1"># not any numerical data dtype</span>
-				<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Data type of {dtype} is not a numerical type.&quot;</span><span class="p">)</span>
-			<span class="c1"># calculate memory usage if dtype needs to be converted</span>
-			<span class="k">if</span> <span class="n">dt</span> <span class="o">!=</span> <span class="n">dtype</span><span class="p">:</span>
-				<span class="k">return</span> <span class="n">memory</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">f_same_memory</span><span class="p">),</span> <span class="n">dt</span><span class="o">.</span><span class="n">char</span>
-	<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span></div>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="process"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">square</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span> <span class="n">fractional</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	[Added 14/11/18] [Edited 18/11/18 for speed]</span>
-<span class="sd">	[Edited 25/11/18 Array deprecation of unicode]</span>
-<span class="sd">	[Edited 27/11/18 Allows support for n_components]</span>
-<span class="sd">	[Edited 4/12/18 Supports Fast JLT methods]</span>
-<span class="sd">	Decorator onto HyperLearn functions. Does 2 things:</span>
-<span class="sd">	1. Convert datatypes to appropriate ones</span>
-<span class="sd">	2. Convert matrices to arrays</span>
-<span class="sd">	3. (Optional) checks memory bounds.</span>
-
-<span class="sd">	input:		1 argument, 1 optional</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	f:			The function to be decorated</span>
-<span class="sd">	memcheck:	lambda n,p: ... function or f(n,p)</span>
-<span class="sd">	fractional:	Whether to change float n_components to ints</span>
-
-<span class="sd">	returns: 	X arguments from function f</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="c1"># convert all memory arguments to function checks</span>
-	<span class="k">if</span> <span class="n">memcheck</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">memcheck</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-			<span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="n">memcheck</span><span class="p">}</span>
-		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">memcheck</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
-			<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">memcheck</span><span class="p">:</span>
-				<span class="k">try</span><span class="p">:</span>
-					<span class="n">memcheck</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">memory_usage</span><span class="p">[</span><span class="n">memcheck</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span>
-				<span class="k">except</span><span class="p">:</span>
-					<span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Memory usage argument for {key} not recognised.&quot;</span><span class="p">)</span>
-	<span class="c1">###</span>
-	<span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-		<span class="c1"># get function signature</span>
-		<span class="n">memory_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">memcheck</span><span class="p">)</span>
-		<span class="n">memory_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">memcheck</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-		<span class="n">function_signature</span> <span class="o">=</span> <span class="n">signature</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-		<span class="n">function_args</span> <span class="o">=</span> <span class="n">function_signature</span><span class="o">.</span><span class="n">parameters</span>
-
-		<span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-		<span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-			<span class="n">no_args</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">function_args</span><span class="p">)</span>
-			<span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-
-			<span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-			<span class="n">L</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-			<span class="n">size</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="n">L</span>
-
-			<span class="c1"># If no need to check memory (save a few nanoseconds)</span>
-			<span class="n">check</span> <span class="o">=</span> <span class="bp">True</span>
-			<span class="k">if</span> <span class="n">L</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-					<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&quot;nocheck&quot;</span><span class="p">:</span>
-						<span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-						<span class="n">check</span> <span class="o">=</span> <span class="bp">False</span>
-					<span class="k">break</span>
-
-			<span class="k">if</span> <span class="n">check</span><span class="p">:</span>
-				<span class="k">if</span> <span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-					<span class="c1"># No arguments seen</span>
-					<span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Function needs &gt;= 1 function arguments.&quot;</span><span class="p">)</span>
-
-				<span class="c1"># determine if kwargs names are within the scope of the function</span>
-				<span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">no_args</span><span class="p">:</span>
-					<span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Function has too many inputs. Only {no_args} is needed.&quot;</span><span class="p">)</span>
-					
-				<span class="c1"># check if first item is an array</span>
-				<span class="n">X</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-				<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
-					<span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-						<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">A1</span> <span class="c1"># flatten down</span>
-					<span class="k">else</span><span class="p">:</span>
-						<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">A</span>
-					<span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span>
-				<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">!=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-					<span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;First argument is not a 2D array. Must be an array.&quot;</span><span class="p">)</span>
-				<span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-				<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">shape</span>
-
-				<span class="c1"># check if alpha and n_components is in function:</span>
-				<span class="n">whereAlpha</span> <span class="o">=</span> <span class="mi">0</span>
-				<span class="n">whereK</span> <span class="o">=</span> <span class="mi">0</span>
-
-				<span class="n">hasAlpha</span> <span class="o">=</span> <span class="bp">False</span>
-				<span class="n">hasK</span> <span class="o">=</span> <span class="bp">False</span>
-				<span class="n">n_components</span> <span class="o">=</span> <span class="bp">None</span>
-				<span class="n">default_n_components</span> <span class="o">=</span> <span class="bp">None</span>
-
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">function_args</span><span class="p">:</span> <span class="c1"># O(n)</span>
-					<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span>
-						<span class="n">hasAlpha</span> <span class="o">=</span> <span class="bp">True</span>
-						<span class="k">break</span>
-					<span class="n">whereAlpha</span> <span class="o">+=</span> <span class="mi">1</span>
-
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">function_args</span><span class="p">:</span>
-					<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&quot;n_components&quot;</span><span class="p">:</span>
-						<span class="n">hasK</span> <span class="o">=</span> <span class="bp">True</span>
-						<span class="k">break</span>
-					<span class="n">whereK</span> <span class="o">+=</span> <span class="mi">1</span>
-					
-				<span class="c1"># check alpha</span>
-				<span class="n">ALPHA_DEFAULT</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT32</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="n">ALPHA_DEFAULT64</span>
-
-				<span class="c1"># update alpha and n_components</span>
-				<span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">whereAlpha</span><span class="p">:</span>
-					<span class="k">if</span> <span class="n">args</span><span class="p">[</span><span class="n">whereAlpha</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-						<span class="n">args</span><span class="p">[</span><span class="n">whereAlpha</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span>
-					<span class="n">hasAlpha</span> <span class="o">=</span> <span class="bp">False</span>
-
-				<span class="c1"># get n_components</span>
-				<span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="n">whereK</span><span class="p">:</span>
-					<span class="n">n_components</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">whereK</span><span class="p">]</span>
-					<span class="n">default_n_components</span> <span class="o">=</span> <span class="n">n_components</span>
-					<span class="k">try</span><span class="p">:</span>
-						<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">n_components</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-							<span class="n">n_components</span> <span class="o">*=</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-						<span class="n">n_components</span> <span class="o">=</span> <span class="n">_max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">n_components</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-						<span class="n">args</span><span class="p">[</span><span class="n">whereK</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_components</span>
-					<span class="k">except</span><span class="p">:</span>
-						<span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;n_components = {n_components} of type {type(n_components)} is not &quot;</span>
-						<span class="s2">&quot;the correct type. Must be int or float.&quot;</span><span class="p">)</span>
-					<span class="n">hasK</span> <span class="o">=</span> <span class="bp">False</span>
-
-				<span class="c1"># check booleans and if an array is seen</span>
-				<span class="n">otherYes</span> <span class="o">=</span> <span class="mi">0</span>
-				<span class="n">duplicate</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
-
-				<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-					<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bool</span><span class="p">:</span>
-						<span class="n">kwargs</span><span class="p">[</span><span class="n">memory_keys</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span>
-						<span class="n">otherYes</span> <span class="o">+=</span> <span class="n">x</span>
-						<span class="n">duplicate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-					<span class="k">else</span><span class="p">:</span>
-						<span class="n">duplicate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-
-				<span class="c1"># check function arguments</span>
-				<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-					<span class="k">try</span><span class="p">:</span>
-						<span class="n">check_arg</span> <span class="o">=</span> <span class="n">function_args</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-						<span class="n">t</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-						<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bool</span> <span class="ow">and</span> <span class="s2">&quot;only&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
-							<span class="n">otherYes</span> <span class="o">+=</span> <span class="n">t</span>
-						<span class="c1"># determine if alpha argument</span>
-						<span class="k">if</span> <span class="n">hasAlpha</span><span class="p">:</span>
-							<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s2">&quot;alpha&quot;</span><span class="p">:</span>
-								<span class="k">if</span> <span class="n">t</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-									<span class="n">kwargs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span>
-								<span class="n">hasAlpha</span> <span class="o">=</span> <span class="bp">False</span>
-						<span class="c1"># get n_components</span>
-						<span class="k">if</span> <span class="n">hasK</span><span class="p">:</span>
-							<span class="n">default_n_components</span> <span class="o">=</span> <span class="n">t</span>
-							<span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="s1">&#39;n_components&#39;</span><span class="p">:</span>
-								<span class="k">try</span><span class="p">:</span>
-									<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-										<span class="n">t</span> <span class="o">*=</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
-									<span class="n">n_components</span> <span class="o">=</span> <span class="n">_max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
-									<span class="n">kwargs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">n_components</span>
-								<span class="k">except</span><span class="p">:</span>
-									<span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;n_components = &#39;{n_components}&#39; is not &quot;</span>
-									<span class="s2">&quot;the correct type. Must be int or float.&quot;</span><span class="p">)</span>
-								<span class="n">hasK</span> <span class="o">=</span> <span class="bp">False</span>
-					<span class="k">except</span><span class="p">:</span>
-						<span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Argument &#39;{x}&#39; is not recognised in function. &quot;</span>
-						<span class="n">f</span><span class="s2">&quot;Function accepted signature is {function_signature}.&quot;</span><span class="p">)</span>
-
-						
-				<span class="c1"># update X memory check</span>
-				<span class="k">if</span> <span class="n">otherYes</span> <span class="o">==</span> <span class="n">memory_length</span><span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="n">otherYes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-					<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-						<span class="n">t</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-						<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">bool</span> <span class="ow">and</span> <span class="s2">&quot;only&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
-							<span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span> <span class="c1"># set to all False</span>
-					<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span> <span class="c1"># all true</span>
-				<span class="k">else</span><span class="p">:</span>
-					<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-					
-				<span class="c1"># kwargs leftovers</span>
-				<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">memory_keys</span><span class="p">:</span>
-					<span class="k">try</span><span class="p">:</span>
-						<span class="n">i</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-					<span class="k">except</span><span class="p">:</span>
-						<span class="n">kwargs</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
-				<span class="k">if</span> <span class="n">hasK</span><span class="p">:</span>
-					<span class="c1"># add default n_components = 1</span>
-					<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;n_components&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-					<span class="n">n_components</span> <span class="o">=</span> <span class="mi">1</span>
-					<span class="n">default_n_components</span> <span class="o">=</span> <span class="mi">1</span>
-					
-				<span class="c1"># Now check data types of arrays</span>
-				<span class="n">need</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># how much memory needed</span>
-				<span class="n">new_dtypes</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">)</span> <span class="c1"># new datatypes</span>
-
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
-					<span class="n">x</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-						<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
-							<span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">A1</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">A</span>
-							<span class="n">x</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">arg_process</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">square</span><span class="p">)</span>
-					<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-						<span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="bp">False</span><span class="p">:</span>
-							<span class="n">X_dtype</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">dtype</span>
-							<span class="n">dtype</span> <span class="o">=</span> <span class="s1">&#39;?&#39;</span>
-						<span class="k">else</span><span class="p">:</span>
-							<span class="n">X_dtype</span> <span class="o">=</span> <span class="n">dtype</span>
-					<span class="n">need</span> <span class="o">+=</span> <span class="n">n</span>
-					<span class="n">new_dtypes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
-					
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-					<span class="n">x</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
-						<span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">A1</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">x</span><span class="o">.</span><span class="n">A</span>
-						<span class="n">x</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-					<span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">arg_process</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">square</span><span class="p">)</span>
-					<span class="n">need</span> <span class="o">+=</span> <span class="n">n</span>
-					<span class="n">new_dtypes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span>
-					
-
-				<span class="c1"># check X satisfying boolean arguments in order of importance</span>
-				<span class="k">if</span> <span class="n">n_components</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-					<span class="n">shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
-					<span class="n">shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">n_components</span><span class="p">)</span>
-
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">memory_keys</span><span class="p">:</span>
-					<span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
-						<span class="n">need</span> <span class="o">+=</span> <span class="n">memory</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">X_dtype</span><span class="p">,</span> <span class="n">memcheck</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-						<span class="k">break</span>
-					
-				<span class="c1"># confirm memory is enough for data conversion</span>
-				<span class="k">if</span> <span class="n">need</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-					<span class="n">free</span> <span class="o">=</span> <span class="n">available_memory</span><span class="p">()</span>
-					<span class="k">if</span> <span class="n">need</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
-						<span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Operation requires {need} MB, but {free} MB is free, &quot;</span>
-					<span class="n">f</span><span class="s2">&quot;so an extra {need-free} MB is required.&quot;</span><span class="p">)</span>
-						
-				<span class="c1"># convert data dtypes</span>
-				<span class="n">arg</span> <span class="o">=</span> <span class="mi">0</span>
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
-					<span class="n">dtype</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">new_dtypes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-					<span class="k">if</span> <span class="n">dtype</span> <span class="o">!=</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span>
-						<span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-				<span class="n">arg</span> <span class="o">+=</span> <span class="n">i</span>
-				<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-					<span class="n">dtype</span> <span class="o">=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">new_dtypes</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span>
-					<span class="k">if</span> <span class="n">dtype</span> <span class="o">!=</span> <span class="s1">&#39;?&#39;</span><span class="p">:</span>
-						<span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
-					<span class="n">arg</span> <span class="o">+=</span> <span class="mi">1</span>
-					
-				<span class="c1"># clean up args so no duplicates are seen</span>
-				<span class="n">l</span> <span class="o">-=</span> <span class="mi">1</span>
-				<span class="k">while</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-					<span class="k">if</span> <span class="n">duplicate</span><span class="p">[</span><span class="n">l</span><span class="p">]:</span>
-						<span class="k">del</span> <span class="n">args</span><span class="p">[</span><span class="n">l</span><span class="p">]</span>
-					<span class="n">l</span> <span class="o">-=</span> <span class="mi">1</span>
-				<span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;X&quot;</span><span class="p">]</span>  <span class="c1"># no need for first argument</span>
-
-				<span class="c1"># if default n_components:</span>
-				<span class="k">if</span> <span class="n">fractional</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-					<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;n_components&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_n_components</span>
-
-				<span class="c1"># update kwargs if alpha not seen in args or kwargs:</span>
-				<span class="k">if</span> <span class="n">hasAlpha</span><span class="p">:</span>
-					<span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span>
-
-			<span class="c1"># finally execute function</span>
-			<span class="k">try</span><span class="p">:</span>
-				<span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-			<span class="k">except</span> <span class="ne">MemoryError</span><span class="p">:</span>
-				<span class="c1"># Memory Error again --&gt; didnt catch</span>
-				<span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Operation requires more memory than what the system resources offer.&quot;</span><span class="p">)</span>
-		<span class="k">return</span> <span class="n">wrapper</span>
-
-	<span class="k">if</span> <span class="n">f</span><span class="p">:</span>
-		<span class="k">return</span> <span class="n">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">decorate</span></div>
-	
-<span class="c1">###</span>
+<span class="c1">######</span>
 <div class="viewcode-block" id="lapack"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.lapack">[docs]</a><span class="k">class</span> <span class="nc">lapack</span><span class="p">():</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	[Added 14/11/18]</span>
-<span class="sd">	Get a LAPACK function based on the dtype(X). Acts like Scipy&#39;s get lapack function.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    [Added 14/11/18] [Edited 28/12/18 Cythonized string part]</span>
+<span class="sd">    Get a LAPACK function based on the dtype(X). Acts like Scipy&#39;s get lapack function.</span>
 
-<span class="sd">	input:		1 argument, 2 optional</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	function:	String for lapack function eg: &quot;getrf&quot;</span>
-<span class="sd">	turbo:		Boolean to indicate if float32 can be used.</span>
-<span class="sd">	numba:		String for numba function.</span>
+<span class="sd">    input:      1 argument, 2 optional</span>
+<span class="sd">    ----------------------------------------------------------</span>
+<span class="sd">    function:   String for lapack function eg: &quot;getrf&quot;</span>
+<span class="sd">    turbo:      Boolean to indicate if float32 can be used.</span>
+<span class="sd">    numba:      String for numba function.</span>
 
-<span class="sd">	returns: 	LAPACK or Numba function.</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">numba</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="bp">True</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">turbo</span> <span class="o">=</span> <span class="n">turbo</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="sd">    returns:    LAPACK or Numba function.</span>
+<span class="sd">    ----------------------------------------------------------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">numba</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">turbo</span> <span class="o">=</span> <span class="n">turbo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="kc">None</span>
 
-		<span class="k">if</span> <span class="n">numba</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
-			<span class="k">try</span><span class="p">:</span> 
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_numba.{numba}&#39;</span><span class="p">)</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">numba</span>
-			<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">numba</span> <span class="ow">is</span> <span class="ow">not</span>  <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;_numba.</span><span class="si">{numba}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">numba</span>
+            <span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
 
-	<span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
 
-			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-				<span class="n">dtype</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">dtype</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">dtype</span>
-			
-			<span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">turbo</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_lapack.s{self.function}&quot;</span>
-			<span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">turbo</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_lapack.d{self.function}&quot;</span>
-			<span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_lapack.c{self.function}&quot;</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_lapack.z{self.function}&quot;</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">dtype</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dtype</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">char</span><span class="p">)</span>
 
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span>
+                <span class="n">_base</span><span class="o">.</span><span class="n">lapack</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">turbo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <span class="c1">###</span>
 <div class="viewcode-block" id="blas"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.blas">[docs]</a><span class="k">class</span> <span class="nc">blas</span><span class="p">():</span>
-	<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	[Added 14/11/18]</span>
-<span class="sd">	Get a BLAS function based on the dtype(X). Acts like Scipy&#39;s get blas function.</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    [Added 14/11/18]</span>
+<span class="sd">    Get a BLAS function based on the dtype(X). Acts like Scipy&#39;s get blas function.</span>
 
-<span class="sd">	input:		1 argument</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	function:	String for blas function eg: &quot;getrf&quot;</span>
+<span class="sd">    input:      1 argument</span>
+<span class="sd">    ----------------------------------------------------------</span>
+<span class="sd">    function:   String for blas function eg: &quot;getrf&quot;</span>
 
-<span class="sd">	returns: 	BLAS function</span>
-<span class="sd">	----------------------------------------------------------</span>
-<span class="sd">	&quot;&quot;&quot;</span>
-	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">left</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="bp">None</span>
-		<span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+<span class="sd">    returns:    BLAS function</span>
+<span class="sd">    ----------------------------------------------------------</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">left</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
 
-	<span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
-			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-				<span class="n">dtype</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="n">dtype</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">dtype</span>
-			
-			<span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_blas.{self.left}s{self.function}&quot;</span>
-			<span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_blas.{self.left}d{self.function}&quot;</span>
-			<span class="k">elif</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_blas.{self.left}c{self.function}&quot;</span>
-			<span class="k">else</span><span class="p">:</span>
-				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_blas.{self.left}z{self.function}&quot;</span>
-			<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">dtype</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dtype</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">dtype</span><span class="o">.</span><span class="n">char</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span>
+                <span class="n">_base</span><span class="o">.</span><span class="n">blas</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+                <span class="p">)</span>
 
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 </pre></div>
 
@@ -639,21 +321,10 @@
 
     
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'1',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: ''
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 
   

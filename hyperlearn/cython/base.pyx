@@ -41,7 +41,7 @@ ERROR, PASS = 1, 0
 ######### Memory check functions
 ###
 cdef dict MEMORY_FUNCTIONS = {
-    "full": full_, "extended": extended_, "same": same_,
+    "full": full_, "extended": svd_, "same": same_,
     "triu": triu_, "squared": squared_, "columns": columns_,
     "extra": extra_, "truncated": truncated_, "minimum": minimum_,
     "min_left": min_left_, "min_right": min_right_
@@ -58,15 +58,56 @@ cdef LONG full_(LONG n, LONG p):
     return out
 
 ###
-cdef LONG extended_(LONG n, LONG p):
-    cdef LONG a = n*n
-    cdef LONG b = p*p
-    cdef LONG k = n if n < p else p
-    cdef LONG out = n*p + k
+cdef LONG svd_(LONG n, LONG p):
+    # LWORK calculation is incorrect. Use approximate heuristic
+    # from actual checking of memory usage.
+    # (MIN*MAX + MIN*MIN + MIN) for storing U, S, VT
+    # (~ n*p + 1.5*MIN**2 + n + p) approximate for workspace
+    # So = 2*MIN*MAX + 2.5*MIN**2 + 2*MIN + MAX
+    # = 2*MIN(1 + MAX) + 2.5*MAX**2 + MAX
+    cdef LONG MIN, MAX
+    if n < p:
+        MIN, MAX = n, p
+    else:
+        MIN, MAX = p, n
 
-    if a < b:   out += a
-    else:       out += b
-    return out
+    cdef LONG usage = 2*MIN*(MAX + 1) + MAX
+    usage += <LONG>(2.5*<double>(MIN*MIN))
+    return usage
+
+
+###
+cdef LONG syevd_(LONG n, LONG p):
+    # LWORK calculation is incorrect. Use approximate heuristic
+    # from actual checking of memory usage.
+    # (p + p**2) for output, storing W, V
+    # (~ 2*p**2 + p) for approximate workspace
+    # total = (2p + 3*p**2)
+    cdef LONG usage = 2*p + 3*p*p
+    return usage
+
+
+###
+cdef LONG syevr_(LONG n, LONG p):
+    # LWORK calculation is incorrect. Use approximate heuristic
+    # from actual checking of memory usage.
+    # (p + p**2) for output, storing W, V
+    # (~ p**2 + p) for approximate workspace
+    # total = (2p + 2*p**2)
+    cdef LONG usage = 2*p + 2*p*p
+    return usage
+
+
+###
+cdef LONG potrf_(LONG n, LONG p):
+    # LWORK calculation is incorrect. Use approximate heuristic
+    # from actual checking of memory usage.
+    # (p + p**2) for output, storing W, V
+    # (~ p**2 + p) for approximate workspace
+    # total = (2p + 2*p**2)
+    cdef LONG usage = 2*p + 2*p*p
+    return usage
+
 
 ###
 cdef LONG same_(LONG n, LONG p):

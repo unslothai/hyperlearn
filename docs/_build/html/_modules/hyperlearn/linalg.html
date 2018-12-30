@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.linalg &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.linalg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.linalg</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">scipy</span>
+<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numba</span>
+<span class="kn">from</span> <span class="nn">.cython.utils</span> <span class="k">import</span> <span class="n">svd_lwork</span><span class="p">,</span> <span class="n">eigh_lwork</span><span class="p">,</span> <span class="n">dot_left_right</span>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="dot"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.dot">[docs]</a><span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements fast matrix multiplication of 3 matrices X = ABC</span>
+<span class="sd">    From left: X = (AB)C. From right: X = A(BC). This function</span>
+<span class="sd">    calculates which is faster, and outputs the result.</span>
+<span class="sd">    [Added 10/12/18] [Edited 13/12/18 Added left or right statement]</span>
+<span class="sd">    [Edited 20/12/18 Uses numba]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    A:          First matrix</span>
+<span class="sd">    B:          Multiplied with 2nd matrix</span>
+<span class="sd">    C:          Multiplied with 3rd matrix</span>
+<span class="sd">    message:    Default = False. If True, doesn&#39;t output result, but</span>
+<span class="sd">                outputs TRUE if left to right, else FALSE right to left.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    (A@B@C or message)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">a_b</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>    <span class="c1"># A and B share sizes. Size of A determines</span>
+                        <span class="c1"># final number of rows</span>
+    <span class="n">b_c</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>      <span class="c1"># final columns</span>
+
+    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">dot_left_right</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">a_b</span><span class="p">,</span> <span class="n">b_c</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">message</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span>
+
+    <span class="k">if</span> <span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span> <span class="o">@</span> <span class="n">C</span>
+    <span class="k">return</span> <span class="n">A</span> <span class="o">@</span> <span class="p">(</span><span class="n">B</span> <span class="o">@</span> <span class="n">C</span><span class="p">)</span></div>
+
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="transpose"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.transpose">[docs]</a><span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides X.T if dtype == float, else X.H (Conjugate transpose)</span>
+<span class="sd">    [Added 23/11/18]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         Matrix to be decomposed. Has to be symmetric.</span>
+<span class="sd">    Overwrite:  If overwritten, then inplace operation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X.T or X.H: Conjugate Tranpose (X)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">if</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="matmul"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.matmul">[docs]</a><span class="k">def</span> <span class="nf">matmul</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Using BLAS routines GEMM, SYRK, SYMM, multiplies 2 matrices together</span>
+<span class="sd">    assuming X has some special structure or the output is special. Supports</span>
+<span class="sd">    symmetric constructions: X.H @ X and X @ X.H; symmetric multiplies:</span>
+<span class="sd">    S @ Y.H and Y.H @ S where S is a symmetric matrix; general multiplies:</span>
+<span class="sd">    X @ Y and X.H @ Y.</span>
+<span class="sd">    [Added 28/11/18 Changed from transpose since it didn&#39;t work]</span>
+<span class="sd">    [Edited 1/12/18 Added S @ Y] [Edited 17/12/18 Added Y @ S]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    pattern:    Can include: X.H @ X | X @ X.H | S @ Y.H | </span>
+<span class="sd">                Y.H @ S | X @ Y | X.H @ Y | S @ Y | Y @ S</span>
+<span class="sd">    X:          Compulsory left side matrix.</span>
+<span class="sd">    Y:          Optional right side matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    out:        Special matrix output according to pattern.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">dtypeX</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="n">XT</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">isComplex_dtypeX</span> <span class="o">=</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtypeX</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;X.H@X&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isComplex_dtypeX</span><span class="p">:</span>
+            <span class="c1"># BLAS SYRK doesn&#39;t work</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;gemm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans_a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">trans_b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use BLAS SYRK</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;syrk&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;X@X.H&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isComplex_dtypeX</span><span class="p">:</span>
+            <span class="c1"># BLAS SYRK doesn&#39;t work</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;gemm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans_a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">trans_b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use BLAS SYRK</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;syrk&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;X.H@Y&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isComplex_dtypeX</span><span class="p">:</span>
+            <span class="n">dtypeY</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="k">if</span> <span class="n">isComplex_dtypeY</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;gemm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">trans_a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">trans_b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">Y</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">Y</span>
+
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;X@Y&quot;</span><span class="p">:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">Y</span>
+        
+    <span class="c1"># Symmetric Multiply</span>
+    <span class="c1"># If it&#39;s F Contiguous, I assume it&#39;s UPPER. If not, it&#39;s transposed.</span>
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;S@Y.H&quot;</span><span class="p">:</span>
+        <span class="n">dtypeY</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="n">isComplex_dtypeY</span> <span class="o">=</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtypeY</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">isComplex_dtypeY</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">X</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">XT</span>
+            <span class="c1"># Symmetric doesn&#39;t work</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;gemm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">trans_b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">YT</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span>
+            <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">YT</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">YT</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;Y.H@S&quot;</span><span class="p">:</span>
+        <span class="n">dtypeY</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">dtype</span>
+
+        <span class="k">if</span> <span class="n">isComplex_dtypeY</span><span class="p">:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">X</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">XT</span>
+            <span class="c1"># Symmetric doesn&#39;t work</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;gemm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">trans_a</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">YT</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">T</span>
+            <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">YT</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">YT</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;Y@S&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">pattern</span> <span class="o">==</span> <span class="s2">&quot;S@Y&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;symm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NameError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Pattern = </span><span class="si">{pattern}</span><span class="s2"> is not recognised.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="cholesky"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cholesky">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cholesky</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uses Epsilon Jitter Solver to compute the Cholesky Decomposition</span>
+<span class="sd">    until success. Default alpha ridge regularization = 1e-6.</span>
+<span class="sd">    [Added 15/11/18] [Edited 16/11/18 Numpy is slower. Uses LAPACK only]</span>
+<span class="sd">    [Edited 18/11/18 Uses universal &quot;do_until_success&quot;]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         Matrix to be decomposed. Has to be symmetric.</span>
+<span class="sd">    alpha :     Ridge alpha regularization parameter. Default 1e-6</span>
+<span class="sd">    overwrite:  Whether to inplace change data.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    U :         Upper triangular cholesky factor (U)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrf&quot;</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
+        <span class="n">decomp</span><span class="p">,</span> <span class="n">add_jitter</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">X</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">U</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="cho_solve"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cho_solve">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cho_solve</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given U from a cholesky decompostion and a RHS, find a least squares</span>
+<span class="sd">    solution.</span>
+<span class="sd">    [Added 15/11/18]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         Cholesky Factor. Use cholesky first.</span>
+<span class="sd">    alpha :     Ridge alpha regularization parameter. Default 1e-6</span>
+<span class="sd">    turbo :     Boolean to use float32, rather than more accurate float64.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    U :          Upper triangular cholesky factor (U)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrs&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">theta</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="cho_inv"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cho_inv">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;squared&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cho_inv</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes an inverse to the Cholesky Decomposition.</span>
+<span class="sd">    [Added 17/11/18]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         Upper Triangular Cholesky Factor U. Use cholesky first.</span>
+<span class="sd">    turbo :     Boolean to use float32, rather than more accurate float64.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    inv(U) :     Upper Triangular Inverse(X)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potri&quot;</span><span class="p">,</span> <span class="n">turbo</span><span class="p">)(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="pinvc"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvc">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pinvc</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.</span>
+<span class="sd">    Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to</span>
+<span class="sd">    guarantee convergence. Allows Ridge Regularization - default 1e-6.</span>
+<span class="sd">    [Added 17/11/18] [Edited 18/11/18 for speed - uses more BLAS]</span>
+<span class="sd">    [Edited 23/11/18 Added Complex support]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         General matrix X.</span>
+<span class="sd">    alpha :     Ridge alpha regularization parameter. Default 1e-6</span>
+<span class="sd">    turbo :     Boolean to use float32, rather than more accurate float64.</span>
+<span class="sd">    overwrite:  Whether to overwrite intermmediate results. Will cause</span>
+<span class="sd">                alpha to be increased by a factor of 10.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I if n &gt;= p or X</span>
+<span class="sd">                @ pinv(X) = I for p &gt; n.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># determine under / over-determined</span>
+    <span class="n">XTX</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">p</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="c1"># get covariance or gram matrix</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;X.H @ X&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="k">if</span> <span class="n">XTX</span> <span class="k">else</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;X @ X.H&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+
+    <span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrf&quot;</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
+        <span class="n">decomp</span><span class="p">,</span> <span class="n">add_jitter</span><span class="p">,</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">U</span>
+        <span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potri&quot;</span><span class="p">,</span> <span class="n">turbo</span><span class="p">)(</span><span class="n">U</span><span class="p">,</span> <span class="n">overwrite_c</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># if XXT -&gt; XT * (XXT)^-1</span>
+    <span class="c1"># if XTX -&gt; (XTX)^-1 * XT</span>
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;S @ Y.H&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="k">if</span> <span class="n">XTX</span> <span class="k">else</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;Y.H @ S&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inv</span></div>
+
+
+<span class="c1">###</span>
+<span class="n">_reflect</span> <span class="o">=</span> <span class="n">reflect</span>
+<div class="viewcode-block" id="pinvch"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvch">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pinvch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">reflect</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the inverse of a square Hermitian Matrix using Cholesky </span>
+<span class="sd">    Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. </span>
+<span class="sd">    Allows Ridge Regularization - default 1e-6.</span>
+<span class="sd">    [Added 19/11/18]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         Upper Symmetric Matrix X</span>
+<span class="sd">    alpha :     Ridge alpha regularization parameter. Default 1e-6</span>
+<span class="sd">    turbo :     Boolean to use float32, rather than more accurate float64.</span>
+<span class="sd">    overwrite:  Whether to overwrite X inplace with pinvh.</span>
+<span class="sd">    reflect:    Output full matrix or 1/2 triangular</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrf&quot;</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
+        <span class="n">decomp</span><span class="p">,</span> <span class="n">add_jitter</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">X</span>
+        <span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potri&quot;</span><span class="p">,</span> <span class="n">turbo</span><span class="p">)(</span><span class="n">U</span><span class="p">,</span> <span class="n">overwrite_c</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">_reflect</span><span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="k">if</span> <span class="n">reflect</span> <span class="k">else</span> <span class="n">U</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="lu"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.lu">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;L_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;U_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">L_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">U_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the pivoted LU decomposition of a matrix. Optional to output</span>
+<span class="sd">    only L or U components with minimal memory copying.</span>
+<span class="sd">    [Added 16/11/18]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          Matrix to be decomposed. Can be retangular.</span>
+<span class="sd">    L_only:     Output only L.</span>
+<span class="sd">    U_only:     Output only U.</span>
+<span class="sd">    overwrite:  Whether to directly alter the original matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    (L,U) or (L) or (U)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">L_only</span> <span class="ow">or</span> <span class="n">U_only</span><span class="p">:</span>
+        <span class="n">A</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;getrf&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">L_only</span><span class="p">:</span>
+            <span class="n">A</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">L_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+            <span class="c1"># inc = -1 means reverse order pivoting</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;laswp&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">,</span> <span class="n">piv</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span> <span class="n">inc</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">k1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># get only upper triangle</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">triu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">A</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">permute_l</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="pinvl"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvl">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pinvl</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the pseudoinverse of a square matrix X using LU Decomposition.</span>
+<span class="sd">    Notice, it&#39;s much faster to use pinvc (Choleksy Inverse).</span>
+<span class="sd">    [Added 18/11/18] [Edited 26/11/18 Fixed ridge regularization]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          Matrix to be decomposed. Must be square.</span>
+<span class="sd">    alpha:      Ridge alpha regularization parameter. Default 1e-6</span>
+<span class="sd">    turbo:      Boolean to use float32, rather than more accurate float64.</span>
+<span class="sd">    overwrite:  Whether to directly alter the original matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I = X @ pinv(X) </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;getrf&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;getri&quot;</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
+        <span class="n">inv</span><span class="p">,</span> <span class="n">U_process</span><span class="p">,</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lu</span> <span class="o">=</span> <span class="n">A</span><span class="p">,</span> <span class="n">piv</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span> <span class="n">overwrite_lu</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="p">)</span> 
+    <span class="c1"># overwrite shouldnt matter in first go</span>
+    <span class="k">return</span> <span class="n">A</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="qr"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.qr">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;Q_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;R_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">})</span>
+<span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Q_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">R_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the reduced economic QR Decomposition of a matrix. Optional</span>
+<span class="sd">    to output only Q or R.</span>
+<span class="sd">    [Added 16/11/18] [Edited 28/11/18 Complex support]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          Matrix to be decomposed. Can be retangular.</span>
+<span class="sd">    Q_only:     Output only Q.</span>
+<span class="sd">    R_only:     Output only R.</span>
+<span class="sd">    overwrite:  Whether to directly alter the original matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    (Q,R) or (Q) or (R)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="k">if</span> <span class="n">Q_only</span> <span class="ow">or</span> <span class="n">R_only</span><span class="p">:</span>
+        <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">R</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;geqrf&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">Q_only</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+                <span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n</span><span class="p">]</span>
+            <span class="c1"># Compute Q</span>
+            <span class="k">if</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+                <span class="n">Q</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;ungqr&quot;</span><span class="p">)(</span><span class="n">R</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Q</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;orgqr&quot;</span><span class="p">)(</span><span class="n">R</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Q</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># get only upper triangle</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">triu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">R</span>
+
+    <span class="k">return</span> <span class="n">lapack</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;qr&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">)</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="svd"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.svd">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extended&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">conjugate</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the Singular Value Decomposition of a general matrix providing</span>
+<span class="sd">    X = U S VT. Notice VT (V transpose) is returned, and not V.</span>
+<span class="sd">    Also, by default, the signs of U and VT are swapped so that VT has the</span>
+<span class="sd">    sign of the maximum item as positive.</span>
+
+<span class="sd">    HyperLearn&#39;s SVD is optimized dramatically due to the findings made in</span>
+<span class="sd">    Modern Big Data Algorithms. If p/n &gt;= 0.001, then GESDD is used. Else,</span>
+<span class="sd">    GESVD is used. Also, svd(XT) is used if it&#39;s faster, bringing the complexity</span>
+<span class="sd">    to O( min(np^2, n^2p) ).</span>
+<span class="sd">    [Added 19/11/18] [Edited 23/11/18 Added Complex support]</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          Matrix to be decomposed. General matrix.</span>
+<span class="sd">    U_decision: Default = False. If True, uses max from U. If None. don&#39;t flip.</span>
+<span class="sd">    n_jobs:     Whether to use more &gt;= 1 CPU</span>
+<span class="sd">    conjugate:  Whether to inplace conjugate but inplace return original.</span>
+<span class="sd">    overwrite:  Whether to conjugate transpose inplace.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    U:          Orthogonal Left Eigenvectors</span>
+<span class="sd">    S:          Descending Singular Values</span>
+<span class="sd">    VT:         Orthogonal Right Eigenvectors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="n">ifTranspose</span> <span class="o">=</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">n</span> <span class="c1"># p &gt; n</span>
+    <span class="n">isComplex_dtype</span> <span class="o">=</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ifTranspose</span><span class="p">:</span> 
+        <span class="n">X</span> <span class="o">=</span> <span class="n">transpose</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">conjugate</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+        <span class="n">U_decision</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">U_decision</span>
+        <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">byte</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">itemsize</span>
+
+    <span class="n">gesdd</span><span class="p">,</span> <span class="n">gesvd</span> <span class="o">=</span> <span class="n">svd_lwork</span><span class="p">(</span><span class="n">isComplex_dtype</span><span class="p">,</span> <span class="n">byte</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">free</span> <span class="o">=</span> <span class="n">available_memory</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">gesdd</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">gesvd</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;GESVD requires </span><span class="si">{gesvd}</span><span class="s2"> MB, but </span><span class="si">{free}</span><span class="s2"> MB is free, &quot;</span>
+    <span class="n">f</span><span class="s2">&quot;so an extra {gesvd-free} MB is required.&quot;</span><span class="p">)</span>
+        <span class="n">gesdd</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">gesdd</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Use GESDD from Numba or GESVD from LAPACK</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">p</span><span class="o">/</span><span class="n">n</span>
+    <span class="c1"># From Modern Big Data Algorithms -&gt; GESVD better if matrix is very skinny</span>
+    <span class="k">if</span> <span class="n">ratio</span> <span class="o">&gt;=</span> <span class="mf">0.001</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
+            <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;gesdd&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;gesvd&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_a</span>  <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+        
+    <span class="c1"># Return original X if X.H</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span> <span class="ow">and</span> <span class="n">conjugate</span> <span class="ow">and</span> <span class="n">isComplex_dtype</span><span class="p">:</span>
+        <span class="n">transpose</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">);</span>
+    
+    <span class="c1"># Flip if svd(X.T) was performed.</span>
+    <span class="k">if</span> <span class="n">ifTranspose</span><span class="p">:</span>
+        <span class="n">U</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">transpose</span><span class="p">(</span><span class="n">VT</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">),</span> <span class="n">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># In place flips sign according to max(abs(VT))</span>
+    <span class="n">svd_flip</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="pinv"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinv">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extended&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pinv</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter </span>
+<span class="sd">    Algorithm to guarantee convergence. Allows Ridge Regularization - default 1e-6.</span>
+<span class="sd">    [Added 21/11/18] [Edited 23/11/18 Added Complex support]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          Upper Triangular Cholesky Factor U. Use cholesky.</span>
+<span class="sd">    alpha:      Ridge alpha regularization parameter. Default 1e-6.</span>
+<span class="sd">    overwrite:  Whether to directly alter the original matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd_condition</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">VT</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span> <span class="o">*</span> <span class="n">_S</span><span class="p">)</span> <span class="o">@</span> <span class="n">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="eigh"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.eigh">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extra&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">eigh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns sorted eigenvalues and eigenvectors from large to small of</span>
+<span class="sd">    a symmetric square matrix X. Follows SVD convention. Also flips</span>
+<span class="sd">    signs of eigenvectors using svd_flip. Uses the Epsilon Jitter </span>
+<span class="sd">    Algorithm to guarantee convergence. Allows Ridge Regularization</span>
+<span class="sd">    default 1e-6.</span>
+<span class="sd">    [Added 21/11/18] [Edited 24/11/18 Added Complex Support, Eigh alpha</span>
+<span class="sd">    set to 0 since Eigh errors are rare.]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          Symmetric Square Matrix.</span>
+<span class="sd">    U_decision: Always set to False. Can choose None for no swapping.</span>
+<span class="sd">    alpha:      Ridge alpha regularization parameter. Default 1e-6.</span>
+<span class="sd">    svd:        Returns sqrt(W) and V.T</span>
+<span class="sd">    n_jobs:     Whether to use more &gt;= 1 CPU</span>
+<span class="sd">    overwrite:  Whether to directly alter the original matrix.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    W:          Eigenvalues</span>
+<span class="sd">    V:          Eigenvectors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">byte</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">itemsize</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="n">isComplex_dtype</span> <span class="o">=</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="n">evd</span><span class="p">,</span> <span class="n">evr</span> <span class="o">=</span> <span class="n">eigh_lwork</span><span class="p">(</span><span class="n">isComplex_dtype</span><span class="p">,</span> <span class="n">byte</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+   
+    <span class="n">free</span> <span class="o">=</span> <span class="n">available_memory</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">evd</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">evr</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;SYEVR requires </span><span class="si">{evr}</span><span class="s2"> MB, but </span><span class="si">{free}</span><span class="s2"> MB is free, &quot;</span>
+    <span class="n">f</span><span class="s2">&quot;so an extra {evr-free} MB is required.&quot;</span><span class="p">)</span>
+        <span class="n">evd</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">evd</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="c1"># From Modern Big Data Algorithms: SYEVD mostly faster than SYEVR</span>
+    <span class="c1"># contradicts MKL&#39;s findings</span>
+    <span class="k">if</span> <span class="n">evd</span><span class="p">:</span>
+        <span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;heevd&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">isComplex_dtype</span> <span class="k">else</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;syevd&quot;</span><span class="p">)</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
+            <span class="n">decomp</span><span class="p">,</span> <span class="n">add_jitter</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> 
+            <span class="n">a</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;heevr&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">isComplex_dtype</span> <span class="k">else</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;syevr&quot;</span><span class="p">)</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
+            <span class="n">decomp</span><span class="p">,</span> <span class="n">add_jitter</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> 
+            <span class="n">a</span> <span class="o">=</span> <span class="n">X</span><span class="p">,</span> <span class="n">uplo</span> <span class="o">=</span> <span class="s2">&quot;U&quot;</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+
+    <span class="c1"># if svd -&gt; return V.T and sqrt(S)</span>
+    <span class="k">if</span> <span class="n">svd</span><span class="p">:</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">eig_search</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">U_decision</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">W</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">V</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">svd</span><span class="p">:</span>
+        <span class="n">W</span> <span class="o">**=</span> <span class="mf">0.5</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">transpose</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># return with SVD convention: sort eigenvalues</span>
+    <span class="n">svd_flip</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span></div>
+
+
+<span class="c1">###</span>
+<span class="n">_svd</span> <span class="o">=</span> <span class="n">svd</span>
+<div class="viewcode-block" id="eig"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.eig">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extra&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">eig</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
+    <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">conjugate</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">use_svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns sorted eigenvalues and eigenvectors from large to small of</span>
+<span class="sd">    a general matrix X. Follows SVD convention. Also flips signs of </span>
+<span class="sd">    eigenvectors using svd_flip. Uses the Epsilon Jitter </span>
+<span class="sd">    Algorithm to guarantee convergence. Allows Ridge Regularization</span>
+<span class="sd">    default 1e-6.</span>
+
+<span class="sd">    According to [`Matrix Computations, Third Edition, G. Holub and C. </span>
+<span class="sd">    Van Loan, Chapter 5, section 5.4.4, pp 252-253.`], QR is better if</span>
+<span class="sd">    n &gt;= 5/3p. In Modern Big Data Algorithms, I find QR is better for</span>
+<span class="sd">    all n &gt; p.</span>
+<span class="sd">    [Added 21/11/18] [Edited 22/11/18 with turbo -&gt; approximate</span>
+<span class="sd">    eigendecomposition when p &gt;&gt; n] [Edited 24/11/18 Added Complex Support]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X:          General Matrix.</span>
+<span class="sd">    U_decision: Always set to False. Can choose None for no swapping.</span>
+<span class="sd">    alpha:      Ridge alpha regularization parameter. Default 1e-6.</span>
+<span class="sd">    turbo:      If True, if p &gt;&gt; n, then will output approximate eigenvectors</span>
+<span class="sd">                where V = (X.T @ U) / sqrt(W)</span>
+<span class="sd">    svd:        Returns sqrt(W) and V.T</span>
+<span class="sd">    n_jobs:     Whether to use more &gt;= 1 CPU</span>
+<span class="sd">    conjugate:  Whether to inplace conjugate but inplace return original.</span>
+<span class="sd">    overwrite:  Whether to conjugate transpose inplace.</span>
+<span class="sd">    use_svd:    Use SVD instead of EIGH (slower, but more robust)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------</span>
+<span class="sd">    W:          Eigenvalues</span>
+<span class="sd">    V:          Eigenvectors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">byte</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">itemsize</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="n">isComplex_dtype</span> <span class="o">=</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># check memory usage</span>
+    <span class="n">free</span> <span class="o">=</span> <span class="n">available_memory</span><span class="p">()</span>
+    <span class="n">evd</span><span class="p">,</span> <span class="n">evr</span> <span class="o">=</span> <span class="n">eigh_lwork</span><span class="p">(</span><span class="n">isComplex_dtype</span><span class="p">,</span> <span class="n">byte</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">eigh_work</span> <span class="o">=</span> <span class="n">_min</span><span class="p">(</span><span class="n">evd</span><span class="p">,</span> <span class="n">evr</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">eigh_work</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+        <span class="n">use_svd</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># check SVD since less memory usage</span>
+        <span class="c1"># notice since QR used, upper triangular</span>
+        <span class="n">MIN</span> <span class="o">=</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">gesdd</span><span class="p">,</span> <span class="n">gesvd</span> <span class="o">=</span> <span class="n">svd_lwork</span><span class="p">(</span><span class="n">isComplex_dtype</span><span class="p">,</span> <span class="n">byte</span><span class="p">,</span> <span class="n">MIN</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+        <span class="n">gesddT</span><span class="p">,</span> <span class="n">gesvdT</span> <span class="o">=</span> <span class="n">svd_lwork</span><span class="p">(</span><span class="n">isComplex_dtype</span><span class="p">,</span> <span class="n">byte</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">MIN</span><span class="p">)</span> <span class="c1"># also check transpose</span>
+        <span class="n">svd_work</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">gesdd</span><span class="p">,</span> <span class="n">gesvd</span><span class="p">,</span> <span class="n">eigh_work</span><span class="p">,</span> <span class="n">gesddT</span><span class="p">,</span> <span class="n">gesvdT</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">svd_work</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;EIG requires </span><span class="si">{svd_work}</span><span class="s2"> MB, but </span><span class="si">{free}</span><span class="s2"> MB is free, &quot;</span>
+    <span class="n">f</span><span class="s2">&quot;so an extra {svd_work-free} MB is required.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">use_svd</span><span class="p">:</span>
+        <span class="c1"># From Modern Big Data Algorithms for p &gt;= 1.1n</span>
+        <span class="k">if</span> <span class="n">turbo</span> <span class="ow">and</span> <span class="n">p</span> <span class="o">&gt;=</span> <span class="mf">1.1</span><span class="o">*</span><span class="n">n</span><span class="p">:</span>
+            <span class="c1"># Form XXT</span>
+            <span class="n">cov</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;X @ X.H&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+            <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="c1"># overwrite doesn&#39;t matter</span>
+
+            <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eig_condition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Form XTX</span>
+            <span class="n">cov</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;X.H @ X&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+            <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">W</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">V</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">_svd</span><span class="p">(</span> <span class="n">qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">R_only</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">svd</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span>
+        <span class="n">W</span> <span class="o">**=</span> <span class="mi">2</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">transpose</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># revert matrix X back</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span> <span class="ow">and</span> <span class="n">conjugate</span> <span class="ow">and</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+        <span class="n">transpose</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">);</span>
+
+    <span class="c1"># if svd -&gt; return V.T and sqrt(S)</span>
+    <span class="k">if</span> <span class="n">svd</span><span class="p">:</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">eig_search</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">W</span> <span class="o">**=</span> <span class="mf">0.5</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">transpose</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># return with SVD convention: flip signs</span>
+    <span class="n">svd_flip</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span></div>
+
+
+<span class="c1">###</span>
+<div class="viewcode-block" id="pinvh"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvh">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">pinvh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">reflect</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the inverse of a square Hermitian Matrix using Eigendecomposition. </span>
+<span class="sd">    Uses the Epsilon Jitter Algorithm to guarantee convergence. </span>
+<span class="sd">    Allows Ridge Regularization - default 1e-6.</span>
+<span class="sd">    [Added 19/11/18]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    X :         Upper Symmetric Matrix X</span>
+<span class="sd">    alpha :     Ridge alpha regularization parameter. Default 1e-6</span>
+<span class="sd">    turbo :     Boolean to use float32, rather than more accurate float64.</span>
+<span class="sd">    overwrite:  Whether to overwrite X inplace with pinvh.</span>
+<span class="sd">    reflect:    Output full matrix or 1/2 triangular</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -----------    </span>
+<span class="sd">    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">W</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+    
+    <span class="n">eps</span> <span class="o">=</span> <span class="n">epsilon</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">above_cutoff</span> <span class="o">=</span> <span class="n">eigh_search</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+    <span class="n">_W</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">W</span><span class="p">[</span><span class="n">above_cutoff</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="p">[:,</span> <span class="n">above_cutoff</span><span class="p">]</span>
+
+    <span class="n">inv</span> <span class="o">=</span> <span class="n">V</span> <span class="o">*</span> <span class="n">_W</span> <span class="o">@</span> <span class="n">transpose</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inv</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
