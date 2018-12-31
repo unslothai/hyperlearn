@@ -1,35 +1,28 @@
 
-
 #########
 ### Define globals
-cdef double MAX_MEMORY = 0.94
-
-#########
-### Import libs
-import numpy as np
 cimport numpy as np
+import numpy as np
 np.import_array()
-
-from psutil import virtual_memory
-
 from libc.stdlib cimport malloc, free
 from cpython cimport bool as BOOL
 
-#########
-### New types
 ctypedef np.ndarray ARRAY
-ctypedef long long LONG
-ctypedef np.dtype DTYPE
+ctypedef (long long) LONG
 ctypedef bint bool
+ctypedef np.dtype DTYPE
 
-#########
-### Internal variables
+cdef double MAX_MEMORY = 0.94
+
+from psutil import virtual_memory
+
+
 cdef char float32, float64, complex64, complex128, cfloat, ccomplex
 float32, float64, complex64, complex128, cfloat, ccomplex = 102, 100, 70, 68, 103, 71
 cdef char float16 = 101
 
-cdef char bool_, int8, int16, int32, int64, cint, pointer
-bool_, int8, int16, int32, int64, cint, pointer = 63, 98, 104, 108, 113, 105, 112
+cdef char boolean, int8, int16, int32, int64, cint, pointer
+boolean, int8, int16, int32, int64, cint, pointer = 63, 98, 104, 108, 113, 105, 112
 
 cdef char uint8, uint16, uint32, uint64, cuint, upointer
 uint8, uint16, uint32, uint64, cuint, upointer = 66, 72, 76, 81, 73, 80
@@ -233,7 +226,7 @@ cdef (int, char) arg_process(x, bool square):
             elif dtype == ccomplex:     return 0, PASS
             elif dtype == float16:      dt = float32
             
-            elif dtype == bool_:        dt = float32
+            elif dtype == boolean:      dt = float32
             elif dtype == int8:         dt = float32
             elif dtype == int16:        dt = float32
             elif dtype == int32:        dt = float32
