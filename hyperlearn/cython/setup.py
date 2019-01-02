@@ -3,8 +3,11 @@
 from distutils.core import setup
 from Cython.Build import cythonize
 from numpy import get_include
-from multiprocessing import cpu_count
 from Cython.Compiler import Options
+import os
+os.environ['CFLAGS'] = '-O3 -march=native'
+os.environ['CXXFLAGS'] = '-O3 -march=native'
+os.environ['CL'] = '/arch:AVX /arch:AVX2 /arch:SSE2 /arch:SSE /arch:ARMv7VE /arch:VFPv4'
 
 Options.docstrings = False
 Options.generate_cleanup_code = True
@@ -22,5 +25,5 @@ setup(
         quiet = True,
         force = True,
     ),
-    include_dirs = [get_include()]
+    include_dirs = [get_include()],
 )

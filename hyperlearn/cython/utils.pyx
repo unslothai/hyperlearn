@@ -1,14 +1,5 @@
 
-from cpython cimport bool as BOOL
-
-cimport numpy as np
-import numpy as np
-np.import_array()
-
-ctypedef np.ndarray ARRAY
-ctypedef bint bool
-ctypedef long long LONG
-
+include "DEFINE.pyx"
 
 cdef double FLOAT32_EPS = np.finfo(np.float32).eps
 cdef double FLOAT64_EPS = np.finfo(np.float64).eps
