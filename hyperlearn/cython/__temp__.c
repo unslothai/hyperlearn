@@ -854,8 +854,8 @@ static const char *__pyx_f[] = {
 typedef __m128 __pyx_t_8__temp___SSEf;
 
 /*--- Type declarations ---*/
-struct __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc;
-typedef struct __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc;
+struct __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc;
+typedef struct __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc;
 
 /* "__temp__.pyx":14
  * ctypedef __m128 SSEf
@@ -864,7 +864,7 @@ typedef struct __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and
  *     cdef SSEf _mult, _shift
  *     return _mm_load_ps1(&mult), _mm_load_ps1(&shift)
  */
-struct __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc {
+struct __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc {
   __pyx_t_8__temp___SSEf f0;
   __pyx_t_8__temp___SSEf f1;
 };
@@ -1047,7 +1047,7 @@ static float __pyx_v_8__temp___mult;
 static float __pyx_v_8__temp___shift;
 static __pyx_t_8__temp___SSEf __pyx_v_8__temp____mult;
 static __pyx_t_8__temp___SSEf __pyx_v_8__temp____shift;
-static __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_f_8__temp____store(float, float); /*proto*/
+static __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_f_8__temp____store(float, float); /*proto*/
 static void __pyx_f_8__temp____mult_add(__pyx_t_8__temp___SSEf, float *, __pyx_t_8__temp___SSEf); /*proto*/
 static PyObject *__pyx_f_8__temp___fast(int __pyx_skip_dispatch); /*proto*/
 static PyObject *__pyx_f_8__temp___slow(int __pyx_skip_dispatch); /*proto*/
@@ -1079,9 +1079,9 @@ static PyObject *__pyx_pf_8__temp___2slow(CYTHON_UNUSED PyObject *__pyx_self); /
  *     return _mm_load_ps1(&mult), _mm_load_ps1(&shift)
  */
 
-static __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_f_8__temp____store(float __pyx_v_mult, float __pyx_v_shift) {
-  __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_r;
-  __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_t_1;
+static __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_f_8__temp____store(float __pyx_v_mult, float __pyx_v_shift) {
+  __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_r;
+  __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_t_1;
 
   /* "__temp__.pyx":16
  * cdef (SSEf, SSEf) _store(float mult, float shift) nogil:
@@ -1643,7 +1643,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec___temp__(PyObject *__pyx_pyinit_mo
 #endif
 #endif
 {
-  __pyx_ctuple_8b19d____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_t_1;
+  __pyx_ctuple_5e68____dunderpyx_t_8__dundertemp__dunder_SSEf__and___dunderpyx_t_8__dundertemp__dunder_SSEf__etc __pyx_t_1;
   __pyx_t_8__temp___SSEf __pyx_t_2;
   __pyx_t_8__temp___SSEf __pyx_t_3;
   PyObject *__pyx_t_4 = NULL;

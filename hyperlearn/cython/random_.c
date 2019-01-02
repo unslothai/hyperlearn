@@ -1328,12 +1328,12 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  * cdef inline object PyArray_MultiIterNew1(a):
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
-struct __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc;
-typedef struct __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc;
-struct __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc;
-typedef struct __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc;
-struct __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc;
-typedef struct __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc;
+struct __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc;
+typedef struct __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc;
+struct __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc;
+typedef struct __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc;
+struct __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc;
+typedef struct __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc;
 struct __pyx_opt_args_7random__uniform;
 struct __pyx_opt_args_7random__normal;
 
@@ -1355,42 +1355,42 @@ typedef PyArrayObject *__pyx_t_7random__ARRAY;
  */
 typedef PyArray_Descr *__pyx_t_7random__DTYPE;
 
-/* "random_.pyx":285
+/* "random_.pyx":284
  * 
  * ##############
  * cdef (float, float, UINT32, UINT32) process_float(             # <<<<<<<<<<<<<<
  *     float left, float right, int seed, UINT32 a, UINT32 b) nogil:
  * 
  */
-struct __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc {
+struct __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc {
   float f0;
   float f1;
   __pyx_t_7random__UINT32 f2;
   __pyx_t_7random__UINT32 f3;
 };
 
-/* "random_.pyx":393
+/* "random_.pyx":392
  * 
  * ##############
  * cdef (double, double, UINT64, UINT64) process_double(double left, double right, int seed) nogil:             # <<<<<<<<<<<<<<
  *     cdef double low, high, add, mult, shift
  *     cdef UINT64 x, change
  */
-struct __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc {
+struct __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc {
   double f0;
   double f1;
   __pyx_t_7random__UINT64 f2;
   __pyx_t_7random__UINT64 f3;
 };
 
-/* "random_.pyx":455
+/* "random_.pyx":454
  * 
  * #######
  * cdef (SIZE,SIZE,SIZE,SIZE,bool,char) args_process(dtype, size, int factor):             # <<<<<<<<<<<<<<
  *     cdef char dt = ord(np.dtype(dtype).char)
  *     cdef SIZE div, n, p
  */
-struct __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc {
+struct __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc {
   __pyx_t_7random__SIZE f0;
   __pyx_t_7random__SIZE f1;
   __pyx_t_7random__SIZE f2;
@@ -1399,12 +1399,12 @@ struct __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   char f5;
 };
 
-/* "random_.pyx":478
+/* "random_.pyx":477
  * 
  * ######
  * cpdef ARRAY uniform(             # <<<<<<<<<<<<<<
  *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
- * 
+ *     """
  */
 struct __pyx_opt_args_7random__uniform {
   int __pyx_n;
@@ -1415,12 +1415,12 @@ struct __pyx_opt_args_7random__uniform {
   PyObject *dtype;
 };
 
-/* "random_.pyx":731
+/* "random_.pyx":749
  * 
  * ######
  * cpdef ARRAY normal(double mean = 0, double std = 1, size = 10,             # <<<<<<<<<<<<<<
  *     int seed = -1, dtype = np.float32, str mode = "slow"):
- * 
+ *     """
  */
 struct __pyx_opt_args_7random__normal {
   int __pyx_n;
@@ -2596,15 +2596,15 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int, int, __pyx_t_7random_
 static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
-static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_f_7random__process_float(float, float, int, __pyx_t_7random__UINT32, __pyx_t_7random__UINT32); /*proto*/
+static __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_f_7random__process_float(float, float, int, __pyx_t_7random__UINT32, __pyx_t_7random__UINT32); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float, float, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
-static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_f_7random__process_double(double, double, int); /*proto*/
+static __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_f_7random__process_double(double, double, int); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double, double, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, int, __pyx_t_7random__SIZE, __pyx_t_7random__SIZE, __pyx_t_7random__bool); /*proto*/
-static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_f_7random__args_process(PyObject *, PyObject *, int); /*proto*/
+static __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_f_7random__args_process(PyObject *, PyObject *, int); /*proto*/
 static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(int __pyx_skip_dispatch, struct __pyx_opt_args_7random__uniform *__pyx_optional_args); /*proto*/
 static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice, __pyx_t_7random__UINT32, __pyx_t_7random__SIZE, float, float); /*proto*/
 static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice, __pyx_t_7random__UINT32, __pyx_t_7random__SIZE, float, float, float); /*proto*/
@@ -3021,7 +3021,7 @@ static PyObject *__pyx_tuple__35;
 static PyObject *__pyx_codeobj__36;
 /* Late includes */
 
-/* "random_.pyx":16
+/* "random_.pyx":15
  * 
  * ######
  * cdef void _bool(UINT8[:] out, SIZE size, UINT64 x) nogil:             # <<<<<<<<<<<<<<
@@ -3044,7 +3044,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   __pyx_t_7random__SIZE __pyx_t_6;
   __pyx_t_7random__SIZE __pyx_t_7;
 
-  /* "random_.pyx":17
+  /* "random_.pyx":16
  * ######
  * cdef void _bool(UINT8[:] out, SIZE size, UINT64 x) nogil:
  *     cdef SIZE i, j, k = 0             # <<<<<<<<<<<<<<
@@ -3053,7 +3053,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
  */
   __pyx_v_k = 0;
 
-  /* "random_.pyx":19
+  /* "random_.pyx":18
  *     cdef SIZE i, j, k = 0
  *     cdef UINT64 shift
  *     cdef SIZE div = size // 64             # <<<<<<<<<<<<<<
@@ -3062,7 +3062,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
  */
   __pyx_v_div = (__pyx_v_size / 64);
 
-  /* "random_.pyx":20
+  /* "random_.pyx":19
  *     cdef UINT64 shift
  *     cdef SIZE div = size // 64
  *     cdef SIZE diff = size % 64             # <<<<<<<<<<<<<<
@@ -3071,7 +3071,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
  */
   __pyx_v_diff = (__pyx_v_size % 64);
 
-  /* "random_.pyx":22
+  /* "random_.pyx":21
  *     cdef SIZE diff = size % 64
  * 
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3083,7 +3083,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":23
+    /* "random_.pyx":22
  * 
  *     for i in range(div):
  *         x, shift = 16807 * x + 2531011, 1             # <<<<<<<<<<<<<<
@@ -3095,7 +3095,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     __pyx_v_x = __pyx_t_4;
     __pyx_v_shift = __pyx_t_5;
 
-    /* "random_.pyx":25
+    /* "random_.pyx":24
  *         x, shift = 16807 * x + 2531011, 1
  *         # Use XOR gate to invert some bits
  *         for j in range(32):             # <<<<<<<<<<<<<<
@@ -3105,7 +3105,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     for (__pyx_t_6 = 0; __pyx_t_6 < 32; __pyx_t_6+=1) {
       __pyx_v_j = __pyx_t_6;
 
-      /* "random_.pyx":26
+      /* "random_.pyx":25
  *         # Use XOR gate to invert some bits
  *         for j in range(32):
  *             x ^= shift; shift <<= 2             # <<<<<<<<<<<<<<
@@ -3116,7 +3116,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
       __pyx_v_shift = (__pyx_v_shift << 2);
     }
 
-    /* "random_.pyx":28
+    /* "random_.pyx":27
  *             x ^= shift; shift <<= 2
  *         # Get individual bits
  *         shift = 1             # <<<<<<<<<<<<<<
@@ -3125,7 +3125,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
  */
     __pyx_v_shift = 1;
 
-    /* "random_.pyx":29
+    /* "random_.pyx":28
  *         # Get individual bits
  *         shift = 1
  *         for j in range(64):             # <<<<<<<<<<<<<<
@@ -3135,7 +3135,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     for (__pyx_t_6 = 0; __pyx_t_6 < 64; __pyx_t_6+=1) {
       __pyx_v_j = __pyx_t_6;
 
-      /* "random_.pyx":30
+      /* "random_.pyx":29
  *         shift = 1
  *         for j in range(64):
  *             out[k] = ((x & shift) == 0); k += 1; shift <<= 1             # <<<<<<<<<<<<<<
@@ -3149,7 +3149,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     }
   }
 
-  /* "random_.pyx":32
+  /* "random_.pyx":31
  *             out[k] = ((x & shift) == 0); k += 1; shift <<= 1
  * 
  *     x, shift = 16807 * x + 2531011, 1             # <<<<<<<<<<<<<<
@@ -3161,7 +3161,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   __pyx_v_x = __pyx_t_5;
   __pyx_v_shift = __pyx_t_4;
 
-  /* "random_.pyx":33
+  /* "random_.pyx":32
  * 
  *     x, shift = 16807 * x + 2531011, 1
  *     for j in range(diff):             # <<<<<<<<<<<<<<
@@ -3173,7 +3173,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_j = __pyx_t_3;
 
-    /* "random_.pyx":34
+    /* "random_.pyx":33
  *     x, shift = 16807 * x + 2531011, 1
  *     for j in range(diff):
  *         out[k] = ((x & shift) == 0); k += 1; shift <<= 1             # <<<<<<<<<<<<<<
@@ -3186,7 +3186,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     __pyx_v_shift = (__pyx_v_shift << 1);
   }
 
-  /* "random_.pyx":16
+  /* "random_.pyx":15
  * 
  * ######
  * cdef void _bool(UINT8[:] out, SIZE size, UINT64 x) nogil:             # <<<<<<<<<<<<<<
@@ -3197,7 +3197,7 @@ static void __pyx_f_7random___bool(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   /* function exit code */
 }
 
-/* "random_.pyx":37
+/* "random_.pyx":36
  * 
  * ######
  * cdef void _uint8(             # <<<<<<<<<<<<<<
@@ -3217,7 +3217,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":39
+  /* "random_.pyx":38
  * cdef void _uint8(
  *     UINT8[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -3226,7 +3226,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":40
+  /* "random_.pyx":39
  *     UINT8[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3238,7 +3238,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":41
+    /* "random_.pyx":40
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (8121 * x + 12345)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3250,7 +3250,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__UINT8 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT8 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__UINT8)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":42
+    /* "random_.pyx":41
  *     for i in range(div):
  *         x = (8121 * x + 12345)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3262,7 +3262,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__UINT8 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT8 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__UINT8)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":43
+    /* "random_.pyx":42
  *         x = (8121 * x + 12345)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3274,7 +3274,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__UINT8 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT8 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__UINT8)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":44
+    /* "random_.pyx":43
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3287,7 +3287,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":45
+  /* "random_.pyx":44
  *         x = (x^0xABCD)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (8121 * x + 12345)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3302,7 +3302,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":46
+  /* "random_.pyx":45
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (8121 * x + 12345)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3317,7 +3317,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":47
+  /* "random_.pyx":46
  *     if diff >= 1:   x = (8121 * x + 12345)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = <UINT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3332,7 +3332,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":37
+  /* "random_.pyx":36
  * 
  * ######
  * cdef void _uint8(             # <<<<<<<<<<<<<<
@@ -3343,7 +3343,7 @@ static void __pyx_f_7random___uint8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   /* function exit code */
 }
 
-/* "random_.pyx":50
+/* "random_.pyx":49
  * 
  * ######
  * cdef void _uint16(             # <<<<<<<<<<<<<<
@@ -3363,7 +3363,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":52
+  /* "random_.pyx":51
  * cdef void _uint16(
  *     UINT16[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -3372,7 +3372,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":53
+  /* "random_.pyx":52
  *     UINT16[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3384,7 +3384,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":54
+    /* "random_.pyx":53
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (65793 * x + 28411)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3396,7 +3396,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT16 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT16 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__UINT16)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":55
+    /* "random_.pyx":54
  *     for i in range(div):
  *         x = (65793 * x + 28411)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3408,7 +3408,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT16 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT16 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__UINT16)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":56
+    /* "random_.pyx":55
  *         x = (65793 * x + 28411)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3420,7 +3420,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT16 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT16 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__UINT16)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":57
+    /* "random_.pyx":56
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3433,7 +3433,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":58
+  /* "random_.pyx":57
  *         x = (x^0xABCD)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (65793 * x + 28411)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3448,7 +3448,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":59
+  /* "random_.pyx":58
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (65793 * x + 28411)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3463,7 +3463,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":60
+  /* "random_.pyx":59
  *     if diff >= 1:   x = (65793 * x + 28411)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = <UINT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3478,7 +3478,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":50
+  /* "random_.pyx":49
  * 
  * ######
  * cdef void _uint16(             # <<<<<<<<<<<<<<
@@ -3489,7 +3489,7 @@ static void __pyx_f_7random___uint16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   /* function exit code */
 }
 
-/* "random_.pyx":63
+/* "random_.pyx":62
  * 
  * ######
  * cdef void _uint32(             # <<<<<<<<<<<<<<
@@ -3509,7 +3509,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":65
+  /* "random_.pyx":64
  * cdef void _uint32(
  *     UINT32[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -3518,7 +3518,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":66
+  /* "random_.pyx":65
  *     UINT32[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3530,7 +3530,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":67
+    /* "random_.pyx":66
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3542,7 +3542,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT32 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT32 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__UINT32)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":68
+    /* "random_.pyx":67
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3554,7 +3554,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT32 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT32 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__UINT32)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":69
+    /* "random_.pyx":68
  *         x = (214013 * x + 2531011)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3566,7 +3566,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT32 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT32 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__UINT32)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":70
+    /* "random_.pyx":69
  *         x = (x^0x6EEE)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3579,7 +3579,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":71
+  /* "random_.pyx":70
  *         x = (x^0xABCD)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3594,7 +3594,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":72
+  /* "random_.pyx":71
  *         x = (x^0xCCCC)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3609,7 +3609,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":73
+  /* "random_.pyx":72
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = <UINT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3624,7 +3624,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":63
+  /* "random_.pyx":62
  * 
  * ######
  * cdef void _uint32(             # <<<<<<<<<<<<<<
@@ -3635,7 +3635,7 @@ static void __pyx_f_7random___uint32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   /* function exit code */
 }
 
-/* "random_.pyx":76
+/* "random_.pyx":75
  * 
  * ######
  * cdef void _uint64(             # <<<<<<<<<<<<<<
@@ -3655,7 +3655,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":78
+  /* "random_.pyx":77
  * cdef void _uint64(
  *     UINT64[::1] out, UINT64 x, double mult, double shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -3664,7 +3664,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":79
+  /* "random_.pyx":78
  *     UINT64[::1] out, UINT64 x, double mult, double shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3676,7 +3676,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":80
+    /* "random_.pyx":79
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3688,7 +3688,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT64 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT64 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__UINT64)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":81
+    /* "random_.pyx":80
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3700,7 +3700,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT64 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT64 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__UINT64)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":82
+    /* "random_.pyx":81
  *         x = (214013 * x + 2531011)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3712,7 +3712,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     *((__pyx_t_7random__UINT64 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__UINT64 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__UINT64)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":83
+    /* "random_.pyx":82
  *         x = (x^0x6EEE)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3725,7 +3725,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":84
+  /* "random_.pyx":83
  *         x = (x^0xABCD)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3740,7 +3740,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":85
+  /* "random_.pyx":84
  *         x = (x^0xCCCC)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3755,7 +3755,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":86
+  /* "random_.pyx":85
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle2; out[j] = <UINT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3770,7 +3770,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":76
+  /* "random_.pyx":75
  * 
  * ######
  * cdef void _uint64(             # <<<<<<<<<<<<<<
@@ -3781,7 +3781,7 @@ static void __pyx_f_7random___uint64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ra
   /* function exit code */
 }
 
-/* "random_.pyx":89
+/* "random_.pyx":88
  * 
  * ######
  * cdef void _int8(             # <<<<<<<<<<<<<<
@@ -3801,7 +3801,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":91
+  /* "random_.pyx":90
  * cdef void _int8(
  *     INT8[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -3810,7 +3810,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":92
+  /* "random_.pyx":91
  *     INT8[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3822,7 +3822,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":93
+    /* "random_.pyx":92
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (8121 * x + 12345)&cycle; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3834,7 +3834,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     *((__pyx_t_7random__INT8 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT8 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__INT8)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":94
+    /* "random_.pyx":93
  *     for i in range(div):
  *         x = (8121 * x + 12345)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3846,7 +3846,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     *((__pyx_t_7random__INT8 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT8 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__INT8)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":95
+    /* "random_.pyx":94
  *         x = (8121 * x + 12345)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3858,7 +3858,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     *((__pyx_t_7random__INT8 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT8 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__INT8)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":96
+    /* "random_.pyx":95
  *         x = (x^0x6EEE)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3871,7 +3871,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":97
+  /* "random_.pyx":96
  *         x = (x^0xABCD)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (8121 * x + 12345)&cycle2; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3886,7 +3886,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":98
+  /* "random_.pyx":97
  *         x = (x^0xCCCC)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (8121 * x + 12345)&cycle2; out[j] = <INT8> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3901,7 +3901,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":99
+  /* "random_.pyx":98
  *     if diff >= 1:   x = (8121 * x + 12345)&cycle2; out[j] = <INT8> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <INT8> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = <INT8> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3916,7 +3916,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":89
+  /* "random_.pyx":88
  * 
  * ######
  * cdef void _int8(             # <<<<<<<<<<<<<<
@@ -3927,7 +3927,7 @@ static void __pyx_f_7random___int8(__Pyx_memviewslice __pyx_v_out, __pyx_t_7rand
   /* function exit code */
 }
 
-/* "random_.pyx":102
+/* "random_.pyx":101
  * 
  * ######
  * cdef void _int16(             # <<<<<<<<<<<<<<
@@ -3947,7 +3947,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":104
+  /* "random_.pyx":103
  * cdef void _int16(
  *     INT16[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -3956,7 +3956,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":105
+  /* "random_.pyx":104
  *     INT16[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -3968,7 +3968,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":106
+    /* "random_.pyx":105
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (65793 * x + 28411)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3980,7 +3980,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT16 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT16 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__INT16)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":107
+    /* "random_.pyx":106
  *     for i in range(div):
  *         x = (65793 * x + 28411)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -3992,7 +3992,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT16 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT16 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__INT16)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":108
+    /* "random_.pyx":107
  *         x = (65793 * x + 28411)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4004,7 +4004,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT16 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT16 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__INT16)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":109
+    /* "random_.pyx":108
  *         x = (x^0x6EEE)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4017,7 +4017,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":110
+  /* "random_.pyx":109
  *         x = (x^0xABCD)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (65793 * x + 28411)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4032,7 +4032,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":111
+  /* "random_.pyx":110
  *         x = (x^0xCCCC)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (65793 * x + 28411)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4047,7 +4047,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":112
+  /* "random_.pyx":111
  *     if diff >= 1:   x = (65793 * x + 28411)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <INT16> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = <INT16> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4062,7 +4062,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":102
+  /* "random_.pyx":101
  * 
  * ######
  * cdef void _int16(             # <<<<<<<<<<<<<<
@@ -4073,7 +4073,7 @@ static void __pyx_f_7random___int16(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   /* function exit code */
 }
 
-/* "random_.pyx":115
+/* "random_.pyx":114
  * 
  * ######
  * cdef void _int32(             # <<<<<<<<<<<<<<
@@ -4093,7 +4093,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":117
+  /* "random_.pyx":116
  * cdef void _int32(
  *     INT32[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -4102,7 +4102,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":118
+  /* "random_.pyx":117
  *     INT32[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -4114,7 +4114,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":119
+    /* "random_.pyx":118
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4126,7 +4126,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT32 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT32 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__INT32)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":120
+    /* "random_.pyx":119
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4138,7 +4138,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT32 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT32 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__INT32)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":121
+    /* "random_.pyx":120
  *         x = (214013 * x + 2531011)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4150,7 +4150,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT32 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT32 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__INT32)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":122
+    /* "random_.pyx":121
  *         x = (x^0x6EEE)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4163,7 +4163,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":123
+  /* "random_.pyx":122
  *         x = (x^0xABCD)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4178,7 +4178,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":124
+  /* "random_.pyx":123
  *         x = (x^0xCCCC)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4193,7 +4193,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":125
+  /* "random_.pyx":124
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = <INT32> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = <INT32> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4208,7 +4208,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":115
+  /* "random_.pyx":114
  * 
  * ######
  * cdef void _int32(             # <<<<<<<<<<<<<<
@@ -4219,7 +4219,7 @@ static void __pyx_f_7random___int32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   /* function exit code */
 }
 
-/* "random_.pyx":128
+/* "random_.pyx":127
  * 
  * ######
  * cdef void _int64(             # <<<<<<<<<<<<<<
@@ -4239,7 +4239,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":130
+  /* "random_.pyx":129
  * cdef void _int64(
  *     INT64[::1] out, UINT64 x, double mult, double shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -4248,7 +4248,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":131
+  /* "random_.pyx":130
  *     INT64[::1] out, UINT64 x, double mult, double shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -4260,7 +4260,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":132
+    /* "random_.pyx":131
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4272,7 +4272,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT64 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT64 *) __pyx_v_out.data) + __pyx_t_4)) )) = ((__pyx_t_7random__INT64)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":133
+    /* "random_.pyx":132
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4284,7 +4284,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT64 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT64 *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_t_7random__INT64)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":134
+    /* "random_.pyx":133
  *         x = (214013 * x + 2531011)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4296,7 +4296,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     *((__pyx_t_7random__INT64 *) ( /* dim=0 */ ((char *) (((__pyx_t_7random__INT64 *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_t_7random__INT64)((__pyx_v_x * __pyx_v_mult) + __pyx_v_shift));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":135
+    /* "random_.pyx":134
  *         x = (x^0x6EEE)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4309,7 +4309,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":136
+  /* "random_.pyx":135
  *         x = (x^0xABCD)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4324,7 +4324,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":137
+  /* "random_.pyx":136
  *         x = (x^0xCCCC)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4339,7 +4339,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":138
+  /* "random_.pyx":137
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle2; out[j] = <INT64> (x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4354,7 +4354,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":128
+  /* "random_.pyx":127
  * 
  * ######
  * cdef void _int64(             # <<<<<<<<<<<<<<
@@ -4365,7 +4365,7 @@ static void __pyx_f_7random___int64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7ran
   /* function exit code */
 }
 
-/* "random_.pyx":141
+/* "random_.pyx":140
  * 
  * ######
  * cdef void _float32(             # <<<<<<<<<<<<<<
@@ -4385,7 +4385,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":143
+  /* "random_.pyx":142
  * cdef void _float32(
  *     float[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -4394,7 +4394,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":144
+  /* "random_.pyx":143
  *     float[::1] out, UINT32 x, float mult, float shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -4406,7 +4406,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":145
+    /* "random_.pyx":144
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4418,7 +4418,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_4)) )) = ((((float)__pyx_v_x) * __pyx_v_mult) + __pyx_v_shift);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":146
+    /* "random_.pyx":145
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4430,7 +4430,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = ((((float)__pyx_v_x) * __pyx_v_mult) + __pyx_v_shift);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":147
+    /* "random_.pyx":146
  *         x = (214013 * x + 2531011)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4442,7 +4442,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_6)) )) = ((((float)__pyx_v_x) * __pyx_v_mult) + __pyx_v_shift);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":148
+    /* "random_.pyx":147
  *         x = (x^0x6EEE)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4455,7 +4455,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":149
+  /* "random_.pyx":148
  *         x = (x^0xABCD)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4470,7 +4470,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":150
+  /* "random_.pyx":149
  *         x = (x^0xCCCC)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4485,7 +4485,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":151
+  /* "random_.pyx":150
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle; out[j] = (<float>x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle; out[j] = (<float>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4500,7 +4500,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":141
+  /* "random_.pyx":140
  * 
  * ######
  * cdef void _float32(             # <<<<<<<<<<<<<<
@@ -4511,7 +4511,7 @@ static void __pyx_f_7random___float32(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
   /* function exit code */
 }
 
-/* "random_.pyx":154
+/* "random_.pyx":153
  * 
  * ######
  * cdef void _float64(             # <<<<<<<<<<<<<<
@@ -4531,7 +4531,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
   __pyx_t_7random__SIZE __pyx_t_7;
   int __pyx_t_8;
 
-  /* "random_.pyx":156
+  /* "random_.pyx":155
  * cdef void _float64(
  *     double[::1] out, UINT64 x, double mult, double shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -4540,7 +4540,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":157
+  /* "random_.pyx":156
  *     double[::1] out, UINT64 x, double mult, double shift, SIZE div, SIZE diff) nogil:
  *     cdef SIZE i, j = 0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -4552,7 +4552,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":158
+    /* "random_.pyx":157
  *     cdef SIZE i, j = 0
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4564,7 +4564,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_4)) )) = ((((double)__pyx_v_x) * __pyx_v_mult) + __pyx_v_shift);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":159
+    /* "random_.pyx":158
  *     for i in range(div):
  *         x = (214013 * x + 2531011)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4576,7 +4576,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_5)) )) = ((((double)__pyx_v_x) * __pyx_v_mult) + __pyx_v_shift);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":160
+    /* "random_.pyx":159
  *         x = (214013 * x + 2531011)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *         x = (x^0x6EEE)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4588,7 +4588,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_6)) )) = ((((double)__pyx_v_x) * __pyx_v_mult) + __pyx_v_shift);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":161
+    /* "random_.pyx":160
  *         x = (x^0x6EEE)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *         x = (x^0xABCD)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4601,7 +4601,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":162
+  /* "random_.pyx":161
  *         x = (x^0xABCD)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *         x = (x^0xCCCC)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4616,7 +4616,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":163
+  /* "random_.pyx":162
  *         x = (x^0xCCCC)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4631,7 +4631,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":164
+  /* "random_.pyx":163
  *     if diff >= 1:   x = (214013 * x + 2531011)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *     if diff >= 2:   x = (x^0x6EEE)&cycle2; out[j] = (<double>x*mult + shift); j+=1
  *     if diff >= 3:   x = (x^0xABCD)&cycle2; out[j] = (<double>x*mult + shift); j+=1             # <<<<<<<<<<<<<<
@@ -4646,7 +4646,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
     __pyx_v_j = (__pyx_v_j + 1);
   }
 
-  /* "random_.pyx":154
+  /* "random_.pyx":153
  * 
  * ######
  * cdef void _float64(             # <<<<<<<<<<<<<<
@@ -4657,7 +4657,7 @@ static void __pyx_f_7random___float64(__Pyx_memviewslice __pyx_v_out, __pyx_t_7r
   /* function exit code */
 }
 
-/* "random_.pyx":168
+/* "random_.pyx":167
  * 
  * ######
  * cdef ARRAY bool_(SIZE n, SIZE p, int seed, bool isTuple):             # <<<<<<<<<<<<<<
@@ -4689,7 +4689,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
   PyObject *__pyx_t_14 = NULL;
   __Pyx_RefNannySetupContext("bool_", 0);
 
-  /* "random_.pyx":177
+  /* "random_.pyx":176
  *     cdef SIZE i
  * 
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -4703,7 +4703,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
   }
   __pyx_v_x = ((__pyx_t_7random__UINT64)__pyx_t_1);
 
-  /* "random_.pyx":178
+  /* "random_.pyx":177
  * 
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)
  *     cdef UINT64 shift = <UINT64> (16807*x + 2531011)             # <<<<<<<<<<<<<<
@@ -4712,7 +4712,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
  */
   __pyx_v_shift = ((__pyx_t_7random__UINT64)((0x41A7 * __pyx_v_x) + 0x269EC3));
 
-  /* "random_.pyx":180
+  /* "random_.pyx":179
  *     cdef UINT64 shift = <UINT64> (16807*x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -4722,23 +4722,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
   __pyx_t_2 = (__pyx_v_isTuple != 0);
   if (__pyx_t_2) {
 
-    /* "random_.pyx":181
+    /* "random_.pyx":180
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint8)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -4746,32 +4746,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
     __pyx_t_3 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsds_nn___pyx_t_7random__UINT8(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_dsds_nn___pyx_t_7random__UINT8(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out2D = __pyx_t_8;
     __pyx_t_8.memview = NULL;
     __pyx_t_8.data = NULL;
 
-    /* "random_.pyx":182
+    /* "random_.pyx":181
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint8)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -4807,7 +4807,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":183
+                  /* "random_.pyx":182
  *         out2D = np.zeros((n,p), dtype = np.uint8)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -4833,7 +4833,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_10);
 
-                                  /* "random_.pyx":184
+                                  /* "random_.pyx":183
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _bool(out2D[i], p, shift + 3*<UINT32>i)             # <<<<<<<<<<<<<<
@@ -4846,7 +4846,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__bool_(__pyx_t_7random__SIZE __pyx
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 184, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 183, __pyx_L13_error)
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -4916,7 +4916,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_p, (__pyx_v_shift + (3 * ((__pyx_t_7r
                       }
                   }
 
-                  /* "random_.pyx":185
+                  /* "random_.pyx":184
  *             for i in prange(n):
  *                 _bool(out2D[i], p, shift + 3*<UINT32>i)
  *             _bool(out2D[:,0], n, x)             # <<<<<<<<<<<<<<
@@ -4933,7 +4933,7 @@ __pyx_t_12.strides[0] = __pyx_v_out2D.strides[0];
 {
     Py_ssize_t __pyx_tmp_idx = 0;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[1];
-        if ((0)) __PYX_ERR(0, 185, __pyx_L9_error)
+        if ((0)) __PYX_ERR(0, 184, __pyx_L9_error)
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -5009,7 +5009,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
           #endif
         }
 
-        /* "random_.pyx":182
+        /* "random_.pyx":181
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint8)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -5035,7 +5035,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
         }
     }
 
-    /* "random_.pyx":180
+    /* "random_.pyx":179
  *     cdef UINT64 shift = <UINT64> (16807*x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -5045,7 +5045,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":187
+  /* "random_.pyx":186
  *             _bool(out2D[:,0], n, x)
  *     else:
  *         out = np.zeros(n, dtype = np.uint8)             # <<<<<<<<<<<<<<
@@ -5053,39 +5053,39 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
  *     return np.asarray(out2D).view(np.bool) if isTuple else np.asarray(out).view(np.bool)
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 187, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT8(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT8(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_out = __pyx_t_13;
     __pyx_t_13.memview = NULL;
     __pyx_t_13.data = NULL;
 
-    /* "random_.pyx":188
+    /* "random_.pyx":187
  *     else:
  *         out = np.zeros(n, dtype = np.uint8)
  *         _bool(out, n, x)             # <<<<<<<<<<<<<<
@@ -5096,7 +5096,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
   }
   __pyx_L3:;
 
-  /* "random_.pyx":189
+  /* "random_.pyx":188
  *         out = np.zeros(n, dtype = np.uint8)
  *         _bool(out, n, x)
  *     return np.asarray(out2D).view(np.bool) if isTuple else np.asarray(out).view(np.bool)             # <<<<<<<<<<<<<<
@@ -5105,12 +5105,12 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_14 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
@@ -5125,15 +5125,15 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
     __pyx_t_5 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_14, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_view); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_view); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_bool); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_bool); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_5 = NULL;
@@ -5149,19 +5149,19 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
     __pyx_t_7 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 188, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_14 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -5176,15 +5176,15 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
     __pyx_t_4 = (__pyx_t_14) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_14, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_14); __pyx_t_14 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_view); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_view); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_bool); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 189, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_bool); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -5200,10 +5200,10 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 189, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 188, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   }
@@ -5211,7 +5211,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":168
+  /* "random_.pyx":167
  * 
  * ######
  * cdef ARRAY bool_(SIZE n, SIZE p, int seed, bool isTuple):             # <<<<<<<<<<<<<<
@@ -5240,7 +5240,7 @@ __pyx_f_7random___bool(__pyx_t_12, __pyx_v_n, __pyx_v_x);
   return __pyx_r;
 }
 
-/* "random_.pyx":193
+/* "random_.pyx":192
  * 
  * ######
  * cdef ARRAY uint8_(             # <<<<<<<<<<<<<<
@@ -5271,7 +5271,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
   __Pyx_memviewslice __pyx_t_12 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("uint8_", 0);
 
-  /* "random_.pyx":199
+  /* "random_.pyx":198
  *     cdef SIZE i
  * 
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -5285,7 +5285,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
   }
   __pyx_v_x = ((__pyx_t_7random__UINT32)__pyx_t_1);
 
-  /* "random_.pyx":200
+  /* "random_.pyx":199
  * 
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef float mult = <float> ((right-left) if left > 0 else right)/divisor             # <<<<<<<<<<<<<<
@@ -5299,7 +5299,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
   }
   __pyx_v_mult = (((float)__pyx_t_1) / __pyx_v_7random__divisor);
 
-  /* "random_.pyx":201
+  /* "random_.pyx":200
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef float mult = <float> ((right-left) if left > 0 else right)/divisor
  *     cdef UINT32 change = <UINT32> (8121 * x + 12345)             # <<<<<<<<<<<<<<
@@ -5308,7 +5308,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
  */
   __pyx_v_change = ((__pyx_t_7random__UINT32)((0x1FB9 * __pyx_v_x) + 0x3039));
 
-  /* "random_.pyx":203
+  /* "random_.pyx":202
  *     cdef UINT32 change = <UINT32> (8121 * x + 12345)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -5318,23 +5318,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
   __pyx_t_2 = (__pyx_v_isTuple != 0);
   if (__pyx_t_2) {
 
-    /* "random_.pyx":204
+    /* "random_.pyx":203
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint8)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -5342,32 +5342,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
     __pyx_t_3 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 204, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT8(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 204, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT8(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 203, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out2D = __pyx_t_8;
     __pyx_t_8.memview = NULL;
     __pyx_t_8.data = NULL;
 
-    /* "random_.pyx":205
+    /* "random_.pyx":204
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint8)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -5403,7 +5403,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":206
+                  /* "random_.pyx":205
  *         out2D = np.zeros((n,p), dtype = np.uint8)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -5429,7 +5429,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_10);
 
-                                  /* "random_.pyx":207
+                                  /* "random_.pyx":206
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _uint8(out2D[i], change+<UINT32>i, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -5442,7 +5442,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint8_(int __pyx_v_left, int __py
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 207, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 206, __pyx_L13_error)
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -5579,7 +5579,7 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
           #endif
         }
 
-        /* "random_.pyx":205
+        /* "random_.pyx":204
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint8)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -5605,7 +5605,7 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
         }
     }
 
-    /* "random_.pyx":203
+    /* "random_.pyx":202
  *     cdef UINT32 change = <UINT32> (8121 * x + 12345)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -5615,7 +5615,7 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":209
+  /* "random_.pyx":208
  *                 _uint8(out2D[i], change+<UINT32>i, mult, left, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.uint8)             # <<<<<<<<<<<<<<
@@ -5623,39 +5623,39 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 209, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT8(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 209, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT8(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_out = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":210
+    /* "random_.pyx":209
  *     else:
  *         out = np.zeros(n, dtype = np.uint8)
  *         _uint8(out, x, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -5666,7 +5666,7 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   }
   __pyx_L3:;
 
-  /* "random_.pyx":212
+  /* "random_.pyx":211
  *         _uint8(out, x, mult, left, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -5675,12 +5675,12 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -5695,19 +5695,19 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 212, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 212, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 211, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT8, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -5722,10 +5722,10 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 212, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 211, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 212, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 211, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   }
@@ -5733,7 +5733,7 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":193
+  /* "random_.pyx":192
  * 
  * ######
  * cdef ARRAY uint8_(             # <<<<<<<<<<<<<<
@@ -5760,7 +5760,7 @@ __pyx_f_7random___uint8(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   return __pyx_r;
 }
 
-/* "random_.pyx":216
+/* "random_.pyx":215
  * 
  * ######
  * cdef ARRAY uint16_(             # <<<<<<<<<<<<<<
@@ -5791,7 +5791,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
   __Pyx_memviewslice __pyx_t_12 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("uint16_", 0);
 
-  /* "random_.pyx":222
+  /* "random_.pyx":221
  *     cdef SIZE i
  * 
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -5805,7 +5805,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
   }
   __pyx_v_x = ((__pyx_t_7random__UINT32)__pyx_t_1);
 
-  /* "random_.pyx":223
+  /* "random_.pyx":222
  * 
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef float mult = <float> ((right-left) if left > 0 else right)/divisor             # <<<<<<<<<<<<<<
@@ -5819,7 +5819,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
   }
   __pyx_v_mult = (((float)__pyx_t_1) / __pyx_v_7random__divisor);
 
-  /* "random_.pyx":224
+  /* "random_.pyx":223
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef float mult = <float> ((right-left) if left > 0 else right)/divisor
  *     cdef UINT32 change = <UINT32> (65793 * x + 28411)             # <<<<<<<<<<<<<<
@@ -5828,7 +5828,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
  */
   __pyx_v_change = ((__pyx_t_7random__UINT32)((0x10101 * __pyx_v_x) + 0x6EFB));
 
-  /* "random_.pyx":226
+  /* "random_.pyx":225
  *     cdef UINT32 change = <UINT32> (65793 * x + 28411)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -5838,23 +5838,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
   __pyx_t_2 = (__pyx_v_isTuple != 0);
   if (__pyx_t_2) {
 
-    /* "random_.pyx":227
+    /* "random_.pyx":226
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint16)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -5862,32 +5862,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
     __pyx_t_3 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint16); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint16); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 227, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT16(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 227, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT16(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 226, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out2D = __pyx_t_8;
     __pyx_t_8.memview = NULL;
     __pyx_t_8.data = NULL;
 
-    /* "random_.pyx":228
+    /* "random_.pyx":227
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint16)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -5923,7 +5923,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":229
+                  /* "random_.pyx":228
  *         out2D = np.zeros((n,p), dtype = np.uint16)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -5949,7 +5949,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_10);
 
-                                  /* "random_.pyx":230
+                                  /* "random_.pyx":229
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _uint16(out2D[i], change+<UINT32>i, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -5962,7 +5962,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint16_(int __pyx_v_left, int __p
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 230, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 229, __pyx_L13_error)
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -6099,7 +6099,7 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
           #endif
         }
 
-        /* "random_.pyx":228
+        /* "random_.pyx":227
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint16)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -6125,7 +6125,7 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
         }
     }
 
-    /* "random_.pyx":226
+    /* "random_.pyx":225
  *     cdef UINT32 change = <UINT32> (65793 * x + 28411)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -6135,7 +6135,7 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":232
+  /* "random_.pyx":231
  *                 _uint16(out2D[i], change+<UINT32>i, mult, left, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.uint16)             # <<<<<<<<<<<<<<
@@ -6143,39 +6143,39 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint16); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 232, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT16(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 232, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT16(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 231, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_out = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":233
+    /* "random_.pyx":232
  *     else:
  *         out = np.zeros(n, dtype = np.uint16)
  *         _uint16(out, x, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -6186,7 +6186,7 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
   }
   __pyx_L3:;
 
-  /* "random_.pyx":235
+  /* "random_.pyx":234
  *         _uint16(out, x, mult, left, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -6195,12 +6195,12 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT16, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT16, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -6215,19 +6215,19 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 235, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 234, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT16, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 235, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT16, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -6242,10 +6242,10 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 235, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 234, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 235, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 234, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   }
@@ -6253,7 +6253,7 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":216
+  /* "random_.pyx":215
  * 
  * ######
  * cdef ARRAY uint16_(             # <<<<<<<<<<<<<<
@@ -6280,7 +6280,7 @@ __pyx_f_7random___uint16(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
   return __pyx_r;
 }
 
-/* "random_.pyx":239
+/* "random_.pyx":238
  * 
  * ######
  * cdef ARRAY uint32_(             # <<<<<<<<<<<<<<
@@ -6311,7 +6311,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
   __Pyx_memviewslice __pyx_t_12 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("uint32_", 0);
 
-  /* "random_.pyx":245
+  /* "random_.pyx":244
  *     cdef SIZE i
  * 
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -6325,7 +6325,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
   }
   __pyx_v_x = ((__pyx_t_7random__UINT32)__pyx_t_1);
 
-  /* "random_.pyx":246
+  /* "random_.pyx":245
  * 
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef float mult = <float> ((right-left) if left > 0 else right)/divisor             # <<<<<<<<<<<<<<
@@ -6339,7 +6339,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
   }
   __pyx_v_mult = (((float)__pyx_t_1) / __pyx_v_7random__divisor);
 
-  /* "random_.pyx":247
+  /* "random_.pyx":246
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef float mult = <float> ((right-left) if left > 0 else right)/divisor
  *     cdef UINT32 change = <UINT32> (214013 * x + 2531011)             # <<<<<<<<<<<<<<
@@ -6348,7 +6348,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
  */
   __pyx_v_change = ((__pyx_t_7random__UINT32)((0x343FD * __pyx_v_x) + 0x269EC3));
 
-  /* "random_.pyx":249
+  /* "random_.pyx":248
  *     cdef UINT32 change = <UINT32> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -6358,23 +6358,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
   __pyx_t_2 = (__pyx_v_isTuple != 0);
   if (__pyx_t_2) {
 
-    /* "random_.pyx":250
+    /* "random_.pyx":249
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint32)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -6382,32 +6382,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
     __pyx_t_3 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 250, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT32(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 250, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT32(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 249, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out2D = __pyx_t_8;
     __pyx_t_8.memview = NULL;
     __pyx_t_8.data = NULL;
 
-    /* "random_.pyx":251
+    /* "random_.pyx":250
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -6443,7 +6443,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":252
+                  /* "random_.pyx":251
  *         out2D = np.zeros((n,p), dtype = np.uint32)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -6469,7 +6469,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_10);
 
-                                  /* "random_.pyx":253
+                                  /* "random_.pyx":252
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _uint32(out2D[i], change+<UINT32>i, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -6482,7 +6482,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint32_(int __pyx_v_left, int __p
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 253, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 252, __pyx_L13_error)
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -6619,7 +6619,7 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
           #endif
         }
 
-        /* "random_.pyx":251
+        /* "random_.pyx":250
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -6645,7 +6645,7 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
         }
     }
 
-    /* "random_.pyx":249
+    /* "random_.pyx":248
  *     cdef UINT32 change = <UINT32> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -6655,7 +6655,7 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":255
+  /* "random_.pyx":254
  *                 _uint32(out2D[i], change+<UINT32>i, mult, left, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.uint32)             # <<<<<<<<<<<<<<
@@ -6663,39 +6663,39 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 255, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT32(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 255, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT32(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 254, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_out = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":256
+    /* "random_.pyx":255
  *     else:
  *         out = np.zeros(n, dtype = np.uint32)
  *         _uint32(out, x, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -6706,7 +6706,7 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
   }
   __pyx_L3:;
 
-  /* "random_.pyx":258
+  /* "random_.pyx":257
  *         _uint32(out, x, mult, left, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -6715,12 +6715,12 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT32, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT32, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -6735,19 +6735,19 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 258, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 258, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 257, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT32, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 258, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT32, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -6762,10 +6762,10 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 258, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 257, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 258, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 257, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   }
@@ -6773,7 +6773,7 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":239
+  /* "random_.pyx":238
  * 
  * ######
  * cdef ARRAY uint32_(             # <<<<<<<<<<<<<<
@@ -6800,7 +6800,7 @@ __pyx_f_7random___uint32(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT32
   return __pyx_r;
 }
 
-/* "random_.pyx":262
+/* "random_.pyx":261
  * 
  * ######
  * cdef ARRAY uint64_(             # <<<<<<<<<<<<<<
@@ -6831,7 +6831,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
   __Pyx_memviewslice __pyx_t_12 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("uint64_", 0);
 
-  /* "random_.pyx":268
+  /* "random_.pyx":267
  *     cdef SIZE i
  * 
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -6845,7 +6845,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
   }
   __pyx_v_x = ((__pyx_t_7random__UINT64)__pyx_t_1);
 
-  /* "random_.pyx":269
+  /* "random_.pyx":268
  * 
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)
  *     cdef double mult = <double> ((right-left) if left > 0 else right)/divisor2             # <<<<<<<<<<<<<<
@@ -6859,7 +6859,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
   }
   __pyx_v_mult = (((double)__pyx_t_1) / __pyx_v_7random__divisor2);
 
-  /* "random_.pyx":270
+  /* "random_.pyx":269
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)
  *     cdef double mult = <double> ((right-left) if left > 0 else right)/divisor2
  *     cdef UINT64 change = <UINT64> (214013 * x + 2531011)             # <<<<<<<<<<<<<<
@@ -6868,7 +6868,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
  */
   __pyx_v_change = ((__pyx_t_7random__UINT64)((0x343FD * __pyx_v_x) + 0x269EC3));
 
-  /* "random_.pyx":272
+  /* "random_.pyx":271
  *     cdef UINT64 change = <UINT64> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -6878,23 +6878,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
   __pyx_t_2 = (__pyx_v_isTuple != 0);
   if (__pyx_t_2) {
 
-    /* "random_.pyx":273
+    /* "random_.pyx":272
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint64)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_zeros); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_5 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -6902,32 +6902,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
     PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_5);
     __pyx_t_3 = 0;
     __pyx_t_5 = 0;
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_6);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_6);
     __pyx_t_6 = 0;
-    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_uint64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 273, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_6, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_5, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT64(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 273, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__UINT64(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_8.memview)) __PYX_ERR(0, 272, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out2D = __pyx_t_8;
     __pyx_t_8.memview = NULL;
     __pyx_t_8.data = NULL;
 
-    /* "random_.pyx":274
+    /* "random_.pyx":273
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -6963,7 +6963,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":275
+                  /* "random_.pyx":274
  *         out2D = np.zeros((n,p), dtype = np.uint64)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -6989,7 +6989,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_10);
 
-                                  /* "random_.pyx":276
+                                  /* "random_.pyx":275
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _uint64(out2D[i], change+<UINT64>i, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -7002,7 +7002,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uint64_(int __pyx_v_left, int __p
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 276, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 275, __pyx_L13_error)
         __pyx_t_12.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -7139,7 +7139,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
           #endif
         }
 
-        /* "random_.pyx":274
+        /* "random_.pyx":273
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.uint64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -7165,7 +7165,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
         }
     }
 
-    /* "random_.pyx":272
+    /* "random_.pyx":271
  *     cdef UINT64 change = <UINT64> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -7175,7 +7175,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":278
+  /* "random_.pyx":277
  *                 _uint64(out2D[i], change+<UINT64>i, mult, left, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.uint64)             # <<<<<<<<<<<<<<
@@ -7183,39 +7183,39 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint64); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_uint64); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 278, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_3) < 0) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_5, __pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT64(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 278, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__UINT64(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 277, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_out = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":279
+    /* "random_.pyx":278
  *     else:
  *         out = np.zeros(n, dtype = np.uint64)
  *         _uint64(out, x, mult, left, div, diff)             # <<<<<<<<<<<<<<
@@ -7226,7 +7226,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
   }
   __pyx_L3:;
 
-  /* "random_.pyx":281
+  /* "random_.pyx":280
  *         _uint64(out, x, mult, left, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -7235,12 +7235,12 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT64, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT64, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -7255,19 +7255,19 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_4, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_5);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 281, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 281, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 280, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT64, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 281, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__UINT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__UINT64, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
@@ -7282,10 +7282,10 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
     __pyx_t_7 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_4, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 281, __pyx_L1_error)
+    if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 280, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 281, __pyx_L1_error)
+    if (!(likely(((__pyx_t_7) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_7, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 280, __pyx_L1_error)
     __pyx_t_3 = __pyx_t_7;
     __pyx_t_7 = 0;
   }
@@ -7293,7 +7293,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":262
+  /* "random_.pyx":261
  * 
  * ######
  * cdef ARRAY uint64_(             # <<<<<<<<<<<<<<
@@ -7320,7 +7320,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
   return __pyx_r;
 }
 
-/* "random_.pyx":285
+/* "random_.pyx":284
  * 
  * ##############
  * cdef (float, float, UINT32, UINT32) process_float(             # <<<<<<<<<<<<<<
@@ -7328,7 +7328,7 @@ __pyx_f_7random___uint64(__pyx_t_12, (__pyx_v_change + ((__pyx_t_7random__UINT64
  * 
  */
 
-static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_f_7random__process_float(float __pyx_v_left, float __pyx_v_right, int __pyx_v_seed, __pyx_t_7random__UINT32 __pyx_v_a, __pyx_t_7random__UINT32 __pyx_v_b) {
+static __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_f_7random__process_float(float __pyx_v_left, float __pyx_v_right, int __pyx_v_seed, __pyx_t_7random__UINT32 __pyx_v_a, __pyx_t_7random__UINT32 __pyx_v_b) {
   float __pyx_v_low;
   float __pyx_v_high;
   float __pyx_v_add;
@@ -7336,14 +7336,14 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   float __pyx_v_shift;
   __pyx_t_7random__UINT32 __pyx_v_x;
   __pyx_t_7random__UINT32 __pyx_v_change;
-  __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_r;
+  __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_r;
   int __pyx_t_1;
   float __pyx_t_2;
   float __pyx_t_3;
   int __pyx_t_4;
-  __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_5;
+  __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_5;
 
-  /* "random_.pyx":291
+  /* "random_.pyx":290
  *     cdef UINT32 x, change
  * 
  *     add = <float> fabs(left)             # <<<<<<<<<<<<<<
@@ -7352,7 +7352,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
  */
   __pyx_v_add = ((float)fabs(__pyx_v_left));
 
-  /* "random_.pyx":292
+  /* "random_.pyx":291
  * 
  *     add = <float> fabs(left)
  *     if left < 0:             # <<<<<<<<<<<<<<
@@ -7362,7 +7362,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   __pyx_t_1 = ((__pyx_v_left < 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":293
+    /* "random_.pyx":292
  *     add = <float> fabs(left)
  *     if left < 0:
  *         low, high = 0, right + add             # <<<<<<<<<<<<<<
@@ -7374,7 +7374,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
     __pyx_v_low = __pyx_t_2;
     __pyx_v_high = __pyx_t_3;
 
-    /* "random_.pyx":292
+    /* "random_.pyx":291
  * 
  *     add = <float> fabs(left)
  *     if left < 0:             # <<<<<<<<<<<<<<
@@ -7384,7 +7384,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":295
+  /* "random_.pyx":294
  *         low, high = 0, right + add
  *     else:
  *         low, high = left, right             # <<<<<<<<<<<<<<
@@ -7399,7 +7399,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   }
   __pyx_L3:;
 
-  /* "random_.pyx":297
+  /* "random_.pyx":296
  *         low, high = left, right
  * 
  *     mult = (high - low)/divisor             # <<<<<<<<<<<<<<
@@ -7408,7 +7408,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
  */
   __pyx_v_mult = ((__pyx_v_high - __pyx_v_low) / __pyx_v_7random__divisor);
 
-  /* "random_.pyx":298
+  /* "random_.pyx":297
  * 
  *     mult = (high - low)/divisor
  *     shift = <float>(left if left >= 0 else (low - add))             # <<<<<<<<<<<<<<
@@ -7422,7 +7422,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   }
   __pyx_v_shift = ((float)__pyx_t_2);
 
-  /* "random_.pyx":299
+  /* "random_.pyx":298
  *     mult = (high - low)/divisor
  *     shift = <float>(left if left >= 0 else (low - add))
  *     x = <UINT32> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -7436,7 +7436,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   }
   __pyx_v_x = ((__pyx_t_7random__UINT32)__pyx_t_4);
 
-  /* "random_.pyx":300
+  /* "random_.pyx":299
  *     shift = <float>(left if left >= 0 else (low - add))
  *     x = <UINT32> (rand() if seed < 0 else seed)
  *     change = <UINT32> (a * x + b)             # <<<<<<<<<<<<<<
@@ -7445,7 +7445,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
  */
   __pyx_v_change = ((__pyx_t_7random__UINT32)((__pyx_v_a * __pyx_v_x) + __pyx_v_b));
 
-  /* "random_.pyx":301
+  /* "random_.pyx":300
  *     x = <UINT32> (rand() if seed < 0 else seed)
  *     change = <UINT32> (a * x + b)
  *     return mult, shift, x, change             # <<<<<<<<<<<<<<
@@ -7459,7 +7459,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   __pyx_r = __pyx_t_5;
   goto __pyx_L0;
 
-  /* "random_.pyx":285
+  /* "random_.pyx":284
  * 
  * ##############
  * cdef (float, float, UINT32, UINT32) process_float(             # <<<<<<<<<<<<<<
@@ -7472,7 +7472,7 @@ static __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUI
   return __pyx_r;
 }
 
-/* "random_.pyx":305
+/* "random_.pyx":304
  * 
  * ######
  * cdef ARRAY int8_(             # <<<<<<<<<<<<<<
@@ -7490,7 +7490,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
   __pyx_t_7random__UINT32 __pyx_v_change;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
+  __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
   float __pyx_t_2;
   float __pyx_t_3;
   __pyx_t_7random__UINT32 __pyx_t_4;
@@ -7508,7 +7508,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
   __Pyx_memviewslice __pyx_t_16 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("int8_", 0);
 
-  /* "random_.pyx":312
+  /* "random_.pyx":311
  *     cdef float mult, shift
  *     cdef UINT32 x, change
  *     mult, shift, x, change = process_float(left, right, seed, 8121, 12345)             # <<<<<<<<<<<<<<
@@ -7525,7 +7525,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
   __pyx_v_x = __pyx_t_4;
   __pyx_v_change = __pyx_t_5;
 
-  /* "random_.pyx":314
+  /* "random_.pyx":313
  *     mult, shift, x, change = process_float(left, right, seed, 8121, 12345)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -7535,23 +7535,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
   __pyx_t_6 = (__pyx_v_isTuple != 0);
   if (__pyx_t_6) {
 
-    /* "random_.pyx":315
+    /* "random_.pyx":314
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int8)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -7559,32 +7559,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
     __pyx_t_7 = 0;
     __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int8); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int8); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 315, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT8(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 315, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT8(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 314, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_out2D = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":316
+    /* "random_.pyx":315
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int8)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -7620,7 +7620,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":317
+                  /* "random_.pyx":316
  *         out2D = np.zeros((n,p), dtype = np.int8)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -7646,7 +7646,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_14);
 
-                                  /* "random_.pyx":318
+                                  /* "random_.pyx":317
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _int8(out2D[i], change+<UINT32>i, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -7659,7 +7659,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int8_(int __pyx_v_left, int __pyx
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 318, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 317, __pyx_L13_error)
         __pyx_t_16.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -7796,7 +7796,7 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
           #endif
         }
 
-        /* "random_.pyx":316
+        /* "random_.pyx":315
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int8)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -7822,7 +7822,7 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
         }
     }
 
-    /* "random_.pyx":314
+    /* "random_.pyx":313
  *     mult, shift, x, change = process_float(left, right, seed, 8121, 12345)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -7832,7 +7832,7 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":320
+  /* "random_.pyx":319
  *                 _int8(out2D[i], change+<UINT32>i, mult, shift, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.int8)             # <<<<<<<<<<<<<<
@@ -7840,39 +7840,39 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int8); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT8(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 320, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT8(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 319, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out = __pyx_t_16;
     __pyx_t_16.memview = NULL;
     __pyx_t_16.data = NULL;
 
-    /* "random_.pyx":321
+    /* "random_.pyx":320
  *     else:
  *         out = np.zeros(n, dtype = np.int8)
  *         _int8(out, x, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -7883,7 +7883,7 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
   }
   __pyx_L3:;
 
-  /* "random_.pyx":323
+  /* "random_.pyx":322
  *         _int8(out, x, mult, shift, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -7892,12 +7892,12 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT8, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT8, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -7912,19 +7912,19 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 322, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT8, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 323, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT8, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT8, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -7939,10 +7939,10 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 322, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 323, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 322, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
@@ -7950,7 +7950,7 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":305
+  /* "random_.pyx":304
  * 
  * ######
  * cdef ARRAY int8_(             # <<<<<<<<<<<<<<
@@ -7977,7 +7977,7 @@ __pyx_f_7random___int8(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)_
   return __pyx_r;
 }
 
-/* "random_.pyx":327
+/* "random_.pyx":326
  * 
  * ######
  * cdef ARRAY int16_(             # <<<<<<<<<<<<<<
@@ -7995,7 +7995,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
   __pyx_t_7random__UINT32 __pyx_v_change;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
+  __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
   float __pyx_t_2;
   float __pyx_t_3;
   __pyx_t_7random__UINT32 __pyx_t_4;
@@ -8013,7 +8013,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
   __Pyx_memviewslice __pyx_t_16 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("int16_", 0);
 
-  /* "random_.pyx":334
+  /* "random_.pyx":333
  *     cdef float mult, shift
  *     cdef UINT32 x, change
  *     mult, shift, x, change = process_float(left, right, seed, 65793, 28411)             # <<<<<<<<<<<<<<
@@ -8030,7 +8030,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
   __pyx_v_x = __pyx_t_4;
   __pyx_v_change = __pyx_t_5;
 
-  /* "random_.pyx":336
+  /* "random_.pyx":335
  *     mult, shift, x, change = process_float(left, right, seed, 65793, 28411)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -8040,23 +8040,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
   __pyx_t_6 = (__pyx_v_isTuple != 0);
   if (__pyx_t_6) {
 
-    /* "random_.pyx":337
+    /* "random_.pyx":336
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int16)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -8064,32 +8064,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
     __pyx_t_7 = 0;
     __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int16); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int16); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 337, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT16(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 337, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT16(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 336, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_out2D = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":338
+    /* "random_.pyx":337
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int16)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -8125,7 +8125,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":339
+                  /* "random_.pyx":338
  *         out2D = np.zeros((n,p), dtype = np.int16)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -8151,7 +8151,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_14);
 
-                                  /* "random_.pyx":340
+                                  /* "random_.pyx":339
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _int16(out2D[i], change+<UINT32>i, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -8164,7 +8164,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int16_(int __pyx_v_left, int __py
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 340, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 339, __pyx_L13_error)
         __pyx_t_16.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -8301,7 +8301,7 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
           #endif
         }
 
-        /* "random_.pyx":338
+        /* "random_.pyx":337
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int16)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -8327,7 +8327,7 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
         }
     }
 
-    /* "random_.pyx":336
+    /* "random_.pyx":335
  *     mult, shift, x, change = process_float(left, right, seed, 65793, 28411)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -8337,7 +8337,7 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":342
+  /* "random_.pyx":341
  *                 _int16(out2D[i], change+<UINT32>i, mult, shift, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.int16)             # <<<<<<<<<<<<<<
@@ -8345,39 +8345,39 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int16); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int16); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 342, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT16(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 342, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT16(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 341, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out = __pyx_t_16;
     __pyx_t_16.memview = NULL;
     __pyx_t_16.data = NULL;
 
-    /* "random_.pyx":343
+    /* "random_.pyx":342
  *     else:
  *         out = np.zeros(n, dtype = np.int16)
  *         _int16(out, x, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -8388,7 +8388,7 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   }
   __pyx_L3:;
 
-  /* "random_.pyx":345
+  /* "random_.pyx":344
  *         _int16(out, x, mult, shift, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -8397,12 +8397,12 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 345, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT16, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 345, __pyx_L1_error)
+    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT16, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -8417,19 +8417,19 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 345, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 345, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 344, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 345, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT16, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 345, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT16, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT16, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -8444,10 +8444,10 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 345, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 344, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 345, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 344, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
@@ -8455,7 +8455,7 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":327
+  /* "random_.pyx":326
  * 
  * ######
  * cdef ARRAY int16_(             # <<<<<<<<<<<<<<
@@ -8482,7 +8482,7 @@ __pyx_f_7random___int16(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   return __pyx_r;
 }
 
-/* "random_.pyx":349
+/* "random_.pyx":348
  * 
  * ######
  * cdef ARRAY int32_(             # <<<<<<<<<<<<<<
@@ -8500,7 +8500,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
   __pyx_t_7random__UINT32 __pyx_v_change;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
+  __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
   float __pyx_t_2;
   float __pyx_t_3;
   __pyx_t_7random__UINT32 __pyx_t_4;
@@ -8518,7 +8518,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
   __Pyx_memviewslice __pyx_t_16 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("int32_", 0);
 
-  /* "random_.pyx":356
+  /* "random_.pyx":355
  *     cdef float mult, shift
  *     cdef UINT32 x, change
  *     mult, shift, x, change = process_float(left, right, seed, 214013, 2531011)             # <<<<<<<<<<<<<<
@@ -8535,7 +8535,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
   __pyx_v_x = __pyx_t_4;
   __pyx_v_change = __pyx_t_5;
 
-  /* "random_.pyx":358
+  /* "random_.pyx":357
  *     mult, shift, x, change = process_float(left, right, seed, 214013, 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -8545,23 +8545,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
   __pyx_t_6 = (__pyx_v_isTuple != 0);
   if (__pyx_t_6) {
 
-    /* "random_.pyx":359
+    /* "random_.pyx":358
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int32)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -8569,32 +8569,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
     __pyx_t_7 = 0;
     __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 359, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT32(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 359, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT32(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 358, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_out2D = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":360
+    /* "random_.pyx":359
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -8630,7 +8630,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":361
+                  /* "random_.pyx":360
  *         out2D = np.zeros((n,p), dtype = np.int32)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -8656,7 +8656,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_14);
 
-                                  /* "random_.pyx":362
+                                  /* "random_.pyx":361
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _int32(out2D[i], change+<UINT32>i, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -8669,7 +8669,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int32_(int __pyx_v_left, int __py
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 362, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 361, __pyx_L13_error)
         __pyx_t_16.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -8806,7 +8806,7 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
           #endif
         }
 
-        /* "random_.pyx":360
+        /* "random_.pyx":359
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -8832,7 +8832,7 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
         }
     }
 
-    /* "random_.pyx":358
+    /* "random_.pyx":357
  *     mult, shift, x, change = process_float(left, right, seed, 214013, 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -8842,7 +8842,7 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":364
+  /* "random_.pyx":363
  *                 _int32(out2D[i], change+<UINT32>i, mult, shift, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.int32)             # <<<<<<<<<<<<<<
@@ -8850,39 +8850,39 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 364, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT32(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 364, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT32(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 363, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out = __pyx_t_16;
     __pyx_t_16.memview = NULL;
     __pyx_t_16.data = NULL;
 
-    /* "random_.pyx":365
+    /* "random_.pyx":364
  *     else:
  *         out = np.zeros(n, dtype = np.int32)
  *         _int32(out, x, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -8893,7 +8893,7 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   }
   __pyx_L3:;
 
-  /* "random_.pyx":367
+  /* "random_.pyx":366
  *         _int32(out, x, mult, shift, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -8902,12 +8902,12 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 367, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 367, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT32, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 367, __pyx_L1_error)
+    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT32, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -8922,19 +8922,19 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 367, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 367, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 366, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 367, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 367, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT32, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 367, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT32, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT32, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -8949,10 +8949,10 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 367, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 366, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 367, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 366, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
@@ -8960,7 +8960,7 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":349
+  /* "random_.pyx":348
  * 
  * ######
  * cdef ARRAY int32_(             # <<<<<<<<<<<<<<
@@ -8987,7 +8987,7 @@ __pyx_f_7random___int32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT32)
   return __pyx_r;
 }
 
-/* "random_.pyx":371
+/* "random_.pyx":370
  * 
  * ######
  * cdef ARRAY float32_(             # <<<<<<<<<<<<<<
@@ -9005,7 +9005,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
   __pyx_t_7random__UINT32 __pyx_v_change;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_d371c__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
+  __pyx_ctuple_16fd1__float__and_float__and___dunderpyx_t_7random__dunderUINT32__and___dunderpyx_t_7random__dunderUINT32__etc __pyx_t_1;
   float __pyx_t_2;
   float __pyx_t_3;
   __pyx_t_7random__UINT32 __pyx_t_4;
@@ -9023,7 +9023,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
   __Pyx_memviewslice __pyx_t_16 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("float32_", 0);
 
-  /* "random_.pyx":378
+  /* "random_.pyx":377
  *     cdef float mult, shift
  *     cdef UINT32 x, change
  *     mult, shift, x, change = process_float(left, right, seed, 214013, 2531011)             # <<<<<<<<<<<<<<
@@ -9040,7 +9040,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
   __pyx_v_x = __pyx_t_4;
   __pyx_v_change = __pyx_t_5;
 
-  /* "random_.pyx":380
+  /* "random_.pyx":379
  *     mult, shift, x, change = process_float(left, right, seed, 214013, 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -9050,23 +9050,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
   __pyx_t_6 = (__pyx_v_isTuple != 0);
   if (__pyx_t_6) {
 
-    /* "random_.pyx":381
+    /* "random_.pyx":380
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float32)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -9074,32 +9074,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
     __pyx_t_7 = 0;
     __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 381, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_float(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 381, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_float(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 380, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_out2D = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":382
+    /* "random_.pyx":381
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -9135,7 +9135,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":383
+                  /* "random_.pyx":382
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -9161,7 +9161,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_14);
 
-                                  /* "random_.pyx":384
+                                  /* "random_.pyx":383
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _float32(out2D[i], change+<UINT32>i, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -9174,7 +9174,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float32_(float __pyx_v_left, floa
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 384, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 383, __pyx_L13_error)
         __pyx_t_16.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -9311,7 +9311,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
           #endif
         }
 
-        /* "random_.pyx":382
+        /* "random_.pyx":381
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -9337,7 +9337,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
         }
     }
 
-    /* "random_.pyx":380
+    /* "random_.pyx":379
  *     mult, shift, x, change = process_float(left, right, seed, 214013, 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -9347,7 +9347,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":386
+  /* "random_.pyx":385
  *                 _float32(out2D[i], change+<UINT32>i, mult, shift, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.float32)             # <<<<<<<<<<<<<<
@@ -9355,39 +9355,39 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float32); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 386, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_float(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 386, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_float(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 385, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out = __pyx_t_16;
     __pyx_t_16.memview = NULL;
     __pyx_t_16.data = NULL;
 
-    /* "random_.pyx":387
+    /* "random_.pyx":386
  *     else:
  *         out = np.zeros(n, dtype = np.float32)
  *         _float32(out, x, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -9398,7 +9398,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
   }
   __pyx_L3:;
 
-  /* "random_.pyx":389
+  /* "random_.pyx":388
  *         _float32(out, x, mult, shift, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -9407,12 +9407,12 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 389, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 389, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 389, __pyx_L1_error)
+    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -9427,19 +9427,19 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 389, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 389, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 388, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 389, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 389, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 389, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -9454,10 +9454,10 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 389, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 388, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 389, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 388, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
@@ -9465,7 +9465,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":371
+  /* "random_.pyx":370
  * 
  * ######
  * cdef ARRAY float32_(             # <<<<<<<<<<<<<<
@@ -9492,7 +9492,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
   return __pyx_r;
 }
 
-/* "random_.pyx":393
+/* "random_.pyx":392
  * 
  * ##############
  * cdef (double, double, UINT64, UINT64) process_double(double left, double right, int seed) nogil:             # <<<<<<<<<<<<<<
@@ -9500,7 +9500,7 @@ __pyx_f_7random___float32(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT3
  *     cdef UINT64 x, change
  */
 
-static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_f_7random__process_double(double __pyx_v_left, double __pyx_v_right, int __pyx_v_seed) {
+static __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_f_7random__process_double(double __pyx_v_left, double __pyx_v_right, int __pyx_v_seed) {
   double __pyx_v_low;
   double __pyx_v_high;
   double __pyx_v_add;
@@ -9508,14 +9508,14 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   double __pyx_v_shift;
   __pyx_t_7random__UINT64 __pyx_v_x;
   __pyx_t_7random__UINT64 __pyx_v_change;
-  __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_r;
+  __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_r;
   int __pyx_t_1;
   double __pyx_t_2;
   double __pyx_t_3;
   int __pyx_t_4;
-  __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_t_5;
+  __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_t_5;
 
-  /* "random_.pyx":397
+  /* "random_.pyx":396
  *     cdef UINT64 x, change
  * 
  *     add = <double> fabs(left)             # <<<<<<<<<<<<<<
@@ -9524,7 +9524,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
  */
   __pyx_v_add = ((double)fabs(__pyx_v_left));
 
-  /* "random_.pyx":398
+  /* "random_.pyx":397
  * 
  *     add = <double> fabs(left)
  *     if left < 0:             # <<<<<<<<<<<<<<
@@ -9534,7 +9534,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   __pyx_t_1 = ((__pyx_v_left < 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":399
+    /* "random_.pyx":398
  *     add = <double> fabs(left)
  *     if left < 0:
  *         low, high = 0, right + add             # <<<<<<<<<<<<<<
@@ -9546,7 +9546,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
     __pyx_v_low = __pyx_t_2;
     __pyx_v_high = __pyx_t_3;
 
-    /* "random_.pyx":398
+    /* "random_.pyx":397
  * 
  *     add = <double> fabs(left)
  *     if left < 0:             # <<<<<<<<<<<<<<
@@ -9556,7 +9556,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":401
+  /* "random_.pyx":400
  *         low, high = 0, right + add
  *     else:
  *         low, high = left, right             # <<<<<<<<<<<<<<
@@ -9571,7 +9571,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   }
   __pyx_L3:;
 
-  /* "random_.pyx":403
+  /* "random_.pyx":402
  *         low, high = left, right
  * 
  *     mult = (high - low)/divisor2             # <<<<<<<<<<<<<<
@@ -9580,7 +9580,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
  */
   __pyx_v_mult = ((__pyx_v_high - __pyx_v_low) / __pyx_v_7random__divisor2);
 
-  /* "random_.pyx":404
+  /* "random_.pyx":403
  * 
  *     mult = (high - low)/divisor2
  *     shift = <double>(left if left >= 0 else (low - add))             # <<<<<<<<<<<<<<
@@ -9594,7 +9594,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   }
   __pyx_v_shift = ((double)__pyx_t_2);
 
-  /* "random_.pyx":405
+  /* "random_.pyx":404
  *     mult = (high - low)/divisor2
  *     shift = <double>(left if left >= 0 else (low - add))
  *     x = <UINT64> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -9608,7 +9608,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   }
   __pyx_v_x = ((__pyx_t_7random__UINT64)__pyx_t_4);
 
-  /* "random_.pyx":406
+  /* "random_.pyx":405
  *     shift = <double>(left if left >= 0 else (low - add))
  *     x = <UINT64> (rand() if seed < 0 else seed)
  *     change = <UINT64> (214013 * x + 2531011)             # <<<<<<<<<<<<<<
@@ -9617,7 +9617,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
  */
   __pyx_v_change = ((__pyx_t_7random__UINT64)((0x343FD * __pyx_v_x) + 0x269EC3));
 
-  /* "random_.pyx":407
+  /* "random_.pyx":406
  *     x = <UINT64> (rand() if seed < 0 else seed)
  *     change = <UINT64> (214013 * x + 2531011)
  *     return mult, shift, x, change             # <<<<<<<<<<<<<<
@@ -9631,7 +9631,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   __pyx_r = __pyx_t_5;
   goto __pyx_L0;
 
-  /* "random_.pyx":393
+  /* "random_.pyx":392
  * 
  * ##############
  * cdef (double, double, UINT64, UINT64) process_double(double left, double right, int seed) nogil:             # <<<<<<<<<<<<<<
@@ -9644,7 +9644,7 @@ static __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunder
   return __pyx_r;
 }
 
-/* "random_.pyx":411
+/* "random_.pyx":410
  * 
  * ######
  * cdef ARRAY int64_(             # <<<<<<<<<<<<<<
@@ -9662,7 +9662,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
   __pyx_t_7random__UINT64 __pyx_v_change;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_t_1;
+  __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_t_1;
   double __pyx_t_2;
   double __pyx_t_3;
   __pyx_t_7random__UINT64 __pyx_t_4;
@@ -9680,7 +9680,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
   __Pyx_memviewslice __pyx_t_16 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("int64_", 0);
 
-  /* "random_.pyx":418
+  /* "random_.pyx":417
  *     cdef double mult, shift
  *     cdef UINT64 x, change
  *     mult, shift, x, change = process_double(left, right, seed)             # <<<<<<<<<<<<<<
@@ -9697,7 +9697,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
   __pyx_v_x = __pyx_t_4;
   __pyx_v_change = __pyx_t_5;
 
-  /* "random_.pyx":420
+  /* "random_.pyx":419
  *     mult, shift, x, change = process_double(left, right, seed)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -9707,23 +9707,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
   __pyx_t_6 = (__pyx_v_isTuple != 0);
   if (__pyx_t_6) {
 
-    /* "random_.pyx":421
+    /* "random_.pyx":420
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int64)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -9731,32 +9731,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
     __pyx_t_7 = 0;
     __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int64); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int64); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 421, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT64(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 421, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_nn___pyx_t_7random__INT64(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 420, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_out2D = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":422
+    /* "random_.pyx":421
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -9792,7 +9792,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":423
+                  /* "random_.pyx":422
  *         out2D = np.zeros((n,p), dtype = np.int64)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -9818,7 +9818,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_14);
 
-                                  /* "random_.pyx":424
+                                  /* "random_.pyx":423
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _int64(out2D[i], change+<UINT64>i, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -9831,7 +9831,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__int64_(int __pyx_v_left, int __py
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 424, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 423, __pyx_L13_error)
         __pyx_t_16.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -9968,7 +9968,7 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
           #endif
         }
 
-        /* "random_.pyx":422
+        /* "random_.pyx":421
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.int64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -9994,7 +9994,7 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
         }
     }
 
-    /* "random_.pyx":420
+    /* "random_.pyx":419
  *     mult, shift, x, change = process_double(left, right, seed)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -10004,7 +10004,7 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":426
+  /* "random_.pyx":425
  *                 _int64(out2D[i], change+<UINT64>i, mult, shift, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.int64)             # <<<<<<<<<<<<<<
@@ -10012,39 +10012,39 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 426, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT64(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 426, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_nn___pyx_t_7random__INT64(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 425, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out = __pyx_t_16;
     __pyx_t_16.memview = NULL;
     __pyx_t_16.data = NULL;
 
-    /* "random_.pyx":427
+    /* "random_.pyx":426
  *     else:
  *         out = np.zeros(n, dtype = np.int64)
  *         _int64(out, x, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -10055,7 +10055,7 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
   }
   __pyx_L3:;
 
-  /* "random_.pyx":429
+  /* "random_.pyx":428
  *         _int64(out, x, mult, shift, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -10064,12 +10064,12 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 429, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 429, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT64, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 429, __pyx_L1_error)
+    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT64, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -10084,19 +10084,19 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 429, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 429, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 428, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 429, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 429, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT64, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 429, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_7random__INT64, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_7random__INT64, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -10111,10 +10111,10 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 429, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 428, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 429, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 428, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
@@ -10122,7 +10122,7 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":411
+  /* "random_.pyx":410
  * 
  * ######
  * cdef ARRAY int64_(             # <<<<<<<<<<<<<<
@@ -10149,7 +10149,7 @@ __pyx_f_7random___int64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT64)
   return __pyx_r;
 }
 
-/* "random_.pyx":433
+/* "random_.pyx":432
  * 
  * ######
  * cdef ARRAY float64_(             # <<<<<<<<<<<<<<
@@ -10167,7 +10167,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
   __pyx_t_7random__UINT64 __pyx_v_change;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_6bae6__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_t_1;
+  __pyx_ctuple_4fa33__double__and_double__and___dunderpyx_t_7random__dunderUINT64__and___dunderpyx_t_7random__dunderUINT64__etc __pyx_t_1;
   double __pyx_t_2;
   double __pyx_t_3;
   __pyx_t_7random__UINT64 __pyx_t_4;
@@ -10185,7 +10185,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
   __Pyx_memviewslice __pyx_t_16 = { 0, 0, { 0 }, { 0 }, { 0 } };
   __Pyx_RefNannySetupContext("float64_", 0);
 
-  /* "random_.pyx":440
+  /* "random_.pyx":439
  *     cdef double mult, shift
  *     cdef UINT64 x, change
  *     mult, shift, x, change = process_double(left, right, seed)             # <<<<<<<<<<<<<<
@@ -10202,7 +10202,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
   __pyx_v_x = __pyx_t_4;
   __pyx_v_change = __pyx_t_5;
 
-  /* "random_.pyx":442
+  /* "random_.pyx":441
  *     mult, shift, x, change = process_double(left, right, seed)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -10212,23 +10212,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
   __pyx_t_6 = (__pyx_v_isTuple != 0);
   if (__pyx_t_6) {
 
-    /* "random_.pyx":443
+    /* "random_.pyx":442
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float64)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             for i in prange(n):
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_zeros); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_9 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7);
@@ -10236,32 +10236,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
     PyTuple_SET_ITEM(__pyx_t_10, 1, __pyx_t_9);
     __pyx_t_7 = 0;
     __pyx_t_9 = 0;
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_10);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_10);
     __pyx_t_10 = 0;
-    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float64); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_float64); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 443, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_10, __pyx_n_s_dtype, __pyx_t_11) < 0) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_8, __pyx_t_9, __pyx_t_10); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 443, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_11, PyBUF_WRITABLE); if (unlikely(!__pyx_t_12.memview)) __PYX_ERR(0, 442, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_v_out2D = __pyx_t_12;
     __pyx_t_12.memview = NULL;
     __pyx_t_12.data = NULL;
 
-    /* "random_.pyx":444
+    /* "random_.pyx":443
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -10297,7 +10297,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
                   Py_BEGIN_ALLOW_THREADS
                   #endif /* _OPENMP */
 
-                  /* "random_.pyx":445
+                  /* "random_.pyx":444
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():
  *             for i in prange(n):             # <<<<<<<<<<<<<<
@@ -10323,7 +10323,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
                               {
                                   __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_14);
 
-                                  /* "random_.pyx":446
+                                  /* "random_.pyx":445
  *         with nogil, parallel():
  *             for i in prange(n):
  *                 _float64(out2D[i], change+<UINT64>i, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -10336,7 +10336,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__float64_(double __pyx_v_left, dou
                                   {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 446, __pyx_L13_error)
+        if ((0)) __PYX_ERR(0, 445, __pyx_L13_error)
         __pyx_t_16.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -10473,7 +10473,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
           #endif
         }
 
-        /* "random_.pyx":444
+        /* "random_.pyx":443
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -10499,7 +10499,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
         }
     }
 
-    /* "random_.pyx":442
+    /* "random_.pyx":441
  *     mult, shift, x, change = process_double(left, right, seed)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -10509,7 +10509,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":448
+  /* "random_.pyx":447
  *                 _float64(out2D[i], change+<UINT64>i, mult, shift, div, diff)
  *     else:
  *         out = np.zeros(n, dtype = np.float64)             # <<<<<<<<<<<<<<
@@ -10517,39 +10517,39 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
  * 
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_GIVEREF(__pyx_t_11);
     PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_11);
     __pyx_t_11 = 0;
-    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_11 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_float64); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 448, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_11, __pyx_n_s_dtype, __pyx_t_7) < 0) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_9, __pyx_t_11); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_double(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 448, __pyx_L1_error)
+    __pyx_t_16 = __Pyx_PyObject_to_MemoryviewSlice_dc_double(__pyx_t_7, PyBUF_WRITABLE); if (unlikely(!__pyx_t_16.memview)) __PYX_ERR(0, 447, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __pyx_v_out = __pyx_t_16;
     __pyx_t_16.memview = NULL;
     __pyx_t_16.data = NULL;
 
-    /* "random_.pyx":449
+    /* "random_.pyx":448
  *     else:
  *         out = np.zeros(n, dtype = np.float64)
  *         _float64(out, x, mult, shift, div, diff)             # <<<<<<<<<<<<<<
@@ -10560,7 +10560,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
   }
   __pyx_L3:;
 
-  /* "random_.pyx":451
+  /* "random_.pyx":450
  *         _float64(out, x, mult, shift, div, diff)
  * 
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -10569,12 +10569,12 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_9, __pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __pyx_t_9 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -10589,19 +10589,19 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_8, __pyx_t_9) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 451, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 451, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 450, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 451, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_9))) {
@@ -10616,10 +10616,10 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
     __pyx_t_11 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_8, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 451, __pyx_L1_error)
+    if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 450, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 451, __pyx_L1_error)
+    if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 450, __pyx_L1_error)
     __pyx_t_7 = __pyx_t_11;
     __pyx_t_11 = 0;
   }
@@ -10627,7 +10627,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":433
+  /* "random_.pyx":432
  * 
  * ######
  * cdef ARRAY float64_(             # <<<<<<<<<<<<<<
@@ -10654,7 +10654,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
   return __pyx_r;
 }
 
-/* "random_.pyx":455
+/* "random_.pyx":454
  * 
  * #######
  * cdef (SIZE,SIZE,SIZE,SIZE,bool,char) args_process(dtype, size, int factor):             # <<<<<<<<<<<<<<
@@ -10662,7 +10662,7 @@ __pyx_f_7random___float64(__pyx_t_16, (__pyx_v_change + ((__pyx_t_7random__UINT6
  *     cdef SIZE div, n, p
  */
 
-static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_f_7random__args_process(PyObject *__pyx_v_dtype, PyObject *__pyx_v_size, int __pyx_v_factor) {
+static __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_f_7random__args_process(PyObject *__pyx_v_dtype, PyObject *__pyx_v_size, int __pyx_v_factor) {
   char __pyx_v_dt;
   __pyx_t_7random__SIZE __pyx_v_div;
   __pyx_t_7random__SIZE __pyx_v_n;
@@ -10670,7 +10670,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   __pyx_t_7random__SIZE __pyx_v_diff;
   PyTypeObject *__pyx_v_S = 0;
   __pyx_t_7random__bool __pyx_v_isTuple;
-  __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_r;
+  __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -10682,26 +10682,26 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   __pyx_t_7random__SIZE __pyx_t_8;
   __pyx_t_7random__SIZE __pyx_t_9;
   int __pyx_t_10;
-  __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_t_11;
+  __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_t_11;
   __Pyx_RefNannySetupContext("args_process", 0);
 
-  /* "random_.pyx":456
+  /* "random_.pyx":455
  * #######
  * cdef (SIZE,SIZE,SIZE,SIZE,bool,char) args_process(dtype, size, int factor):
  *     cdef char dt = ord(np.dtype(dtype).char)             # <<<<<<<<<<<<<<
  *     cdef SIZE div, n, p
  *     cdef SIZE diff
  */
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_v_dtype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 456, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_v_dtype); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_char); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 456, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_char); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 455, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Ord(__pyx_t_2); if (unlikely(__pyx_t_3 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 456, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Ord(__pyx_t_2); if (unlikely(__pyx_t_3 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 455, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_dt = __pyx_t_3;
 
-  /* "random_.pyx":460
+  /* "random_.pyx":459
  *     cdef SIZE diff
  * 
  *     cdef type S = type(size)             # <<<<<<<<<<<<<<
@@ -10711,7 +10711,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_size)));
   __pyx_v_S = ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_size)));
 
-  /* "random_.pyx":461
+  /* "random_.pyx":460
  * 
  *     cdef type S = type(size)
  *     cdef bool isTuple = S is tuple or S is list or S is np.ndarray             # <<<<<<<<<<<<<<
@@ -10735,7 +10735,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   __pyx_L3_bool_binop_done:;
   __pyx_v_isTuple = __pyx_t_4;
 
-  /* "random_.pyx":463
+  /* "random_.pyx":462
  *     cdef bool isTuple = S is tuple or S is list or S is np.ndarray
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -10745,18 +10745,18 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   __pyx_t_5 = (__pyx_v_isTuple != 0);
   if (__pyx_t_5) {
 
-    /* "random_.pyx":464
+    /* "random_.pyx":463
  * 
  *     if isTuple:
  *         if len(size) == 1:             # <<<<<<<<<<<<<<
  *             n, p = 0, 0
  *         else:
  */
-    __pyx_t_6 = PyObject_Length(__pyx_v_size); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 464, __pyx_L1_error)
+    __pyx_t_6 = PyObject_Length(__pyx_v_size); if (unlikely(__pyx_t_6 == ((Py_ssize_t)-1))) __PYX_ERR(0, 463, __pyx_L1_error)
     __pyx_t_5 = ((__pyx_t_6 == 1) != 0);
     if (__pyx_t_5) {
 
-      /* "random_.pyx":465
+      /* "random_.pyx":464
  *     if isTuple:
  *         if len(size) == 1:
  *             n, p = 0, 0             # <<<<<<<<<<<<<<
@@ -10768,7 +10768,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
       __pyx_v_n = __pyx_t_7;
       __pyx_v_p = __pyx_t_8;
 
-      /* "random_.pyx":464
+      /* "random_.pyx":463
  * 
  *     if isTuple:
  *         if len(size) == 1:             # <<<<<<<<<<<<<<
@@ -10778,7 +10778,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
       goto __pyx_L7;
     }
 
-    /* "random_.pyx":467
+    /* "random_.pyx":466
  *             n, p = 0, 0
  *         else:
  *             n, p = <SIZE> size[0], <SIZE> size[1]             # <<<<<<<<<<<<<<
@@ -10786,14 +10786,14 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
  *         div, diff = p // factor, p % factor
  */
     /*else*/ {
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_size, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 467, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_size, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_8 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 467, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_8 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_7 = ((__pyx_t_7random__SIZE)__pyx_t_8);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_size, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 467, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_v_size, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_8 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_8 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 467, __pyx_L1_error)
+      __pyx_t_8 = __Pyx_PyIndex_AsSsize_t(__pyx_t_2); if (unlikely((__pyx_t_8 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __pyx_t_9 = ((__pyx_t_7random__SIZE)__pyx_t_8);
       __pyx_v_n = __pyx_t_7;
@@ -10801,7 +10801,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
     }
     __pyx_L7:;
 
-    /* "random_.pyx":468
+    /* "random_.pyx":467
  *         else:
  *             n, p = <SIZE> size[0], <SIZE> size[1]
  *         if n <= 0 or p <= 0: raise AssertionError("Size must be > 0")             # <<<<<<<<<<<<<<
@@ -10818,14 +10818,14 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
     __pyx_t_5 = __pyx_t_10;
     __pyx_L9_bool_binop_done:;
     if (unlikely(__pyx_t_5)) {
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_AssertionError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 468, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_AssertionError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 467, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 468, __pyx_L1_error)
+      __PYX_ERR(0, 467, __pyx_L1_error)
     }
 
-    /* "random_.pyx":469
+    /* "random_.pyx":468
  *             n, p = <SIZE> size[0], <SIZE> size[1]
  *         if n <= 0 or p <= 0: raise AssertionError("Size must be > 0")
  *         div, diff = p // factor, p % factor             # <<<<<<<<<<<<<<
@@ -10837,7 +10837,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
     __pyx_v_div = __pyx_t_9;
     __pyx_v_diff = __pyx_t_7;
 
-    /* "random_.pyx":463
+    /* "random_.pyx":462
  *     cdef bool isTuple = S is tuple or S is list or S is np.ndarray
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -10847,7 +10847,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
     goto __pyx_L6;
   }
 
-  /* "random_.pyx":471
+  /* "random_.pyx":470
  *         div, diff = p // factor, p % factor
  *     else:
  *         n, p = <SIZE>size, 0             # <<<<<<<<<<<<<<
@@ -10855,13 +10855,13 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
  *         div, diff = n // factor, n % factor
  */
   /*else*/ {
-    __pyx_t_7 = __Pyx_PyIndex_AsSsize_t(__pyx_v_size); if (unlikely((__pyx_t_7 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 471, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyIndex_AsSsize_t(__pyx_v_size); if (unlikely((__pyx_t_7 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 470, __pyx_L1_error)
     __pyx_t_9 = ((__pyx_t_7random__SIZE)__pyx_t_7);
     __pyx_t_7 = 0;
     __pyx_v_n = __pyx_t_9;
     __pyx_v_p = __pyx_t_7;
 
-    /* "random_.pyx":472
+    /* "random_.pyx":471
  *     else:
  *         n, p = <SIZE>size, 0
  *         if n <= 0: raise AssertionError("Size must be > 0")             # <<<<<<<<<<<<<<
@@ -10870,14 +10870,14 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
  */
     __pyx_t_5 = ((__pyx_v_n <= 0) != 0);
     if (unlikely(__pyx_t_5)) {
-      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_AssertionError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 472, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_AssertionError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 471, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_Raise(__pyx_t_2, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __PYX_ERR(0, 472, __pyx_L1_error)
+      __PYX_ERR(0, 471, __pyx_L1_error)
     }
 
-    /* "random_.pyx":473
+    /* "random_.pyx":472
  *         n, p = <SIZE>size, 0
  *         if n <= 0: raise AssertionError("Size must be > 0")
  *         div, diff = n // factor, n % factor             # <<<<<<<<<<<<<<
@@ -10891,7 +10891,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   }
   __pyx_L6:;
 
-  /* "random_.pyx":474
+  /* "random_.pyx":473
  *         if n <= 0: raise AssertionError("Size must be > 0")
  *         div, diff = n // factor, n % factor
  *     return div, n, p, diff, isTuple, dt             # <<<<<<<<<<<<<<
@@ -10907,7 +10907,7 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   __pyx_r = __pyx_t_11;
   goto __pyx_L0;
 
-  /* "random_.pyx":455
+  /* "random_.pyx":454
  * 
  * #######
  * cdef (SIZE,SIZE,SIZE,SIZE,bool,char) args_process(dtype, size, int factor):             # <<<<<<<<<<<<<<
@@ -10927,12 +10927,12 @@ static __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_
   return __pyx_r;
 }
 
-/* "random_.pyx":478
+/* "random_.pyx":477
  * 
  * ######
  * cpdef ARRAY uniform(             # <<<<<<<<<<<<<<
  *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
- * 
+ *     """
  */
 
 static PyObject *__pyx_pw_7random__1uniform(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
@@ -10955,7 +10955,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
-  __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_t_3;
+  __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_t_3;
   __pyx_t_7random__SIZE __pyx_t_4;
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
@@ -10984,8 +10984,8 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
   }
 
-  /* "random_.pyx":481
- *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
+  /* "random_.pyx":487
+ *     """
  * 
  *     if left >= right: raise AssertionError("Right must be > left")             # <<<<<<<<<<<<<<
  * 
@@ -10993,14 +10993,14 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   __pyx_t_1 = ((__pyx_v_left >= __pyx_v_right) != 0);
   if (unlikely(__pyx_t_1)) {
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_AssertionError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 481, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_AssertionError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_Raise(__pyx_t_2, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __PYX_ERR(0, 481, __pyx_L1_error)
+    __PYX_ERR(0, 487, __pyx_L1_error)
   }
 
-  /* "random_.pyx":486
+  /* "random_.pyx":492
  *     cdef SIZE div, n, p, diff
  *     cdef bool isTuple
  *     div, n, p, diff, isTuple, dt = args_process(dtype, size, 4)             # <<<<<<<<<<<<<<
@@ -11021,7 +11021,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_v_isTuple = __pyx_t_8;
   __pyx_v_dt = __pyx_t_9;
 
-  /* "random_.pyx":489
+  /* "random_.pyx":495
  * 
  *     cdef int l, r
  *     l, r = <int> fabs(left), <int> fabs(right)             # <<<<<<<<<<<<<<
@@ -11033,7 +11033,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_v_l = __pyx_t_10;
   __pyx_v_r = __pyx_t_11;
 
-  /* "random_.pyx":490
+  /* "random_.pyx":496
  *     cdef int l, r
  *     l, r = <int> fabs(left), <int> fabs(right)
  *     cdef int _max = l if l > r else r             # <<<<<<<<<<<<<<
@@ -11047,7 +11047,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   }
   __pyx_v__max = __pyx_t_11;
 
-  /* "random_.pyx":491
+  /* "random_.pyx":497
  *     l, r = <int> fabs(left), <int> fabs(right)
  *     cdef int _max = l if l > r else r
  *     l, r = <int> left, <int> right             # <<<<<<<<<<<<<<
@@ -11059,7 +11059,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_v_l = __pyx_t_11;
   __pyx_v_r = __pyx_t_10;
 
-  /* "random_.pyx":493
+  /* "random_.pyx":499
  *     l, r = <int> left, <int> right
  * 
  *     if dt == boolean:             # <<<<<<<<<<<<<<
@@ -11069,7 +11069,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_t_1 = ((__pyx_v_dt == __pyx_v_7random__boolean) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":494
+    /* "random_.pyx":500
  * 
  *     if dt == boolean:
  *         return bool_(n, p, seed, isTuple)             # <<<<<<<<<<<<<<
@@ -11077,13 +11077,13 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  *     ###
  */
     __Pyx_XDECREF(((PyObject *)__pyx_r));
-    __pyx_t_2 = ((PyObject *)__pyx_f_7random__bool_(__pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 494, __pyx_L1_error)
+    __pyx_t_2 = ((PyObject *)__pyx_f_7random__bool_(__pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 500, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "random_.pyx":493
+    /* "random_.pyx":499
  *     l, r = <int> left, <int> right
  * 
  *     if dt == boolean:             # <<<<<<<<<<<<<<
@@ -11092,7 +11092,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":497
+  /* "random_.pyx":503
  * 
  *     ###
  *     if dt == uint8:             # <<<<<<<<<<<<<<
@@ -11102,7 +11102,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_t_1 = ((__pyx_v_dt == __pyx_v_7random__uint8) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":498
+    /* "random_.pyx":504
  *     ###
  *     if dt == uint8:
  *         if left < 0: l = 0             # <<<<<<<<<<<<<<
@@ -11114,7 +11114,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       __pyx_v_l = 0;
     }
 
-    /* "random_.pyx":499
+    /* "random_.pyx":505
  *     if dt == uint8:
  *         if left < 0: l = 0
  *         if right > uint8_max: dt = uint16             # <<<<<<<<<<<<<<
@@ -11127,7 +11127,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L7;
     }
 
-    /* "random_.pyx":500
+    /* "random_.pyx":506
  *         if left < 0: l = 0
  *         if right > uint8_max: dt = uint16
  *         else: return uint8_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11136,7 +11136,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint8_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 500, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint8_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 506, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11144,7 +11144,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L7:;
 
-    /* "random_.pyx":497
+    /* "random_.pyx":503
  * 
  *     ###
  *     if dt == uint8:             # <<<<<<<<<<<<<<
@@ -11153,7 +11153,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":502
+  /* "random_.pyx":508
  *         else: return uint8_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == uint16:             # <<<<<<<<<<<<<<
@@ -11163,7 +11163,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_t_1 = ((__pyx_v_dt == __pyx_v_7random__uint16) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":503
+    /* "random_.pyx":509
  * 
  *     if dt == uint16:
  *         if left < 0: l = 0             # <<<<<<<<<<<<<<
@@ -11175,7 +11175,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       __pyx_v_l = 0;
     }
 
-    /* "random_.pyx":504
+    /* "random_.pyx":510
  *     if dt == uint16:
  *         if left < 0: l = 0
  *         if right > uint16_max: dt = uint32             # <<<<<<<<<<<<<<
@@ -11188,7 +11188,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L10;
     }
 
-    /* "random_.pyx":505
+    /* "random_.pyx":511
  *         if left < 0: l = 0
  *         if right > uint16_max: dt = uint32
  *         else: return uint16_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11197,7 +11197,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint16_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 505, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint16_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 511, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11205,7 +11205,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L10:;
 
-    /* "random_.pyx":502
+    /* "random_.pyx":508
  *         else: return uint8_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == uint16:             # <<<<<<<<<<<<<<
@@ -11214,7 +11214,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":507
+  /* "random_.pyx":513
  *         else: return uint16_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == uint32 or dt == cuint:             # <<<<<<<<<<<<<<
@@ -11232,7 +11232,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_L12_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "random_.pyx":508
+    /* "random_.pyx":514
  * 
  *     if dt == uint32 or dt == cuint:
  *         if left < 0: l = 0             # <<<<<<<<<<<<<<
@@ -11244,7 +11244,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       __pyx_v_l = 0;
     }
 
-    /* "random_.pyx":509
+    /* "random_.pyx":515
  *     if dt == uint32 or dt == cuint:
  *         if left < 0: l = 0
  *         if right > uint32_max: dt = uint64             # <<<<<<<<<<<<<<
@@ -11257,7 +11257,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L15;
     }
 
-    /* "random_.pyx":510
+    /* "random_.pyx":516
  *         if left < 0: l = 0
  *         if right > uint32_max: dt = uint64
  *         else: return uint32_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11266,7 +11266,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint32_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 510, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint32_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 516, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11274,7 +11274,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L15:;
 
-    /* "random_.pyx":507
+    /* "random_.pyx":513
  *         else: return uint16_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == uint32 or dt == cuint:             # <<<<<<<<<<<<<<
@@ -11283,7 +11283,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":512
+  /* "random_.pyx":518
  *         else: return uint32_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == uint64 or dt == upointer:             # <<<<<<<<<<<<<<
@@ -11301,7 +11301,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_L17_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "random_.pyx":513
+    /* "random_.pyx":519
  * 
  *     if dt == uint64 or dt == upointer:
  *         if left < 0: l = 0             # <<<<<<<<<<<<<<
@@ -11314,7 +11314,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L19;
     }
 
-    /* "random_.pyx":514
+    /* "random_.pyx":520
  *     if dt == uint64 or dt == upointer:
  *         if left < 0: l = 0
  *         else: return uint64_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11323,7 +11323,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint64_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 514, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__uint64_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 520, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11331,7 +11331,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L19:;
 
-    /* "random_.pyx":512
+    /* "random_.pyx":518
  *         else: return uint32_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == uint64 or dt == upointer:             # <<<<<<<<<<<<<<
@@ -11340,7 +11340,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":517
+  /* "random_.pyx":523
  * 
  *     ###
  *     if dt == int8:             # <<<<<<<<<<<<<<
@@ -11350,7 +11350,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_t_1 = ((__pyx_v_dt == __pyx_v_7random__int8) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":518
+    /* "random_.pyx":524
  *     ###
  *     if dt == int8:
  *         if right > int8_max: dt = int16             # <<<<<<<<<<<<<<
@@ -11363,7 +11363,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L21;
     }
 
-    /* "random_.pyx":519
+    /* "random_.pyx":525
  *     if dt == int8:
  *         if right > int8_max: dt = int16
  *         else: return int8_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11372,7 +11372,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__int8_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 519, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__int8_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11380,7 +11380,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L21:;
 
-    /* "random_.pyx":517
+    /* "random_.pyx":523
  * 
  *     ###
  *     if dt == int8:             # <<<<<<<<<<<<<<
@@ -11389,7 +11389,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":521
+  /* "random_.pyx":527
  *         else: return int8_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == int16:             # <<<<<<<<<<<<<<
@@ -11399,7 +11399,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_t_1 = ((__pyx_v_dt == __pyx_v_7random__int16) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":522
+    /* "random_.pyx":528
  * 
  *     if dt == int16:
  *         if right > int16_max: dt = int32             # <<<<<<<<<<<<<<
@@ -11412,7 +11412,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L23;
     }
 
-    /* "random_.pyx":523
+    /* "random_.pyx":529
  *     if dt == int16:
  *         if right > int16_max: dt = int32
  *         else: return int16_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11421,7 +11421,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__int16_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 523, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__int16_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 529, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11429,7 +11429,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L23:;
 
-    /* "random_.pyx":521
+    /* "random_.pyx":527
  *         else: return int8_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == int16:             # <<<<<<<<<<<<<<
@@ -11438,7 +11438,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":525
+  /* "random_.pyx":531
  *         else: return int16_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == int32 or dt == cint:             # <<<<<<<<<<<<<<
@@ -11456,7 +11456,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_L25_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "random_.pyx":526
+    /* "random_.pyx":532
  * 
  *     if dt == int32 or dt == cint:
  *         if right > int32_max: dt = int64             # <<<<<<<<<<<<<<
@@ -11469,7 +11469,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L27;
     }
 
-    /* "random_.pyx":527
+    /* "random_.pyx":533
  *     if dt == int32 or dt == cint:
  *         if right > int32_max: dt = int64
  *         else: return int32_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11478,7 +11478,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__int32_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 527, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__int32_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11486,7 +11486,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L27:;
 
-    /* "random_.pyx":525
+    /* "random_.pyx":531
  *         else: return int16_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == int32 or dt == cint:             # <<<<<<<<<<<<<<
@@ -11495,7 +11495,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":529
+  /* "random_.pyx":535
  *         else: return int32_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == int64 or dt == pointer:             # <<<<<<<<<<<<<<
@@ -11513,7 +11513,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_L29_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "random_.pyx":530
+    /* "random_.pyx":536
  * 
  *     if dt == int64 or dt == pointer:
  *         return int64_(l, r, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11521,13 +11521,13 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  *     ###
  */
     __Pyx_XDECREF(((PyObject *)__pyx_r));
-    __pyx_t_2 = ((PyObject *)__pyx_f_7random__int64_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
+    __pyx_t_2 = ((PyObject *)__pyx_f_7random__int64_(__pyx_v_l, __pyx_v_r, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 536, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
     __pyx_t_2 = 0;
     goto __pyx_L0;
 
-    /* "random_.pyx":529
+    /* "random_.pyx":535
  *         else: return int32_(l, r, n, p, seed, div, diff, isTuple)
  * 
  *     if dt == int64 or dt == pointer:             # <<<<<<<<<<<<<<
@@ -11536,7 +11536,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":533
+  /* "random_.pyx":539
  * 
  *     ###
  *     if dt == float32:             # <<<<<<<<<<<<<<
@@ -11546,7 +11546,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
   __pyx_t_1 = ((__pyx_v_dt == __pyx_v_7random__float32) != 0);
   if (__pyx_t_1) {
 
-    /* "random_.pyx":534
+    /* "random_.pyx":540
  *     ###
  *     if dt == float32:
  *         if right > float32_max: dt = float64             # <<<<<<<<<<<<<<
@@ -11559,7 +11559,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
       goto __pyx_L32;
     }
 
-    /* "random_.pyx":535
+    /* "random_.pyx":541
  *     if dt == float32:
  *         if right > float32_max: dt = float64
  *         else: return float32_(<float>left, <float>right, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11568,7 +11568,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
     /*else*/ {
       __Pyx_XDECREF(((PyObject *)__pyx_r));
-      __pyx_t_2 = ((PyObject *)__pyx_f_7random__float32_(((float)__pyx_v_left), ((float)__pyx_v_right), __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 535, __pyx_L1_error)
+      __pyx_t_2 = ((PyObject *)__pyx_f_7random__float32_(((float)__pyx_v_left), ((float)__pyx_v_right), __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 541, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
       __pyx_t_2 = 0;
@@ -11576,7 +11576,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
     }
     __pyx_L32:;
 
-    /* "random_.pyx":533
+    /* "random_.pyx":539
  * 
  *     ###
  *     if dt == float32:             # <<<<<<<<<<<<<<
@@ -11585,7 +11585,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  */
   }
 
-  /* "random_.pyx":537
+  /* "random_.pyx":543
  *         else: return float32_(<float>left, <float>right, n, p, seed, div, diff, isTuple)
  * 
  *     return float64_(left, right, n, p, seed, div, diff, isTuple)             # <<<<<<<<<<<<<<
@@ -11593,18 +11593,18 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__uniform(CYTHON_UNUSED int __pyx_s
  * 
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  __pyx_t_2 = ((PyObject *)__pyx_f_7random__float64_(__pyx_v_left, __pyx_v_right, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 537, __pyx_L1_error)
+  __pyx_t_2 = ((PyObject *)__pyx_f_7random__float64_(__pyx_v_left, __pyx_v_right, __pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_diff, __pyx_v_isTuple)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_2);
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":478
+  /* "random_.pyx":477
  * 
  * ######
  * cpdef ARRAY uniform(             # <<<<<<<<<<<<<<
  *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
- * 
+ *     """
  */
 
   /* function exit code */
@@ -11684,7 +11684,7 @@ static PyObject *__pyx_pw_7random__1uniform(PyObject *__pyx_self, PyObject *__py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "uniform") < 0)) __PYX_ERR(0, 478, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "uniform") < 0)) __PYX_ERR(0, 477, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -11703,18 +11703,18 @@ static PyObject *__pyx_pw_7random__1uniform(PyObject *__pyx_self, PyObject *__py
       }
     }
     if (values[0]) {
-      __pyx_v_left = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_left == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 479, __pyx_L3_error)
+      __pyx_v_left = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_left == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 478, __pyx_L3_error)
     } else {
       __pyx_v_left = ((double)0.0);
     }
     if (values[1]) {
-      __pyx_v_right = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_right == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 479, __pyx_L3_error)
+      __pyx_v_right = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_right == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 478, __pyx_L3_error)
     } else {
       __pyx_v_right = ((double)10.0);
     }
     __pyx_v_size = values[2];
     if (values[3]) {
-      __pyx_v_seed = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_seed == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 479, __pyx_L3_error)
+      __pyx_v_seed = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_seed == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 478, __pyx_L3_error)
     } else {
       __pyx_v_seed = ((int)-1);
     }
@@ -11722,7 +11722,7 @@ static PyObject *__pyx_pw_7random__1uniform(PyObject *__pyx_self, PyObject *__py
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("uniform", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 478, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("uniform", 0, 0, 5, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 477, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("random_.uniform", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -11748,7 +11748,7 @@ static PyObject *__pyx_pf_7random__uniform(CYTHON_UNUSED PyObject *__pyx_self, d
   __pyx_t_2.size = __pyx_v_size;
   __pyx_t_2.seed = __pyx_v_seed;
   __pyx_t_2.dtype = __pyx_v_dtype;
-  __pyx_t_1 = ((PyObject *)__pyx_f_7random__uniform(0, &__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 478, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_7random__uniform(0, &__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 477, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -11765,12 +11765,12 @@ static PyObject *__pyx_pf_7random__uniform(CYTHON_UNUSED PyObject *__pyx_self, d
   return __pyx_r;
 }
 
-/* "random_.pyx":545
+/* "random_.pyx":551
  * 
  * 
  * cdef void Z32_slow0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     # Tried checking unif_1*unif_1 >= 0.4, but it failed / too slow.
  */
 
 static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7random__UINT32 __pyx_v_x, __pyx_t_7random__SIZE __pyx_v_div, float __pyx_v_mult1, float __pyx_v_mult2) {
@@ -11786,27 +11786,27 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
 
-  /* "random_.pyx":546
+  /* "random_.pyx":552
  * 
  * cdef void Z32_slow0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
- *     cdef float unif_1, unif_2, temp, normal = 2.0
- *     for i in range(div):
+ *     # Tried checking unif_1*unif_1 >= 0.4, but it failed / too slow.
+ *     cdef float unif_1, unif_2, normal = 2.0
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":547
- * cdef void Z32_slow0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:
+  /* "random_.pyx":554
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
+ *     # Tried checking unif_1*unif_1 >= 0.4, but it failed / too slow.
+ *     cdef float unif_1, unif_2, normal = 2.0             # <<<<<<<<<<<<<<
  *     for i in range(div):
  *         while normal >= 1.0:
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":548
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+  /* "random_.pyx":555
+ *     # Tried checking unif_1*unif_1 >= 0.4, but it failed / too slow.
+ *     cdef float unif_1, unif_2, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -11816,8 +11816,8 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":549
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+    /* "random_.pyx":556
+ *     cdef float unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -11827,7 +11827,7 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":550
+      /* "random_.pyx":557
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
@@ -11837,7 +11837,7 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":551
+      /* "random_.pyx":558
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
@@ -11847,7 +11847,7 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":552
+      /* "random_.pyx":559
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
@@ -11857,7 +11857,7 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":553
+    /* "random_.pyx":560
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal); j += 1             # <<<<<<<<<<<<<<
@@ -11868,7 +11868,7 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_v_unif_1 * __pyx_v_mult1) * sqrt(((-log(__pyx_v_normal)) / ((double)__pyx_v_normal))));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":554
+    /* "random_.pyx":561
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal); j += 1
  *         out[j] = unif_2 * mult2; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
@@ -11881,23 +11881,23 @@ static void __pyx_f_7random__Z32_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":545
+  /* "random_.pyx":551
  * 
  * 
  * cdef void Z32_slow0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     # Tried checking unif_1*unif_1 >= 0.4, but it failed / too slow.
  */
 
   /* function exit code */
 }
 
-/* "random_.pyx":557
+/* "random_.pyx":564
  * 
  * ######
  * cdef void Z32_slow1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef float unif_1, unif_2, normal = 2.0
  */
 
 static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7random__UINT32 __pyx_v_x, __pyx_t_7random__SIZE __pyx_v_div, float __pyx_v_mult1, float __pyx_v_mult2, float __pyx_v_mean) {
@@ -11913,27 +11913,27 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
 
-  /* "random_.pyx":558
+  /* "random_.pyx":565
  * ######
  * cdef void Z32_slow1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef float unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":559
+  /* "random_.pyx":566
  * cdef void Z32_slow1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
+ *     cdef float unif_1, unif_2, normal = 2.0             # <<<<<<<<<<<<<<
  *     for i in range(div):
  *         while normal >= 1.0:
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":560
+  /* "random_.pyx":567
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef float unif_1, unif_2, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -11943,8 +11943,8 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":561
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+    /* "random_.pyx":568
+ *     cdef float unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -11954,7 +11954,7 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":562
+      /* "random_.pyx":569
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
@@ -11964,7 +11964,7 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":563
+      /* "random_.pyx":570
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
@@ -11974,7 +11974,7 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":564
+      /* "random_.pyx":571
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
@@ -11984,7 +11984,7 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":565
+    /* "random_.pyx":572
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal) + mean; j += 1             # <<<<<<<<<<<<<<
@@ -11995,7 +11995,7 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = (((__pyx_v_unif_1 * __pyx_v_mult1) * sqrt(((-log(__pyx_v_normal)) / ((double)__pyx_v_normal)))) + __pyx_v_mean);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":566
+    /* "random_.pyx":573
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal) + mean; j += 1
  *         out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
@@ -12008,30 +12008,32 @@ static void __pyx_f_7random__Z32_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":557
+  /* "random_.pyx":564
  * 
  * ######
  * cdef void Z32_slow1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef float unif_1, unif_2, normal = 2.0
  */
 
   /* function exit code */
 }
 
-/* "random_.pyx":569
+/* "random_.pyx":576
  * 
  * ######
  * cdef void Z32_fast0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:             # <<<<<<<<<<<<<<
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1
  */
 
 static void __pyx_f_7random__Z32_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7random__UINT32 __pyx_v_x, __pyx_t_7random__SIZE __pyx_v_div, float __pyx_v_mult1, float __pyx_v_mult2) {
   CYTHON_UNUSED __pyx_t_7random__SIZE __pyx_v_i;
-  __pyx_t_7random__SIZE __pyx_v_j;
+  __pyx_t_7random__SIZE __pyx_v_l;
+  __pyx_t_7random__SIZE __pyx_v_r;
   float __pyx_v_unif_1;
   float __pyx_v_unif_2;
+  float __pyx_v_temp;
   float __pyx_v_normal;
   __pyx_t_7random__SIZE __pyx_t_1;
   __pyx_t_7random__SIZE __pyx_t_2;
@@ -12039,38 +12041,45 @@ static void __pyx_f_7random__Z32_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   int __pyx_t_4;
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
+  __pyx_t_7random__SIZE __pyx_t_7;
+  __pyx_t_7random__SIZE __pyx_t_8;
+  __pyx_t_7random__SIZE __pyx_t_9;
+  __pyx_t_7random__SIZE __pyx_t_10;
 
-  /* "random_.pyx":570
- * ######
+  /* "random_.pyx":578
  * cdef void Z32_fast0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:
- *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1             # <<<<<<<<<<<<<<
  *     cdef float unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):
  */
-  __pyx_v_j = 0;
+  __pyx_t_1 = 0;
+  __pyx_t_2 = ((__pyx_v_div * 6) - 1);
+  __pyx_v_l = __pyx_t_1;
+  __pyx_v_r = __pyx_t_2;
 
-  /* "random_.pyx":571
- * cdef void Z32_fast0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:
- *     cdef SIZE i, j = 0
+  /* "random_.pyx":579
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1
  *     cdef float unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
  *     for i in range(div):
  *         while normal >= 1.0:
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":572
- *     cdef SIZE i, j = 0
+  /* "random_.pyx":580
+ *     l, r = 0, div*6 - 1
  *     cdef float unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  */
-  __pyx_t_1 = __pyx_v_div;
-  __pyx_t_2 = __pyx_t_1;
-  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+  __pyx_t_2 = __pyx_v_div;
+  __pyx_t_1 = __pyx_t_2;
+  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_1; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":573
+    /* "random_.pyx":581
  *     cdef float unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
@@ -12081,7 +12090,7 @@ static void __pyx_f_7random__Z32_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":574
+      /* "random_.pyx":582
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
@@ -12091,74 +12100,114 @@ static void __pyx_f_7random__Z32_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":575
+      /* "random_.pyx":583
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
  *             normal = unif_1*unif_1 + unif_2*unif_2
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1
+ * 
  */
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":576
+      /* "random_.pyx":584
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1
- *         out[j] = unif_2 * mult2; j += 1; normal = 2.0;
+ * 
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
  */
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":577
- *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
+    /* "random_.pyx":586
  *             normal = unif_1*unif_1 + unif_2*unif_2
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1             # <<<<<<<<<<<<<<
- *         out[j] = unif_2 * mult2; j += 1; normal = 2.0;
  * 
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)             # <<<<<<<<<<<<<<
+ *         out[l] = temp;      out[r] = -temp*.9;          l += 1; r -= 1;     # reflection
+ *         temp = unif_2*mult2
  */
-    __pyx_t_5 = __pyx_v_j;
-    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_v_unif_1 * __pyx_v_mult1) * ((1.0 / (__pyx_v_normal + 0.03)) - 0.8));
-    __pyx_v_j = (__pyx_v_j + 1);
+    __pyx_v_temp = ((__pyx_v_unif_1 * __pyx_v_mult1) * ((1.0 / (__pyx_v_normal + 0.03)) - 0.8));
 
-    /* "random_.pyx":578
- *             normal = unif_1*unif_1 + unif_2*unif_2
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1
- *         out[j] = unif_2 * mult2; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
+    /* "random_.pyx":587
  * 
- * ######
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
+ *         out[l] = temp;      out[r] = -temp*.9;          l += 1; r -= 1;     # reflection             # <<<<<<<<<<<<<<
+ *         temp = unif_2*mult2
+ *         out[l] = temp;      out[r] = -temp*1.1;         l += 1; r -= 1;
  */
-    __pyx_t_6 = __pyx_v_j;
-    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_6)) )) = (__pyx_v_unif_2 * __pyx_v_mult2);
-    __pyx_v_j = (__pyx_v_j + 1);
+    __pyx_t_5 = __pyx_v_l;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = __pyx_v_temp;
+    __pyx_t_6 = __pyx_v_r;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_6)) )) = ((-__pyx_v_temp) * .9);
+    __pyx_v_l = (__pyx_v_l + 1);
+    __pyx_v_r = (__pyx_v_r - 1);
+
+    /* "random_.pyx":588
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
+ *         out[l] = temp;      out[r] = -temp*.9;          l += 1; r -= 1;     # reflection
+ *         temp = unif_2*mult2             # <<<<<<<<<<<<<<
+ *         out[l] = temp;      out[r] = -temp*1.1;         l += 1; r -= 1;
+ *         out[l] = temp*1.5+.1;  out[r] = -2*temp-.1;     l += 1; r -= 1; normal = 2.0
+ */
+    __pyx_v_temp = (__pyx_v_unif_2 * __pyx_v_mult2);
+
+    /* "random_.pyx":589
+ *         out[l] = temp;      out[r] = -temp*.9;          l += 1; r -= 1;     # reflection
+ *         temp = unif_2*mult2
+ *         out[l] = temp;      out[r] = -temp*1.1;         l += 1; r -= 1;             # <<<<<<<<<<<<<<
+ *         out[l] = temp*1.5+.1;  out[r] = -2*temp-.1;     l += 1; r -= 1; normal = 2.0
+ * 
+ */
+    __pyx_t_7 = __pyx_v_l;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_7)) )) = __pyx_v_temp;
+    __pyx_t_8 = __pyx_v_r;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_8)) )) = ((-__pyx_v_temp) * 1.1);
+    __pyx_v_l = (__pyx_v_l + 1);
+    __pyx_v_r = (__pyx_v_r - 1);
+
+    /* "random_.pyx":590
+ *         temp = unif_2*mult2
+ *         out[l] = temp;      out[r] = -temp*1.1;         l += 1; r -= 1;
+ *         out[l] = temp*1.5+.1;  out[r] = -2*temp-.1;     l += 1; r -= 1; normal = 2.0             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+    __pyx_t_9 = __pyx_v_l;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_9)) )) = ((__pyx_v_temp * 1.5) + .1);
+    __pyx_t_10 = __pyx_v_r;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_10)) )) = ((-2.0 * __pyx_v_temp) - .1);
+    __pyx_v_l = (__pyx_v_l + 1);
+    __pyx_v_r = (__pyx_v_r - 1);
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":569
+  /* "random_.pyx":576
  * 
  * ######
  * cdef void Z32_fast0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:             # <<<<<<<<<<<<<<
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1
  */
 
   /* function exit code */
 }
 
-/* "random_.pyx":581
+/* "random_.pyx":594
  * 
  * ######
  * cdef void Z32_fast1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:             # <<<<<<<<<<<<<<
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1
  */
 
 static void __pyx_f_7random__Z32_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7random__UINT32 __pyx_v_x, __pyx_t_7random__SIZE __pyx_v_div, float __pyx_v_mult1, float __pyx_v_mult2, float __pyx_v_mean) {
   CYTHON_UNUSED __pyx_t_7random__SIZE __pyx_v_i;
-  __pyx_t_7random__SIZE __pyx_v_j;
+  __pyx_t_7random__SIZE __pyx_v_l;
+  __pyx_t_7random__SIZE __pyx_v_r;
   float __pyx_v_unif_1;
   float __pyx_v_unif_2;
+  float __pyx_v_temp;
   float __pyx_v_normal;
   __pyx_t_7random__SIZE __pyx_t_1;
   __pyx_t_7random__SIZE __pyx_t_2;
@@ -12166,39 +12215,46 @@ static void __pyx_f_7random__Z32_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   int __pyx_t_4;
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
+  __pyx_t_7random__SIZE __pyx_t_7;
+  __pyx_t_7random__SIZE __pyx_t_8;
+  __pyx_t_7random__SIZE __pyx_t_9;
+  __pyx_t_7random__SIZE __pyx_t_10;
 
-  /* "random_.pyx":582
- * ######
+  /* "random_.pyx":596
  * cdef void Z32_fast1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:
- *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1             # <<<<<<<<<<<<<<
+ *     cdef float unif_1, unif_2, temp, normal = 2.
  *     for i in range(div):
  */
-  __pyx_v_j = 0;
+  __pyx_t_1 = 0;
+  __pyx_t_2 = ((__pyx_v_div * 6) - 1);
+  __pyx_v_l = __pyx_t_1;
+  __pyx_v_r = __pyx_t_2;
 
-  /* "random_.pyx":583
- * cdef void Z32_fast1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
+  /* "random_.pyx":597
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1
+ *     cdef float unif_1, unif_2, temp, normal = 2.             # <<<<<<<<<<<<<<
  *     for i in range(div):
  *         while normal >= 1.0:
  */
-  __pyx_v_normal = 2.0;
+  __pyx_v_normal = 2.;
 
-  /* "random_.pyx":584
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+  /* "random_.pyx":598
+ *     l, r = 0, div*6 - 1
+ *     cdef float unif_1, unif_2, temp, normal = 2.
  *     for i in range(div):             # <<<<<<<<<<<<<<
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  */
-  __pyx_t_1 = __pyx_v_div;
-  __pyx_t_2 = __pyx_t_1;
-  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+  __pyx_t_2 = __pyx_v_div;
+  __pyx_t_1 = __pyx_t_2;
+  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_1; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":585
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+    /* "random_.pyx":599
+ *     cdef float unif_1, unif_2, temp, normal = 2.
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -12208,7 +12264,7 @@ static void __pyx_f_7random__Z32_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":586
+      /* "random_.pyx":600
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
@@ -12218,67 +12274,105 @@ static void __pyx_f_7random__Z32_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":587
+      /* "random_.pyx":601
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1             # <<<<<<<<<<<<<<
  *             normal = unif_1*unif_1 + unif_2*unif_2
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1
+ * 
  */
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((float)__pyx_v_x) * __pyx_v_7random__Zmultf) - 1.0);
 
-      /* "random_.pyx":588
+      /* "random_.pyx":602
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1
- *         out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;
+ * 
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
  */
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":589
- *             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
+    /* "random_.pyx":604
  *             normal = unif_1*unif_1 + unif_2*unif_2
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1             # <<<<<<<<<<<<<<
- *         out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;
+ * 
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)             # <<<<<<<<<<<<<<
+ *         out[l] = temp+mean;    out[r] = mean-temp*.9+.1;        l += 1; r -= 1; # reflection
+ *         temp = unif_2*mult2
+ */
+    __pyx_v_temp = ((__pyx_v_unif_1 * __pyx_v_mult1) * ((1.0 / (__pyx_v_normal + 0.03)) - 0.8));
+
+    /* "random_.pyx":605
+ * 
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
+ *         out[l] = temp+mean;    out[r] = mean-temp*.9+.1;        l += 1; r -= 1; # reflection             # <<<<<<<<<<<<<<
+ *         temp = unif_2*mult2
+ *         out[l] = temp+mean;    out[r] = mean-temp*1.1-.1;       l += 1; r -= 1;
+ */
+    __pyx_t_5 = __pyx_v_l;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = (__pyx_v_temp + __pyx_v_mean);
+    __pyx_t_6 = __pyx_v_r;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_v_mean - (__pyx_v_temp * .9)) + .1);
+    __pyx_v_l = (__pyx_v_l + 1);
+    __pyx_v_r = (__pyx_v_r - 1);
+
+    /* "random_.pyx":606
+ *         temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
+ *         out[l] = temp+mean;    out[r] = mean-temp*.9+.1;        l += 1; r -= 1; # reflection
+ *         temp = unif_2*mult2             # <<<<<<<<<<<<<<
+ *         out[l] = temp+mean;    out[r] = mean-temp*1.1-.1;       l += 1; r -= 1;
+ *         out[l] = temp*1.5+.1+mean;   out[r] = mean-2*temp-.1;   normal = 2.; l += 1; r -= 1;
+ */
+    __pyx_v_temp = (__pyx_v_unif_2 * __pyx_v_mult2);
+
+    /* "random_.pyx":607
+ *         out[l] = temp+mean;    out[r] = mean-temp*.9+.1;        l += 1; r -= 1; # reflection
+ *         temp = unif_2*mult2
+ *         out[l] = temp+mean;    out[r] = mean-temp*1.1-.1;       l += 1; r -= 1;             # <<<<<<<<<<<<<<
+ *         out[l] = temp*1.5+.1+mean;   out[r] = mean-2*temp-.1;   normal = 2.; l += 1; r -= 1;
  * 
  */
-    __pyx_t_5 = __pyx_v_j;
-    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_5)) )) = (((__pyx_v_unif_1 * __pyx_v_mult1) * ((1.0 / (__pyx_v_normal + 0.03)) - 0.8)) + __pyx_v_mean);
-    __pyx_v_j = (__pyx_v_j + 1);
+    __pyx_t_7 = __pyx_v_l;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_7)) )) = (__pyx_v_temp + __pyx_v_mean);
+    __pyx_t_8 = __pyx_v_r;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_8)) )) = ((__pyx_v_mean - (__pyx_v_temp * 1.1)) - .1);
+    __pyx_v_l = (__pyx_v_l + 1);
+    __pyx_v_r = (__pyx_v_r - 1);
 
-    /* "random_.pyx":590
- *             normal = unif_1*unif_1 + unif_2*unif_2
- *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1
- *         out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
+    /* "random_.pyx":608
+ *         temp = unif_2*mult2
+ *         out[l] = temp+mean;    out[r] = mean-temp*1.1-.1;       l += 1; r -= 1;
+ *         out[l] = temp*1.5+.1+mean;   out[r] = mean-2*temp-.1;   normal = 2.; l += 1; r -= 1;             # <<<<<<<<<<<<<<
  * 
  * ######
  */
-    __pyx_t_6 = __pyx_v_j;
-    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_6)) )) = ((__pyx_v_unif_2 * __pyx_v_mult2) + __pyx_v_mean);
-    __pyx_v_j = (__pyx_v_j + 1);
-    __pyx_v_normal = 2.0;
+    __pyx_t_9 = __pyx_v_l;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_9)) )) = (((__pyx_v_temp * 1.5) + .1) + __pyx_v_mean);
+    __pyx_t_10 = __pyx_v_r;
+    *((float *) ( /* dim=0 */ ((char *) (((float *) __pyx_v_out.data) + __pyx_t_10)) )) = ((__pyx_v_mean - (2.0 * __pyx_v_temp)) - .1);
+    __pyx_v_normal = 2.;
+    __pyx_v_l = (__pyx_v_l + 1);
+    __pyx_v_r = (__pyx_v_r - 1);
   }
 
-  /* "random_.pyx":581
+  /* "random_.pyx":594
  * 
  * ######
  * cdef void Z32_fast1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:             # <<<<<<<<<<<<<<
- *     cdef SIZE i, j = 0
- *     cdef float unif_1, unif_2, temp, normal = 2.0
+ *     cdef SIZE i, l, r
+ *     l, r = 0, div*6 - 1
  */
 
   /* function exit code */
 }
 
-/* "random_.pyx":593
+/* "random_.pyx":611
  * 
  * ######
  * cdef void Z64_slow0(double[::1] out, UINT64 x, SIZE div, double mult1, double mult2) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  */
 
 static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7random__UINT64 __pyx_v_x, __pyx_t_7random__SIZE __pyx_v_div, double __pyx_v_mult1, double __pyx_v_mult2) {
@@ -12294,27 +12388,27 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
 
-  /* "random_.pyx":594
+  /* "random_.pyx":612
  * ######
  * cdef void Z64_slow0(double[::1] out, UINT64 x, SIZE div, double mult1, double mult2) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":595
+  /* "random_.pyx":613
  * cdef void Z64_slow0(double[::1] out, UINT64 x, SIZE div, double mult1, double mult2) nogil:
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
+ *     cdef double unif_1, unif_2, normal = 2.0             # <<<<<<<<<<<<<<
  *     for i in range(div):
  *         while normal >= 1.0:
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":596
+  /* "random_.pyx":614
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
@@ -12324,8 +12418,8 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":597
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+    /* "random_.pyx":615
+ *     cdef double unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
@@ -12335,7 +12429,7 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":598
+      /* "random_.pyx":616
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12345,7 +12439,7 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":599
+      /* "random_.pyx":617
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12355,7 +12449,7 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":600
+      /* "random_.pyx":618
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
@@ -12365,7 +12459,7 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":601
+    /* "random_.pyx":619
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal); j += 1             # <<<<<<<<<<<<<<
@@ -12376,7 +12470,7 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_v_unif_1 * __pyx_v_mult1) * sqrt(((-log(__pyx_v_normal)) / __pyx_v_normal)));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":602
+    /* "random_.pyx":620
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal); j += 1
  *         out[j] = unif_2 * mult2; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
@@ -12389,23 +12483,23 @@ static void __pyx_f_7random__Z64_slow0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":593
+  /* "random_.pyx":611
  * 
  * ######
  * cdef void Z64_slow0(double[::1] out, UINT64 x, SIZE div, double mult1, double mult2) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  */
 
   /* function exit code */
 }
 
-/* "random_.pyx":605
+/* "random_.pyx":623
  * 
  * ######
  * cdef void Z64_slow1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  */
 
 static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7random__UINT32 __pyx_v_x, __pyx_t_7random__SIZE __pyx_v_div, double __pyx_v_mult1, double __pyx_v_mult2, double __pyx_v_mean) {
@@ -12421,27 +12515,27 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
 
-  /* "random_.pyx":606
+  /* "random_.pyx":624
  * ######
  * cdef void Z64_slow1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":607
+  /* "random_.pyx":625
  * cdef void Z64_slow1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
+ *     cdef double unif_1, unif_2, normal = 2.0             # <<<<<<<<<<<<<<
  *     for i in range(div):
  *         while normal >= 1.0:
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":608
+  /* "random_.pyx":626
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
@@ -12451,8 +12545,8 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":609
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+    /* "random_.pyx":627
+ *     cdef double unif_1, unif_2, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
@@ -12462,7 +12556,7 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":610
+      /* "random_.pyx":628
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12472,7 +12566,7 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":611
+      /* "random_.pyx":629
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12482,7 +12576,7 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":612
+      /* "random_.pyx":630
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
@@ -12492,7 +12586,7 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":613
+    /* "random_.pyx":631
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal) + mean; j += 1             # <<<<<<<<<<<<<<
@@ -12503,7 +12597,7 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_5)) )) = (((__pyx_v_unif_1 * __pyx_v_mult1) * sqrt(((-log(__pyx_v_normal)) / __pyx_v_normal))) + __pyx_v_mean);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":614
+    /* "random_.pyx":632
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * sqrt(-log(normal) / normal) + mean; j += 1
  *         out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
@@ -12516,18 +12610,18 @@ static void __pyx_f_7random__Z64_slow1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":605
+  /* "random_.pyx":623
  * 
  * ######
  * cdef void Z64_slow1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:             # <<<<<<<<<<<<<<
  *     cdef SIZE i, j = 0
- *     cdef double unif_1, unif_2, temp, normal = 2.0
+ *     cdef double unif_1, unif_2, normal = 2.0
  */
 
   /* function exit code */
 }
 
-/* "random_.pyx":617
+/* "random_.pyx":635
  * 
  * ######
  * cdef void Z64_fast0(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2) nogil:             # <<<<<<<<<<<<<<
@@ -12548,7 +12642,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
 
-  /* "random_.pyx":618
+  /* "random_.pyx":636
  * ######
  * cdef void Z64_fast0(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -12557,7 +12651,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":619
+  /* "random_.pyx":637
  * cdef void Z64_fast0(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2) nogil:
  *     cdef SIZE i, j = 0
  *     cdef double unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
@@ -12566,7 +12660,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":620
+  /* "random_.pyx":638
  *     cdef SIZE i, j = 0
  *     cdef double unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -12578,7 +12672,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":621
+    /* "random_.pyx":639
  *     cdef double unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
@@ -12589,7 +12683,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":622
+      /* "random_.pyx":640
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12599,7 +12693,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":623
+      /* "random_.pyx":641
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12609,7 +12703,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":624
+      /* "random_.pyx":642
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
@@ -12619,7 +12713,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":625
+    /* "random_.pyx":643
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1             # <<<<<<<<<<<<<<
@@ -12630,7 +12724,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_5)) )) = ((__pyx_v_unif_1 * __pyx_v_mult1) * ((1.0 / (__pyx_v_normal + 0.03)) - 0.8));
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":626
+    /* "random_.pyx":644
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1
  *         out[j] = unif_2 * mult2; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
@@ -12643,7 +12737,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":617
+  /* "random_.pyx":635
  * 
  * ######
  * cdef void Z64_fast0(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2) nogil:             # <<<<<<<<<<<<<<
@@ -12654,7 +12748,7 @@ static void __pyx_f_7random__Z64_fast0(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   /* function exit code */
 }
 
-/* "random_.pyx":629
+/* "random_.pyx":647
  * 
  * ######
  * cdef void Z64_fast1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:             # <<<<<<<<<<<<<<
@@ -12675,7 +12769,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   __pyx_t_7random__SIZE __pyx_t_5;
   __pyx_t_7random__SIZE __pyx_t_6;
 
-  /* "random_.pyx":630
+  /* "random_.pyx":648
  * ######
  * cdef void Z64_fast1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:
  *     cdef SIZE i, j = 0             # <<<<<<<<<<<<<<
@@ -12684,7 +12778,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
  */
   __pyx_v_j = 0;
 
-  /* "random_.pyx":631
+  /* "random_.pyx":649
  * cdef void Z64_fast1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:
  *     cdef SIZE i, j = 0
  *     cdef double unif_1, unif_2, temp, normal = 2.0             # <<<<<<<<<<<<<<
@@ -12693,7 +12787,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
  */
   __pyx_v_normal = 2.0;
 
-  /* "random_.pyx":632
+  /* "random_.pyx":650
  *     cdef SIZE i, j = 0
  *     cdef double unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):             # <<<<<<<<<<<<<<
@@ -12705,7 +12799,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "random_.pyx":633
+    /* "random_.pyx":651
  *     cdef double unif_1, unif_2, temp, normal = 2.0
  *     for i in range(div):
  *         while normal >= 1.0:             # <<<<<<<<<<<<<<
@@ -12716,7 +12810,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_t_4 = ((__pyx_v_normal >= 1.0) != 0);
       if (!__pyx_t_4) break;
 
-      /* "random_.pyx":634
+      /* "random_.pyx":652
  *     for i in range(div):
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12726,7 +12820,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_1 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":635
+      /* "random_.pyx":653
  *         while normal >= 1.0:
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1             # <<<<<<<<<<<<<<
@@ -12736,7 +12830,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_x = (((0x343FD * __pyx_v_x) + 0x269EC3) & __pyx_v_7random__cycle);
       __pyx_v_unif_2 = ((((double)__pyx_v_x) * __pyx_v_7random__Zmultd) - 1.0);
 
-      /* "random_.pyx":636
+      /* "random_.pyx":654
  *             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2             # <<<<<<<<<<<<<<
@@ -12746,7 +12840,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
       __pyx_v_normal = ((__pyx_v_unif_1 * __pyx_v_unif_1) + (__pyx_v_unif_2 * __pyx_v_unif_2));
     }
 
-    /* "random_.pyx":637
+    /* "random_.pyx":655
  *             x = (214013 * x + 2531011) & cycle;  unif_2 = <double>x*Zmultd - 1
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1             # <<<<<<<<<<<<<<
@@ -12757,7 +12851,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     *((double *) ( /* dim=0 */ ((char *) (((double *) __pyx_v_out.data) + __pyx_t_5)) )) = (((__pyx_v_unif_1 * __pyx_v_mult1) * ((1.0 / (__pyx_v_normal + 0.03)) - 0.8)) + __pyx_v_mean);
     __pyx_v_j = (__pyx_v_j + 1);
 
-    /* "random_.pyx":638
+    /* "random_.pyx":656
  *             normal = unif_1*unif_1 + unif_2*unif_2
  *         out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1
  *         out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;             # <<<<<<<<<<<<<<
@@ -12770,7 +12864,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
     __pyx_v_normal = 2.0;
   }
 
-  /* "random_.pyx":629
+  /* "random_.pyx":647
  * 
  * ######
  * cdef void Z64_fast1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:             # <<<<<<<<<<<<<<
@@ -12781,7 +12875,7 @@ static void __pyx_f_7random__Z64_fast1(__Pyx_memviewslice __pyx_v_out, __pyx_t_7
   /* function exit code */
 }
 
-/* "random_.pyx":644
+/* "random_.pyx":662
  * cdef float sqrt2f = <float> sqrt(2.0)
  * ######
  * cdef ARRAY Z64_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,             # <<<<<<<<<<<<<<
@@ -12817,7 +12911,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
   __pyx_t_7random__SIZE __pyx_t_15;
   __Pyx_RefNannySetupContext("Z64_", 0);
 
-  /* "random_.pyx":650
+  /* "random_.pyx":668
  *     cdef double[:,::1] out2D
  *     cdef SIZE i, j
  *     cdef double mult1 = sqrt2*std             # <<<<<<<<<<<<<<
@@ -12826,7 +12920,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
  */
   __pyx_v_mult1 = (__pyx_v_7random__sqrt2 * __pyx_v_std);
 
-  /* "random_.pyx":651
+  /* "random_.pyx":669
  *     cdef SIZE i, j
  *     cdef double mult1 = sqrt2*std
  *     cdef double mult2 = <double>(2.0 if isSlow else 2.3)*std             # <<<<<<<<<<<<<<
@@ -12840,7 +12934,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
   }
   __pyx_v_mult2 = (((double)__pyx_t_1) * __pyx_v_std);
 
-  /* "random_.pyx":652
+  /* "random_.pyx":670
  *     cdef double mult1 = sqrt2*std
  *     cdef double mult2 = <double>(2.0 if isSlow else 2.3)*std
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -12854,7 +12948,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
   }
   __pyx_v_x = ((__pyx_t_7random__UINT64)__pyx_t_2);
 
-  /* "random_.pyx":653
+  /* "random_.pyx":671
  *     cdef double mult2 = <double>(2.0 if isSlow else 2.3)*std
  *     cdef UINT64 x = <UINT64> (rand() if seed < 0 else seed)
  *     cdef UINT64 change = <UINT64> (214013 * x + 2531011)             # <<<<<<<<<<<<<<
@@ -12863,7 +12957,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
  */
   __pyx_v_change = ((__pyx_t_7random__UINT64)((0x343FD * __pyx_v_x) + 0x269EC3));
 
-  /* "random_.pyx":655
+  /* "random_.pyx":673
  *     cdef UINT64 change = <UINT64> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -12873,23 +12967,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
   __pyx_t_3 = (__pyx_v_isTuple != 0);
   if (__pyx_t_3) {
 
-    /* "random_.pyx":656
+    /* "random_.pyx":674
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float64)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             if noMean:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_6 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4);
@@ -12897,32 +12991,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
     PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_6);
     __pyx_t_4 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float64); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 656, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_8, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 656, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_8, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 674, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_v_out2D = __pyx_t_9;
     __pyx_t_9.memview = NULL;
     __pyx_t_9.data = NULL;
 
-    /* "random_.pyx":657
+    /* "random_.pyx":675
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -12960,7 +13054,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
                   /* Initialize private variables to invalid values */
                   __pyx_v_j = ((__pyx_t_7random__SIZE)0xbad0bad0);
 
-                  /* "random_.pyx":658
+                  /* "random_.pyx":676
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():
  *             if noMean:             # <<<<<<<<<<<<<<
@@ -12970,7 +13064,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
                   __pyx_t_3 = (__pyx_v_noMean != 0);
                   if (__pyx_t_3) {
 
-                    /* "random_.pyx":659
+                    /* "random_.pyx":677
  *         with nogil, parallel():
  *             if noMean:
  *                 if isSlow: # slow but accurate.             # <<<<<<<<<<<<<<
@@ -12980,7 +13074,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
                     __pyx_t_3 = (__pyx_v_isSlow != 0);
                     if (__pyx_t_3) {
 
-                      /* "random_.pyx":660
+                      /* "random_.pyx":678
  *             if noMean:
  *                 if isSlow: # slow but accurate.
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
@@ -13006,7 +13100,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":661
+                                      /* "random_.pyx":679
  *                 if isSlow: # slow but accurate.
  *                     for i in prange(n):
  *                         Z64_slow0(out2D[i], change+<UINT64>i, div, mult1, mult2)             # <<<<<<<<<<<<<<
@@ -13019,7 +13113,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z64_(__pyx_t_7random__SIZE __pyx_
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 661, __pyx_L15_error)
+        if ((0)) __PYX_ERR(0, 679, __pyx_L15_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -13089,7 +13183,7 @@ __pyx_f_7random__Z64_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                           }
                       }
 
-                      /* "random_.pyx":659
+                      /* "random_.pyx":677
  *         with nogil, parallel():
  *             if noMean:
  *                 if isSlow: # slow but accurate.             # <<<<<<<<<<<<<<
@@ -13099,7 +13193,7 @@ __pyx_f_7random__Z64_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                       goto __pyx_L12;
                     }
 
-                    /* "random_.pyx":663
+                    /* "random_.pyx":681
  *                         Z64_slow0(out2D[i], change+<UINT64>i, div, mult1, mult2)
  *                 else: # fast but less accurate
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
@@ -13126,7 +13220,7 @@ __pyx_f_7random__Z64_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":664
+                                      /* "random_.pyx":682
  *                 else: # fast but less accurate
  *                     for i in prange(n):
  *                         Z64_fast0(out2D[i], change+<UINT64>i, div, mult1, mult2)             # <<<<<<<<<<<<<<
@@ -13139,7 +13233,7 @@ __pyx_f_7random__Z64_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 664, __pyx_L21_error)
+        if ((0)) __PYX_ERR(0, 682, __pyx_L21_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -13211,7 +13305,7 @@ __pyx_f_7random__Z64_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     }
                     __pyx_L12:;
 
-                    /* "random_.pyx":658
+                    /* "random_.pyx":676
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():
  *             if noMean:             # <<<<<<<<<<<<<<
@@ -13221,7 +13315,7 @@ __pyx_f_7random__Z64_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     goto __pyx_L11;
                   }
 
-                  /* "random_.pyx":666
+                  /* "random_.pyx":684
  *                         Z64_fast0(out2D[i], change+<UINT64>i, div, mult1, mult2)
  *             else:
  *                 if isSlow:             # <<<<<<<<<<<<<<
@@ -13232,7 +13326,7 @@ __pyx_f_7random__Z64_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     __pyx_t_3 = (__pyx_v_isSlow != 0);
                     if (__pyx_t_3) {
 
-                      /* "random_.pyx":667
+                      /* "random_.pyx":685
  *             else:
  *                 if isSlow:
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
@@ -13258,7 +13352,7 @@ __pyx_f_7random__Z64_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":668
+                                      /* "random_.pyx":686
  *                 if isSlow:
  *                     for i in prange(n):
  *                         Z64_slow1(out2D[i], change+<UINT64>i, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
@@ -13271,7 +13365,7 @@ __pyx_f_7random__Z64_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 668, __pyx_L28_error)
+        if ((0)) __PYX_ERR(0, 686, __pyx_L28_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -13341,7 +13435,7 @@ __pyx_f_7random__Z64_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                           }
                       }
 
-                      /* "random_.pyx":666
+                      /* "random_.pyx":684
  *                         Z64_fast0(out2D[i], change+<UINT64>i, div, mult1, mult2)
  *             else:
  *                 if isSlow:             # <<<<<<<<<<<<<<
@@ -13351,7 +13445,7 @@ __pyx_f_7random__Z64_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                       goto __pyx_L25;
                     }
 
-                    /* "random_.pyx":670
+                    /* "random_.pyx":688
  *                         Z64_slow1(out2D[i], change+<UINT64>i, div, mult1, mult2, mean)
  *                 else:
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
@@ -13378,7 +13472,7 @@ __pyx_f_7random__Z64_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":671
+                                      /* "random_.pyx":689
  *                 else:
  *                     for i in prange(n):
  *                         Z64_fast1(out2D[i], change+<UINT64>i, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
@@ -13391,7 +13485,7 @@ __pyx_f_7random__Z64_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 671, __pyx_L34_error)
+        if ((0)) __PYX_ERR(0, 689, __pyx_L34_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -13463,7 +13557,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     }
                     __pyx_L25:;
 
-                    /* "random_.pyx":672
+                    /* "random_.pyx":690
  *                     for i in prange(n):
  *                         Z64_fast1(out2D[i], change+<UINT64>i, div, mult1, mult2, mean)
  *                 if p%2 == 1:             # <<<<<<<<<<<<<<
@@ -13473,7 +13567,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     __pyx_t_3 = (((__pyx_v_p % 2) == 1) != 0);
                     if (__pyx_t_3) {
 
-                      /* "random_.pyx":673
+                      /* "random_.pyx":691
  *                         Z64_fast1(out2D[i], change+<UINT64>i, div, mult1, mult2, mean)
  *                 if p%2 == 1:
  *                     j = p - 1             # <<<<<<<<<<<<<<
@@ -13482,7 +13576,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
  */
                       __pyx_v_j = (__pyx_v_p - 1);
 
-                      /* "random_.pyx":674
+                      /* "random_.pyx":692
  *                 if p%2 == 1:
  *                     j = p - 1
  *                     for i in prange(n): out2D[i, j] = mean             # <<<<<<<<<<<<<<
@@ -13509,7 +13603,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                           }
                       }
 
-                      /* "random_.pyx":672
+                      /* "random_.pyx":690
  *                     for i in prange(n):
  *                         Z64_fast1(out2D[i], change+<UINT64>i, div, mult1, mult2, mean)
  *                 if p%2 == 1:             # <<<<<<<<<<<<<<
@@ -13587,7 +13681,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
           #endif
         }
 
-        /* "random_.pyx":657
+        /* "random_.pyx":675
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float64)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -13613,7 +13707,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
         }
     }
 
-    /* "random_.pyx":655
+    /* "random_.pyx":673
  *     cdef UINT64 change = <UINT64> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -13623,7 +13717,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":676
+  /* "random_.pyx":694
  *                     for i in prange(n): out2D[i, j] = mean
  *     else:
  *         out = np.zeros(n, dtype = np.float64)             # <<<<<<<<<<<<<<
@@ -13631,39 +13725,39 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
  *             if isSlow:      Z64_slow0(out, x, div, mult1, mult2)
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8);
     __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float64); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 676, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dc_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 676, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dc_double(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 694, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_out = __pyx_t_13;
     __pyx_t_13.memview = NULL;
     __pyx_t_13.data = NULL;
 
-    /* "random_.pyx":677
+    /* "random_.pyx":695
  *     else:
  *         out = np.zeros(n, dtype = np.float64)
  *         if noMean:             # <<<<<<<<<<<<<<
@@ -13673,7 +13767,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     __pyx_t_3 = (__pyx_v_noMean != 0);
     if (__pyx_t_3) {
 
-      /* "random_.pyx":678
+      /* "random_.pyx":696
  *         out = np.zeros(n, dtype = np.float64)
  *         if noMean:
  *             if isSlow:      Z64_slow0(out, x, div, mult1, mult2)             # <<<<<<<<<<<<<<
@@ -13686,7 +13780,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
         goto __pyx_L48;
       }
 
-      /* "random_.pyx":679
+      /* "random_.pyx":697
  *         if noMean:
  *             if isSlow:      Z64_slow0(out, x, div, mult1, mult2)
  *             else:           Z64_fast0(out, x, div, mult1, mult2)             # <<<<<<<<<<<<<<
@@ -13698,7 +13792,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
       }
       __pyx_L48:;
 
-      /* "random_.pyx":677
+      /* "random_.pyx":695
  *     else:
  *         out = np.zeros(n, dtype = np.float64)
  *         if noMean:             # <<<<<<<<<<<<<<
@@ -13708,7 +13802,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
       goto __pyx_L47;
     }
 
-    /* "random_.pyx":681
+    /* "random_.pyx":699
  *             else:           Z64_fast0(out, x, div, mult1, mult2)
  *         else:
  *             if isSlow:      Z64_slow1(out, x, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
@@ -13722,7 +13816,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
         goto __pyx_L49;
       }
 
-      /* "random_.pyx":682
+      /* "random_.pyx":700
  *         else:
  *             if isSlow:      Z64_slow1(out, x, div, mult1, mult2, mean)
  *             else:           Z64_fast1(out, x, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
@@ -13734,7 +13828,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
       }
       __pyx_L49:;
 
-      /* "random_.pyx":683
+      /* "random_.pyx":701
  *             if isSlow:      Z64_slow1(out, x, div, mult1, mult2, mean)
  *             else:           Z64_fast1(out, x, div, mult1, mult2, mean)
  *             if n%2 == 1:    out[n-1] = mean             # <<<<<<<<<<<<<<
@@ -13751,7 +13845,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
   }
   __pyx_L3:;
 
-  /* "random_.pyx":684
+  /* "random_.pyx":702
  *             else:           Z64_fast1(out, x, div, mult1, mult2, mean)
  *             if n%2 == 1:    out[n-1] = mean
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
@@ -13760,12 +13854,12 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -13780,19 +13874,19 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     __pyx_t_8 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 684, __pyx_L1_error)
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 684, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 702, __pyx_L1_error)
     __pyx_t_4 = __pyx_t_8;
     __pyx_t_8 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 684, __pyx_L1_error)
+    __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -13807,10 +13901,10 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     __pyx_t_8 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_5, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 684, __pyx_L1_error)
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 702, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 684, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 702, __pyx_L1_error)
     __pyx_t_4 = __pyx_t_8;
     __pyx_t_8 = 0;
   }
@@ -13818,7 +13912,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":644
+  /* "random_.pyx":662
  * cdef float sqrt2f = <float> sqrt(2.0)
  * ######
  * cdef ARRAY Z64_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,             # <<<<<<<<<<<<<<
@@ -13845,7 +13939,7 @@ __pyx_f_7random__Z64_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
   return __pyx_r;
 }
 
-/* "random_.pyx":687
+/* "random_.pyx":705
  * 
  * ######
  * cdef ARRAY Z32_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,             # <<<<<<<<<<<<<<
@@ -13881,7 +13975,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
   __pyx_t_7random__SIZE __pyx_t_15;
   __Pyx_RefNannySetupContext("Z32_", 0);
 
-  /* "random_.pyx":693
+  /* "random_.pyx":711
  *     cdef float[:,::1] out2D
  *     cdef SIZE i, j
  *     cdef float mult1 = sqrt2f*std             # <<<<<<<<<<<<<<
@@ -13890,7 +13984,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
  */
   __pyx_v_mult1 = (__pyx_v_7random__sqrt2f * __pyx_v_std);
 
-  /* "random_.pyx":694
+  /* "random_.pyx":712
  *     cdef SIZE i, j
  *     cdef float mult1 = sqrt2f*std
  *     cdef float mult2 = <float>(2.0 if isSlow else 2.3)*std             # <<<<<<<<<<<<<<
@@ -13904,7 +13998,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
   }
   __pyx_v_mult2 = (((float)__pyx_t_1) * __pyx_v_std);
 
-  /* "random_.pyx":695
+  /* "random_.pyx":713
  *     cdef float mult1 = sqrt2f*std
  *     cdef float mult2 = <float>(2.0 if isSlow else 2.3)*std
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)             # <<<<<<<<<<<<<<
@@ -13918,7 +14012,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
   }
   __pyx_v_x = ((__pyx_t_7random__UINT32)__pyx_t_2);
 
-  /* "random_.pyx":696
+  /* "random_.pyx":714
  *     cdef float mult2 = <float>(2.0 if isSlow else 2.3)*std
  *     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
  *     cdef UINT32 change = <UINT32> (214013 * x + 2531011)             # <<<<<<<<<<<<<<
@@ -13927,7 +14021,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
  */
   __pyx_v_change = ((__pyx_t_7random__UINT32)((0x343FD * __pyx_v_x) + 0x269EC3));
 
-  /* "random_.pyx":698
+  /* "random_.pyx":716
  *     cdef UINT32 change = <UINT32> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -13937,23 +14031,23 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
   __pyx_t_3 = (__pyx_v_isTuple != 0);
   if (__pyx_t_3) {
 
-    /* "random_.pyx":699
+    /* "random_.pyx":717
  * 
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float32)             # <<<<<<<<<<<<<<
  *         with nogil, parallel():
  *             if noMean:
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_4 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_6 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_6 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_4);
     PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4);
@@ -13961,32 +14055,32 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
     PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_6);
     __pyx_t_4 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_7);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7);
     __pyx_t_7 = 0;
-    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_float32); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 699, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_7, __pyx_n_s_dtype, __pyx_t_8) < 0) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_6, __pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_float(__pyx_t_8, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 699, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_float(__pyx_t_8, PyBUF_WRITABLE); if (unlikely(!__pyx_t_9.memview)) __PYX_ERR(0, 717, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     __pyx_v_out2D = __pyx_t_9;
     __pyx_t_9.memview = NULL;
     __pyx_t_9.data = NULL;
 
-    /* "random_.pyx":700
+    /* "random_.pyx":718
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -14024,7 +14118,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
                   /* Initialize private variables to invalid values */
                   __pyx_v_j = ((__pyx_t_7random__SIZE)0xbad0bad0);
 
-                  /* "random_.pyx":701
+                  /* "random_.pyx":719
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():
  *             if noMean:             # <<<<<<<<<<<<<<
@@ -14034,7 +14128,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
                   __pyx_t_3 = (__pyx_v_noMean != 0);
                   if (__pyx_t_3) {
 
-                    /* "random_.pyx":702
+                    /* "random_.pyx":720
  *         with nogil, parallel():
  *             if noMean:
  *                 if isSlow: # slow but accurate.             # <<<<<<<<<<<<<<
@@ -14044,7 +14138,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
                     __pyx_t_3 = (__pyx_v_isSlow != 0);
                     if (__pyx_t_3) {
 
-                      /* "random_.pyx":703
+                      /* "random_.pyx":721
  *             if noMean:
  *                 if isSlow: # slow but accurate.
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
@@ -14070,7 +14164,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":704
+                                      /* "random_.pyx":722
  *                 if isSlow: # slow but accurate.
  *                     for i in prange(n):
  *                         Z32_slow0(out2D[i], change+<UINT32>i, div, mult1, mult2)             # <<<<<<<<<<<<<<
@@ -14083,7 +14177,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__Z32_(__pyx_t_7random__SIZE __pyx_
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 704, __pyx_L15_error)
+        if ((0)) __PYX_ERR(0, 722, __pyx_L15_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -14153,7 +14247,7 @@ __pyx_f_7random__Z32_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                           }
                       }
 
-                      /* "random_.pyx":702
+                      /* "random_.pyx":720
  *         with nogil, parallel():
  *             if noMean:
  *                 if isSlow: # slow but accurate.             # <<<<<<<<<<<<<<
@@ -14163,11 +14257,11 @@ __pyx_f_7random__Z32_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                       goto __pyx_L12;
                     }
 
-                    /* "random_.pyx":706
+                    /* "random_.pyx":724
  *                         Z32_slow0(out2D[i], change+<UINT32>i, div, mult1, mult2)
  *                 else: # fast but less accurate
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
- *                         Z32_fast0(out2D[i], change+<UINT32>i, div, mult1, mult2)
+ *                         Z32_fast0(out2D[i], change+<UINT32>i, p//6, mult1, mult2)
  *             else:
  */
                     /*else*/ {
@@ -14190,10 +14284,10 @@ __pyx_f_7random__Z32_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":707
+                                      /* "random_.pyx":725
  *                 else: # fast but less accurate
  *                     for i in prange(n):
- *                         Z32_fast0(out2D[i], change+<UINT32>i, div, mult1, mult2)             # <<<<<<<<<<<<<<
+ *                         Z32_fast0(out2D[i], change+<UINT32>i, p//6, mult1, mult2)             # <<<<<<<<<<<<<<
  *             else:
  *                 if isSlow:
  */
@@ -14203,7 +14297,7 @@ __pyx_f_7random__Z32_slow0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 707, __pyx_L21_error)
+        if ((0)) __PYX_ERR(0, 725, __pyx_L21_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -14211,7 +14305,7 @@ __pyx_t_13.shape[0] = __pyx_v_out2D.shape[1];
 __pyx_t_13.strides[0] = __pyx_v_out2D.strides[1];
     __pyx_t_13.suboffsets[0] = -1;
 
-__pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT32)__pyx_v_i)), __pyx_v_div, __pyx_v_mult1, __pyx_v_mult2);
+__pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT32)__pyx_v_i)), (__pyx_v_p / 6), __pyx_v_mult1, __pyx_v_mult2);
                                       __PYX_XDEC_MEMVIEW(&__pyx_t_13, 0);
                                       __pyx_t_13.memview = NULL;
                                       __pyx_t_13.data = NULL;
@@ -14275,7 +14369,7 @@ __pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     }
                     __pyx_L12:;
 
-                    /* "random_.pyx":701
+                    /* "random_.pyx":719
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():
  *             if noMean:             # <<<<<<<<<<<<<<
@@ -14285,8 +14379,8 @@ __pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     goto __pyx_L11;
                   }
 
-                  /* "random_.pyx":709
- *                         Z32_fast0(out2D[i], change+<UINT32>i, div, mult1, mult2)
+                  /* "random_.pyx":727
+ *                         Z32_fast0(out2D[i], change+<UINT32>i, p//6, mult1, mult2)
  *             else:
  *                 if isSlow:             # <<<<<<<<<<<<<<
  *                     for i in prange(n):
@@ -14296,7 +14390,7 @@ __pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     __pyx_t_3 = (__pyx_v_isSlow != 0);
                     if (__pyx_t_3) {
 
-                      /* "random_.pyx":710
+                      /* "random_.pyx":728
  *             else:
  *                 if isSlow:
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
@@ -14322,7 +14416,7 @@ __pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":711
+                                      /* "random_.pyx":729
  *                 if isSlow:
  *                     for i in prange(n):
  *                         Z32_slow1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
@@ -14335,7 +14429,7 @@ __pyx_f_7random__Z32_fast0(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 711, __pyx_L28_error)
+        if ((0)) __PYX_ERR(0, 729, __pyx_L28_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -14405,8 +14499,8 @@ __pyx_f_7random__Z32_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                           }
                       }
 
-                      /* "random_.pyx":709
- *                         Z32_fast0(out2D[i], change+<UINT32>i, div, mult1, mult2)
+                      /* "random_.pyx":727
+ *                         Z32_fast0(out2D[i], change+<UINT32>i, p//6, mult1, mult2)
  *             else:
  *                 if isSlow:             # <<<<<<<<<<<<<<
  *                     for i in prange(n):
@@ -14415,11 +14509,11 @@ __pyx_f_7random__Z32_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                       goto __pyx_L25;
                     }
 
-                    /* "random_.pyx":713
+                    /* "random_.pyx":731
  *                         Z32_slow1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
  *                 else:
  *                     for i in prange(n):             # <<<<<<<<<<<<<<
- *                         Z32_fast1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
+ *                         Z32_fast1(out2D[i], change+<UINT32>i, p//6, mult1, mult2, mean)
  *                 if p%2 == 1:
  */
                     /*else*/ {
@@ -14442,10 +14536,10 @@ __pyx_f_7random__Z32_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                   {
                                       __pyx_v_i = (__pyx_t_7random__SIZE)(0 + 1 * __pyx_t_11);
 
-                                      /* "random_.pyx":714
+                                      /* "random_.pyx":732
  *                 else:
  *                     for i in prange(n):
- *                         Z32_fast1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
+ *                         Z32_fast1(out2D[i], change+<UINT32>i, p//6, mult1, mult2, mean)             # <<<<<<<<<<<<<<
  *                 if p%2 == 1:
  *                     j = p - 1
  */
@@ -14455,7 +14549,7 @@ __pyx_f_7random__Z32_slow1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                                       {
     Py_ssize_t __pyx_tmp_idx = __pyx_v_i;
     Py_ssize_t __pyx_tmp_stride = __pyx_v_out2D.strides[0];
-        if ((0)) __PYX_ERR(0, 714, __pyx_L34_error)
+        if ((0)) __PYX_ERR(0, 732, __pyx_L34_error)
         __pyx_t_13.data += __pyx_tmp_idx * __pyx_tmp_stride;
 }
 
@@ -14463,7 +14557,7 @@ __pyx_t_13.shape[0] = __pyx_v_out2D.shape[1];
 __pyx_t_13.strides[0] = __pyx_v_out2D.strides[1];
     __pyx_t_13.suboffsets[0] = -1;
 
-__pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT32)__pyx_v_i)), __pyx_v_div, __pyx_v_mult1, __pyx_v_mult2, __pyx_v_mean);
+__pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT32)__pyx_v_i)), (__pyx_v_p / 6), __pyx_v_mult1, __pyx_v_mult2, __pyx_v_mean);
                                       __PYX_XDEC_MEMVIEW(&__pyx_t_13, 0);
                                       __pyx_t_13.memview = NULL;
                                       __pyx_t_13.data = NULL;
@@ -14527,9 +14621,9 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     }
                     __pyx_L25:;
 
-                    /* "random_.pyx":715
+                    /* "random_.pyx":733
  *                     for i in prange(n):
- *                         Z32_fast1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
+ *                         Z32_fast1(out2D[i], change+<UINT32>i, p//6, mult1, mult2, mean)
  *                 if p%2 == 1:             # <<<<<<<<<<<<<<
  *                     j = p - 1
  *                     for i in prange(n): out2D[i, j] = mean
@@ -14537,8 +14631,8 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                     __pyx_t_3 = (((__pyx_v_p % 2) == 1) != 0);
                     if (__pyx_t_3) {
 
-                      /* "random_.pyx":716
- *                         Z32_fast1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
+                      /* "random_.pyx":734
+ *                         Z32_fast1(out2D[i], change+<UINT32>i, p//6, mult1, mult2, mean)
  *                 if p%2 == 1:
  *                     j = p - 1             # <<<<<<<<<<<<<<
  *                     for i in prange(n): out2D[i, j] = mean
@@ -14546,7 +14640,7 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
  */
                       __pyx_v_j = (__pyx_v_p - 1);
 
-                      /* "random_.pyx":717
+                      /* "random_.pyx":735
  *                 if p%2 == 1:
  *                     j = p - 1
  *                     for i in prange(n): out2D[i, j] = mean             # <<<<<<<<<<<<<<
@@ -14573,9 +14667,9 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
                           }
                       }
 
-                      /* "random_.pyx":715
+                      /* "random_.pyx":733
  *                     for i in prange(n):
- *                         Z32_fast1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
+ *                         Z32_fast1(out2D[i], change+<UINT32>i, p//6, mult1, mult2, mean)
  *                 if p%2 == 1:             # <<<<<<<<<<<<<<
  *                     j = p - 1
  *                     for i in prange(n): out2D[i, j] = mean
@@ -14651,7 +14745,7 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
           #endif
         }
 
-        /* "random_.pyx":700
+        /* "random_.pyx":718
  *     if isTuple:
  *         out2D = np.zeros((n,p), dtype = np.float32)
  *         with nogil, parallel():             # <<<<<<<<<<<<<<
@@ -14677,7 +14771,7 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
         }
     }
 
-    /* "random_.pyx":698
+    /* "random_.pyx":716
  *     cdef UINT32 change = <UINT32> (214013 * x + 2531011)
  * 
  *     if isTuple:             # <<<<<<<<<<<<<<
@@ -14687,7 +14781,7 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     goto __pyx_L3;
   }
 
-  /* "random_.pyx":719
+  /* "random_.pyx":737
  *                     for i in prange(n): out2D[i, j] = mean
  *     else:
  *         out = np.zeros(n, dtype = np.float32)             # <<<<<<<<<<<<<<
@@ -14695,53 +14789,53 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
  *             if isSlow:      Z32_slow0(out, x, div, mult1, mult2)
  */
   /*else*/ {
-    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_zeros); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_8);
     __pyx_t_8 = 0;
-    __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
-    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_float32); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 719, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_dtype, __pyx_t_4) < 0) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_6, __pyx_t_8); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dc_float(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 719, __pyx_L1_error)
+    __pyx_t_13 = __Pyx_PyObject_to_MemoryviewSlice_dc_float(__pyx_t_4, PyBUF_WRITABLE); if (unlikely(!__pyx_t_13.memview)) __PYX_ERR(0, 737, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_v_out = __pyx_t_13;
     __pyx_t_13.memview = NULL;
     __pyx_t_13.data = NULL;
 
-    /* "random_.pyx":720
+    /* "random_.pyx":738
  *     else:
  *         out = np.zeros(n, dtype = np.float32)
  *         if noMean:             # <<<<<<<<<<<<<<
  *             if isSlow:      Z32_slow0(out, x, div, mult1, mult2)
- *             else:           Z32_fast0(out, x, div, mult1, mult2)
+ *             else:           Z32_fast0(out, x, n//6, mult1, mult2)
  */
     __pyx_t_3 = (__pyx_v_noMean != 0);
     if (__pyx_t_3) {
 
-      /* "random_.pyx":721
+      /* "random_.pyx":739
  *         out = np.zeros(n, dtype = np.float32)
  *         if noMean:
  *             if isSlow:      Z32_slow0(out, x, div, mult1, mult2)             # <<<<<<<<<<<<<<
- *             else:           Z32_fast0(out, x, div, mult1, mult2)
+ *             else:           Z32_fast0(out, x, n//6, mult1, mult2)
  *         else:
  */
       __pyx_t_3 = (__pyx_v_isSlow != 0);
@@ -14750,33 +14844,33 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
         goto __pyx_L48;
       }
 
-      /* "random_.pyx":722
+      /* "random_.pyx":740
  *         if noMean:
  *             if isSlow:      Z32_slow0(out, x, div, mult1, mult2)
- *             else:           Z32_fast0(out, x, div, mult1, mult2)             # <<<<<<<<<<<<<<
+ *             else:           Z32_fast0(out, x, n//6, mult1, mult2)             # <<<<<<<<<<<<<<
  *         else:
  *             if isSlow:      Z32_slow1(out, x, div, mult1, mult2, mean)
  */
       /*else*/ {
-        __pyx_f_7random__Z32_fast0(__pyx_v_out, __pyx_v_x, __pyx_v_div, __pyx_v_mult1, __pyx_v_mult2);
+        __pyx_f_7random__Z32_fast0(__pyx_v_out, __pyx_v_x, (__pyx_v_n / 6), __pyx_v_mult1, __pyx_v_mult2);
       }
       __pyx_L48:;
 
-      /* "random_.pyx":720
+      /* "random_.pyx":738
  *     else:
  *         out = np.zeros(n, dtype = np.float32)
  *         if noMean:             # <<<<<<<<<<<<<<
  *             if isSlow:      Z32_slow0(out, x, div, mult1, mult2)
- *             else:           Z32_fast0(out, x, div, mult1, mult2)
+ *             else:           Z32_fast0(out, x, n//6, mult1, mult2)
  */
       goto __pyx_L47;
     }
 
-    /* "random_.pyx":724
- *             else:           Z32_fast0(out, x, div, mult1, mult2)
+    /* "random_.pyx":742
+ *             else:           Z32_fast0(out, x, n//6, mult1, mult2)
  *         else:
  *             if isSlow:      Z32_slow1(out, x, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
- *             else:           Z32_fast1(out, x, div, mult1, mult2, mean)
+ *             else:           Z32_fast1(out, x, n//6, mult1, mult2, mean)
  *             if n%2 == 1:    out[n-1] = mean
  */
     /*else*/ {
@@ -14786,21 +14880,21 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
         goto __pyx_L49;
       }
 
-      /* "random_.pyx":725
+      /* "random_.pyx":743
  *         else:
  *             if isSlow:      Z32_slow1(out, x, div, mult1, mult2, mean)
- *             else:           Z32_fast1(out, x, div, mult1, mult2, mean)             # <<<<<<<<<<<<<<
+ *             else:           Z32_fast1(out, x, n//6, mult1, mult2, mean)             # <<<<<<<<<<<<<<
  *             if n%2 == 1:    out[n-1] = mean
  *     return np.asarray(out2D) if isTuple else np.asarray(out)
  */
       /*else*/ {
-        __pyx_f_7random__Z32_fast1(__pyx_v_out, __pyx_v_x, __pyx_v_div, __pyx_v_mult1, __pyx_v_mult2, __pyx_v_mean);
+        __pyx_f_7random__Z32_fast1(__pyx_v_out, __pyx_v_x, (__pyx_v_n / 6), __pyx_v_mult1, __pyx_v_mult2, __pyx_v_mean);
       }
       __pyx_L49:;
 
-      /* "random_.pyx":726
+      /* "random_.pyx":744
  *             if isSlow:      Z32_slow1(out, x, div, mult1, mult2, mean)
- *             else:           Z32_fast1(out, x, div, mult1, mult2, mean)
+ *             else:           Z32_fast1(out, x, n//6, mult1, mult2, mean)
  *             if n%2 == 1:    out[n-1] = mean             # <<<<<<<<<<<<<<
  *     return np.asarray(out2D) if isTuple else np.asarray(out)
  * 
@@ -14815,8 +14909,8 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
   }
   __pyx_L3:;
 
-  /* "random_.pyx":727
- *             else:           Z32_fast1(out, x, div, mult1, mult2, mean)
+  /* "random_.pyx":745
+ *             else:           Z32_fast1(out, x, n//6, mult1, mult2, mean)
  *             if n%2 == 1:    out[n-1] = mean
  *     return np.asarray(out2D) if isTuple else np.asarray(out)             # <<<<<<<<<<<<<<
  * 
@@ -14824,12 +14918,12 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
   if ((__pyx_v_isTuple != 0)) {
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_asarray); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_6 = __pyx_memoryview_fromslice(__pyx_v_out2D, 2, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_7))) {
@@ -14844,19 +14938,19 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     __pyx_t_8 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallOneArg(__pyx_t_7, __pyx_t_6);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 727, __pyx_L1_error)
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 727, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 745, __pyx_L1_error)
     __pyx_t_4 = __pyx_t_8;
     __pyx_t_8 = 0;
   } else {
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_asarray); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 727, __pyx_L1_error)
+    __pyx_t_7 = __pyx_memoryview_fromslice(__pyx_v_out, 1, (PyObject *(*)(char *)) __pyx_memview_get_float, (int (*)(char *, PyObject *)) __pyx_memview_set_float, 0);; if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __pyx_t_5 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
@@ -14871,10 +14965,10 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
     __pyx_t_8 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_5, __pyx_t_7) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_7);
     __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 727, __pyx_L1_error)
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 727, __pyx_L1_error)
+    if (!(likely(((__pyx_t_8) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_8, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 745, __pyx_L1_error)
     __pyx_t_4 = __pyx_t_8;
     __pyx_t_8 = 0;
   }
@@ -14882,7 +14976,7 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":687
+  /* "random_.pyx":705
  * 
  * ######
  * cdef ARRAY Z32_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,             # <<<<<<<<<<<<<<
@@ -14909,12 +15003,12 @@ __pyx_f_7random__Z32_fast1(__pyx_t_13, (__pyx_v_change + ((__pyx_t_7random__UINT
   return __pyx_r;
 }
 
-/* "random_.pyx":731
+/* "random_.pyx":749
  * 
  * ######
  * cpdef ARRAY normal(double mean = 0, double std = 1, size = 10,             # <<<<<<<<<<<<<<
  *     int seed = -1, dtype = np.float32, str mode = "slow"):
- * 
+ *     """
  */
 
 static PyObject *__pyx_pw_7random__3normal(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
@@ -14935,7 +15029,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
   __pyx_t_7random__bool __pyx_v_isSlow;
   __pyx_t_7random__ARRAY __pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_a3770____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_t_1;
+  __pyx_ctuple_71c84____dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderSIZE__and___dunderpyx_t_7random__dunderbool__and_char__etc __pyx_t_1;
   __pyx_t_7random__SIZE __pyx_t_2;
   __pyx_t_7random__SIZE __pyx_t_3;
   __pyx_t_7random__SIZE __pyx_t_4;
@@ -14968,7 +15062,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
     }
   }
 
-  /* "random_.pyx":736
+  /* "random_.pyx":760
  *     cdef char dt
  *     cdef SIZE div, n, p, diff
  *     cdef bool isTuple, noMean = (mean == 0)             # <<<<<<<<<<<<<<
@@ -14977,7 +15071,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
  */
   __pyx_v_noMean = (__pyx_v_mean == 0.0);
 
-  /* "random_.pyx":737
+  /* "random_.pyx":761
  *     cdef SIZE div, n, p, diff
  *     cdef bool isTuple, noMean = (mean == 0)
  *     div, n, p, diff, isTuple, dt = args_process(dtype, size, 2)             # <<<<<<<<<<<<<<
@@ -14998,14 +15092,14 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
   __pyx_v_isTuple = __pyx_t_6;
   __pyx_v_dt = __pyx_t_7;
 
-  /* "random_.pyx":738
+  /* "random_.pyx":762
  *     cdef bool isTuple, noMean = (mean == 0)
  *     div, n, p, diff, isTuple, dt = args_process(dtype, size, 2)
  *     cdef bool isSlow = (mode.lower() == "slow")             # <<<<<<<<<<<<<<
  * 
  *     ###
  */
-  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_mode, __pyx_n_s_lower); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 738, __pyx_L1_error)
+  __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_mode, __pyx_n_s_lower); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 762, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_t_10 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -15019,16 +15113,16 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
   }
   __pyx_t_8 = (__pyx_t_10) ? __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_t_10) : __Pyx_PyObject_CallNoArg(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 738, __pyx_L1_error)
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 762, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-  __pyx_t_9 = PyObject_RichCompare(__pyx_t_8, __pyx_n_u_slow, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 738, __pyx_L1_error)
+  __pyx_t_9 = PyObject_RichCompare(__pyx_t_8, __pyx_n_u_slow, Py_EQ); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 762, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 738, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_9); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 762, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
   __pyx_v_isSlow = __pyx_t_6;
 
-  /* "random_.pyx":741
+  /* "random_.pyx":765
  * 
  *     ###
  *     if dt == float64:             # <<<<<<<<<<<<<<
@@ -15038,7 +15132,7 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
   __pyx_t_11 = ((__pyx_v_dt == __pyx_v_7random__float64) != 0);
   if (__pyx_t_11) {
 
-    /* "random_.pyx":742
+    /* "random_.pyx":766
  *     ###
  *     if dt == float64:
  *         return Z64_(n, p, seed, div, isTuple, isSlow, mean, std, noMean)             # <<<<<<<<<<<<<<
@@ -15046,13 +15140,13 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
  *     return Z32_(n, p, seed, div, isTuple, isSlow, <float>mean, <float>std, noMean)
  */
     __Pyx_XDECREF(((PyObject *)__pyx_r));
-    __pyx_t_9 = ((PyObject *)__pyx_f_7random__Z64_(__pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_isTuple, __pyx_v_isSlow, __pyx_v_mean, __pyx_v_std, __pyx_v_noMean)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 742, __pyx_L1_error)
+    __pyx_t_9 = ((PyObject *)__pyx_f_7random__Z64_(__pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_isTuple, __pyx_v_isSlow, __pyx_v_mean, __pyx_v_std, __pyx_v_noMean)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 766, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_9);
     __pyx_t_9 = 0;
     goto __pyx_L0;
 
-    /* "random_.pyx":741
+    /* "random_.pyx":765
  * 
  *     ###
  *     if dt == float64:             # <<<<<<<<<<<<<<
@@ -15061,24 +15155,24 @@ static __pyx_t_7random__ARRAY __pyx_f_7random__normal(CYTHON_UNUSED int __pyx_sk
  */
   }
 
-  /* "random_.pyx":744
+  /* "random_.pyx":768
  *         return Z64_(n, p, seed, div, isTuple, isSlow, mean, std, noMean)
  * 
  *     return Z32_(n, p, seed, div, isTuple, isSlow, <float>mean, <float>std, noMean)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(((PyObject *)__pyx_r));
-  __pyx_t_9 = ((PyObject *)__pyx_f_7random__Z32_(__pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_isTuple, __pyx_v_isSlow, ((float)__pyx_v_mean), ((float)__pyx_v_std), __pyx_v_noMean)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 744, __pyx_L1_error)
+  __pyx_t_9 = ((PyObject *)__pyx_f_7random__Z32_(__pyx_v_n, __pyx_v_p, __pyx_v_seed, __pyx_v_div, __pyx_v_isTuple, __pyx_v_isSlow, ((float)__pyx_v_mean), ((float)__pyx_v_std), __pyx_v_noMean)); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 768, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_9);
   __pyx_r = ((__pyx_t_7random__ARRAY)__pyx_t_9);
   __pyx_t_9 = 0;
   goto __pyx_L0;
 
-  /* "random_.pyx":731
+  /* "random_.pyx":749
  * 
  * ######
  * cpdef ARRAY normal(double mean = 0, double std = 1, size = 10,             # <<<<<<<<<<<<<<
  *     int seed = -1, dtype = np.float32, str mode = "slow"):
- * 
+ *     """
  */
 
   /* function exit code */
@@ -15170,7 +15264,7 @@ static PyObject *__pyx_pw_7random__3normal(PyObject *__pyx_self, PyObject *__pyx
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "normal") < 0)) __PYX_ERR(0, 731, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "normal") < 0)) __PYX_ERR(0, 749, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -15191,18 +15285,18 @@ static PyObject *__pyx_pw_7random__3normal(PyObject *__pyx_self, PyObject *__pyx
       }
     }
     if (values[0]) {
-      __pyx_v_mean = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mean == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 731, __pyx_L3_error)
+      __pyx_v_mean = __pyx_PyFloat_AsDouble(values[0]); if (unlikely((__pyx_v_mean == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 749, __pyx_L3_error)
     } else {
       __pyx_v_mean = ((double)0.0);
     }
     if (values[1]) {
-      __pyx_v_std = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_std == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 731, __pyx_L3_error)
+      __pyx_v_std = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_std == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 749, __pyx_L3_error)
     } else {
       __pyx_v_std = ((double)1.0);
     }
     __pyx_v_size = values[2];
     if (values[3]) {
-      __pyx_v_seed = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_seed == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 732, __pyx_L3_error)
+      __pyx_v_seed = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_seed == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 750, __pyx_L3_error)
     } else {
       __pyx_v_seed = ((int)-1);
     }
@@ -15211,13 +15305,13 @@ static PyObject *__pyx_pw_7random__3normal(PyObject *__pyx_self, PyObject *__pyx
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("normal", 0, 0, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 731, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("normal", 0, 0, 6, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 749, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("random_.normal", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_mode), (&PyUnicode_Type), 1, "mode", 1))) __PYX_ERR(0, 732, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_mode), (&PyUnicode_Type), 1, "mode", 1))) __PYX_ERR(0, 750, __pyx_L1_error)
   __pyx_r = __pyx_pf_7random__2normal(__pyx_self, __pyx_v_mean, __pyx_v_std, __pyx_v_size, __pyx_v_seed, __pyx_v_dtype, __pyx_v_mode);
 
   /* function exit code */
@@ -15243,7 +15337,7 @@ static PyObject *__pyx_pf_7random__2normal(CYTHON_UNUSED PyObject *__pyx_self, d
   __pyx_t_2.seed = __pyx_v_seed;
   __pyx_t_2.dtype = __pyx_v_dtype;
   __pyx_t_2.mode = __pyx_v_mode;
-  __pyx_t_1 = ((PyObject *)__pyx_f_7random__normal(0, &__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 731, __pyx_L1_error)
+  __pyx_t_1 = ((PyObject *)__pyx_f_7random__normal(0, &__pyx_t_2)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 749, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -31301,8 +31395,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 22, __pyx_L1_error)
-  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 468, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 21, __pyx_L1_error)
+  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 467, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(1, 272, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(1, 856, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(1, 1038, __pyx_L1_error)
@@ -31321,25 +31415,25 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "random_.pyx":468
+  /* "random_.pyx":467
  *         else:
  *             n, p = <SIZE> size[0], <SIZE> size[1]
  *         if n <= 0 or p <= 0: raise AssertionError("Size must be > 0")             # <<<<<<<<<<<<<<
  *         div, diff = p // factor, p % factor
  *     else:
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_Size_must_be_0); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 468, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_Size_must_be_0); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 467, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "random_.pyx":481
- *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
+  /* "random_.pyx":487
+ *     """
  * 
  *     if left >= right: raise AssertionError("Right must be > left")             # <<<<<<<<<<<<<<
  * 
  *     cdef char dt
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_Right_must_be_left); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 481, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_Right_must_be_left); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 487, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
@@ -32395,8 +32489,8 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_v_7random__float64_max = ((double)__pyx_t_14);
 
-  /* "random_.pyx":7
- * 
+  /* "random_.pyx":6
+ * from libc.math cimport log, sqrt
  * 
  * cdef UINT32 cycle = RAND_MAX             # <<<<<<<<<<<<<<
  * cdef UINT64 cycle2 = RAND_MAX
@@ -32404,7 +32498,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__cycle = RAND_MAX;
 
-  /* "random_.pyx":8
+  /* "random_.pyx":7
  * 
  * cdef UINT32 cycle = RAND_MAX
  * cdef UINT64 cycle2 = RAND_MAX             # <<<<<<<<<<<<<<
@@ -32413,7 +32507,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__cycle2 = RAND_MAX;
 
-  /* "random_.pyx":11
+  /* "random_.pyx":10
  * # Because of floating point rounding, force the output to be "rounded down"
  * # by reducing the range of the maximum possible number.
  * cdef float divisor = <float> (RAND_MAX + 3)             # <<<<<<<<<<<<<<
@@ -32422,7 +32516,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__divisor = ((float)(RAND_MAX + 3));
 
-  /* "random_.pyx":12
+  /* "random_.pyx":11
  * # by reducing the range of the maximum possible number.
  * cdef float divisor = <float> (RAND_MAX + 3)
  * cdef double divisor2 = <double> (RAND_MAX + 3)             # <<<<<<<<<<<<<<
@@ -32431,47 +32525,47 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__divisor2 = ((double)(RAND_MAX + 3));
 
-  /* "random_.pyx":479
+  /* "random_.pyx":478
  * ######
  * cpdef ARRAY uniform(
  *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):             # <<<<<<<<<<<<<<
- * 
- *     if left >= right: raise AssertionError("Right must be > left")
+ *     """
+ *     Creates normal uniform numbers. Uses ideas from the Box Muller Transfrom,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_k__2 = __pyx_t_11;
   __Pyx_GIVEREF(__pyx_t_11);
   __pyx_t_11 = 0;
 
-  /* "random_.pyx":478
+  /* "random_.pyx":477
  * 
  * ######
  * cpdef ARRAY uniform(             # <<<<<<<<<<<<<<
  *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
- * 
+ *     """
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
 
-  /* "random_.pyx":479
+  /* "random_.pyx":478
  * ######
  * cpdef ARRAY uniform(
  *     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):             # <<<<<<<<<<<<<<
- * 
- *     if left >= right: raise AssertionError("Right must be > left")
+ *     """
+ *     Creates normal uniform numbers. Uses ideas from the Box Muller Transfrom,
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 479, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 478, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_k__2 = __pyx_t_10;
   __Pyx_GIVEREF(__pyx_t_10);
   __pyx_t_10 = 0;
 
-  /* "random_.pyx":541
+  /* "random_.pyx":547
  * 
  * ######
  * cdef float Zmultf = 2.0 / <float>cycle             # <<<<<<<<<<<<<<
@@ -32480,7 +32574,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__Zmultf = (2.0 / ((double)((float)__pyx_v_7random__cycle)));
 
-  /* "random_.pyx":542
+  /* "random_.pyx":548
  * ######
  * cdef float Zmultf = 2.0 / <float>cycle
  * cdef double Zmultd = 2.0 / <double>cycle2             # <<<<<<<<<<<<<<
@@ -32489,7 +32583,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__Zmultd = (2.0 / ((double)__pyx_v_7random__cycle2));
 
-  /* "random_.pyx":641
+  /* "random_.pyx":659
  * 
  * 
  * cdef double sqrt2 = <double> sqrt(2.0)             # <<<<<<<<<<<<<<
@@ -32498,7 +32592,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__sqrt2 = ((double)sqrt(2.0));
 
-  /* "random_.pyx":642
+  /* "random_.pyx":660
  * 
  * cdef double sqrt2 = <double> sqrt(2.0)
  * cdef float sqrt2f = <float> sqrt(2.0)             # <<<<<<<<<<<<<<
@@ -32507,40 +32601,40 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_7random__sqrt2f = ((float)sqrt(2.0));
 
-  /* "random_.pyx":732
+  /* "random_.pyx":750
  * ######
  * cpdef ARRAY normal(double mean = 0, double std = 1, size = 10,
  *     int seed = -1, dtype = np.float32, str mode = "slow"):             # <<<<<<<<<<<<<<
- * 
- *     cdef char dt
+ *     """
+ *     Creates normal random numbers. Uses ideas from the Box Muller Transfrom,
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 732, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 732, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_float32); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_k__4 = __pyx_t_11;
   __Pyx_GIVEREF(__pyx_t_11);
   __pyx_t_11 = 0;
 
-  /* "random_.pyx":731
+  /* "random_.pyx":749
  * 
  * ######
  * cpdef ARRAY normal(double mean = 0, double std = 1, size = 10,             # <<<<<<<<<<<<<<
  *     int seed = -1, dtype = np.float32, str mode = "slow"):
- * 
+ *     """
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 732, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
 
-  /* "random_.pyx":732
+  /* "random_.pyx":750
  * ######
  * cpdef ARRAY normal(double mean = 0, double std = 1, size = 10,
  *     int seed = -1, dtype = np.float32, str mode = "slow"):             # <<<<<<<<<<<<<<
- * 
- *     cdef char dt
+ *     """
+ *     Creates normal random numbers. Uses ideas from the Box Muller Transfrom,
  */
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 732, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_float32); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 750, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_k__4 = __pyx_t_10;

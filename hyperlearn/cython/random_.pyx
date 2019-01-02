@@ -3,7 +3,6 @@ include "DEFINE.pyx"
 from libc.stdlib cimport rand, RAND_MAX
 from libc.math cimport log, sqrt
 
-
 cdef UINT32 cycle = RAND_MAX
 cdef UINT64 cycle2 = RAND_MAX
 # Because of floating point rounding, force the output to be "rounded down"
@@ -477,6 +476,13 @@ cdef (SIZE,SIZE,SIZE,SIZE,bool,char) args_process(dtype, size, int factor):
 ######
 cpdef ARRAY uniform(
     double left = 0, double right = 10, size = 10, int seed = -1, dtype = np.float32):
+    """
+    Creates normal uniform numbers. Uses ideas from the Box Muller Transfrom,
+    and inspired from (senderle)'s Stackoverflow implementation of fast
+    normal numbers. Also uses a modified Linear Congruential Generator for
+    uniform numbers. There are also 2 modes (slow, fast). Slow is more accurate.
+    Fast approximates sqrt(-2log(x)/x) as sqrt(2)(1/(x+0.03)-0.8)
+    """
     
     if left >= right: raise AssertionError("Right must be > left")
 
@@ -544,7 +550,8 @@ cdef double Zmultd = 2.0 / <double>cycle2
 
 cdef void Z32_slow0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:
     cdef SIZE i, j = 0
-    cdef float unif_1, unif_2, temp, normal = 2.0
+    # Tried checking unif_1*unif_1 >= 0.4, but it failed / too slow.
+    cdef float unif_1, unif_2, normal = 2.0
     for i in range(div):
         while normal >= 1.0:
             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -556,7 +563,7 @@ cdef void Z32_slow0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2
 ######
 cdef void Z32_slow1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:
     cdef SIZE i, j = 0
-    cdef float unif_1, unif_2, temp, normal = 2.0
+    cdef float unif_1, unif_2, normal = 2.0
     for i in range(div):
         while normal >= 1.0:
             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
@@ -567,32 +574,43 @@ cdef void Z32_slow1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2
         
 ######
 cdef void Z32_fast0(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2) nogil:
-    cdef SIZE i, j = 0
+    cdef SIZE i, l, r
+    l, r = 0, div*6 - 1
     cdef float unif_1, unif_2, temp, normal = 2.0
     for i in range(div):
         while normal >= 1.0:
             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
             normal = unif_1*unif_1 + unif_2*unif_2
-        out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8); j += 1
-        out[j] = unif_2 * mult2; j += 1; normal = 2.0;
+
+        temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
+        out[l] = temp;      out[r] = -temp*.9;          l += 1; r -= 1;     # reflection
+        temp = unif_2*mult2
+        out[l] = temp;      out[r] = -temp*1.1;         l += 1; r -= 1;
+        out[l] = temp*1.5+.1;  out[r] = -2*temp-.1;     l += 1; r -= 1; normal = 2.0
+
         
 ######
 cdef void Z32_fast1(float[::1] out, UINT32 x, SIZE div, float mult1, float mult2, float mean) nogil:
-    cdef SIZE i, j = 0
-    cdef float unif_1, unif_2, temp, normal = 2.0
+    cdef SIZE i, l, r
+    l, r = 0, div*6 - 1
+    cdef float unif_1, unif_2, temp, normal = 2.
     for i in range(div):
         while normal >= 1.0:
             x = (214013 * x + 2531011) & cycle;  unif_1 = <float>x*Zmultf - 1
             x = (214013 * x + 2531011) & cycle;  unif_2 = <float>x*Zmultf - 1
             normal = unif_1*unif_1 + unif_2*unif_2
-        out[j] = unif_1 * mult1 * (1/(normal + 0.03) - 0.8) + mean; j += 1
-        out[j] = unif_2 * mult2 + mean; j += 1; normal = 2.0;
+
+        temp = unif_1*mult1*(1/(normal + 0.03) - 0.8)
+        out[l] = temp+mean;    out[r] = mean-temp*.9+.1;        l += 1; r -= 1; # reflection
+        temp = unif_2*mult2
+        out[l] = temp+mean;    out[r] = mean-temp*1.1-.1;       l += 1; r -= 1; 
+        out[l] = temp*1.5+.1+mean;   out[r] = mean-2*temp-.1;   normal = 2.; l += 1; r -= 1; 
 
 ######
 cdef void Z64_slow0(double[::1] out, UINT64 x, SIZE div, double mult1, double mult2) nogil:
     cdef SIZE i, j = 0
-    cdef double unif_1, unif_2, temp, normal = 2.0
+    cdef double unif_1, unif_2, normal = 2.0
     for i in range(div):
         while normal >= 1.0:
             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
@@ -604,7 +622,7 @@ cdef void Z64_slow0(double[::1] out, UINT64 x, SIZE div, double mult1, double mu
 ######
 cdef void Z64_slow1(double[::1] out, UINT32 x, SIZE div, double mult1, double mult2, double mean) nogil:
     cdef SIZE i, j = 0
-    cdef double unif_1, unif_2, temp, normal = 2.0
+    cdef double unif_1, unif_2, normal = 2.0
     for i in range(div):
         while normal >= 1.0:
             x = (214013 * x + 2531011) & cycle;  unif_1 = <double>x*Zmultd - 1
@@ -691,7 +709,7 @@ cdef ARRAY Z32_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,
     cdef float[:,::1] out2D
     cdef SIZE i, j
     cdef float mult1 = sqrt2f*std
-    cdef float mult2 = <float>(2.0 if isSlow else 2.3)*std
+    cdef float mult2 = <float>(2.0 if isSlow else 2)*std
     cdef UINT32 x = <UINT32> (rand() if seed < 0 else seed)
     cdef UINT32 change = <UINT32> (214013 * x + 2531011)
 
@@ -704,14 +722,14 @@ cdef ARRAY Z32_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,
                         Z32_slow0(out2D[i], change+<UINT32>i, div, mult1, mult2)
                 else: # fast but less accurate
                     for i in prange(n): 
-                        Z32_fast0(out2D[i], change+<UINT32>i, div, mult1, mult2)
+                        Z32_fast0(out2D[i], change+<UINT32>i, p//6, mult1, mult2)
             else:
                 if isSlow:
                     for i in prange(n): 
                         Z32_slow1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
                 else:
                     for i in prange(n): 
-                        Z32_fast1(out2D[i], change+<UINT32>i, div, mult1, mult2, mean)
+                        Z32_fast1(out2D[i], change+<UINT32>i, p//6, mult1, mult2, mean)
                 if p%2 == 1:
                     j = p - 1
                     for i in prange(n): out2D[i, j] = mean
@@ -719,10 +737,10 @@ cdef ARRAY Z32_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,
         out = np.zeros(n, dtype = np.float32)
         if noMean:
             if isSlow:      Z32_slow0(out, x, div, mult1, mult2)
-            else:           Z32_fast0(out, x, div, mult1, mult2)
+            else:           Z32_fast0(out, x, n//6, mult1, mult2)
         else:
             if isSlow:      Z32_slow1(out, x, div, mult1, mult2, mean)
-            else:           Z32_fast1(out, x, div, mult1, mult2, mean)
+            else:           Z32_fast1(out, x, n//6, mult1, mult2, mean)
             if n%2 == 1:    out[n-1] = mean
     return np.asarray(out2D) if isTuple else np.asarray(out)
 
@@ -730,7 +748,13 @@ cdef ARRAY Z32_(SIZE n, SIZE p, int seed, SIZE div, bool isTuple, bool isSlow,
 ######
 cpdef ARRAY normal(double mean = 0, double std = 1, size = 10, 
     int seed = -1, dtype = np.float32, str mode = "slow"):
-
+    """
+    Creates normal random numbers. Uses ideas from the Box Muller Transfrom,
+    and inspired from (senderle)'s Stackoverflow implementation of fast
+    normal numbers. Also uses a modified Linear Congruential Generator for
+    uniform numbers. There are also 2 modes (slow, fast). Slow is more accurate.
+    Fast approximates sqrt(-2log(x)/x) as sqrt(2)(1/(x+0.03)-0.8)
+    """
     cdef char dt
     cdef SIZE div, n, p, diff
     cdef bool isTuple, noMean = (mean == 0)
