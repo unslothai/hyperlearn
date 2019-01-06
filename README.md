@@ -1,15 +1,20 @@
-<a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="350"/></a>
 
+<a href="github.com/danielhanchen/hyperlearn/"><img src="Images/Umbra Header.png" alt="drawing" width="400"/></a>
+
+*Regardless of where you are, Umbra allows you to solve humanity's most pressing issues, including poverty, crime and climate change. By indexing public data with Artificial Intelligence, Umbra aims to create the world's first public simulation of Planet Earth.*
+
+*HyperLearn is what drives Umbra's AI engines. It is open source to everyone, everywhere, and we hope humanity can rise to the stars.*
+
+---
+
+<a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/></a>
 https://hyperlearn.readthedocs.io/en/latest/index.html
 
 *Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
 
 ![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
 ![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=popout-square)
-![Depfu](https://img.shields.io/depfu/depfu/example-ruby.svg?style=popout-square) *Currently badges don't work --> will update later :)*
 
-
----
 
 **50%+ Faster, 50%+ less RAM usage, GPU support re-written Sklearn, Statsmodels combo with new novel algorithms.**
 
