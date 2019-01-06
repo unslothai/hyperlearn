@@ -65,7 +65,7 @@ kwargs = {
     "url" : 'https://github.com/danielhanchen/hyperlearn',
     "long_description" : desc,
     "py_modules" : ['hyperlearn'],
-    'packages' : find_packages(),
+    'packages' : find_packages(""),
     "install_requires" : install_requires,
     "dependency_links" : dependency_links,
     "classifiers" : [  # Optional
