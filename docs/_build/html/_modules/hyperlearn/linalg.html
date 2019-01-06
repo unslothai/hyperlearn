@@ -153,9 +153,8 @@
 <span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">_max</span><span class="p">,</span> <span class="n">_min</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numba</span>
-<span class="kn">from</span> <span class="nn">.cython.utils</span> <span class="k">import</span> <span class="n">svd_lwork</span><span class="p">,</span> <span class="n">eigh_lwork</span><span class="p">,</span> <span class="n">dot_left_right</span>
+<span class="kn">from</span> <span class="nn">.cfuncs</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">funcs</span> <span class="k">as</span> <span class="n">numba</span>
 
 
 <span class="c1">###</span>
@@ -327,7 +326,7 @@
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="cholesky"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cholesky">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">cholesky</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Uses Epsilon Jitter Solver to compute the Cholesky Decomposition</span>
@@ -349,11 +348,11 @@
     <span class="n">U</span> <span class="o">=</span> <span class="n">do_until_success</span><span class="p">(</span>
         <span class="n">decomp</span><span class="p">,</span> <span class="n">add_jitter</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">X</span>
         <span class="p">)</span>
-    <span class="k">return</span> <span class="n">U</span></div>
+    <span class="k">return</span> <span class="n">U</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="cho_solve"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cho_solve">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;columns&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">cho_solve</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given U from a cholesky decompostion and a RHS, find a least squares</span>
@@ -371,11 +370,11 @@
 <span class="sd">    U :          Upper triangular cholesky factor (U)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">theta</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrs&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">rhs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">theta</span></div>
+    <span class="k">return</span> <span class="n">theta</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="cho_inv"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cho_inv">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;squared&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;squared&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">cho_inv</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes an inverse to the Cholesky Decomposition.</span>
@@ -391,11 +390,11 @@
 <span class="sd">    inv(U) :     Upper Triangular Inverse(X)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">inv</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potri&quot;</span><span class="p">,</span> <span class="n">turbo</span><span class="p">)(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">inv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="n">inv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="pinvc"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvc">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">pinvc</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.</span>
@@ -434,12 +433,12 @@
     <span class="c1"># if XXT -&gt; XT * (XXT)^-1</span>
     <span class="c1"># if XTX -&gt; (XTX)^-1 * XT</span>
     <span class="n">inv</span> <span class="o">=</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;S @ Y.H&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span> <span class="k">if</span> <span class="n">XTX</span> <span class="k">else</span> <span class="n">matmul</span><span class="p">(</span><span class="s2">&quot;Y.H @ S&quot;</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">inv</span></div>
+    <span class="k">return</span> <span class="n">inv</span>
 
 
 <span class="c1">###</span>
 <span class="n">_reflect</span> <span class="o">=</span> <span class="n">reflect</span>
-<div class="viewcode-block" id="pinvch"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvch">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">pinvch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">reflect</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the inverse of a square Hermitian Matrix using Cholesky </span>
@@ -465,11 +464,11 @@
         <span class="p">)</span>
     <span class="n">U</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potri&quot;</span><span class="p">,</span> <span class="n">turbo</span><span class="p">)(</span><span class="n">U</span><span class="p">,</span> <span class="n">overwrite_c</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">return</span> <span class="n">_reflect</span><span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="k">if</span> <span class="n">reflect</span> <span class="k">else</span> <span class="n">U</span></div>
+    <span class="k">return</span> <span class="n">_reflect</span><span class="p">(</span><span class="n">U</span><span class="p">)</span> <span class="k">if</span> <span class="n">reflect</span> <span class="k">else</span> <span class="n">U</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="lu"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.lu">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;L_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;U_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">})</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;L_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;U_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">})</span>
 <span class="k">def</span> <span class="nf">lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">L_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">U_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the pivoted LU decomposition of a matrix. Optional to output</span>
@@ -499,11 +498,11 @@
             <span class="n">A</span> <span class="o">=</span> <span class="n">triu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">A</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">permute_l</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">scipy</span><span class="o">.</span><span class="n">lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">permute_l</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="pinvl"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvl">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;same&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">pinvl</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the pseudoinverse of a square matrix X using LU Decomposition.</span>
@@ -529,11 +528,11 @@
         <span class="n">inv</span><span class="p">,</span> <span class="n">U_process</span><span class="p">,</span> <span class="n">_min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">lu</span> <span class="o">=</span> <span class="n">A</span><span class="p">,</span> <span class="n">piv</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span> <span class="n">overwrite_lu</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="p">)</span> 
     <span class="c1"># overwrite shouldnt matter in first go</span>
-    <span class="k">return</span> <span class="n">A</span></div>
+    <span class="k">return</span> <span class="n">A</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="qr"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.qr">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;Q_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;R_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">})</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s2">&quot;Q_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="s2">&quot;R_only&quot;</span><span class="p">:</span><span class="s2">&quot;same&quot;</span><span class="p">})</span>
 <span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Q_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">R_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the reduced economic QR Decomposition of a matrix. Optional</span>
@@ -571,11 +570,11 @@
             <span class="n">R</span> <span class="o">=</span> <span class="n">triu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">R</span>
 
-    <span class="k">return</span> <span class="n">lapack</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;qr&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">numba</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="svd"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.svd">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extended&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extended&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">conjugate</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the Singular Value Decomposition of a general matrix providing</span>
@@ -646,11 +645,11 @@
     <span class="c1"># In place flips sign according to max(abs(VT))</span>
     <span class="n">svd_flip</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span></div>
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="pinv"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinv">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extended&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extended&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">pinv</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter </span>
@@ -670,11 +669,11 @@
     <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
     <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
     <span class="n">U</span><span class="p">,</span> <span class="n">_S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd_condition</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">VT</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span> <span class="o">*</span> <span class="n">_S</span><span class="p">)</span> <span class="o">@</span> <span class="n">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">transpose</span><span class="p">(</span><span class="n">VT</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span> <span class="o">*</span> <span class="n">_S</span><span class="p">)</span> <span class="o">@</span> <span class="n">transpose</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="eigh"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.eigh">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extra&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extra&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">eigh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns sorted eigenvalues and eigenvectors from large to small of</span>
@@ -742,12 +741,12 @@
     <span class="c1"># return with SVD convention: sort eigenvalues</span>
     <span class="n">svd_flip</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span></div>
+    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span>
 
 
 <span class="c1">###</span>
 <span class="n">_svd</span> <span class="o">=</span> <span class="n">svd</span>
-<div class="viewcode-block" id="eig"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.eig">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extra&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;extra&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">eig</span><span class="p">(</span>
     <span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
     <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">conjugate</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">use_svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
@@ -841,11 +840,11 @@
     <span class="c1"># return with SVD convention: flip signs</span>
     <span class="n">svd_flip</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span></div>
+    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span>
 
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="pinvh"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvh">[docs]</a><span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
+<span class="nd">@process</span><span class="p">(</span><span class="n">square</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="s2">&quot;full&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">pinvh</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">turbo</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">reflect</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the inverse of a square Hermitian Matrix using Eigendecomposition. </span>
@@ -873,7 +872,7 @@
     <span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="p">[:,</span> <span class="n">above_cutoff</span><span class="p">]</span>
 
     <span class="n">inv</span> <span class="o">=</span> <span class="n">V</span> <span class="o">*</span> <span class="n">_W</span> <span class="o">@</span> <span class="n">transpose</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">inv</span></div>
+    <span class="k">return</span> <span class="n">inv</span>
 
 </pre></div>
 

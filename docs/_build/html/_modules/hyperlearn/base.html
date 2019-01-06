@@ -150,17 +150,14 @@
             
   <h1>Source code for hyperlearn.base</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
 <span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">lapack</span> <span class="k">as</span> <span class="n">_lapack</span><span class="p">,</span> <span class="n">blas</span> <span class="k">as</span> <span class="n">_blas</span>
+<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">funcs</span> <span class="k">as</span> <span class="n">_numba</span>
+<span class="c1">#from .cfuncs import process</span>
+<span class="kn">from</span> <span class="nn">.cfuncs</span> <span class="k">import</span> <span class="n">wrapper</span> <span class="k">as</span> <span class="n">_wrapper</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">signature</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numba</span> <span class="k">as</span> <span class="n">_numba</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>
 
-<span class="c1"># Import from Cython / C code --&gt; much faster than pure Python.</span>
-<span class="kn">from</span> <span class="nn">.cython.base</span> <span class="k">import</span> <span class="n">isComplex</span><span class="p">,</span> <span class="n">available_memory</span><span class="p">,</span> <span class="n">isList</span>
-<span class="kn">from</span> <span class="nn">.cython</span> <span class="k">import</span> <span class="n">base</span> <span class="k">as</span> <span class="n">_base</span>
-
-
-<span class="c1">######</span>
+<span class="c1">#####</span>
 <div class="viewcode-block" id="process"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.process">[docs]</a><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">memcheck</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">square</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">fractional</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    [Added 14/11/18] [Edited 18/11/18 for speed]</span>
@@ -182,9 +179,8 @@
 <span class="sd">    returns:    X arguments from function f</span>
 <span class="sd">    ----------------------------------------------------------</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">memcheck</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">memcheck</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="n">memcheck</span><span class="p">}</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">memcheck</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">memcheck</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span><span class="n">memcheck</span><span class="p">}</span>
     <span class="c1">###</span>
     <span class="k">def</span> <span class="nf">decorate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
         <span class="c1"># get function signature</span>
@@ -196,7 +192,7 @@
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
             <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
-            <span class="n">_base</span><span class="o">.</span><span class="n">wrapper</span><span class="p">(</span>
+            <span class="n">_wrapper</span><span class="p">(</span>
                 <span class="n">memcheck</span><span class="p">,</span> <span class="n">square</span><span class="p">,</span> <span class="n">fractional</span><span class="p">,</span> <span class="n">memory_length</span><span class="p">,</span>
                 <span class="n">memory_keys</span><span class="p">,</span> <span class="n">function_signature</span><span class="p">,</span> <span class="n">function_args</span><span class="p">,</span>
                 <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>

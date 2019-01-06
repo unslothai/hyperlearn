@@ -151,7 +151,8 @@
   <h1>Source code for hyperlearn.randomized.base</h1><div class="highlight"><pre>
 <span></span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">..numba</span> <span class="k">import</span> <span class="n">jit</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="n">prange</span><span class="p">,</span> <span class="n">uinteger</span>
+<span class="kn">from</span> <span class="nn">..numba.types</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..numba.funcs</span> <span class="k">import</span> <span class="n">arange</span>
 <span class="kn">from</span> <span class="nn">..random</span> <span class="k">import</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">randbool</span><span class="p">,</span> <span class="n">randint</span>
 
 

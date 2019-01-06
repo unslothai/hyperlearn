@@ -1,7 +1,7 @@
 hyperlearn
-==========
+===========
 
 .. toctree::
-   :maxdepth: 10
+   :maxdepth: 20
 
    hyperlearn

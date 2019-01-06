@@ -1,5 +1,13 @@
 
 include "DEFINE.pyx"
+from libc.stdlib cimport rand, RAND_MAX
+
+cpdef INT64 MAXIMUM():
+    return RAND_MAX
+
+cpdef INT64 RAND(int seed = -1):
+    return <INT64> (rand() if seed < 0 else seed)
+
 
 cdef double FLOAT32_EPS = np.finfo(np.float32).eps
 cdef double FLOAT64_EPS = np.finfo(np.float64).eps
@@ -12,10 +20,10 @@ UINT_SIZE[:] = [
 ]
 
 cdef list UINT_DTYPES = [
-    np.zeros(1, dtype = np.uint8),
-    np.zeros(1, dtype = np.uint16),
-    np.zeros(1, dtype = np.uint32),
-    np.zeros(1, dtype = np.uint64)
+    np.uint8,
+    np.uint16,
+    np.uint32,
+    np.uint64
 ]
 
 cdef LONG INT_SIZE[3]
@@ -26,15 +34,15 @@ INT_SIZE[:] = [
 ]
 
 cdef list INT_DTYPES = [
-    np.zeros(1, dtype = np.int8),
-    np.zeros(1, dtype = np.int16),
-    np.zeros(1, dtype = np.int32),
-    np.zeros(1, dtype = np.int64)
+    np.int8,
+    np.int16,
+    np.int32,
+    np.int64
 ]
 
 
 ######
-cpdef ARRAY uinteger(LONG i):
+cpdef DTYPE uinteger(LONG i):
     cdef int j
     for j in range(3):
         if i <= UINT_SIZE[j]:
@@ -42,7 +50,7 @@ cpdef ARRAY uinteger(LONG i):
     return UINT_DTYPES[j]
 
 ######
-cpdef ARRAY integer(LONG i):
+cpdef DTYPE integer(LONG i):
     cdef int j
     for j in range(3):
         if i <= INT_SIZE[j]:

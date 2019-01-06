@@ -150,14 +150,14 @@
             
   <h1>Source code for hyperlearn.random</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">njit</span>
+<span class="kn">from</span> <span class="nn">.numba.types</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">isComplex</span><span class="p">,</span> <span class="n">isList</span>
+<span class="kn">from</span> <span class="nn">.cfuncs</span> <span class="k">import</span> <span class="n">isComplex</span><span class="p">,</span> <span class="n">isList</span><span class="p">,</span> <span class="n">uinteger</span>
 
 <span class="c1">###</span>
-<span class="nd">@njit</span>
-<span class="k">def</span> <span class="nf">cov</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)):</span>
-	<span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size</span><span class="p">,</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<div class="viewcode-block" id="cov"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.cov">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cov</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">):</span>
+	<span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">size</span><span class="p">,</span><span class="n">size</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
 	<span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">)</span>
 	
 	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
@@ -168,10 +168,10 @@
 			<span class="n">rand</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">size</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 			<span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span>
 			<span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rand</span>
-	<span class="k">return</span> <span class="n">out</span>
+	<span class="k">return</span> <span class="n">out</span></div>
 
 
-<span class="c1">###</span>
+<span class="c1">######</span>
 <div class="viewcode-block" id="random"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.random">[docs]</a><span class="k">def</span> <span class="nf">random</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Produces pseudo-random numbers between left and right range.</span>
@@ -191,23 +191,21 @@
 <span class="sd">    -----------</span>
 <span class="sd">    Random Vector or Matrix</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
-
     <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">shape</span> <span class="o">=</span> <span class="n">size</span>
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
         <span class="c1"># Only 1 long vector --&gt; easily made.</span>
-        <span class="k">return</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">D</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="p">)</span>
     <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">shape</span>
 
     <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">left</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">right</span><span class="o">/</span><span class="mi">2</span>
 
-    <span class="n">part</span> <span class="o">=</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+    <span class="n">part</span> <span class="o">=</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
     <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">add</span> <span class="o">=</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">D</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-    <span class="n">mult</span> <span class="o">=</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+    <span class="n">add</span> <span class="o">=</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">mult</span> <span class="o">=</span> <span class="n">uniform_vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
     <span class="n">X</span> <span class="o">*=</span> <span class="n">mult</span>
     <span class="n">X</span> <span class="o">+=</span> <span class="n">add</span>
 
@@ -224,46 +222,21 @@
     <span class="k">return</span> <span class="n">X</span></div>
 
 
-<span class="c1">###</span>
-<span class="nd">@njit</span>
+<span class="c1">######</span>
+<div class="viewcode-block" id="uniform_vector"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.uniform_vector">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">uniform_vector</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
-    <span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
         <span class="n">zero</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">zero</span>
+    <span class="k">return</span> <span class="n">zero</span></div>
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="normal"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal">[docs]</a><span class="k">def</span> <span class="nf">normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">shape</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Produces pseudo-random normal numbers with mean and std.</span>
-<span class="sd">    Notice much more memory efficient than Numpy, as provides</span>
-<span class="sd">    a DTYPE argument (float32 supported).</span>
-<span class="sd">    [Added 24/11/2018]</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    -----------</span>
-<span class="sd">    mean:       Mean of distribution</span>
-<span class="sd">    std:        Standard Deviation o distribution.</span>
-<span class="sd">    shape:      Final shape of random matrix</span>
-<span class="sd">    dtype:      Data type: supports any type</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -----------</span>
-<span class="sd">    Random Vector or Matrix</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">std</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">std</span><span class="p">)</span><span class="o">*</span><span class="mi">3</span>
-    <span class="n">left</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">-</span> <span class="n">std</span> <span class="c1"># 3 std means 99.7% data</span>
-    <span class="n">right</span> <span class="o">=</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">std</span>
-    <span class="k">return</span> <span class="n">random</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
-
-
-<span class="c1">###</span>
-<span class="nd">@njit</span>
+<span class="c1">######</span>
+<div class="viewcode-block" id="shuffle"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.shuffle">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
 
-<span class="c1">###</span>
-<span class="nd">@njit</span>
+<span class="c1">######</span>
+<div class="viewcode-block" id="boolean"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.boolean">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">bool_</span><span class="p">[:,::</span><span class="mi">1</span><span class="p">](</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">boolean</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
 
@@ -287,10 +260,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
                 <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">cols</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">out</span>
+    <span class="k">return</span> <span class="n">out</span></div>
 
 
-<span class="c1">###</span>
+<span class="c1">######</span>
 <div class="viewcode-block" id="randbool"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.randbool">[docs]</a><span class="k">def</span> <span class="nf">randbool</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Produces pseudo-random boolean numbers.</span>
@@ -312,8 +285,8 @@
     <span class="k">return</span> <span class="n">out</span></div>
 
 
-<span class="c1">###</span>
-<span class="nd">@njit</span>
+<span class="c1">######</span>
+<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">_choice_p</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Deterministic selection of items in an array according</span>
@@ -352,13 +325,13 @@
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="c1">###</span>
-<span class="nd">@njit</span>
+<span class="c1">######</span>
+<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">_choice_a</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="n">replace</span><span class="p">)</span>
 
 
-<span class="c1">###</span>
+<span class="c1">######</span>
 <div class="viewcode-block" id="choice"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.choice">[docs]</a><span class="k">def</span> <span class="nf">choice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Selects elements from an array a pseudo randomnly based on</span>
@@ -383,10 +356,125 @@
     <span class="k">return</span> <span class="n">out</span></div>
 
 
-<span class="c1">###</span>
+<span class="c1">######</span>
 <div class="viewcode-block" id="randint"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.randint">[docs]</a><span class="k">def</span> <span class="nf">randint</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="n">dtype</span> <span class="o">=</span> <span class="n">uinteger</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+
+<span class="c1">######</span>
+<span class="kn">from</span> <span class="nn">.cfuncs</span> <span class="k">import</span> <span class="n">MAXIMUM</span><span class="p">,</span> <span class="n">RAND</span>
+
+<span class="n">cycle</span> <span class="o">=</span> <span class="n">MAXIMUM</span><span class="p">()</span>
+<span class="n">Zmultf</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="n">cycle</span>
+<span class="n">mult1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mf">0.5</span>
+<span class="n">mult2</span> <span class="o">=</span> <span class="mf">2.3</span>
+
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_1"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_1">[docs]</a><span class="nd">@jit</span><span class="p">([(</span><span class="n">A32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">U32</span><span class="p">),</span> <span class="p">(</span><span class="n">A64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">U32</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_1</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">normal</span> <span class="o">=</span> <span class="mf">2.0</span>
+    <span class="k">while</span> <span class="n">normal</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">214013</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2531011</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">cycle</span><span class="p">;</span>  <span class="n">unif_1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Zmultf</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">214013</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2531011</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">cycle</span><span class="p">;</span>  <span class="n">unif_2</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Zmultf</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">normal</span> <span class="o">=</span> <span class="n">unif_1</span><span class="o">*</span><span class="n">unif_1</span> <span class="o">+</span> <span class="n">unif_2</span><span class="o">*</span><span class="n">unif_2</span>
+    <span class="n">temp1</span> <span class="o">=</span> <span class="n">unif_1</span><span class="o">*</span><span class="n">mult1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">normal</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">);</span>  <span class="n">temp2</span> <span class="o">=</span> <span class="n">unif_2</span><span class="o">*</span><span class="mf">2.3</span>
+
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">div</span><span class="p">):</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temp1</span><span class="o">*.</span><span class="mi">4</span><span class="p">;</span>   <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>  <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp2</span><span class="p">;</span>    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>     <span class="c1"># reflection</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temp2</span><span class="o">*.</span><span class="mi">75</span><span class="p">;</span>  <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>  <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp1</span><span class="p">;</span>    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temp1</span><span class="o">*.</span><span class="mi">75</span><span class="p">;</span>  <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>  <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp2</span><span class="o">*.</span><span class="mi">4</span><span class="p">;</span> <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        
+        <span class="n">normal</span> <span class="o">=</span> <span class="mf">2.0</span>
+        <span class="k">while</span> <span class="n">normal</span> <span class="o">&gt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">214013</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2531011</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">cycle</span><span class="p">;</span>  <span class="n">unif_1</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Zmultf</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">214013</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2531011</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">cycle</span><span class="p">;</span>  <span class="n">unif_2</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">Zmultf</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">normal</span> <span class="o">=</span> <span class="n">unif_1</span><span class="o">*</span><span class="n">unif_1</span> <span class="o">+</span> <span class="n">unif_2</span><span class="o">*</span><span class="n">unif_2</span>
+        <span class="n">temp1</span> <span class="o">=</span> <span class="n">unif_1</span><span class="o">*</span><span class="n">mult1</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">normal</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">);</span>  <span class="n">temp2</span> <span class="o">=</span> <span class="n">unif_2</span><span class="o">*</span><span class="mf">2.3</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>   <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp1</span><span class="o">*.</span><span class="mi">2</span><span class="p">;</span>   <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>   <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temp2</span><span class="o">*.</span><span class="mi">2</span><span class="p">;</span>  <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>   <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp1</span><span class="o">*.</span><span class="mi">7</span><span class="p">;</span>   <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>   <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">temp2</span><span class="o">*.</span><span class="mi">7</span><span class="p">;</span>  <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;=</span> <span class="mi">5</span><span class="p">:</span>   <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp1</span><span class="o">+</span><span class="n">temp2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span></div>
+
+        
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_32_"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_32_">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">M32_</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_32_</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">uint32</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="mi">6</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">size</span> <span class="o">//</span> <span class="mi">6</span>
+    <span class="n">normal_1</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span></div>
+
+        
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_parallel_32"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_parallel_32">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">M32_</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">parallel</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_parallel_32</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">uint32</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">p</span> <span class="o">//</span> <span class="mi">6</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">p</span> <span class="o">%</span> <span class="mi">6</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  <span class="n">normal_1</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">div</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_32"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_32">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">M32_</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_32</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">50000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normal_parallel_32</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normal_32_</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span></div>
+        
+        
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_64_"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_64_">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">M64_</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_64_</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">uint32</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">size</span> <span class="o">=</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">size</span> <span class="o">%</span> <span class="mi">6</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">size</span> <span class="o">//</span> <span class="mi">6</span>
+    <span class="n">normal_1</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span></div>
+
+        
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_parallel_64"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_parallel_64">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">M64_</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">parallel</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_parallel_64</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">uint32</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">p</span> <span class="o">//</span> <span class="mi">6</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">p</span> <span class="o">%</span> <span class="mi">6</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  <span class="n">normal_1</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">div</span><span class="p">,</span> <span class="n">diff</span><span class="p">,</span> <span class="n">x</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal_64"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal_64">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">M64_</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">normal_64</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">50000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normal_parallel_64</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normal_64_</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span></div>
+
+
+<span class="c1">######</span>
+<div class="viewcode-block" id="normal"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.random.normal">[docs]</a><span class="k">def</span> <span class="nf">normal</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">size</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normal_32</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">RAND</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">normal_64</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">RAND</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span></div>
+
 </pre></div>
 
            </div>

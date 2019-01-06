@@ -3,6 +3,8 @@ include "DEFINE.pyx"
 #########
 cdef double MAX_MEMORY = 0.94
 from psutil import virtual_memory
+from inspect import signature
+from functools import wraps
 
 
 ######### Memory check functions
@@ -15,107 +17,107 @@ cdef dict MEMORY_FUNCTIONS = {
 }
 
 ###
-cdef LONG full_(LONG n, LONG p):
-    cdef LONG out = n*p
-    cdef LONG a = n*n
-    cdef LONG b = p*p
+cdef SIZE full_(SIZE n, SIZE p):
+    cdef SIZE out = n*p
+    cdef SIZE a = n*n
+    cdef SIZE b = p*p
 
     if a < b:   out += a
     else:       out += b
     return out
 
 ###
-cdef LONG svd_(LONG n, LONG p):
+cdef SIZE svd_(SIZE n, SIZE p):
     # LWORK calculation is incorrect. Use approximate heuristic
     # from actual checking of memory usage.
     # (MIN*MAX + MIN*MIN + MIN) for storing U, S, VT
     # (~ n*p + 1.5*MIN**2 + n + p) approximate for workspace
     # So = 2*MIN*MAX + 2.5*MIN**2 + 2*MIN + MAX
     # = 2*MIN(1 + MAX) + 2.5*MAX**2 + MAX
-    cdef LONG MIN, MAX
+    cdef SIZE MIN, MAX
     if n < p:
         MIN, MAX = n, p
     else:
         MIN, MAX = p, n
 
-    cdef LONG usage = 2*MIN*(MAX + 1) + MAX
-    usage += <LONG>(2.5*<double>(MIN*MIN))
+    cdef SIZE usage = 2*MIN*(MAX + 1) + MAX
+    usage += <SIZE>(2.5*<double>(MIN*MIN))
     return usage
 
 
 ###
-cdef LONG syevd_(LONG n, LONG p):
+cdef SIZE syevd_(SIZE n, SIZE p):
     # LWORK calculation is incorrect. Use approximate heuristic
     # from actual checking of memory usage.
     # (p + p**2) for output, storing W, V
     # (~ 2*p**2 + p) for approximate workspace
     # total = (2p + 3*p**2)
-    cdef LONG usage = 2*p + 3*p*p
+    cdef SIZE usage = 2*p + 3*p*p
     return usage
 
 
 ###
-cdef LONG syevr_(LONG n, LONG p):
+cdef SIZE syevr_(SIZE n, SIZE p):
     # LWORK calculation is incorrect. Use approximate heuristic
     # from actual checking of memory usage.
     # (p + p**2) for output, storing W, V
     # (~ p**2 + p) for approximate workspace
     # total = (2p + 2*p**2)
-    cdef LONG usage = 2*p + 2*p*p
+    cdef SIZE usage = 2*p + 2*p*p
     return usage
 
 
 ###
-cdef LONG potrf_(LONG n, LONG p):
+cdef SIZE potrf_(SIZE n, SIZE p):
     # LWORK calculation is incorrect. Use approximate heuristic
     # from actual checking of memory usage.
     # (p + p**2) for output, storing W, V
     # (~ p**2 + p) for approximate workspace
     # total = (2p + 2*p**2)
-    cdef LONG usage = 2*p + 2*p*p
+    cdef SIZE usage = 2*p + 2*p*p
     return usage
 
 
 ###
-cdef LONG same_(LONG n, LONG p):
+cdef SIZE same_(SIZE n, SIZE p):
     return n*p
 
 ###
-cdef LONG triu_(LONG n, LONG p):
+cdef SIZE triu_(SIZE n, SIZE p):
     return p*p if p < n else n*p
 
 ###
-cdef LONG squared_(LONG n, LONG p):
+cdef SIZE squared_(SIZE n, SIZE p):
     return n*n
 
 ###
-cdef LONG columns_(LONG n, LONG p):
+cdef SIZE columns_(SIZE n, SIZE p):
     return p
 
 ###
-cdef LONG extra_(LONG n, LONG p):
-    cdef LONG a = n if n < p else p
-    cdef LONG b = a*a
+cdef SIZE extra_(SIZE n, SIZE p):
+    cdef SIZE a = n if n < p else p
+    cdef SIZE b = a*a
     a += b
     return a
 
 ###
-cdef LONG truncated_(LONG n, LONG p, int k):
-    cdef LONG a = n if n < p else p
+cdef SIZE truncated_(SIZE n, SIZE p, int k):
+    cdef SIZE a = n if n < p else p
     a += k + 1 + n + p
     a *= k
     return a
 
 ###
-cdef LONG minimum_(LONG n, LONG p, int k):
+cdef SIZE minimum_(SIZE n, SIZE p, int k):
     return k*(n + p + 1 + k)
 
 ###
-cdef LONG min_left_(LONG n, LONG p, int k):
+cdef SIZE min_left_(SIZE n, SIZE p, int k):
     return k*n
 
 ###
-cdef LONG min_right_(LONG n, LONG p, int k):
+cdef SIZE min_right_(SIZE n, SIZE p, int k):
     return k*p
 
 
@@ -131,7 +133,7 @@ cpdef int available_memory():
     """
     Returns the current memory in MB for a system.
     """
-    return <int> (<LONG> (<double> virtual_memory().available * MAX_MEMORY) >> 20)
+    return <int> (<SIZE> (<double> virtual_memory().available * MAX_MEMORY) >> 20)
 
 
 #########
@@ -154,7 +156,7 @@ cdef int memory(tuple shape, DTYPE dtype, str memcheck):
     to another datatype.
     """
     cdef int byte = dtype.itemsize
-    cdef LONG a, b, multiplier
+    cdef SIZE a, b, multiplier
     cdef int need
     cdef checker = MEMORY_FUNCTIONS[memcheck]
     
@@ -166,7 +168,7 @@ cdef int memory(tuple shape, DTYPE dtype, str memcheck):
     except:
         a, b = shape[0], shape[1]
         multiplier = checker(a, b)
-    return <int> (<LONG> (multiplier * byte) >> 20) # 10 == KB, 20 == MB
+    return <int> (<SIZE> (multiplier * byte) >> 20) # 10 == KB, 20 == MB
 
 
 #########
@@ -174,7 +176,7 @@ cdef (int, char) arg_process(x, bool square):
     """
     Checks if object is a matrix and checks the datatype.
     """
-    cdef LONG a, b
+    cdef SIZE a, b
     cdef tuple shape
     cdef char dtype, dt
     dtype, dt = 0, 0
@@ -246,7 +248,7 @@ cpdef (void) wrapper(
     cdef str i
     cdef type Xdtype, Kdtype, dtype
     cdef DTYPE X_dtype
-    cdef LONG n, p, a
+    cdef SIZE n, p, a
     cdef int whereK, n_components, j, otherYes
     whereK, n_components, otherYes, j, memoryNeed = 0, 0, 0, 0, 0
     cdef double temp_components, default_n_components
@@ -503,7 +505,52 @@ cpdef (void) wrapper(
         free(duplicate)
         free(new_dtypes)
         
+
+#########
+cdef class process():
+    cdef SIZE memory_length
+    cdef memcheck, function_signature, function_args
+    cdef list memory_keys
+    cdef bool square, fractional, not_processed
     
+    def __init__(self, memcheck = {}, bool square = False, bool fractional = True):
+        if isinstance(memcheck, str):
+            self.memcheck = {"X":memcheck}
+        else:
+            self.memcheck = memcheck
+            
+        self.memory_length = len(self.memcheck)
+        self.memory_keys = list(self.memcheck.keys())
+        self.square = square
+        self.fractional = fractional
+        self.not_processed = True
+    
+    def __call__(self, f = None):
+        if self.not_processed:
+            self.function_signature = signature(f)
+            self.function_args = self.function_signature.parameters
+            self.not_processed = False
+            
+        def decorate(f):
+            #@wraps(f)
+            def wrapper(*args, **kwargs):
+                args = list(args)
+                wrapper(
+                    self.memcheck, self.square, self.fractional, self.memory_length,
+                    self.memory_keys, self.function_signature, self.function_args,
+                    args, kwargs
+                    ) # Process arguments
+                try:
+                    return f(*args, **kwargs)
+                except:
+                    # Memory Error again --> didnt catch
+                    raise MemoryError("Operation requires more memory than "
+            "what the system resources offer.")
+            return wrapper
+        if f: return decorate(f)
+        return decorate
+
+
 #########
 cpdef str lapack(char dtype, BOOL turbo, str function):
     cdef bool TURBO = <bool> turbo
