@@ -87,10 +87,15 @@ kwargs = {
     "author" : 'Daniel Han-Chen & Others listed on Github',
     "url" : 'https://github.com/danielhanchen/hyperlearn',
     "long_description" : desc,
-    "py_modules" : ['hyperlearn'],
-    'packages' : find_packages(""),
+    #"py_modules" : ['hyperlearn'],
+    'packages' : find_packages('.', include=['hyperlearn']),
+    'package_data' : {
+        'hyperlearn': ['LICENSE', 'README.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md']
+        },
+    'include_package_data' : True,
     "install_requires" : install_requires,
     "dependency_links" : dependency_links,
+    'zip_safe' : False,
     "classifiers" : [  # Optional
     'Development Status :: 1 - Planning',
 
