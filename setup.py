@@ -14,7 +14,7 @@ os.environ['CFLAGS'] = '-O3 -march=native'
 os.environ['CXXFLAGS'] = '-O3 -march=native'
 os.environ['CL'] = '/arch:AVX /arch:AVX2 /arch:SSE2 /arch:SSE /arch:ARMv7VE /arch:VFPv4'
 
-Options.docstrings = False
+Options.docstrings = True
 Options.generate_cleanup_code = True
 
 install_requires = [
