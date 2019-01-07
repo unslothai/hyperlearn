@@ -10,8 +10,8 @@ from numpy import get_include
 from Cython.Compiler import Options
 import os
 
-os.environ['CFLAGS'] = '-O3 -march=native'
-os.environ['CXXFLAGS'] = '-O3 -march=native'
+os.environ['CFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
+os.environ['CXXFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
 os.environ['CL'] = '/arch:AVX /arch:AVX2 /arch:SSE2 /arch:SSE /arch:ARMv7VE /arch:VFPv4'
 
 Options.docstrings = True
@@ -57,6 +57,25 @@ https://github.com/danielhanchen/hyperlearn
 #         )
 
 
+# https://github.com/mozilla/treeherder/commit/f17bcf82051300ce1ff012dc7f1d42919137800a
+if os.environ.get('READTHEDOCS'):
+    ext_modules = []
+else:
+    ext_modules = cythonize("hyperlearn/cython/*.pyx",
+        compiler_directives = {
+            'language_level':3, 
+            'boundscheck':False, 
+            'wraparound':False,
+            'initializedcheck':False, 
+            'cdivision':True,
+            'nonecheck':False,
+        },
+        quiet = True,
+        force = True,
+    )
+
+
+
 ## Contributed by themightyoarfish [6/1/19 Issue 13]
 kwargs = {
     "name" : 'hyperlearn',
@@ -94,18 +113,7 @@ kwargs = {
     'Topic :: Software Development :: Libraries :: Python Modules',
         ],
     #"cmdclass" : { 'install': InstallLocalPackage },
-    "ext_modules" : cythonize("hyperlearn/cython/*.pyx",
-        compiler_directives = {
-            'language_level':3, 
-            'boundscheck':False, 
-            'wraparound':False,
-            'initializedcheck':False, 
-            'cdivision':True,
-            'nonecheck':False,
-        },
-        quiet = True,
-        force = True,
-    ),
+    "ext_modules" : ext_modules,
     "include_dirs" : [get_include()],
 }
 
