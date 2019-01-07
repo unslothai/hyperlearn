@@ -1,6 +1,7 @@
 
 
 from distutils.core import setup
+from setuptools import Extension
 from setuptools.command.install import install
 from setuptools import find_packages
 import subprocess
@@ -56,12 +57,16 @@ https://github.com/danielhanchen/hyperlearn
 #             cwd = "hyperlearn/cython"
 #         )
 
+USE_CYTHON = False
+ext = '.pyx' if USE_CYTHON else '.c'
 
-# https://github.com/mozilla/treeherder/commit/f17bcf82051300ce1ff012dc7f1d42919137800a
-if os.environ.get('READTHEDOCS'):
-    ext_modules = []
-else:
-    ext_modules = cythonize("hyperlearn/cython/*.pyx",
+ext_modules = [
+    Extension("hyperlearn.cython.base", ["hyperlearn/cython/base"+ext]),
+    Extension("hyperlearn.cython.utils", ["hyperlearn/cython/utils"+ext])
+]
+
+if USE_CYTHON:
+    ext_modules = cythonize(ext_modules,
         compiler_directives = {
             'language_level':3, 
             'boundscheck':False, 
@@ -73,7 +78,6 @@ else:
         quiet = True,
         force = True,
     )
-
 
 
 ## Contributed by themightyoarfish [6/1/19 Issue 13]

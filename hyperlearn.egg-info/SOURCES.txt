@@ -12,7 +12,6 @@ hyperlearn.egg-info/SOURCES.txt
 hyperlearn.egg-info/dependency_links.txt
 hyperlearn.egg-info/requires.txt
 hyperlearn.egg-info/top_level.txt
-hyperlearn/cython/DEFINE.c
 hyperlearn/cython/base.c
 hyperlearn/cython/utils.c
 hyperlearn/cython/DEFINE.c

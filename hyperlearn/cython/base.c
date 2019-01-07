@@ -6,7 +6,7 @@
         "depends": [],
         "name": "hyperlearn.cython.base",
         "sources": [
-            "hyperlearn/cython\\base.pyx"
+            "hyperlearn/cython/base.pyx"
         ]
     },
     "module_name": "hyperlearn.cython.base"
@@ -3437,6 +3437,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_available_memory(CYTHON_UNUSED int
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10hyperlearn_6cython_4base_3available_memory(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_10hyperlearn_6cython_4base_2available_memory[] = "\n    Returns the current memory in MB for a system.\n    ";
 static PyObject *__pyx_pw_10hyperlearn_6cython_4base_3available_memory(PyObject *__pyx_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -3571,6 +3572,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10hyperlearn_6cython_4base_5isComplex(PyObject *__pyx_self, PyObject *__pyx_v_dtype); /*proto*/
+static char __pyx_doc_10hyperlearn_6cython_4base_4isComplex[] = "\n    Given a numpy datatype, returns if it's a complex type.\n    ";
 static PyObject *__pyx_pw_10hyperlearn_6cython_4base_5isComplex(PyObject *__pyx_self, PyObject *__pyx_v_dtype) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -7550,6 +7552,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7wrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_10hyperlearn_6cython_4base_6wrapper[] = "\n    Performs memory checks, data type checks and other checks.\n    Cythonized to reduce time from approx 500us to now 9us or so.\n    ";
 static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7wrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_memcheck = 0;
   __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square;
@@ -12462,7 +12465,8 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap = {"wrap", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap, METH_VARARGS|METH_KEYWORDS, 0};
+static char __pyx_doc_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_wrap[] = "wrap(n: 'SIZE', p: 'SIZE') -> 'SIZE'";
+static PyMethodDef __pyx_mdef_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap = {"wrap", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_wrap};
 static PyObject *__pyx_pw_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_n;
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_p;
@@ -12647,7 +12651,8 @@ static PyObject *__Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_t_10hyperlearn_6
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap = {"wrap", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap, METH_VARARGS|METH_KEYWORDS, 0};
+static char __pyx_doc_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_wrap[] = "wrap(n: 'SIZE', p: 'SIZE', k: 'int') -> 'SIZE'";
+static PyMethodDef __pyx_mdef_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap = {"wrap", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_wrap};
 static PyObject *__pyx_pw_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_n;
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_p;
@@ -13353,9 +13358,9 @@ static PyTypeObject __pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE____int_
 
 static PyMethodDef __pyx_methods[] = {
   {"isList", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_1isList, METH_O, 0},
-  {"available_memory", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_3available_memory, METH_NOARGS, 0},
-  {"isComplex", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_5isComplex, METH_O, 0},
-  {"wrapper", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_7wrapper, METH_VARARGS|METH_KEYWORDS, 0},
+  {"available_memory", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_3available_memory, METH_NOARGS, __pyx_doc_10hyperlearn_6cython_4base_2available_memory},
+  {"isComplex", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_5isComplex, METH_O, __pyx_doc_10hyperlearn_6cython_4base_4isComplex},
+  {"wrapper", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_7wrapper, METH_VARARGS|METH_KEYWORDS, __pyx_doc_10hyperlearn_6cython_4base_6wrapper},
   {"lapack", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_9lapack, METH_VARARGS|METH_KEYWORDS, 0},
   {"blas", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_11blas, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
