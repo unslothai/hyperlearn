@@ -1,7 +1,7 @@
 
 
 from .cython.base import isComplex, available_memory, isList
-from .cython.base import process, wrapper
+from .cython.base import process, wrapper, lapack, blas
 
 
 from .cython.utils import epsilon

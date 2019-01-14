@@ -2,7 +2,7 @@
 from scipy.linalg import lapack as _lapack, blas as _blas
 from .numba import funcs as _numba
 #from .cfuncs import process
-from .cfuncs import wrapper as _wrapper
+from .cfuncs import wrapper as _wrapper, lapack as __lapack, blas as __blas
 from inspect import signature
 from functools import wraps
 
@@ -96,7 +96,7 @@ class lapack():
             dtype = ord(dtype.char)
 
             self.f = eval(
-                _base.lapack(dtype, self.turbo, self.function)
+                __lapack(dtype, self.turbo, self.function)
                 )
 
         return self.f(*args, **kwargs)
@@ -128,7 +128,7 @@ class blas():
             dtype = ord(dtype.char)
             
             self.f = eval(
-                _base.blas(dtype, self.function, self.left)
+                __blas(dtype, self.function, self.left)
                 )
 
         return self.f(*args, **kwargs)

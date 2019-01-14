@@ -6,7 +6,7 @@
         "depends": [],
         "name": "hyperlearn.cython.base",
         "sources": [
-            "hyperlearn/cython/base.pyx"
+            "base.pyx"
         ]
     },
     "module_name": "hyperlearn.cython.base"
@@ -857,16 +857,16 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "hyperlearn\\cython\\base.pyx",
+  "base.pyx",
   "stringsource",
   "__init__.pxd",
   "type.pxd",
   "bool.pxd",
   "complex.pxd",
-  "hyperlearn\\cython\\DEFINE.pyx",
+  "DEFINE.pyx",
 };
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":776
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":776
  * # in Cython to enable them only on the right systems.
  * 
  * ctypedef npy_int8       int8_t             # <<<<<<<<<<<<<<
@@ -875,7 +875,7 @@ static const char *__pyx_f[] = {
  */
 typedef npy_int8 __pyx_t_5numpy_int8_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":777
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":777
  * 
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t             # <<<<<<<<<<<<<<
@@ -884,7 +884,7 @@ typedef npy_int8 __pyx_t_5numpy_int8_t;
  */
 typedef npy_int16 __pyx_t_5numpy_int16_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":778
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":778
  * ctypedef npy_int8       int8_t
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t             # <<<<<<<<<<<<<<
@@ -893,7 +893,7 @@ typedef npy_int16 __pyx_t_5numpy_int16_t;
  */
 typedef npy_int32 __pyx_t_5numpy_int32_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":779
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":779
  * ctypedef npy_int16      int16_t
  * ctypedef npy_int32      int32_t
  * ctypedef npy_int64      int64_t             # <<<<<<<<<<<<<<
@@ -902,7 +902,7 @@ typedef npy_int32 __pyx_t_5numpy_int32_t;
  */
 typedef npy_int64 __pyx_t_5numpy_int64_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":783
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":783
  * #ctypedef npy_int128     int128_t
  * 
  * ctypedef npy_uint8      uint8_t             # <<<<<<<<<<<<<<
@@ -911,7 +911,7 @@ typedef npy_int64 __pyx_t_5numpy_int64_t;
  */
 typedef npy_uint8 __pyx_t_5numpy_uint8_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":784
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":784
  * 
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t             # <<<<<<<<<<<<<<
@@ -920,7 +920,7 @@ typedef npy_uint8 __pyx_t_5numpy_uint8_t;
  */
 typedef npy_uint16 __pyx_t_5numpy_uint16_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":785
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":785
  * ctypedef npy_uint8      uint8_t
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t             # <<<<<<<<<<<<<<
@@ -929,7 +929,7 @@ typedef npy_uint16 __pyx_t_5numpy_uint16_t;
  */
 typedef npy_uint32 __pyx_t_5numpy_uint32_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":786
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":786
  * ctypedef npy_uint16     uint16_t
  * ctypedef npy_uint32     uint32_t
  * ctypedef npy_uint64     uint64_t             # <<<<<<<<<<<<<<
@@ -938,7 +938,7 @@ typedef npy_uint32 __pyx_t_5numpy_uint32_t;
  */
 typedef npy_uint64 __pyx_t_5numpy_uint64_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":790
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":790
  * #ctypedef npy_uint128    uint128_t
  * 
  * ctypedef npy_float32    float32_t             # <<<<<<<<<<<<<<
@@ -947,7 +947,7 @@ typedef npy_uint64 __pyx_t_5numpy_uint64_t;
  */
 typedef npy_float32 __pyx_t_5numpy_float32_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":791
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":791
  * 
  * ctypedef npy_float32    float32_t
  * ctypedef npy_float64    float64_t             # <<<<<<<<<<<<<<
@@ -956,7 +956,7 @@ typedef npy_float32 __pyx_t_5numpy_float32_t;
  */
 typedef npy_float64 __pyx_t_5numpy_float64_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":800
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":800
  * # The int types are mapped a bit surprising --
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t             # <<<<<<<<<<<<<<
@@ -965,7 +965,7 @@ typedef npy_float64 __pyx_t_5numpy_float64_t;
  */
 typedef npy_long __pyx_t_5numpy_int_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":801
  * # numpy.int corresponds to 'l' and numpy.long to 'q'
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t             # <<<<<<<<<<<<<<
@@ -974,7 +974,7 @@ typedef npy_long __pyx_t_5numpy_int_t;
  */
 typedef npy_longlong __pyx_t_5numpy_long_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":802
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":802
  * ctypedef npy_long       int_t
  * ctypedef npy_longlong   long_t
  * ctypedef npy_longlong   longlong_t             # <<<<<<<<<<<<<<
@@ -983,7 +983,7 @@ typedef npy_longlong __pyx_t_5numpy_long_t;
  */
 typedef npy_longlong __pyx_t_5numpy_longlong_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":804
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":804
  * ctypedef npy_longlong   longlong_t
  * 
  * ctypedef npy_ulong      uint_t             # <<<<<<<<<<<<<<
@@ -992,7 +992,7 @@ typedef npy_longlong __pyx_t_5numpy_longlong_t;
  */
 typedef npy_ulong __pyx_t_5numpy_uint_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":805
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":805
  * 
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t             # <<<<<<<<<<<<<<
@@ -1001,7 +1001,7 @@ typedef npy_ulong __pyx_t_5numpy_uint_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":806
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":806
  * ctypedef npy_ulong      uint_t
  * ctypedef npy_ulonglong  ulong_t
  * ctypedef npy_ulonglong  ulonglong_t             # <<<<<<<<<<<<<<
@@ -1010,7 +1010,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulong_t;
  */
 typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":808
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":808
  * ctypedef npy_ulonglong  ulonglong_t
  * 
  * ctypedef npy_intp       intp_t             # <<<<<<<<<<<<<<
@@ -1019,7 +1019,7 @@ typedef npy_ulonglong __pyx_t_5numpy_ulonglong_t;
  */
 typedef npy_intp __pyx_t_5numpy_intp_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":809
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":809
  * 
  * ctypedef npy_intp       intp_t
  * ctypedef npy_uintp      uintp_t             # <<<<<<<<<<<<<<
@@ -1028,7 +1028,7 @@ typedef npy_intp __pyx_t_5numpy_intp_t;
  */
 typedef npy_uintp __pyx_t_5numpy_uintp_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":811
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":811
  * ctypedef npy_uintp      uintp_t
  * 
  * ctypedef npy_double     float_t             # <<<<<<<<<<<<<<
@@ -1037,7 +1037,7 @@ typedef npy_uintp __pyx_t_5numpy_uintp_t;
  */
 typedef npy_double __pyx_t_5numpy_float_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":812
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":812
  * 
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t             # <<<<<<<<<<<<<<
@@ -1046,7 +1046,7 @@ typedef npy_double __pyx_t_5numpy_float_t;
  */
 typedef npy_double __pyx_t_5numpy_double_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":813
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":813
  * ctypedef npy_double     float_t
  * ctypedef npy_double     double_t
  * ctypedef npy_longdouble longdouble_t             # <<<<<<<<<<<<<<
@@ -1055,7 +1055,7 @@ typedef npy_double __pyx_t_5numpy_double_t;
  */
 typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
 
-/* "hyperlearn/cython/DEFINE.pyx":11
+/* "DEFINE.pyx":11
  * 
  * ctypedef np.ndarray ARRAY
  * ctypedef (long long) LONG             # <<<<<<<<<<<<<<
@@ -1064,7 +1064,7 @@ typedef npy_longdouble __pyx_t_5numpy_longdouble_t;
  */
 typedef PY_LONG_LONG __pyx_t_10hyperlearn_6cython_4base_LONG;
 
-/* "hyperlearn/cython/DEFINE.pyx":12
+/* "DEFINE.pyx":12
  * ctypedef np.ndarray ARRAY
  * ctypedef (long long) LONG
  * ctypedef bint bool             # <<<<<<<<<<<<<<
@@ -1073,7 +1073,7 @@ typedef PY_LONG_LONG __pyx_t_10hyperlearn_6cython_4base_LONG;
  */
 typedef int __pyx_t_10hyperlearn_6cython_4base_bool;
 
-/* "hyperlearn/cython/DEFINE.pyx":13
+/* "DEFINE.pyx":13
  * ctypedef (long long) LONG
  * ctypedef bint bool
  * ctypedef Py_ssize_t SIZE             # <<<<<<<<<<<<<<
@@ -1082,7 +1082,7 @@ typedef int __pyx_t_10hyperlearn_6cython_4base_bool;
  */
 typedef Py_ssize_t __pyx_t_10hyperlearn_6cython_4base_SIZE;
 
-/* "hyperlearn/cython/DEFINE.pyx":16
+/* "DEFINE.pyx":16
  * ctypedef np.dtype DTYPE
  * 
  * ctypedef (unsigned char) UINT8             # <<<<<<<<<<<<<<
@@ -1091,7 +1091,7 @@ typedef Py_ssize_t __pyx_t_10hyperlearn_6cython_4base_SIZE;
  */
 typedef unsigned char __pyx_t_10hyperlearn_6cython_4base_UINT8;
 
-/* "hyperlearn/cython/DEFINE.pyx":17
+/* "DEFINE.pyx":17
  * 
  * ctypedef (unsigned char) UINT8
  * ctypedef (unsigned short) UINT16             # <<<<<<<<<<<<<<
@@ -1100,7 +1100,7 @@ typedef unsigned char __pyx_t_10hyperlearn_6cython_4base_UINT8;
  */
 typedef unsigned short __pyx_t_10hyperlearn_6cython_4base_UINT16;
 
-/* "hyperlearn/cython/DEFINE.pyx":18
+/* "DEFINE.pyx":18
  * ctypedef (unsigned char) UINT8
  * ctypedef (unsigned short) UINT16
  * ctypedef (unsigned int) UINT32             # <<<<<<<<<<<<<<
@@ -1109,7 +1109,7 @@ typedef unsigned short __pyx_t_10hyperlearn_6cython_4base_UINT16;
  */
 typedef unsigned int __pyx_t_10hyperlearn_6cython_4base_UINT32;
 
-/* "hyperlearn/cython/DEFINE.pyx":19
+/* "DEFINE.pyx":19
  * ctypedef (unsigned short) UINT16
  * ctypedef (unsigned int) UINT32
  * ctypedef (unsigned long long) UINT64             # <<<<<<<<<<<<<<
@@ -1118,7 +1118,7 @@ typedef unsigned int __pyx_t_10hyperlearn_6cython_4base_UINT32;
  */
 typedef unsigned PY_LONG_LONG __pyx_t_10hyperlearn_6cython_4base_UINT64;
 
-/* "hyperlearn/cython/DEFINE.pyx":21
+/* "DEFINE.pyx":21
  * ctypedef (unsigned long long) UINT64
  * 
  * ctypedef char INT8             # <<<<<<<<<<<<<<
@@ -1127,7 +1127,7 @@ typedef unsigned PY_LONG_LONG __pyx_t_10hyperlearn_6cython_4base_UINT64;
  */
 typedef char __pyx_t_10hyperlearn_6cython_4base_INT8;
 
-/* "hyperlearn/cython/DEFINE.pyx":22
+/* "DEFINE.pyx":22
  * 
  * ctypedef char INT8
  * ctypedef short INT16             # <<<<<<<<<<<<<<
@@ -1136,7 +1136,7 @@ typedef char __pyx_t_10hyperlearn_6cython_4base_INT8;
  */
 typedef short __pyx_t_10hyperlearn_6cython_4base_INT16;
 
-/* "hyperlearn/cython/DEFINE.pyx":23
+/* "DEFINE.pyx":23
  * ctypedef char INT8
  * ctypedef short INT16
  * ctypedef int INT32             # <<<<<<<<<<<<<<
@@ -1145,7 +1145,7 @@ typedef short __pyx_t_10hyperlearn_6cython_4base_INT16;
  */
 typedef int __pyx_t_10hyperlearn_6cython_4base_INT32;
 
-/* "hyperlearn/cython/DEFINE.pyx":24
+/* "DEFINE.pyx":24
  * ctypedef short INT16
  * ctypedef int INT32
  * ctypedef (long long) INT64             # <<<<<<<<<<<<<<
@@ -1180,12 +1180,14 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 
 /*--- Type declarations ---*/
 struct __pyx_obj_10hyperlearn_6cython_4base_process;
+struct __pyx_obj_10hyperlearn_6cython_4base_lapack;
+struct __pyx_obj_10hyperlearn_6cython_4base_blas;
 struct __pyx_obj_10hyperlearn_6cython_4base___pyx_scope_struct____call__;
 struct __pyx_obj_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate;
 struct __pyx_obj___pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE___to_py;
 struct __pyx_obj___pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":815
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":815
  * ctypedef npy_longdouble longdouble_t
  * 
  * ctypedef npy_cfloat      cfloat_t             # <<<<<<<<<<<<<<
@@ -1194,7 +1196,7 @@ struct __pyx_obj___pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE____int___t
  */
 typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":816
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":816
  * 
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t             # <<<<<<<<<<<<<<
@@ -1203,7 +1205,7 @@ typedef npy_cfloat __pyx_t_5numpy_cfloat_t;
  */
 typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":817
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":817
  * ctypedef npy_cfloat      cfloat_t
  * ctypedef npy_cdouble     cdouble_t
  * ctypedef npy_clongdouble clongdouble_t             # <<<<<<<<<<<<<<
@@ -1212,7 +1214,7 @@ typedef npy_cdouble __pyx_t_5numpy_cdouble_t;
  */
 typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":819
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":819
  * ctypedef npy_clongdouble clongdouble_t
  * 
  * ctypedef npy_cdouble     complex_t             # <<<<<<<<<<<<<<
@@ -1223,7 +1225,7 @@ typedef npy_cdouble __pyx_t_5numpy_complex_t;
 struct __pyx_ctuple_int__and_char;
 typedef struct __pyx_ctuple_int__and_char __pyx_ctuple_int__and_char;
 
-/* "hyperlearn/cython/DEFINE.pyx":10
+/* "DEFINE.pyx":10
  * from libc.stdlib cimport malloc, free
  * 
  * ctypedef np.ndarray ARRAY             # <<<<<<<<<<<<<<
@@ -1232,7 +1234,7 @@ typedef struct __pyx_ctuple_int__and_char __pyx_ctuple_int__and_char;
  */
 typedef PyArrayObject *__pyx_t_10hyperlearn_6cython_4base_ARRAY;
 
-/* "hyperlearn/cython/DEFINE.pyx":14
+/* "DEFINE.pyx":14
  * ctypedef bint bool
  * ctypedef Py_ssize_t SIZE
  * ctypedef np.dtype DTYPE             # <<<<<<<<<<<<<<
@@ -1241,7 +1243,7 @@ typedef PyArrayObject *__pyx_t_10hyperlearn_6cython_4base_ARRAY;
  */
 typedef PyArray_Descr *__pyx_t_10hyperlearn_6cython_4base_DTYPE;
 
-/* "hyperlearn/cython/base.pyx":175
+/* "hyperlearn/cython/base.pyx":179
  * 
  * #########
  * cdef (int, char) arg_process(x, bool square):             # <<<<<<<<<<<<<<
@@ -1253,12 +1255,12 @@ struct __pyx_ctuple_int__and_char {
   char f1;
 };
 
-/* "hyperlearn/cython/base.pyx":510
+/* "hyperlearn/cython/base.pyx":515
  * 
  * #########
  * cdef class process():             # <<<<<<<<<<<<<<
- *     cdef SIZE memory_length
- *     cdef memcheck, function_signature, function_args
+ *     """
+ *     Cython equivalent of Hyperlearn's base.process, but this is much faster.
  */
 struct __pyx_obj_10hyperlearn_6cython_4base_process {
   PyObject_HEAD
@@ -1273,7 +1275,37 @@ struct __pyx_obj_10hyperlearn_6cython_4base_process {
 };
 
 
-/* "hyperlearn/cython/base.pyx":528
+/* "hyperlearn/cython/base.pyx":577
+ * 
+ * #########
+ * cdef class lapack():             # <<<<<<<<<<<<<<
+ *     """
+ *     Calls LAPACK functions from Scipy. Use like this: lapack("LAPACK function")("args")
+ */
+struct __pyx_obj_10hyperlearn_6cython_4base_lapack {
+  PyObject_HEAD
+  PyObject *function;
+  __pyx_t_10hyperlearn_6cython_4base_bool turbo;
+  PyObject *f;
+};
+
+
+/* "hyperlearn/cython/base.pyx":630
+ * 
+ * #########
+ * cdef class blas():             # <<<<<<<<<<<<<<
+ *     """
+ *     Calls BLAS functions from Scipy. Use like this: blas("BLAS function")("args")
+ */
+struct __pyx_obj_10hyperlearn_6cython_4base_blas {
+  PyObject_HEAD
+  PyObject *function;
+  PyObject *f;
+  PyObject *left;
+};
+
+
+/* "hyperlearn/cython/base.pyx":549
  *         self.not_processed = True
  * 
  *     def __call__(self, f = None):             # <<<<<<<<<<<<<<
@@ -1286,7 +1318,7 @@ struct __pyx_obj_10hyperlearn_6cython_4base___pyx_scope_struct____call__ {
 };
 
 
-/* "hyperlearn/cython/base.pyx":534
+/* "hyperlearn/cython/base.pyx":555
  *             self.not_processed = False
  * 
  *         def decorate(f):             # <<<<<<<<<<<<<<
@@ -1707,10 +1739,6 @@ static int __Pyx_DelItem_Generic(PyObject *o, PyObject *j);
 static CYTHON_INLINE int __Pyx_DelItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                int is_list, int wraparound);
 
-/* RaiseArgTupleInvalid.proto */
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
-
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
@@ -1718,6 +1746,10 @@ static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_n
 static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
+
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
 /* KeywordStringCheck.proto */
 static int __Pyx_CheckKeywordStrings(PyObject *kwdict, const char* function_name, int kw_allowed);
@@ -1795,6 +1827,42 @@ static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *, PyObject *);
 
 /* GetAttr3.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *, PyObject *, PyObject *);
+
+/* IterNext.proto */
+#define __Pyx_PyIter_Next(obj) __Pyx_PyIter_Next2(obj, NULL)
+static CYTHON_INLINE PyObject *__Pyx_PyIter_Next2(PyObject *, PyObject *);
+
+/* py_dict_values.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyDict_Values(PyObject* d);
+
+/* UnpackUnboundCMethod.proto */
+typedef struct {
+    PyObject *type;
+    PyObject **method_name;
+    PyCFunction func;
+    PyObject *method;
+    int flag;
+} __Pyx_CachedCFunction;
+
+/* CallUnboundCMethod0.proto */
+static PyObject* __Pyx__CallUnboundCMethod0(__Pyx_CachedCFunction* cfunc, PyObject* self);
+#if CYTHON_COMPILING_IN_CPYTHON
+#define __Pyx_CallUnboundCMethod0(cfunc, self)\
+    (likely((cfunc)->func) ?\
+        (likely((cfunc)->flag == METH_NOARGS) ?  (*((cfunc)->func))(self, NULL) :\
+         (PY_VERSION_HEX >= 0x030600B1 && likely((cfunc)->flag == METH_FASTCALL) ?\
+            (PY_VERSION_HEX >= 0x030700A0 ?\
+                (*(__Pyx_PyCFunctionFast)(void*)(PyCFunction)(cfunc)->func)(self, &__pyx_empty_tuple, 0) :\
+                (*(__Pyx_PyCFunctionFastWithKeywords)(void*)(PyCFunction)(cfunc)->func)(self, &__pyx_empty_tuple, 0, NULL)) :\
+          (PY_VERSION_HEX >= 0x030700A0 && (cfunc)->flag == (METH_FASTCALL | METH_KEYWORDS) ?\
+            (*(__Pyx_PyCFunctionFastWithKeywords)(void*)(PyCFunction)(cfunc)->func)(self, &__pyx_empty_tuple, 0, NULL) :\
+            (likely((cfunc)->flag == (METH_VARARGS | METH_KEYWORDS)) ?  ((*(PyCFunctionWithKeywords)(void*)(PyCFunction)(cfunc)->func)(self, __pyx_empty_tuple, NULL)) :\
+               ((cfunc)->flag == METH_VARARGS ?  (*((cfunc)->func))(self, __pyx_empty_tuple) :\
+               __Pyx__CallUnboundCMethod0(cfunc, self)))))) :\
+        __Pyx__CallUnboundCMethod0(cfunc, self))
+#else
+#define __Pyx_CallUnboundCMethod0(cfunc, self)  __Pyx__CallUnboundCMethod0(cfunc, self)
+#endif
 
 /* Import.proto */
 static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
@@ -1987,10 +2055,10 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES v
 static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *);
 
 /* CIntFromPy.proto */
-static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *);
-
-/* CIntFromPy.proto */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
+
+/* Globals.proto */
+static PyObject* __Pyx_Globals(void);
 
 /* FastTypeChecks.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
@@ -2112,6 +2180,8 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void); /*proto*/
 
 /* Module declarations from 'hyperlearn.cython.base' */
 static PyTypeObject *__pyx_ptype_10hyperlearn_6cython_4base_process = 0;
+static PyTypeObject *__pyx_ptype_10hyperlearn_6cython_4base_lapack = 0;
+static PyTypeObject *__pyx_ptype_10hyperlearn_6cython_4base_blas = 0;
 static PyTypeObject *__pyx_ptype_10hyperlearn_6cython_4base___pyx_scope_struct____call__ = 0;
 static PyTypeObject *__pyx_ptype_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate = 0;
 static PyTypeObject *__pyx_ptype___pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE___to_py = 0;
@@ -2164,10 +2234,9 @@ static int __pyx_f_10hyperlearn_6cython_4base_available_memory(int __pyx_skip_di
 static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4base_isComplex(__pyx_t_10hyperlearn_6cython_4base_DTYPE, int __pyx_skip_dispatch); /*proto*/
 static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *, __pyx_t_10hyperlearn_6cython_4base_DTYPE, PyObject *); /*proto*/
 static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process(PyObject *, __pyx_t_10hyperlearn_6cython_4base_bool); /*proto*/
-static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *, __pyx_t_10hyperlearn_6cython_4base_bool, __pyx_t_10hyperlearn_6cython_4base_bool, int, PyObject *, PyObject *, PyObject *, PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_10hyperlearn_6cython_4base_lapack(char, PyBoolObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
-static PyObject *__pyx_f_10hyperlearn_6cython_4base_blas(char, PyObject *, PyObject *, int __pyx_skip_dispatch); /*proto*/
 static PyObject *__pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_process__set_state(struct __pyx_obj_10hyperlearn_6cython_4base_process *, PyObject *); /*proto*/
+static PyObject *__pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_lapack__set_state(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *, PyObject *); /*proto*/
+static PyObject *__pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_blas__set_state(struct __pyx_obj_10hyperlearn_6cython_4base_blas *, PyObject *); /*proto*/
 static PyObject *__Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_t_10hyperlearn_6cython_4base_SIZE (*)(__pyx_t_10hyperlearn_6cython_4base_SIZE, __pyx_t_10hyperlearn_6cython_4base_SIZE)); /*proto*/
 static PyObject *__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_t_10hyperlearn_6cython_4base_SIZE (*)(__pyx_t_10hyperlearn_6cython_4base_SIZE, __pyx_t_10hyperlearn_6cython_4base_SIZE, int)); /*proto*/
 #define __Pyx_MODULE_NAME "hyperlearn.cython.base"
@@ -2182,6 +2251,7 @@ static PyObject *__pyx_builtin_IndexError;
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_NameError;
 static PyObject *__pyx_builtin_MemoryError;
+static PyObject *__pyx_builtin_eval;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_ImportError;
@@ -2197,7 +2267,10 @@ static const char __pyx_k_p[] = "p";
 static const char __pyx_k_s[] = "s";
 static const char __pyx_k_z[] = "z";
 static const char __pyx_k_A1[] = "A1";
+static const char __pyx_k_dt[] = "dt";
+static const char __pyx_k_fx[] = "fx";
 static const char __pyx_k_np[] = "np";
+static const char __pyx_k__10[] = "";
 static const char __pyx_k_chr[] = "chr";
 static const char __pyx_k_max[] = "max";
 static const char __pyx_k_new[] = "__new__";
@@ -2206,6 +2279,7 @@ static const char __pyx_k_args[] = "args";
 static const char __pyx_k_blas[] = "_blas.";
 static const char __pyx_k_char[] = "char";
 static const char __pyx_k_dict[] = "__dict__";
+static const char __pyx_k_eval[] = "eval";
 static const char __pyx_k_full[] = "full";
 static const char __pyx_k_int8[] = "int8";
 static const char __pyx_k_keys[] = "keys";
@@ -2214,15 +2288,18 @@ static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_only[] = "only";
 static const char __pyx_k_same[] = "same";
+static const char __pyx_k_self[] = "self";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_triu[] = "triu";
 static const char __pyx_k_wrap[] = "wrap";
 static const char __pyx_k_dtype[] = "dtype";
 static const char __pyx_k_extra[] = "extra";
 static const char __pyx_k_finfo[] = "finfo";
+static const char __pyx_k_funcs[] = "funcs";
 static const char __pyx_k_iinfo[] = "iinfo";
 static const char __pyx_k_int16[] = "int16";
 static const char __pyx_k_int32[] = "int32";
+static const char __pyx_k_numba[] = "numba";
 static const char __pyx_k_numpy[] = "numpy";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
@@ -2231,8 +2308,11 @@ static const char __pyx_k_uint8[] = "uint8";
 static const char __pyx_k_wraps[] = "wraps";
 static const char __pyx_k_MB_but[] = " MB,but ";
 static const char __pyx_k_astype[] = "astype";
+static const char __pyx_k_blas_2[] = "blas";
+static const char __pyx_k_blas_3[] = "_blas";
 static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_kwargs[] = "kwargs";
+static const char __pyx_k_lapack[] = "lapack";
 static const char __pyx_k_matrix[] = "matrix";
 static const char __pyx_k_pickle[] = "pickle";
 static const char __pyx_k_psutil[] = "psutil";
@@ -2241,6 +2321,7 @@ static const char __pyx_k_square[] = "square";
 static const char __pyx_k_uint16[] = "uint16";
 static const char __pyx_k_uint32[] = "uint32";
 static const char __pyx_k_update[] = "update";
+static const char __pyx_k_values[] = "values";
 static const char __pyx_k_columns[] = "columns";
 static const char __pyx_k_default[] = "default";
 static const char __pyx_k_float32[] = "float32";
@@ -2248,15 +2329,19 @@ static const char __pyx_k_float64[] = "float64";
 static const char __pyx_k_inspect[] = "inspect";
 static const char __pyx_k_minimum[] = "minimum";
 static const char __pyx_k_nocheck[] = "nocheck";
+static const char __pyx_k_numba_2[] = "_numba.";
+static const char __pyx_k_numba_3[] = "_numba";
 static const char __pyx_k_process[] = "process";
 static const char __pyx_k_squared[] = "squared";
 static const char __pyx_k_wrapper[] = "wrapper";
 static const char __pyx_k_Argument[] = "Argument (";
+static const char __pyx_k_base_pyx[] = "base.pyx";
 static const char __pyx_k_decorate[] = "decorate";
 static const char __pyx_k_extended[] = "extended";
 static const char __pyx_k_function[] = "function";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_is_wrong[] = ") is wrong.";
+static const char __pyx_k_lapack_2[] = "_lapack";
 static const char __pyx_k_lapack_c[] = "_lapack.c";
 static const char __pyx_k_lapack_d[] = "_lapack.d";
 static const char __pyx_k_lapack_s[] = "_lapack.s";
@@ -2284,14 +2369,12 @@ static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_MemoryError[] = "MemoryError";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_cfunc_to_py[] = "cfunc.to_py";
-static const char __pyx_k_memory_keys[] = "memory_keys";
 static const char __pyx_k_Data_type_of[] = "Data type of (";
 static const char __pyx_k_RuntimeError[] = "RuntimeError";
 static const char __pyx_k_n_components[] = "n_components";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
+static const char __pyx_k_scipy_linalg[] = "scipy.linalg";
 static const char __pyx_k_stringsource[] = "stringsource";
-static const char __pyx_k_function_args[] = "function_args";
-static const char __pyx_k_memory_length[] = "memory_length";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_AssertionError[] = "AssertionError";
 static const char __pyx_k_MB_is_required[] = " MB is required.";
@@ -2299,15 +2382,15 @@ static const char __pyx_k_n_components_2[] = "n_components = (";
 static const char __pyx_k_virtual_memory[] = "virtual_memory";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
+static const char __pyx_k_pyx_unpickle_blas[] = "__pyx_unpickle_blas";
 static const char __pyx_k_Operation_requires[] = "Operation requires ";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static const char __pyx_k_function_signature[] = "function_signature";
+static const char __pyx_k_pyx_unpickle_lapack[] = "__pyx_unpickle_lapack";
 static const char __pyx_k_pyx_unpickle_process[] = "__pyx_unpickle_process";
 static const char __pyx_k_MB_is_free_so_an_extra[] = " MB is free, so an extra ";
 static const char __pyx_k_call___locals_decorate[] = "__call__.<locals>.decorate";
 static const char __pyx_k_hyperlearn_cython_base[] = "hyperlearn.cython.base";
 static const char __pyx_k_is_not_a_numerical_type[] = ") is not a numerical type.";
-static const char __pyx_k_hyperlearn_cython_base_pyx[] = "hyperlearn\\cython\\base.pyx";
 static const char __pyx_k_Too_many_arguments_Argument[] = "Too many arguments. Argument (";
 static const char __pyx_k_ndarray_is_not_C_contiguous[] = "ndarray is not C contiguous";
 static const char __pyx_k_call___locals_decorate_locals[] = "__call__.<locals>.decorate.<locals>.wrapper";
@@ -2321,7 +2404,9 @@ static const char __pyx_k_First_argument_is_not_a_2D_array[] = "First argument i
 static const char __pyx_k_Format_string_allocated_too_shor[] = "Format string allocated too short, see comment in numpy.pxd";
 static const char __pyx_k_Function_has_too_many_inputs_Onl[] = "Function has too many inputs. Only (";
 static const char __pyx_k_Function_needs_1_function_argume[] = "Function needs >= 1 function arguments.";
+static const char __pyx_k_Incompatible_checksums_s_vs_0x27[] = "Incompatible checksums (%s vs 0x2709b6e = (f, function, left))";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xbb[] = "Incompatible checksums (%s vs 0xbb9ce55 = (fractional, function_args, function_signature, memcheck, memory_keys, memory_length, not_processed, square))";
+static const char __pyx_k_Incompatible_checksums_s_vs_0xca[] = "Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))";
 static const char __pyx_k_Non_native_byte_order_not_suppor[] = "Non-native byte order not supported";
 static const char __pyx_k_Operation_requires_more_memory_t[] = "Operation requires more memory than what the system resources offer.";
 static const char __pyx_k_Pyx_CFunc_SIZE____SIZE____SIZE_2[] = "__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py.<locals>.wrap";
@@ -2341,7 +2426,9 @@ static PyObject *__pyx_kp_u_Format_string_allocated_too_shor_2;
 static PyObject *__pyx_kp_u_Function_has_too_many_inputs_Onl;
 static PyObject *__pyx_kp_u_Function_needs_1_function_argume;
 static PyObject *__pyx_n_s_ImportError;
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x27;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xbb;
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xca;
 static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_kp_u_MB_but;
 static PyObject *__pyx_kp_u_MB_is_free_so_an_extra;
@@ -2360,10 +2447,14 @@ static PyObject *__pyx_kp_u_Too_many_arguments_Argument;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_n_s_ValueError;
 static PyObject *__pyx_n_u_X;
+static PyObject *__pyx_kp_u__10;
 static PyObject *__pyx_n_s_args;
 static PyObject *__pyx_n_s_astype;
 static PyObject *__pyx_n_s_available;
+static PyObject *__pyx_kp_s_base_pyx;
 static PyObject *__pyx_kp_u_blas;
+static PyObject *__pyx_n_s_blas_2;
+static PyObject *__pyx_n_s_blas_3;
 static PyObject *__pyx_n_u_c;
 static PyObject *__pyx_n_s_call___locals_decorate;
 static PyObject *__pyx_n_s_call___locals_decorate_locals;
@@ -2376,7 +2467,9 @@ static PyObject *__pyx_n_u_d;
 static PyObject *__pyx_n_s_decorate;
 static PyObject *__pyx_n_s_default;
 static PyObject *__pyx_n_s_dict;
+static PyObject *__pyx_n_s_dt;
 static PyObject *__pyx_n_s_dtype;
+static PyObject *__pyx_n_s_eval;
 static PyObject *__pyx_n_u_extended;
 static PyObject *__pyx_n_u_extra;
 static PyObject *__pyx_n_s_f;
@@ -2385,13 +2478,12 @@ static PyObject *__pyx_n_s_float32;
 static PyObject *__pyx_n_s_float64;
 static PyObject *__pyx_n_s_fractional;
 static PyObject *__pyx_n_u_full;
+static PyObject *__pyx_n_s_funcs;
 static PyObject *__pyx_n_s_function;
-static PyObject *__pyx_n_s_function_args;
-static PyObject *__pyx_n_s_function_signature;
 static PyObject *__pyx_n_s_functools;
+static PyObject *__pyx_n_s_fx;
 static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_n_s_hyperlearn_cython_base;
-static PyObject *__pyx_kp_s_hyperlearn_cython_base_pyx;
 static PyObject *__pyx_n_s_iinfo;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_inspect;
@@ -2406,6 +2498,8 @@ static PyObject *__pyx_kp_u_is_wrong;
 static PyObject *__pyx_n_s_k;
 static PyObject *__pyx_n_s_keys;
 static PyObject *__pyx_n_s_kwargs;
+static PyObject *__pyx_n_s_lapack;
+static PyObject *__pyx_n_s_lapack_2;
 static PyObject *__pyx_kp_u_lapack_c;
 static PyObject *__pyx_kp_u_lapack_d;
 static PyObject *__pyx_kp_u_lapack_s;
@@ -2415,8 +2509,6 @@ static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_matrix;
 static PyObject *__pyx_n_s_max;
 static PyObject *__pyx_n_s_memcheck;
-static PyObject *__pyx_n_s_memory_keys;
-static PyObject *__pyx_n_s_memory_length;
 static PyObject *__pyx_n_u_min_left;
 static PyObject *__pyx_n_u_min_right;
 static PyObject *__pyx_n_u_minimum;
@@ -2429,6 +2521,9 @@ static PyObject *__pyx_kp_u_ndarray_is_not_Fortran_contiguou;
 static PyObject *__pyx_n_s_new;
 static PyObject *__pyx_n_u_nocheck;
 static PyObject *__pyx_n_s_np;
+static PyObject *__pyx_n_s_numba;
+static PyObject *__pyx_kp_u_numba_2;
+static PyObject *__pyx_n_s_numba_3;
 static PyObject *__pyx_n_s_numpy;
 static PyObject *__pyx_kp_u_numpy_core_multiarray_failed_to;
 static PyObject *__pyx_kp_u_numpy_core_umath_failed_to_impor;
@@ -2443,6 +2538,8 @@ static PyObject *__pyx_n_s_pyx_checksum;
 static PyObject *__pyx_n_s_pyx_result;
 static PyObject *__pyx_n_s_pyx_state;
 static PyObject *__pyx_n_s_pyx_type;
+static PyObject *__pyx_n_s_pyx_unpickle_blas;
+static PyObject *__pyx_n_s_pyx_unpickle_lapack;
 static PyObject *__pyx_n_s_pyx_unpickle_process;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reduce;
@@ -2450,6 +2547,8 @@ static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
 static PyObject *__pyx_n_u_s;
 static PyObject *__pyx_n_u_same;
+static PyObject *__pyx_n_s_scipy_linalg;
+static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
 static PyObject *__pyx_n_s_shape;
@@ -2466,6 +2565,7 @@ static PyObject *__pyx_n_s_uint32;
 static PyObject *__pyx_n_s_uint8;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_update;
+static PyObject *__pyx_n_s_values;
 static PyObject *__pyx_n_s_virtual_memory;
 static PyObject *__pyx_n_s_wrap;
 static PyObject *__pyx_n_s_wrapper;
@@ -2474,34 +2574,45 @@ static PyObject *__pyx_n_u_z;
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_isList(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_x); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_2available_memory(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4isComplex(CYTHON_UNUSED PyObject *__pyx_self, __pyx_t_10hyperlearn_6cython_4base_DTYPE __pyx_v_dtype); /* proto */
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6wrapper(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_memcheck, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_fractional, int __pyx_v_memory_length, PyObject *__pyx_v_memory_keys, PyObject *__pyx_v_function_signature, PyObject *__pyx_v_function_args, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
 static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_obj_10hyperlearn_6cython_4base_process *__pyx_v_self, PyObject *__pyx_v_memcheck, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_fractional); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorate_wrapper(PyObject *__pyx_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate(PyObject *__pyx_self, PyObject *__pyx_v_f); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct __pyx_obj_10hyperlearn_6cython_4base_process *__pyx_v_self, PyObject *__pyx_v_f); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_4__reduce_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_process *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_6__setstate_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_process *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_8lapack(CYTHON_UNUSED PyObject *__pyx_self, char __pyx_v_dtype, PyBoolObject *__pyx_v_turbo, PyObject *__pyx_v_function); /* proto */
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_10blas(CYTHON_UNUSED PyObject *__pyx_self, char __pyx_v_dtype, PyObject *__pyx_v_function, PyObject *__pyx_v_left); /* proto */
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_12__pyx_unpickle_process(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_10hyperlearn_6cython_4base_6lapack___init__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self, PyObject *__pyx_v_function, PyObject *__pyx_v_numba, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_turbo); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6lapack_2__call__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6lapack_4__reduce_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6lapack_6__setstate_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_10hyperlearn_6cython_4base_4blas___init__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self, PyObject *__pyx_v_function, PyObject *__pyx_v_left); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4blas_2__call__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4blas_4__reduce_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4blas_6__setstate_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6__pyx_unpickle_process(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_8__pyx_unpickle_lapack(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_10__pyx_unpickle_blas(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
 static PyObject *__pyx_pf_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_wrap(PyObject *__pyx_self, __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_n, __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_p); /* proto */
 static PyObject *__pyx_pf_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_wrap(PyObject *__pyx_self, __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_n, __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_v_p, int __pyx_v_k); /* proto */
 static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base_process(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base_lapack(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base_blas(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base___pyx_scope_struct____call__(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new___pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE___to_py(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new___pyx_scope_struct____Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static __Pyx_CachedCFunction __pyx_umethod_PyDict_Type_values = {0, &__pyx_n_s_values, 0, 0, 0};
 static PyObject *__pyx_int_1;
+static PyObject *__pyx_int_40934254;
 static PyObject *__pyx_int_196726357;
+static PyObject *__pyx_int_211965179;
 static PyObject *__pyx_k__4;
 static PyObject *__pyx_tuple__2;
 static PyObject *__pyx_tuple__3;
 static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__8;
-static PyObject *__pyx_tuple__10;
 static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__12;
 static PyObject *__pyx_tuple__13;
@@ -2509,16 +2620,21 @@ static PyObject *__pyx_tuple__14;
 static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__16;
 static PyObject *__pyx_tuple__17;
-static PyObject *__pyx_tuple__19;
-static PyObject *__pyx_tuple__21;
+static PyObject *__pyx_tuple__18;
+static PyObject *__pyx_tuple__20;
+static PyObject *__pyx_tuple__22;
+static PyObject *__pyx_tuple__24;
+static PyObject *__pyx_tuple__26;
 static PyObject *__pyx_codeobj__7;
 static PyObject *__pyx_codeobj__9;
-static PyObject *__pyx_codeobj__18;
-static PyObject *__pyx_codeobj__20;
-static PyObject *__pyx_codeobj__22;
+static PyObject *__pyx_codeobj__19;
+static PyObject *__pyx_codeobj__21;
+static PyObject *__pyx_codeobj__23;
+static PyObject *__pyx_codeobj__25;
+static PyObject *__pyx_codeobj__27;
 /* Late includes */
 
-/* "hyperlearn/cython/base.pyx":20
+/* "hyperlearn/cython/base.pyx":24
  * 
  * ###
  * cdef SIZE full_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2535,7 +2651,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("full_", 0);
 
-  /* "hyperlearn/cython/base.pyx":21
+  /* "hyperlearn/cython/base.pyx":25
  * ###
  * cdef SIZE full_(SIZE n, SIZE p):
  *     cdef SIZE out = n*p             # <<<<<<<<<<<<<<
@@ -2544,7 +2660,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_out = (__pyx_v_n * __pyx_v_p);
 
-  /* "hyperlearn/cython/base.pyx":22
+  /* "hyperlearn/cython/base.pyx":26
  * cdef SIZE full_(SIZE n, SIZE p):
  *     cdef SIZE out = n*p
  *     cdef SIZE a = n*n             # <<<<<<<<<<<<<<
@@ -2553,7 +2669,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_a = (__pyx_v_n * __pyx_v_n);
 
-  /* "hyperlearn/cython/base.pyx":23
+  /* "hyperlearn/cython/base.pyx":27
  *     cdef SIZE out = n*p
  *     cdef SIZE a = n*n
  *     cdef SIZE b = p*p             # <<<<<<<<<<<<<<
@@ -2562,7 +2678,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_b = (__pyx_v_p * __pyx_v_p);
 
-  /* "hyperlearn/cython/base.pyx":25
+  /* "hyperlearn/cython/base.pyx":29
  *     cdef SIZE b = p*p
  * 
  *     if a < b:   out += a             # <<<<<<<<<<<<<<
@@ -2575,7 +2691,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
     goto __pyx_L3;
   }
 
-  /* "hyperlearn/cython/base.pyx":26
+  /* "hyperlearn/cython/base.pyx":30
  * 
  *     if a < b:   out += a
  *     else:       out += b             # <<<<<<<<<<<<<<
@@ -2587,7 +2703,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   }
   __pyx_L3:;
 
-  /* "hyperlearn/cython/base.pyx":27
+  /* "hyperlearn/cython/base.pyx":31
  *     if a < b:   out += a
  *     else:       out += b
  *     return out             # <<<<<<<<<<<<<<
@@ -2597,7 +2713,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_out;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":20
+  /* "hyperlearn/cython/base.pyx":24
  * 
  * ###
  * cdef SIZE full_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2611,7 +2727,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":30
+/* "hyperlearn/cython/base.pyx":34
  * 
  * ###
  * cdef SIZE svd_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2630,7 +2746,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_t_3;
   __Pyx_RefNannySetupContext("svd_", 0);
 
-  /* "hyperlearn/cython/base.pyx":38
+  /* "hyperlearn/cython/base.pyx":42
  *     # = 2*MIN(1 + MAX) + 2.5*MAX**2 + MAX
  *     cdef SIZE MIN, MAX
  *     if n < p:             # <<<<<<<<<<<<<<
@@ -2640,7 +2756,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_t_1 = ((__pyx_v_n < __pyx_v_p) != 0);
   if (__pyx_t_1) {
 
-    /* "hyperlearn/cython/base.pyx":39
+    /* "hyperlearn/cython/base.pyx":43
  *     cdef SIZE MIN, MAX
  *     if n < p:
  *         MIN, MAX = n, p             # <<<<<<<<<<<<<<
@@ -2652,7 +2768,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
     __pyx_v_MIN = __pyx_t_2;
     __pyx_v_MAX = __pyx_t_3;
 
-    /* "hyperlearn/cython/base.pyx":38
+    /* "hyperlearn/cython/base.pyx":42
  *     # = 2*MIN(1 + MAX) + 2.5*MAX**2 + MAX
  *     cdef SIZE MIN, MAX
  *     if n < p:             # <<<<<<<<<<<<<<
@@ -2662,7 +2778,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
     goto __pyx_L3;
   }
 
-  /* "hyperlearn/cython/base.pyx":41
+  /* "hyperlearn/cython/base.pyx":45
  *         MIN, MAX = n, p
  *     else:
  *         MIN, MAX = p, n             # <<<<<<<<<<<<<<
@@ -2677,7 +2793,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   }
   __pyx_L3:;
 
-  /* "hyperlearn/cython/base.pyx":43
+  /* "hyperlearn/cython/base.pyx":47
  *         MIN, MAX = p, n
  * 
  *     cdef SIZE usage = 2*MIN*(MAX + 1) + MAX             # <<<<<<<<<<<<<<
@@ -2686,7 +2802,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_usage = (((2 * __pyx_v_MIN) * (__pyx_v_MAX + 1)) + __pyx_v_MAX);
 
-  /* "hyperlearn/cython/base.pyx":44
+  /* "hyperlearn/cython/base.pyx":48
  * 
  *     cdef SIZE usage = 2*MIN*(MAX + 1) + MAX
  *     usage += <SIZE>(2.5*<double>(MIN*MIN))             # <<<<<<<<<<<<<<
@@ -2695,7 +2811,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_usage = (__pyx_v_usage + ((__pyx_t_10hyperlearn_6cython_4base_SIZE)(2.5 * ((double)(__pyx_v_MIN * __pyx_v_MIN)))));
 
-  /* "hyperlearn/cython/base.pyx":45
+  /* "hyperlearn/cython/base.pyx":49
  *     cdef SIZE usage = 2*MIN*(MAX + 1) + MAX
  *     usage += <SIZE>(2.5*<double>(MIN*MIN))
  *     return usage             # <<<<<<<<<<<<<<
@@ -2705,7 +2821,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_usage;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":30
+  /* "hyperlearn/cython/base.pyx":34
  * 
  * ###
  * cdef SIZE svd_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2719,7 +2835,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":49
+/* "hyperlearn/cython/base.pyx":53
  * 
  * ###
  * cdef SIZE syevd_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2733,7 +2849,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("syevd_", 0);
 
-  /* "hyperlearn/cython/base.pyx":55
+  /* "hyperlearn/cython/base.pyx":59
  *     # (~ 2*p**2 + p) for approximate workspace
  *     # total = (2p + 3*p**2)
  *     cdef SIZE usage = 2*p + 3*p*p             # <<<<<<<<<<<<<<
@@ -2742,7 +2858,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_usage = ((2 * __pyx_v_p) + ((3 * __pyx_v_p) * __pyx_v_p));
 
-  /* "hyperlearn/cython/base.pyx":56
+  /* "hyperlearn/cython/base.pyx":60
  *     # total = (2p + 3*p**2)
  *     cdef SIZE usage = 2*p + 3*p*p
  *     return usage             # <<<<<<<<<<<<<<
@@ -2752,7 +2868,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_usage;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":49
+  /* "hyperlearn/cython/base.pyx":53
  * 
  * ###
  * cdef SIZE syevd_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2766,7 +2882,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":60
+/* "hyperlearn/cython/base.pyx":64
  * 
  * ###
  * cdef SIZE syevr_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2780,7 +2896,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("syevr_", 0);
 
-  /* "hyperlearn/cython/base.pyx":66
+  /* "hyperlearn/cython/base.pyx":70
  *     # (~ p**2 + p) for approximate workspace
  *     # total = (2p + 2*p**2)
  *     cdef SIZE usage = 2*p + 2*p*p             # <<<<<<<<<<<<<<
@@ -2789,7 +2905,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_usage = ((2 * __pyx_v_p) + ((2 * __pyx_v_p) * __pyx_v_p));
 
-  /* "hyperlearn/cython/base.pyx":67
+  /* "hyperlearn/cython/base.pyx":71
  *     # total = (2p + 2*p**2)
  *     cdef SIZE usage = 2*p + 2*p*p
  *     return usage             # <<<<<<<<<<<<<<
@@ -2799,7 +2915,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_usage;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":60
+  /* "hyperlearn/cython/base.pyx":64
  * 
  * ###
  * cdef SIZE syevr_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2813,7 +2929,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":71
+/* "hyperlearn/cython/base.pyx":75
  * 
  * ###
  * cdef SIZE potrf_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2827,7 +2943,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("potrf_", 0);
 
-  /* "hyperlearn/cython/base.pyx":77
+  /* "hyperlearn/cython/base.pyx":81
  *     # (~ p**2 + p) for approximate workspace
  *     # total = (2p + 2*p**2)
  *     cdef SIZE usage = 2*p + 2*p*p             # <<<<<<<<<<<<<<
@@ -2836,7 +2952,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_usage = ((2 * __pyx_v_p) + ((2 * __pyx_v_p) * __pyx_v_p));
 
-  /* "hyperlearn/cython/base.pyx":78
+  /* "hyperlearn/cython/base.pyx":82
  *     # total = (2p + 2*p**2)
  *     cdef SIZE usage = 2*p + 2*p*p
  *     return usage             # <<<<<<<<<<<<<<
@@ -2846,7 +2962,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_usage;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":71
+  /* "hyperlearn/cython/base.pyx":75
  * 
  * ###
  * cdef SIZE potrf_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2860,7 +2976,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":82
+/* "hyperlearn/cython/base.pyx":86
  * 
  * ###
  * cdef SIZE same_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2873,7 +2989,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("same_", 0);
 
-  /* "hyperlearn/cython/base.pyx":83
+  /* "hyperlearn/cython/base.pyx":87
  * ###
  * cdef SIZE same_(SIZE n, SIZE p):
  *     return n*p             # <<<<<<<<<<<<<<
@@ -2883,7 +2999,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = (__pyx_v_n * __pyx_v_p);
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":82
+  /* "hyperlearn/cython/base.pyx":86
  * 
  * ###
  * cdef SIZE same_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2897,7 +3013,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":86
+/* "hyperlearn/cython/base.pyx":90
  * 
  * ###
  * cdef SIZE triu_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2911,7 +3027,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_t_1;
   __Pyx_RefNannySetupContext("triu_", 0);
 
-  /* "hyperlearn/cython/base.pyx":87
+  /* "hyperlearn/cython/base.pyx":91
  * ###
  * cdef SIZE triu_(SIZE n, SIZE p):
  *     return p*p if p < n else n*p             # <<<<<<<<<<<<<<
@@ -2926,7 +3042,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_t_1;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":86
+  /* "hyperlearn/cython/base.pyx":90
  * 
  * ###
  * cdef SIZE triu_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2940,7 +3056,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":90
+/* "hyperlearn/cython/base.pyx":94
  * 
  * ###
  * cdef SIZE squared_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2953,7 +3069,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("squared_", 0);
 
-  /* "hyperlearn/cython/base.pyx":91
+  /* "hyperlearn/cython/base.pyx":95
  * ###
  * cdef SIZE squared_(SIZE n, SIZE p):
  *     return n*n             # <<<<<<<<<<<<<<
@@ -2963,7 +3079,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = (__pyx_v_n * __pyx_v_n);
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":90
+  /* "hyperlearn/cython/base.pyx":94
  * 
  * ###
  * cdef SIZE squared_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2977,7 +3093,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":94
+/* "hyperlearn/cython/base.pyx":98
  * 
  * ###
  * cdef SIZE columns_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -2990,7 +3106,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("columns_", 0);
 
-  /* "hyperlearn/cython/base.pyx":95
+  /* "hyperlearn/cython/base.pyx":99
  * ###
  * cdef SIZE columns_(SIZE n, SIZE p):
  *     return p             # <<<<<<<<<<<<<<
@@ -3000,7 +3116,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_p;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":94
+  /* "hyperlearn/cython/base.pyx":98
  * 
  * ###
  * cdef SIZE columns_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -3014,7 +3130,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":98
+/* "hyperlearn/cython/base.pyx":102
  * 
  * ###
  * cdef SIZE extra_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -3030,7 +3146,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_t_1;
   __Pyx_RefNannySetupContext("extra_", 0);
 
-  /* "hyperlearn/cython/base.pyx":99
+  /* "hyperlearn/cython/base.pyx":103
  * ###
  * cdef SIZE extra_(SIZE n, SIZE p):
  *     cdef SIZE a = n if n < p else p             # <<<<<<<<<<<<<<
@@ -3044,7 +3160,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   }
   __pyx_v_a = __pyx_t_1;
 
-  /* "hyperlearn/cython/base.pyx":100
+  /* "hyperlearn/cython/base.pyx":104
  * cdef SIZE extra_(SIZE n, SIZE p):
  *     cdef SIZE a = n if n < p else p
  *     cdef SIZE b = a*a             # <<<<<<<<<<<<<<
@@ -3053,7 +3169,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_b = (__pyx_v_a * __pyx_v_a);
 
-  /* "hyperlearn/cython/base.pyx":101
+  /* "hyperlearn/cython/base.pyx":105
  *     cdef SIZE a = n if n < p else p
  *     cdef SIZE b = a*a
  *     a += b             # <<<<<<<<<<<<<<
@@ -3062,7 +3178,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_a = (__pyx_v_a + __pyx_v_b);
 
-  /* "hyperlearn/cython/base.pyx":102
+  /* "hyperlearn/cython/base.pyx":106
  *     cdef SIZE b = a*a
  *     a += b
  *     return a             # <<<<<<<<<<<<<<
@@ -3072,7 +3188,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_a;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":98
+  /* "hyperlearn/cython/base.pyx":102
  * 
  * ###
  * cdef SIZE extra_(SIZE n, SIZE p):             # <<<<<<<<<<<<<<
@@ -3086,7 +3202,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":105
+/* "hyperlearn/cython/base.pyx":109
  * 
  * ###
  * cdef SIZE truncated_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3101,7 +3217,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_t_1;
   __Pyx_RefNannySetupContext("truncated_", 0);
 
-  /* "hyperlearn/cython/base.pyx":106
+  /* "hyperlearn/cython/base.pyx":110
  * ###
  * cdef SIZE truncated_(SIZE n, SIZE p, int k):
  *     cdef SIZE a = n if n < p else p             # <<<<<<<<<<<<<<
@@ -3115,7 +3231,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   }
   __pyx_v_a = __pyx_t_1;
 
-  /* "hyperlearn/cython/base.pyx":107
+  /* "hyperlearn/cython/base.pyx":111
  * cdef SIZE truncated_(SIZE n, SIZE p, int k):
  *     cdef SIZE a = n if n < p else p
  *     a += k + 1 + n + p             # <<<<<<<<<<<<<<
@@ -3124,7 +3240,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_a = (__pyx_v_a + (((__pyx_v_k + 1) + __pyx_v_n) + __pyx_v_p));
 
-  /* "hyperlearn/cython/base.pyx":108
+  /* "hyperlearn/cython/base.pyx":112
  *     cdef SIZE a = n if n < p else p
  *     a += k + 1 + n + p
  *     a *= k             # <<<<<<<<<<<<<<
@@ -3133,7 +3249,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
  */
   __pyx_v_a = (__pyx_v_a * __pyx_v_k);
 
-  /* "hyperlearn/cython/base.pyx":109
+  /* "hyperlearn/cython/base.pyx":113
  *     a += k + 1 + n + p
  *     a *= k
  *     return a             # <<<<<<<<<<<<<<
@@ -3143,7 +3259,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_v_a;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":105
+  /* "hyperlearn/cython/base.pyx":109
  * 
  * ###
  * cdef SIZE truncated_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3157,7 +3273,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":112
+/* "hyperlearn/cython/base.pyx":116
  * 
  * ###
  * cdef SIZE minimum_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3170,7 +3286,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("minimum_", 0);
 
-  /* "hyperlearn/cython/base.pyx":113
+  /* "hyperlearn/cython/base.pyx":117
  * ###
  * cdef SIZE minimum_(SIZE n, SIZE p, int k):
  *     return k*(n + p + 1 + k)             # <<<<<<<<<<<<<<
@@ -3180,7 +3296,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = (__pyx_v_k * (((__pyx_v_n + __pyx_v_p) + 1) + __pyx_v_k));
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":112
+  /* "hyperlearn/cython/base.pyx":116
  * 
  * ###
  * cdef SIZE minimum_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3194,7 +3310,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":116
+/* "hyperlearn/cython/base.pyx":120
  * 
  * ###
  * cdef SIZE min_left_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3207,7 +3323,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("min_left_", 0);
 
-  /* "hyperlearn/cython/base.pyx":117
+  /* "hyperlearn/cython/base.pyx":121
  * ###
  * cdef SIZE min_left_(SIZE n, SIZE p, int k):
  *     return k*n             # <<<<<<<<<<<<<<
@@ -3217,7 +3333,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = (__pyx_v_k * __pyx_v_n);
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":116
+  /* "hyperlearn/cython/base.pyx":120
  * 
  * ###
  * cdef SIZE min_left_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3231,7 +3347,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":120
+/* "hyperlearn/cython/base.pyx":124
  * 
  * ###
  * cdef SIZE min_right_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3244,7 +3360,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("min_right_", 0);
 
-  /* "hyperlearn/cython/base.pyx":121
+  /* "hyperlearn/cython/base.pyx":125
  * ###
  * cdef SIZE min_right_(SIZE n, SIZE p, int k):
  *     return k*p             # <<<<<<<<<<<<<<
@@ -3254,7 +3370,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = (__pyx_v_k * __pyx_v_p);
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":120
+  /* "hyperlearn/cython/base.pyx":124
  * 
  * ###
  * cdef SIZE min_right_(SIZE n, SIZE p, int k):             # <<<<<<<<<<<<<<
@@ -3268,7 +3384,7 @@ static __pyx_t_10hyperlearn_6cython_4base_SIZE __pyx_f_10hyperlearn_6cython_4bas
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":126
+/* "hyperlearn/cython/base.pyx":130
  * ############### Processing Functions
  * #########
  * cpdef bool isList(x):             # <<<<<<<<<<<<<<
@@ -3285,7 +3401,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
   int __pyx_t_2;
   __Pyx_RefNannySetupContext("isList", 0);
 
-  /* "hyperlearn/cython/base.pyx":127
+  /* "hyperlearn/cython/base.pyx":131
  * #########
  * cpdef bool isList(x):
  *     cdef type dtype = type(x)             # <<<<<<<<<<<<<<
@@ -3295,7 +3411,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
   __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_x)));
   __pyx_v_dtype = ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_x)));
 
-  /* "hyperlearn/cython/base.pyx":128
+  /* "hyperlearn/cython/base.pyx":132
  * cpdef bool isList(x):
  *     cdef type dtype = type(x)
  *     return dtype is list or dtype is tuple             # <<<<<<<<<<<<<<
@@ -3314,7 +3430,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = __pyx_t_1;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":126
+  /* "hyperlearn/cython/base.pyx":130
  * ############### Processing Functions
  * #########
  * cpdef bool isList(x):             # <<<<<<<<<<<<<<
@@ -3348,7 +3464,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_isList(CYTHON_UNUSED PyObje
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("isList", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_10hyperlearn_6cython_4base_isList(__pyx_v_x, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_10hyperlearn_6cython_4base_isList(__pyx_v_x, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3365,7 +3481,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_isList(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":132
+/* "hyperlearn/cython/base.pyx":136
  * 
  * #########
  * cpdef int available_memory():             # <<<<<<<<<<<<<<
@@ -3383,14 +3499,14 @@ static int __pyx_f_10hyperlearn_6cython_4base_available_memory(CYTHON_UNUSED int
   double __pyx_t_4;
   __Pyx_RefNannySetupContext("available_memory", 0);
 
-  /* "hyperlearn/cython/base.pyx":136
+  /* "hyperlearn/cython/base.pyx":140
  *     Returns the current memory in MB for a system.
  *     """
  *     return <int> (<SIZE> (<double> virtual_memory().available * MAX_MEMORY) >> 20)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_virtual_memory); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_virtual_memory); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -3404,18 +3520,18 @@ static int __pyx_f_10hyperlearn_6cython_4base_available_memory(CYTHON_UNUSED int
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_available); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_available); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 136, __pyx_L1_error)
+  __pyx_t_4 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_4 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = ((int)(((__pyx_t_10hyperlearn_6cython_4base_SIZE)(((double)__pyx_t_4) * __pyx_v_10hyperlearn_6cython_4base_MAX_MEMORY)) >> 20));
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":132
+  /* "hyperlearn/cython/base.pyx":136
  * 
  * #########
  * cpdef int available_memory():             # <<<<<<<<<<<<<<
@@ -3455,7 +3571,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_2available_memory(CYTHON_UN
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("available_memory", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_10hyperlearn_6cython_4base_available_memory(0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_10hyperlearn_6cython_4base_available_memory(0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3472,7 +3588,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_2available_memory(CYTHON_UN
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":140
+/* "hyperlearn/cython/base.pyx":144
  * 
  * #########
  * cpdef bool isComplex(DTYPE dtype):             # <<<<<<<<<<<<<<
@@ -3490,20 +3606,20 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("isComplex", 0);
 
-  /* "hyperlearn/cython/base.pyx":144
+  /* "hyperlearn/cython/base.pyx":148
  *     Given a numpy datatype, returns if it's a complex type.
  *     """
  *     cdef char x = ord(dtype.char)             # <<<<<<<<<<<<<<
  * 
  *     if x == complex64:      return True
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_dtype), __pyx_n_s_char); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_dtype), __pyx_n_s_char); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_Ord(__pyx_t_1); if (unlikely(__pyx_t_2 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 144, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Ord(__pyx_t_1); if (unlikely(__pyx_t_2 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 148, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_x = __pyx_t_2;
 
-  /* "hyperlearn/cython/base.pyx":146
+  /* "hyperlearn/cython/base.pyx":150
  *     cdef char x = ord(dtype.char)
  * 
  *     if x == complex64:      return True             # <<<<<<<<<<<<<<
@@ -3516,7 +3632,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
     goto __pyx_L0;
   }
 
-  /* "hyperlearn/cython/base.pyx":147
+  /* "hyperlearn/cython/base.pyx":151
  * 
  *     if x == complex64:      return True
  *     elif x == complex128:   return True             # <<<<<<<<<<<<<<
@@ -3529,7 +3645,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
     goto __pyx_L0;
   }
 
-  /* "hyperlearn/cython/base.pyx":148
+  /* "hyperlearn/cython/base.pyx":152
  *     if x == complex64:      return True
  *     elif x == complex128:   return True
  *     elif x == ccomplex:     return True             # <<<<<<<<<<<<<<
@@ -3542,7 +3658,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
     goto __pyx_L0;
   }
 
-  /* "hyperlearn/cython/base.pyx":149
+  /* "hyperlearn/cython/base.pyx":153
  *     elif x == complex128:   return True
  *     elif x == ccomplex:     return True
  *     return False             # <<<<<<<<<<<<<<
@@ -3552,7 +3668,7 @@ static __pyx_t_10hyperlearn_6cython_4base_bool __pyx_f_10hyperlearn_6cython_4bas
   __pyx_r = 0;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":140
+  /* "hyperlearn/cython/base.pyx":144
  * 
  * #########
  * cpdef bool isComplex(DTYPE dtype):             # <<<<<<<<<<<<<<
@@ -3577,7 +3693,7 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_5isComplex(PyObject *__pyx_
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isComplex (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dtype), __pyx_ptype_5numpy_dtype, 1, "dtype", 0))) __PYX_ERR(0, 140, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_dtype), __pyx_ptype_5numpy_dtype, 1, "dtype", 0))) __PYX_ERR(0, 144, __pyx_L1_error)
   __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_4isComplex(__pyx_self, ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_v_dtype));
 
   /* function exit code */
@@ -3595,7 +3711,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4isComplex(CYTHON_UNUSED Py
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("isComplex", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_10hyperlearn_6cython_4base_isComplex(__pyx_v_dtype, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_f_10hyperlearn_6cython_4base_isComplex(__pyx_v_dtype, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 144, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3612,7 +3728,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4isComplex(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":153
+/* "hyperlearn/cython/base.pyx":157
  * 
  * #########
  * cdef int memory(tuple shape, DTYPE dtype, str memcheck):             # <<<<<<<<<<<<<<
@@ -3648,7 +3764,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
   __Pyx_RefNannySetupContext("memory", 0);
   __Pyx_INCREF(__pyx_v_shape);
 
-  /* "hyperlearn/cython/base.pyx":158
+  /* "hyperlearn/cython/base.pyx":162
  *     to another datatype.
  *     """
  *     cdef int byte = dtype.itemsize             # <<<<<<<<<<<<<<
@@ -3658,7 +3774,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
   __pyx_t_1 = __pyx_v_dtype->elsize;
   __pyx_v_byte = __pyx_t_1;
 
-  /* "hyperlearn/cython/base.pyx":161
+  /* "hyperlearn/cython/base.pyx":165
  *     cdef SIZE a, b, multiplier
  *     cdef int need
  *     cdef checker = MEMORY_FUNCTIONS[memcheck]             # <<<<<<<<<<<<<<
@@ -3667,14 +3783,14 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
   if (unlikely(__pyx_v_10hyperlearn_6cython_4base_MEMORY_FUNCTIONS == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 161, __pyx_L1_error)
+    __PYX_ERR(0, 165, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_10hyperlearn_6cython_4base_MEMORY_FUNCTIONS, __pyx_v_memcheck); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_10hyperlearn_6cython_4base_MEMORY_FUNCTIONS, __pyx_v_memcheck); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_checker = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "hyperlearn/cython/base.pyx":163
+  /* "hyperlearn/cython/base.pyx":167
  *     cdef checker = MEMORY_FUNCTIONS[memcheck]
  * 
  *     if len(shape) == 1:             # <<<<<<<<<<<<<<
@@ -3683,13 +3799,13 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
   if (unlikely(__pyx_v_shape == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 163, __pyx_L1_error)
+    __PYX_ERR(0, 167, __pyx_L1_error)
   }
-  __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_shape); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 163, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_shape); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 167, __pyx_L1_error)
   __pyx_t_4 = ((__pyx_t_3 == 1) != 0);
   if (__pyx_t_4) {
 
-    /* "hyperlearn/cython/base.pyx":164
+    /* "hyperlearn/cython/base.pyx":168
  * 
  *     if len(shape) == 1:
  *         a = shape[0]             # <<<<<<<<<<<<<<
@@ -3698,21 +3814,21 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
     if (unlikely(__pyx_v_shape == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 164, __pyx_L1_error)
+      __PYX_ERR(0, 168, __pyx_L1_error)
     }
-    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 0)); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 164, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 0)); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 168, __pyx_L1_error)
     __pyx_v_a = __pyx_t_5;
 
-    /* "hyperlearn/cython/base.pyx":165
+    /* "hyperlearn/cython/base.pyx":169
  *     if len(shape) == 1:
  *         a = shape[0]
  *         shape = (1, a)             # <<<<<<<<<<<<<<
  *     try:
  *         multiplier = checker(*shape)
  */
-    __pyx_t_2 = PyInt_FromSsize_t(__pyx_v_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_2 = PyInt_FromSsize_t(__pyx_v_a); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 165, __pyx_L1_error)
+    __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_INCREF(__pyx_int_1);
     __Pyx_GIVEREF(__pyx_int_1);
@@ -3723,7 +3839,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
     __Pyx_DECREF_SET(__pyx_v_shape, ((PyObject*)__pyx_t_6));
     __pyx_t_6 = 0;
 
-    /* "hyperlearn/cython/base.pyx":163
+    /* "hyperlearn/cython/base.pyx":167
  *     cdef checker = MEMORY_FUNCTIONS[memcheck]
  * 
  *     if len(shape) == 1:             # <<<<<<<<<<<<<<
@@ -3732,7 +3848,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":166
+  /* "hyperlearn/cython/base.pyx":170
  *         a = shape[0]
  *         shape = (1, a)
  *     try:             # <<<<<<<<<<<<<<
@@ -3748,7 +3864,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
     __Pyx_XGOTREF(__pyx_t_9);
     /*try:*/ {
 
-      /* "hyperlearn/cython/base.pyx":167
+      /* "hyperlearn/cython/base.pyx":171
  *         shape = (1, a)
  *     try:
  *         multiplier = checker(*shape)             # <<<<<<<<<<<<<<
@@ -3757,15 +3873,15 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
       if (unlikely(__pyx_v_shape == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-        __PYX_ERR(0, 167, __pyx_L4_error)
+        __PYX_ERR(0, 171, __pyx_L4_error)
       }
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_v_checker, __pyx_v_shape, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 167, __pyx_L4_error)
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_v_checker, __pyx_v_shape, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 171, __pyx_L4_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 167, __pyx_L4_error)
+      __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(__pyx_t_6); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 171, __pyx_L4_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
       __pyx_v_multiplier = __pyx_t_5;
 
-      /* "hyperlearn/cython/base.pyx":166
+      /* "hyperlearn/cython/base.pyx":170
  *         a = shape[0]
  *         shape = (1, a)
  *     try:             # <<<<<<<<<<<<<<
@@ -3781,7 +3897,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "hyperlearn/cython/base.pyx":168
+    /* "hyperlearn/cython/base.pyx":172
  *     try:
  *         multiplier = checker(*shape)
  *     except:             # <<<<<<<<<<<<<<
@@ -3790,12 +3906,12 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
     /*except:*/ {
       __Pyx_AddTraceback("hyperlearn.cython.base.memory", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_2, &__pyx_t_10) < 0) __PYX_ERR(0, 168, __pyx_L6_except_error)
+      if (__Pyx_GetException(&__pyx_t_6, &__pyx_t_2, &__pyx_t_10) < 0) __PYX_ERR(0, 172, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GOTREF(__pyx_t_10);
 
-      /* "hyperlearn/cython/base.pyx":169
+      /* "hyperlearn/cython/base.pyx":173
  *         multiplier = checker(*shape)
  *     except:
  *         a, b = shape[0], shape[1]             # <<<<<<<<<<<<<<
@@ -3804,27 +3920,27 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
  */
       if (unlikely(__pyx_v_shape == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 169, __pyx_L6_except_error)
+        __PYX_ERR(0, 173, __pyx_L6_except_error)
       }
-      __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 0)); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L6_except_error)
+      __pyx_t_5 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 0)); if (unlikely((__pyx_t_5 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 173, __pyx_L6_except_error)
       if (unlikely(__pyx_v_shape == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 169, __pyx_L6_except_error)
+        __PYX_ERR(0, 173, __pyx_L6_except_error)
       }
-      __pyx_t_11 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 1)); if (unlikely((__pyx_t_11 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L6_except_error)
+      __pyx_t_11 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 1)); if (unlikely((__pyx_t_11 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 173, __pyx_L6_except_error)
       __pyx_v_a = __pyx_t_5;
       __pyx_v_b = __pyx_t_11;
 
-      /* "hyperlearn/cython/base.pyx":170
+      /* "hyperlearn/cython/base.pyx":174
  *     except:
  *         a, b = shape[0], shape[1]
  *         multiplier = checker(a, b)             # <<<<<<<<<<<<<<
  *     return <int> (<SIZE> (multiplier * byte) >> 20) # 10 == KB, 20 == MB
  * 
  */
-      __pyx_t_13 = PyInt_FromSsize_t(__pyx_v_a); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 170, __pyx_L6_except_error)
+      __pyx_t_13 = PyInt_FromSsize_t(__pyx_v_a); if (unlikely(!__pyx_t_13)) __PYX_ERR(0, 174, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_13);
-      __pyx_t_14 = PyInt_FromSsize_t(__pyx_v_b); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 170, __pyx_L6_except_error)
+      __pyx_t_14 = PyInt_FromSsize_t(__pyx_v_b); if (unlikely(!__pyx_t_14)) __PYX_ERR(0, 174, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_14);
       __Pyx_INCREF(__pyx_v_checker);
       __pyx_t_15 = __pyx_v_checker; __pyx_t_16 = NULL;
@@ -3842,7 +3958,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_15)) {
         PyObject *__pyx_temp[3] = {__pyx_t_16, __pyx_t_13, __pyx_t_14};
-        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_1, 2+__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 170, __pyx_L6_except_error)
+        __pyx_t_12 = __Pyx_PyFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_1, 2+__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 174, __pyx_L6_except_error)
         __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -3852,7 +3968,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_15)) {
         PyObject *__pyx_temp[3] = {__pyx_t_16, __pyx_t_13, __pyx_t_14};
-        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_1, 2+__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 170, __pyx_L6_except_error)
+        __pyx_t_12 = __Pyx_PyCFunction_FastCall(__pyx_t_15, __pyx_temp+1-__pyx_t_1, 2+__pyx_t_1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 174, __pyx_L6_except_error)
         __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_13); __pyx_t_13 = 0;
@@ -3860,7 +3976,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
       } else
       #endif
       {
-        __pyx_t_17 = PyTuple_New(2+__pyx_t_1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 170, __pyx_L6_except_error)
+        __pyx_t_17 = PyTuple_New(2+__pyx_t_1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 174, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_17);
         if (__pyx_t_16) {
           __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_17, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -3871,12 +3987,12 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
         PyTuple_SET_ITEM(__pyx_t_17, 1+__pyx_t_1, __pyx_t_14);
         __pyx_t_13 = 0;
         __pyx_t_14 = 0;
-        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_17, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 170, __pyx_L6_except_error)
+        __pyx_t_12 = __Pyx_PyObject_Call(__pyx_t_15, __pyx_t_17, NULL); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 174, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       }
       __Pyx_DECREF(__pyx_t_15); __pyx_t_15 = 0;
-      __pyx_t_11 = __Pyx_PyIndex_AsSsize_t(__pyx_t_12); if (unlikely((__pyx_t_11 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L6_except_error)
+      __pyx_t_11 = __Pyx_PyIndex_AsSsize_t(__pyx_t_12); if (unlikely((__pyx_t_11 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 174, __pyx_L6_except_error)
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __pyx_v_multiplier = __pyx_t_11;
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
@@ -3886,7 +4002,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
     }
     __pyx_L6_except_error:;
 
-    /* "hyperlearn/cython/base.pyx":166
+    /* "hyperlearn/cython/base.pyx":170
  *         a = shape[0]
  *         shape = (1, a)
  *     try:             # <<<<<<<<<<<<<<
@@ -3906,7 +4022,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
     __pyx_L9_try_end:;
   }
 
-  /* "hyperlearn/cython/base.pyx":171
+  /* "hyperlearn/cython/base.pyx":175
  *         a, b = shape[0], shape[1]
  *         multiplier = checker(a, b)
  *     return <int> (<SIZE> (multiplier * byte) >> 20) # 10 == KB, 20 == MB             # <<<<<<<<<<<<<<
@@ -3916,7 +4032,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
   __pyx_r = ((int)(((__pyx_t_10hyperlearn_6cython_4base_SIZE)(__pyx_v_multiplier * __pyx_v_byte)) >> 20));
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":153
+  /* "hyperlearn/cython/base.pyx":157
  * 
  * #########
  * cdef int memory(tuple shape, DTYPE dtype, str memcheck):             # <<<<<<<<<<<<<<
@@ -3944,7 +4060,7 @@ static int __pyx_f_10hyperlearn_6cython_4base_memory(PyObject *__pyx_v_shape, __
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":175
+/* "hyperlearn/cython/base.pyx":179
  * 
  * #########
  * cdef (int, char) arg_process(x, bool square):             # <<<<<<<<<<<<<<
@@ -3976,7 +4092,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
   __pyx_ctuple_int__and_char __pyx_t_12;
   __Pyx_RefNannySetupContext("arg_process", 0);
 
-  /* "hyperlearn/cython/base.pyx":182
+  /* "hyperlearn/cython/base.pyx":186
  *     cdef tuple shape
  *     cdef char dtype, dt
  *     dtype, dt = 0, 0             # <<<<<<<<<<<<<<
@@ -3988,7 +4104,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
   __pyx_v_dtype = __pyx_t_1;
   __pyx_v_dt = __pyx_t_2;
 
-  /* "hyperlearn/cython/base.pyx":183
+  /* "hyperlearn/cython/base.pyx":187
  *     cdef char dtype, dt
  *     dtype, dt = 0, 0
  *     cdef type d = type(x)             # <<<<<<<<<<<<<<
@@ -3998,32 +4114,32 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
   __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_x)));
   __pyx_v_d = ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_x)));
 
-  /* "hyperlearn/cython/base.pyx":186
+  /* "hyperlearn/cython/base.pyx":190
  *     cdef str out
  * 
  *     if d == np.ndarray:             # <<<<<<<<<<<<<<
  *         shape = x.shape
  *         if len(shape) > 1:
  */
-  __pyx_t_3 = PyObject_RichCompare(((PyObject *)__pyx_v_d), ((PyObject *)__pyx_ptype_5numpy_ndarray), Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_t_3 = PyObject_RichCompare(((PyObject *)__pyx_v_d), ((PyObject *)__pyx_ptype_5numpy_ndarray), Py_EQ); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   if (__pyx_t_4) {
 
-    /* "hyperlearn/cython/base.pyx":187
+    /* "hyperlearn/cython/base.pyx":191
  * 
  *     if d == np.ndarray:
  *         shape = x.shape             # <<<<<<<<<<<<<<
  *         if len(shape) > 1:
  *             if square:
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_shape); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (!(likely(PyTuple_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 187, __pyx_L1_error)
+    if (!(likely(PyTuple_CheckExact(__pyx_t_3))||((__pyx_t_3) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_t_3)->tp_name), 0))) __PYX_ERR(0, 191, __pyx_L1_error)
     __pyx_v_shape = ((PyObject*)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "hyperlearn/cython/base.pyx":188
+    /* "hyperlearn/cython/base.pyx":192
  *     if d == np.ndarray:
  *         shape = x.shape
  *         if len(shape) > 1:             # <<<<<<<<<<<<<<
@@ -4032,13 +4148,13 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  */
     if (unlikely(__pyx_v_shape == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 188, __pyx_L1_error)
+      __PYX_ERR(0, 192, __pyx_L1_error)
     }
-    __pyx_t_5 = PyTuple_GET_SIZE(__pyx_v_shape); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 188, __pyx_L1_error)
+    __pyx_t_5 = PyTuple_GET_SIZE(__pyx_v_shape); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(0, 192, __pyx_L1_error)
     __pyx_t_4 = ((__pyx_t_5 > 1) != 0);
     if (__pyx_t_4) {
 
-      /* "hyperlearn/cython/base.pyx":189
+      /* "hyperlearn/cython/base.pyx":193
  *         shape = x.shape
  *         if len(shape) > 1:
  *             if square:             # <<<<<<<<<<<<<<
@@ -4048,7 +4164,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
       __pyx_t_4 = (__pyx_v_square != 0);
       if (__pyx_t_4) {
 
-        /* "hyperlearn/cython/base.pyx":191
+        /* "hyperlearn/cython/base.pyx":195
  *             if square:
  *                 # matrix must be a square one (n == p)
  *                 a, b = shape[0], shape[1]             # <<<<<<<<<<<<<<
@@ -4057,18 +4173,18 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  */
         if (unlikely(__pyx_v_shape == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 191, __pyx_L1_error)
+          __PYX_ERR(0, 195, __pyx_L1_error)
         }
-        __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 0)); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 0)); if (unlikely((__pyx_t_6 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 195, __pyx_L1_error)
         if (unlikely(__pyx_v_shape == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 191, __pyx_L1_error)
+          __PYX_ERR(0, 195, __pyx_L1_error)
         }
-        __pyx_t_7 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 1)); if (unlikely((__pyx_t_7 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_7 = __Pyx_PyIndex_AsSsize_t(PyTuple_GET_ITEM(__pyx_v_shape, 1)); if (unlikely((__pyx_t_7 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 195, __pyx_L1_error)
         __pyx_v_a = __pyx_t_6;
         __pyx_v_b = __pyx_t_7;
 
-        /* "hyperlearn/cython/base.pyx":192
+        /* "hyperlearn/cython/base.pyx":196
  *                 # matrix must be a square one (n == p)
  *                 a, b = shape[0], shape[1]
  *                 if a != b:             # <<<<<<<<<<<<<<
@@ -4078,14 +4194,14 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         __pyx_t_4 = ((__pyx_v_a != __pyx_v_b) != 0);
         if (unlikely(__pyx_t_4)) {
 
-          /* "hyperlearn/cython/base.pyx":193
+          /* "hyperlearn/cython/base.pyx":197
  *                 a, b = shape[0], shape[1]
  *                 if a != b:
  *                     raise AssertionError(f"2D array is not square. Dimensions seen are ({shape}).")             # <<<<<<<<<<<<<<
  *             # if float:
  *             dtype, dt = ord(x.dtype.char), ord(x.dtype.char)
  */
-          __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+          __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __pyx_t_5 = 0;
           __pyx_t_8 = 127;
@@ -4093,7 +4209,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
           __pyx_t_5 += 45;
           __Pyx_GIVEREF(__pyx_kp_u_2D_array_is_not_square_Dimension);
           PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_kp_u_2D_array_is_not_square_Dimension);
-          __pyx_t_9 = __Pyx_PyObject_FormatSimple(__pyx_v_shape, __pyx_empty_unicode); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 193, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyObject_FormatSimple(__pyx_v_shape, __pyx_empty_unicode); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 197, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __pyx_t_8 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_9) > __pyx_t_8) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_9) : __pyx_t_8;
           __pyx_t_5 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_9);
@@ -4104,17 +4220,17 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
           __pyx_t_5 += 2;
           __Pyx_GIVEREF(__pyx_kp_u_);
           PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_kp_u_);
-          __pyx_t_9 = __Pyx_PyUnicode_Join(__pyx_t_3, 3, __pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 193, __pyx_L1_error)
+          __pyx_t_9 = __Pyx_PyUnicode_Join(__pyx_t_3, 3, __pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 197, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_AssertionError, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+          __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_AssertionError, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_3);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_Raise(__pyx_t_3, 0, 0, 0);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __PYX_ERR(0, 193, __pyx_L1_error)
+          __PYX_ERR(0, 197, __pyx_L1_error)
 
-          /* "hyperlearn/cython/base.pyx":192
+          /* "hyperlearn/cython/base.pyx":196
  *                 # matrix must be a square one (n == p)
  *                 a, b = shape[0], shape[1]
  *                 if a != b:             # <<<<<<<<<<<<<<
@@ -4123,7 +4239,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  */
         }
 
-        /* "hyperlearn/cython/base.pyx":189
+        /* "hyperlearn/cython/base.pyx":193
  *         shape = x.shape
  *         if len(shape) > 1:
  *             if square:             # <<<<<<<<<<<<<<
@@ -4132,31 +4248,31 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":195
+      /* "hyperlearn/cython/base.pyx":199
  *                     raise AssertionError(f"2D array is not square. Dimensions seen are ({shape}).")
  *             # if float:
  *             dtype, dt = ord(x.dtype.char), ord(x.dtype.char)             # <<<<<<<<<<<<<<
  * 
  *             if dtype == float32:        return 0, PASS
  */
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_dtype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_dtype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_char); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_char); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 199, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_10 = __Pyx_PyObject_Ord(__pyx_t_9); if (unlikely(__pyx_t_10 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_Ord(__pyx_t_9); if (unlikely(__pyx_t_10 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 199, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_dtype); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_x, __pyx_n_s_dtype); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 199, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
-      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_char); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_char); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 199, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __pyx_t_11 = __Pyx_PyObject_Ord(__pyx_t_3); if (unlikely(__pyx_t_11 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 195, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_Ord(__pyx_t_3); if (unlikely(__pyx_t_11 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 199, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_v_dtype = __pyx_t_10;
       __pyx_v_dt = __pyx_t_11;
 
-      /* "hyperlearn/cython/base.pyx":197
+      /* "hyperlearn/cython/base.pyx":201
  *             dtype, dt = ord(x.dtype.char), ord(x.dtype.char)
  * 
  *             if dtype == float32:        return 0, PASS             # <<<<<<<<<<<<<<
@@ -4171,7 +4287,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L0;
       }
 
-      /* "hyperlearn/cython/base.pyx":198
+      /* "hyperlearn/cython/base.pyx":202
  * 
  *             if dtype == float32:        return 0, PASS
  *             elif dtype == float64:      return 0, PASS             # <<<<<<<<<<<<<<
@@ -4186,7 +4302,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L0;
       }
 
-      /* "hyperlearn/cython/base.pyx":199
+      /* "hyperlearn/cython/base.pyx":203
  *             if dtype == float32:        return 0, PASS
  *             elif dtype == float64:      return 0, PASS
  *             elif dtype == cfloat:       return 0, PASS             # <<<<<<<<<<<<<<
@@ -4201,7 +4317,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L0;
       }
 
-      /* "hyperlearn/cython/base.pyx":200
+      /* "hyperlearn/cython/base.pyx":204
  *             elif dtype == float64:      return 0, PASS
  *             elif dtype == cfloat:       return 0, PASS
  *             elif dtype == complex64:    return 0, PASS             # <<<<<<<<<<<<<<
@@ -4216,7 +4332,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L0;
       }
 
-      /* "hyperlearn/cython/base.pyx":201
+      /* "hyperlearn/cython/base.pyx":205
  *             elif dtype == cfloat:       return 0, PASS
  *             elif dtype == complex64:    return 0, PASS
  *             elif dtype == complex128:   return 0, PASS             # <<<<<<<<<<<<<<
@@ -4231,7 +4347,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L0;
       }
 
-      /* "hyperlearn/cython/base.pyx":202
+      /* "hyperlearn/cython/base.pyx":206
  *             elif dtype == complex64:    return 0, PASS
  *             elif dtype == complex128:   return 0, PASS
  *             elif dtype == ccomplex:     return 0, PASS             # <<<<<<<<<<<<<<
@@ -4246,7 +4362,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L0;
       }
 
-      /* "hyperlearn/cython/base.pyx":203
+      /* "hyperlearn/cython/base.pyx":207
  *             elif dtype == complex128:   return 0, PASS
  *             elif dtype == ccomplex:     return 0, PASS
  *             elif dtype == float16:      dt = float32             # <<<<<<<<<<<<<<
@@ -4259,7 +4375,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":205
+      /* "hyperlearn/cython/base.pyx":209
  *             elif dtype == float16:      dt = float32
  * 
  *             elif dtype == boolean:      dt = float32             # <<<<<<<<<<<<<<
@@ -4272,7 +4388,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":206
+      /* "hyperlearn/cython/base.pyx":210
  * 
  *             elif dtype == boolean:      dt = float32
  *             elif dtype == int8:         dt = float32             # <<<<<<<<<<<<<<
@@ -4285,7 +4401,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":207
+      /* "hyperlearn/cython/base.pyx":211
  *             elif dtype == boolean:      dt = float32
  *             elif dtype == int8:         dt = float32
  *             elif dtype == int16:        dt = float32             # <<<<<<<<<<<<<<
@@ -4298,7 +4414,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":208
+      /* "hyperlearn/cython/base.pyx":212
  *             elif dtype == int8:         dt = float32
  *             elif dtype == int16:        dt = float32
  *             elif dtype == int32:        dt = float32             # <<<<<<<<<<<<<<
@@ -4311,7 +4427,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":209
+      /* "hyperlearn/cython/base.pyx":213
  *             elif dtype == int16:        dt = float32
  *             elif dtype == int32:        dt = float32
  *             elif dtype == int64:        dt = float64             # <<<<<<<<<<<<<<
@@ -4324,7 +4440,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":210
+      /* "hyperlearn/cython/base.pyx":214
  *             elif dtype == int32:        dt = float32
  *             elif dtype == int64:        dt = float64
  *             elif dtype == cint:         dt = float32             # <<<<<<<<<<<<<<
@@ -4337,7 +4453,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":211
+      /* "hyperlearn/cython/base.pyx":215
  *             elif dtype == int64:        dt = float64
  *             elif dtype == cint:         dt = float32
  *             elif dtype == pointer:      dt = float64             # <<<<<<<<<<<<<<
@@ -4350,7 +4466,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":213
+      /* "hyperlearn/cython/base.pyx":217
  *             elif dtype == pointer:      dt = float64
  * 
  *             elif dtype == uint8:        dt = float32             # <<<<<<<<<<<<<<
@@ -4363,7 +4479,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":214
+      /* "hyperlearn/cython/base.pyx":218
  * 
  *             elif dtype == uint8:        dt = float32
  *             elif dtype == uint16:       dt = float32             # <<<<<<<<<<<<<<
@@ -4376,7 +4492,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":215
+      /* "hyperlearn/cython/base.pyx":219
  *             elif dtype == uint8:        dt = float32
  *             elif dtype == uint16:       dt = float32
  *             elif dtype == uint32:       dt = float32             # <<<<<<<<<<<<<<
@@ -4389,7 +4505,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":216
+      /* "hyperlearn/cython/base.pyx":220
  *             elif dtype == uint16:       dt = float32
  *             elif dtype == uint32:       dt = float32
  *             elif dtype == uint64:       dt = float64             # <<<<<<<<<<<<<<
@@ -4402,7 +4518,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":217
+      /* "hyperlearn/cython/base.pyx":221
  *             elif dtype == uint32:       dt = float32
  *             elif dtype == uint64:       dt = float64
  *             elif dtype == cuint:        dt = float32             # <<<<<<<<<<<<<<
@@ -4415,7 +4531,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":218
+      /* "hyperlearn/cython/base.pyx":222
  *             elif dtype == uint64:       dt = float64
  *             elif dtype == cuint:        dt = float32
  *             elif dtype == upointer:     dt = float64             # <<<<<<<<<<<<<<
@@ -4428,7 +4544,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         goto __pyx_L7;
       }
 
-      /* "hyperlearn/cython/base.pyx":220
+      /* "hyperlearn/cython/base.pyx":224
  *             elif dtype == upointer:     dt = float64
  * 
  *             else: raise TypeError(f"Data type of ({dtype}) is not a numerical type.")             # <<<<<<<<<<<<<<
@@ -4436,7 +4552,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  *             out = chr(dt)
  */
       /*else*/ {
-        __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __pyx_t_5 = 0;
         __pyx_t_8 = 127;
@@ -4444,7 +4560,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         __pyx_t_5 += 14;
         __Pyx_GIVEREF(__pyx_kp_u_Data_type_of);
         PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_kp_u_Data_type_of);
-        __pyx_t_9 = __Pyx_PyUnicode_From_char(__pyx_v_dtype, 0, ' ', 'd'); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyUnicode_From_char(__pyx_v_dtype, 0, ' ', 'd'); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 224, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __pyx_t_5 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_9);
         __Pyx_GIVEREF(__pyx_t_9);
@@ -4454,42 +4570,42 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
         __pyx_t_5 += 26;
         __Pyx_GIVEREF(__pyx_kp_u_is_not_a_numerical_type);
         PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_kp_u_is_not_a_numerical_type);
-        __pyx_t_9 = __Pyx_PyUnicode_Join(__pyx_t_3, 3, __pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_9 = __Pyx_PyUnicode_Join(__pyx_t_3, 3, __pyx_t_5, __pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 224, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_TypeError, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_builtin_TypeError, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 224, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __Pyx_Raise(__pyx_t_3, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __PYX_ERR(0, 220, __pyx_L1_error)
+        __PYX_ERR(0, 224, __pyx_L1_error)
       }
       __pyx_L7:;
 
-      /* "hyperlearn/cython/base.pyx":222
+      /* "hyperlearn/cython/base.pyx":226
  *             else: raise TypeError(f"Data type of ({dtype}) is not a numerical type.")
  * 
  *             out = chr(dt)             # <<<<<<<<<<<<<<
  *             return memory(shape, np.dtype(out), "same"), dt
  * 
  */
-      __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 222, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 226, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 222, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 226, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_9)->tp_name), 0))) __PYX_ERR(0, 222, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_9))||((__pyx_t_9) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_9)->tp_name), 0))) __PYX_ERR(0, 226, __pyx_L1_error)
       __pyx_v_out = ((PyObject*)__pyx_t_9);
       __pyx_t_9 = 0;
 
-      /* "hyperlearn/cython/base.pyx":223
+      /* "hyperlearn/cython/base.pyx":227
  * 
  *             out = chr(dt)
  *             return memory(shape, np.dtype(out), "same"), dt             # <<<<<<<<<<<<<<
  * 
  *     return 0, ERROR
  */
-      __pyx_t_9 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_v_out); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 223, __pyx_L1_error)
+      __pyx_t_9 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_v_out); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 227, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_9);
       __pyx_t_12.f0 = __pyx_f_10hyperlearn_6cython_4base_memory(__pyx_v_shape, ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_9), __pyx_n_u_same);
       __pyx_t_12.f1 = __pyx_v_dt;
@@ -4497,7 +4613,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
       __pyx_r = __pyx_t_12;
       goto __pyx_L0;
 
-      /* "hyperlearn/cython/base.pyx":188
+      /* "hyperlearn/cython/base.pyx":192
  *     if d == np.ndarray:
  *         shape = x.shape
  *         if len(shape) > 1:             # <<<<<<<<<<<<<<
@@ -4506,7 +4622,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":186
+    /* "hyperlearn/cython/base.pyx":190
  *     cdef str out
  * 
  *     if d == np.ndarray:             # <<<<<<<<<<<<<<
@@ -4515,7 +4631,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":225
+  /* "hyperlearn/cython/base.pyx":229
  *             return memory(shape, np.dtype(out), "same"), dt
  * 
  *     return 0, ERROR             # <<<<<<<<<<<<<<
@@ -4527,7 +4643,7 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
   __pyx_r = __pyx_t_12;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":175
+  /* "hyperlearn/cython/base.pyx":179
  * 
  * #########
  * cdef (int, char) arg_process(x, bool square):             # <<<<<<<<<<<<<<
@@ -4549,16 +4665,15 @@ static __pyx_ctuple_int__and_char __pyx_f_10hyperlearn_6cython_4base_arg_process
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":229
+/* "hyperlearn/cython/base.pyx":233
  * 
  * #########
- * cpdef (void) wrapper(             # <<<<<<<<<<<<<<
+ * cdef (void) wrapper(             # <<<<<<<<<<<<<<
  *     dict memcheck, bool square, bool fractional, int memory_length,
  *     list memory_keys, function_signature, function_args,
  */
 
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7wrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memcheck, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_fractional, int __pyx_v_memory_length, PyObject *__pyx_v_memory_keys, PyObject *__pyx_v_function_signature, PyObject *__pyx_v_function_args, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs, CYTHON_UNUSED int __pyx_skip_dispatch) {
+static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memcheck, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_fractional, int __pyx_v_memory_length, PyObject *__pyx_v_memory_keys, PyObject *__pyx_v_function_signature, PyObject *__pyx_v_function_args, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
   int __pyx_v_number_args;
   int __pyx_v_n_args;
   int __pyx_v_n_kwargs;
@@ -4618,17 +4733,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
   char __pyx_t_28;
   __Pyx_RefNannySetupContext("wrapper", 0);
 
-  /* "hyperlearn/cython/base.pyx":239
+  /* "hyperlearn/cython/base.pyx":243
  *     """
  * 
  *     cdef int number_args = len(function_args)             # <<<<<<<<<<<<<<
  * 
  *     cdef int n_args, n_kwargs, memoryNeed, memoryFree
  */
-  __pyx_t_1 = PyObject_Length(__pyx_v_function_args); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_1 = PyObject_Length(__pyx_v_function_args); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 243, __pyx_L1_error)
   __pyx_v_number_args = __pyx_t_1;
 
-  /* "hyperlearn/cython/base.pyx":242
+  /* "hyperlearn/cython/base.pyx":246
  * 
  *     cdef int n_args, n_kwargs, memoryNeed, memoryFree
  *     n_args, n_kwargs = len(args), len(kwargs)             # <<<<<<<<<<<<<<
@@ -4637,18 +4752,18 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 242, __pyx_L1_error)
+    __PYX_ERR(0, 246, __pyx_L1_error)
   }
-  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_1 = PyList_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_1 == ((Py_ssize_t)-1))) __PYX_ERR(0, 246, __pyx_L1_error)
   if (unlikely(__pyx_v_kwargs == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 242, __pyx_L1_error)
+    __PYX_ERR(0, 246, __pyx_L1_error)
   }
-  __pyx_t_2 = PyDict_Size(__pyx_v_kwargs); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 242, __pyx_L1_error)
+  __pyx_t_2 = PyDict_Size(__pyx_v_kwargs); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 246, __pyx_L1_error)
   __pyx_v_n_args = __pyx_t_1;
   __pyx_v_n_kwargs = __pyx_t_2;
 
-  /* "hyperlearn/cython/base.pyx":243
+  /* "hyperlearn/cython/base.pyx":247
  *     cdef int n_args, n_kwargs, memoryNeed, memoryFree
  *     n_args, n_kwargs = len(args), len(kwargs)
  *     cdef int size = n_args + n_kwargs             # <<<<<<<<<<<<<<
@@ -4657,7 +4772,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   __pyx_v_size = (__pyx_v_n_args + __pyx_v_n_kwargs);
 
-  /* "hyperlearn/cython/base.pyx":245
+  /* "hyperlearn/cython/base.pyx":249
  *     cdef int size = n_args + n_kwargs
  * 
  *     cdef bool ifCheck = True             # <<<<<<<<<<<<<<
@@ -4666,7 +4781,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   __pyx_v_ifCheck = 1;
 
-  /* "hyperlearn/cython/base.pyx":246
+  /* "hyperlearn/cython/base.pyx":250
  * 
  *     cdef bool ifCheck = True
  *     cdef bool hasK = False             # <<<<<<<<<<<<<<
@@ -4675,7 +4790,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   __pyx_v_hasK = 0;
 
-  /* "hyperlearn/cython/base.pyx":247
+  /* "hyperlearn/cython/base.pyx":251
  *     cdef bool ifCheck = True
  *     cdef bool hasK = False
  *     cdef bool hasComponents = False             # <<<<<<<<<<<<<<
@@ -4684,7 +4799,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   __pyx_v_hasComponents = 0;
 
-  /* "hyperlearn/cython/base.pyx":253
+  /* "hyperlearn/cython/base.pyx":257
  *     cdef SIZE n, p, a
  *     cdef int whereK, n_components, j, otherYes
  *     whereK, n_components, otherYes, j, memoryNeed = 0, 0, 0, 0, 0             # <<<<<<<<<<<<<<
@@ -4702,7 +4817,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
   __pyx_v_j = __pyx_t_6;
   __pyx_v_memoryNeed = __pyx_t_7;
 
-  /* "hyperlearn/cython/base.pyx":255
+  /* "hyperlearn/cython/base.pyx":259
  *     whereK, n_components, otherYes, j, memoryNeed = 0, 0, 0, 0, 0
  *     cdef double temp_components, default_n_components
  *     temp_components, default_n_components = 0, 0             # <<<<<<<<<<<<<<
@@ -4714,7 +4829,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
   __pyx_v_temp_components = __pyx_t_8;
   __pyx_v_default_n_components = __pyx_t_9;
 
-  /* "hyperlearn/cython/base.pyx":266
+  /* "hyperlearn/cython/base.pyx":270
  *     #########
  *     # If no need to check memory (save a few nanoseconds)
  *     if n_kwargs > 0:             # <<<<<<<<<<<<<<
@@ -4724,7 +4839,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
   __pyx_t_10 = ((__pyx_v_n_kwargs > 0) != 0);
   if (__pyx_t_10) {
 
-    /* "hyperlearn/cython/base.pyx":267
+    /* "hyperlearn/cython/base.pyx":271
  *     # If no need to check memory (save a few nanoseconds)
  *     if n_kwargs > 0:
  *         for i in kwargs.keys():             # <<<<<<<<<<<<<<
@@ -4734,9 +4849,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_2 = 0;
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-      __PYX_ERR(0, 267, __pyx_L1_error)
+      __PYX_ERR(0, 271, __pyx_L1_error)
     }
-    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_1), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 267, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_1), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 271, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_XDECREF(__pyx_t_11);
     __pyx_t_11 = __pyx_t_12;
@@ -4744,24 +4859,24 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     while (1) {
       __pyx_t_6 = __Pyx_dict_iter_next(__pyx_t_11, __pyx_t_1, &__pyx_t_2, &__pyx_t_12, NULL, NULL, __pyx_t_7);
       if (unlikely(__pyx_t_6 == 0)) break;
-      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 267, __pyx_L1_error)
+      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 267, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 271, __pyx_L1_error)
       __Pyx_XDECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_12));
       __pyx_t_12 = 0;
 
-      /* "hyperlearn/cython/base.pyx":268
+      /* "hyperlearn/cython/base.pyx":272
  *     if n_kwargs > 0:
  *         for i in kwargs.keys():
  *             if i == "nocheck":             # <<<<<<<<<<<<<<
  *                 del kwargs[i]
  *                 ifCheck = False
  */
-      __pyx_t_10 = (__Pyx_PyUnicode_Equals(__pyx_v_i, __pyx_n_u_nocheck, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 268, __pyx_L1_error)
+      __pyx_t_10 = (__Pyx_PyUnicode_Equals(__pyx_v_i, __pyx_n_u_nocheck, Py_EQ)); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 272, __pyx_L1_error)
       __pyx_t_13 = (__pyx_t_10 != 0);
       if (__pyx_t_13) {
 
-        /* "hyperlearn/cython/base.pyx":269
+        /* "hyperlearn/cython/base.pyx":273
  *         for i in kwargs.keys():
  *             if i == "nocheck":
  *                 del kwargs[i]             # <<<<<<<<<<<<<<
@@ -4770,11 +4885,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 269, __pyx_L1_error)
+          __PYX_ERR(0, 273, __pyx_L1_error)
         }
-        if (unlikely(PyDict_DelItem(__pyx_v_kwargs, __pyx_v_i) < 0)) __PYX_ERR(0, 269, __pyx_L1_error)
+        if (unlikely(PyDict_DelItem(__pyx_v_kwargs, __pyx_v_i) < 0)) __PYX_ERR(0, 273, __pyx_L1_error)
 
-        /* "hyperlearn/cython/base.pyx":270
+        /* "hyperlearn/cython/base.pyx":274
  *             if i == "nocheck":
  *                 del kwargs[i]
  *                 ifCheck = False             # <<<<<<<<<<<<<<
@@ -4783,7 +4898,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_ifCheck = 0;
 
-        /* "hyperlearn/cython/base.pyx":271
+        /* "hyperlearn/cython/base.pyx":275
  *                 del kwargs[i]
  *                 ifCheck = False
  *                 break             # <<<<<<<<<<<<<<
@@ -4792,7 +4907,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         goto __pyx_L5_break;
 
-        /* "hyperlearn/cython/base.pyx":268
+        /* "hyperlearn/cython/base.pyx":272
  *     if n_kwargs > 0:
  *         for i in kwargs.keys():
  *             if i == "nocheck":             # <<<<<<<<<<<<<<
@@ -4804,7 +4919,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_L5_break:;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-    /* "hyperlearn/cython/base.pyx":266
+    /* "hyperlearn/cython/base.pyx":270
  *     #########
  *     # If no need to check memory (save a few nanoseconds)
  *     if n_kwargs > 0:             # <<<<<<<<<<<<<<
@@ -4813,7 +4928,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":273
+  /* "hyperlearn/cython/base.pyx":277
  *                 break
  * 
  *     if ifCheck:             # <<<<<<<<<<<<<<
@@ -4823,7 +4938,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
   __pyx_t_13 = (__pyx_v_ifCheck != 0);
   if (__pyx_t_13) {
 
-    /* "hyperlearn/cython/base.pyx":274
+    /* "hyperlearn/cython/base.pyx":278
  * 
  *     if ifCheck:
  *         if size == 0:             # <<<<<<<<<<<<<<
@@ -4833,20 +4948,20 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_13 = ((__pyx_v_size == 0) != 0);
     if (unlikely(__pyx_t_13)) {
 
-      /* "hyperlearn/cython/base.pyx":275
+      /* "hyperlearn/cython/base.pyx":279
  *     if ifCheck:
  *         if size == 0:
  *             raise IndexError("Function needs >= 1 function arguments.")             # <<<<<<<<<<<<<<
  * 
  *         if size > number_args:
  */
-      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_IndexError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 275, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_IndexError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 279, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_Raise(__pyx_t_11, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __PYX_ERR(0, 275, __pyx_L1_error)
+      __PYX_ERR(0, 279, __pyx_L1_error)
 
-      /* "hyperlearn/cython/base.pyx":274
+      /* "hyperlearn/cython/base.pyx":278
  * 
  *     if ifCheck:
  *         if size == 0:             # <<<<<<<<<<<<<<
@@ -4855,7 +4970,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":277
+    /* "hyperlearn/cython/base.pyx":281
  *             raise IndexError("Function needs >= 1 function arguments.")
  * 
  *         if size > number_args:             # <<<<<<<<<<<<<<
@@ -4865,14 +4980,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_13 = ((__pyx_v_size > __pyx_v_number_args) != 0);
     if (unlikely(__pyx_t_13)) {
 
-      /* "hyperlearn/cython/base.pyx":278
+      /* "hyperlearn/cython/base.pyx":282
  * 
  *         if size > number_args:
  *             raise IndexError(f"Function has too many inputs. Only ({number_args}) is needed.")             # <<<<<<<<<<<<<<
  * 
  *         #########
  */
-      __pyx_t_11 = PyTuple_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 278, __pyx_L1_error)
+      __pyx_t_11 = PyTuple_New(3); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __pyx_t_1 = 0;
       __pyx_t_14 = 127;
@@ -4880,7 +4995,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_1 += 36;
       __Pyx_GIVEREF(__pyx_kp_u_Function_has_too_many_inputs_Onl);
       PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_kp_u_Function_has_too_many_inputs_Onl);
-      __pyx_t_12 = __Pyx_PyUnicode_From_int(__pyx_v_number_args, 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 278, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyUnicode_From_int(__pyx_v_number_args, 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __pyx_t_1 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_12);
       __Pyx_GIVEREF(__pyx_t_12);
@@ -4890,17 +5005,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_1 += 12;
       __Pyx_GIVEREF(__pyx_kp_u_is_needed);
       PyTuple_SET_ITEM(__pyx_t_11, 2, __pyx_kp_u_is_needed);
-      __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_11, 3, __pyx_t_1, __pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 278, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_11, 3, __pyx_t_1, __pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_builtin_IndexError, __pyx_t_12); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 278, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_builtin_IndexError, __pyx_t_12); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 282, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       __Pyx_Raise(__pyx_t_11, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __PYX_ERR(0, 278, __pyx_L1_error)
+      __PYX_ERR(0, 282, __pyx_L1_error)
 
-      /* "hyperlearn/cython/base.pyx":277
+      /* "hyperlearn/cython/base.pyx":281
  *             raise IndexError("Function needs >= 1 function arguments.")
  * 
  *         if size > number_args:             # <<<<<<<<<<<<<<
@@ -4909,7 +5024,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":282
+    /* "hyperlearn/cython/base.pyx":286
  *         #########
  *         # if 1st is matrix
  *         temp = args[0]             # <<<<<<<<<<<<<<
@@ -4918,14 +5033,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     if (unlikely(__pyx_v_args == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 282, __pyx_L1_error)
+      __PYX_ERR(0, 286, __pyx_L1_error)
     }
     __pyx_t_11 = PyList_GET_ITEM(__pyx_v_args, 0);
     __Pyx_INCREF(__pyx_t_11);
     __pyx_v_temp = __pyx_t_11;
     __pyx_t_11 = 0;
 
-    /* "hyperlearn/cython/base.pyx":283
+    /* "hyperlearn/cython/base.pyx":287
  *         # if 1st is matrix
  *         temp = args[0]
  *         Xdtype = type(temp)             # <<<<<<<<<<<<<<
@@ -4935,16 +5050,16 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_temp)));
     __pyx_v_Xdtype = ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_temp)));
 
-    /* "hyperlearn/cython/base.pyx":285
+    /* "hyperlearn/cython/base.pyx":289
  *         Xdtype = type(temp)
  * 
  *         if Xdtype is np.matrix:             # <<<<<<<<<<<<<<
  *             n = temp.shape[0]
  *             if n == 1:    X = temp.A1 # flatten down
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 285, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_matrix); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 285, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_matrix); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 289, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
     __pyx_t_13 = (__pyx_v_Xdtype == ((PyTypeObject*)__pyx_t_12));
@@ -4952,23 +5067,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_10 = (__pyx_t_13 != 0);
     if (__pyx_t_10) {
 
-      /* "hyperlearn/cython/base.pyx":286
+      /* "hyperlearn/cython/base.pyx":290
  * 
  *         if Xdtype is np.matrix:
  *             n = temp.shape[0]             # <<<<<<<<<<<<<<
  *             if n == 1:    X = temp.A1 # flatten down
  *             else:         X = temp.A
  */
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_shape); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 286, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_shape); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 290, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_12, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 286, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_12, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 290, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-      __pyx_t_15 = __Pyx_PyIndex_AsSsize_t(__pyx_t_11); if (unlikely((__pyx_t_15 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 286, __pyx_L1_error)
+      __pyx_t_15 = __Pyx_PyIndex_AsSsize_t(__pyx_t_11); if (unlikely((__pyx_t_15 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 290, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       __pyx_v_n = __pyx_t_15;
 
-      /* "hyperlearn/cython/base.pyx":287
+      /* "hyperlearn/cython/base.pyx":291
  *         if Xdtype is np.matrix:
  *             n = temp.shape[0]
  *             if n == 1:    X = temp.A1 # flatten down             # <<<<<<<<<<<<<<
@@ -4977,15 +5092,15 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_t_10 = ((__pyx_v_n == 1) != 0);
       if (__pyx_t_10) {
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 287, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 291, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
-        if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 287, __pyx_L1_error)
+        if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 291, __pyx_L1_error)
         __pyx_v_X = ((__pyx_t_10hyperlearn_6cython_4base_ARRAY)__pyx_t_11);
         __pyx_t_11 = 0;
         goto __pyx_L11;
       }
 
-      /* "hyperlearn/cython/base.pyx":288
+      /* "hyperlearn/cython/base.pyx":292
  *             n = temp.shape[0]
  *             if n == 1:    X = temp.A1 # flatten down
  *             else:         X = temp.A             # <<<<<<<<<<<<<<
@@ -4993,15 +5108,15 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  * 
  */
       /*else*/ {
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 288, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 292, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
-        if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 288, __pyx_L1_error)
+        if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 292, __pyx_L1_error)
         __pyx_v_X = ((__pyx_t_10hyperlearn_6cython_4base_ARRAY)__pyx_t_11);
         __pyx_t_11 = 0;
       }
       __pyx_L11:;
 
-      /* "hyperlearn/cython/base.pyx":289
+      /* "hyperlearn/cython/base.pyx":293
  *             if n == 1:    X = temp.A1 # flatten down
  *             else:         X = temp.A
  *             args[0] = X             # <<<<<<<<<<<<<<
@@ -5010,11 +5125,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_args == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 289, __pyx_L1_error)
+        __PYX_ERR(0, 293, __pyx_L1_error)
       }
-      if (unlikely(__Pyx_SetItemInt(__pyx_v_args, 0, ((PyObject *)__pyx_v_X), long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0)) __PYX_ERR(0, 289, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_v_args, 0, ((PyObject *)__pyx_v_X), long, 1, __Pyx_PyInt_From_long, 1, 0, 0) < 0)) __PYX_ERR(0, 293, __pyx_L1_error)
 
-      /* "hyperlearn/cython/base.pyx":285
+      /* "hyperlearn/cython/base.pyx":289
  *         Xdtype = type(temp)
  * 
  *         if Xdtype is np.matrix:             # <<<<<<<<<<<<<<
@@ -5024,7 +5139,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       goto __pyx_L10;
     }
 
-    /* "hyperlearn/cython/base.pyx":293
+    /* "hyperlearn/cython/base.pyx":297
  *         #########
  *         # if not array
  *         elif Xdtype is not np.ndarray:             # <<<<<<<<<<<<<<
@@ -5035,20 +5150,20 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_13 = (__pyx_t_10 != 0);
     if (unlikely(__pyx_t_13)) {
 
-      /* "hyperlearn/cython/base.pyx":294
+      /* "hyperlearn/cython/base.pyx":298
  *         # if not array
  *         elif Xdtype is not np.ndarray:
  *             raise IndexError("First argument is not a 2D array. Must be an array.")             # <<<<<<<<<<<<<<
  *         else:
  *             X = args[0]
  */
-      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_IndexError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 294, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_IndexError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 298, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       __Pyx_Raise(__pyx_t_11, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __PYX_ERR(0, 294, __pyx_L1_error)
+      __PYX_ERR(0, 298, __pyx_L1_error)
 
-      /* "hyperlearn/cython/base.pyx":293
+      /* "hyperlearn/cython/base.pyx":297
  *         #########
  *         # if not array
  *         elif Xdtype is not np.ndarray:             # <<<<<<<<<<<<<<
@@ -5057,7 +5172,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":296
+    /* "hyperlearn/cython/base.pyx":300
  *             raise IndexError("First argument is not a 2D array. Must be an array.")
  *         else:
  *             X = args[0]             # <<<<<<<<<<<<<<
@@ -5067,9 +5182,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     /*else*/ {
       if (unlikely(__pyx_v_args == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 296, __pyx_L1_error)
+        __PYX_ERR(0, 300, __pyx_L1_error)
       }
-      if (!(likely(((PyList_GET_ITEM(__pyx_v_args, 0)) == Py_None) || likely(__Pyx_TypeTest(PyList_GET_ITEM(__pyx_v_args, 0), __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 296, __pyx_L1_error)
+      if (!(likely(((PyList_GET_ITEM(__pyx_v_args, 0)) == Py_None) || likely(__Pyx_TypeTest(PyList_GET_ITEM(__pyx_v_args, 0), __pyx_ptype_5numpy_ndarray))))) __PYX_ERR(0, 300, __pyx_L1_error)
       __pyx_t_11 = PyList_GET_ITEM(__pyx_v_args, 0);
       __Pyx_INCREF(__pyx_t_11);
       __pyx_v_X = ((__pyx_t_10hyperlearn_6cython_4base_ARRAY)__pyx_t_11);
@@ -5077,7 +5192,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     }
     __pyx_L10:;
 
-    /* "hyperlearn/cython/base.pyx":298
+    /* "hyperlearn/cython/base.pyx":302
  *             X = args[0]
  * 
  *         n, p = X.shape[0], X.shape[1]             # <<<<<<<<<<<<<<
@@ -5089,7 +5204,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_v_n = __pyx_t_16;
     __pyx_v_p = __pyx_t_17;
 
-    /* "hyperlearn/cython/base.pyx":302
+    /* "hyperlearn/cython/base.pyx":306
  *         #########
  *         # check if n_components is in function:
  *         for i in function_args.keys():             # <<<<<<<<<<<<<<
@@ -5099,9 +5214,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_1 = 0;
     if (unlikely(__pyx_v_function_args == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-      __PYX_ERR(0, 302, __pyx_L1_error)
+      __PYX_ERR(0, 306, __pyx_L1_error)
     }
-    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_function_args, 0, __pyx_n_s_keys, (&__pyx_t_2), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 302, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_function_args, 0, __pyx_n_s_keys, (&__pyx_t_2), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 306, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_XDECREF(__pyx_t_11);
     __pyx_t_11 = __pyx_t_12;
@@ -5109,24 +5224,24 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     while (1) {
       __pyx_t_6 = __Pyx_dict_iter_next(__pyx_t_11, __pyx_t_2, &__pyx_t_1, &__pyx_t_12, NULL, NULL, __pyx_t_7);
       if (unlikely(__pyx_t_6 == 0)) break;
-      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 302, __pyx_L1_error)
+      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 306, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 302, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 306, __pyx_L1_error)
       __Pyx_XDECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_12));
       __pyx_t_12 = 0;
 
-      /* "hyperlearn/cython/base.pyx":303
+      /* "hyperlearn/cython/base.pyx":307
  *         # check if n_components is in function:
  *         for i in function_args.keys():
  *             if i == "n_components":             # <<<<<<<<<<<<<<
  *                 hasK = True
  *                 hasComponents = True
  */
-      __pyx_t_13 = (__Pyx_PyUnicode_Equals(__pyx_v_i, __pyx_n_u_n_components, Py_EQ)); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 303, __pyx_L1_error)
+      __pyx_t_13 = (__Pyx_PyUnicode_Equals(__pyx_v_i, __pyx_n_u_n_components, Py_EQ)); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 307, __pyx_L1_error)
       __pyx_t_10 = (__pyx_t_13 != 0);
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":304
+        /* "hyperlearn/cython/base.pyx":308
  *         for i in function_args.keys():
  *             if i == "n_components":
  *                 hasK = True             # <<<<<<<<<<<<<<
@@ -5135,7 +5250,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_hasK = 1;
 
-        /* "hyperlearn/cython/base.pyx":305
+        /* "hyperlearn/cython/base.pyx":309
  *             if i == "n_components":
  *                 hasK = True
  *                 hasComponents = True             # <<<<<<<<<<<<<<
@@ -5144,7 +5259,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_hasComponents = 1;
 
-        /* "hyperlearn/cython/base.pyx":306
+        /* "hyperlearn/cython/base.pyx":310
  *                 hasK = True
  *                 hasComponents = True
  *                 break             # <<<<<<<<<<<<<<
@@ -5153,7 +5268,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         goto __pyx_L13_break;
 
-        /* "hyperlearn/cython/base.pyx":303
+        /* "hyperlearn/cython/base.pyx":307
  *         # check if n_components is in function:
  *         for i in function_args.keys():
  *             if i == "n_components":             # <<<<<<<<<<<<<<
@@ -5162,7 +5277,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":307
+      /* "hyperlearn/cython/base.pyx":311
  *                 hasComponents = True
  *                 break
  *             whereK += 1             # <<<<<<<<<<<<<<
@@ -5174,7 +5289,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_L13_break:;
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-    /* "hyperlearn/cython/base.pyx":311
+    /* "hyperlearn/cython/base.pyx":315
  *         #########
  *         # find what n_components is
  *         if n_args > whereK:             # <<<<<<<<<<<<<<
@@ -5184,7 +5299,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_10 = ((__pyx_v_n_args > __pyx_v_whereK) != 0);
     if (__pyx_t_10) {
 
-      /* "hyperlearn/cython/base.pyx":312
+      /* "hyperlearn/cython/base.pyx":316
  *         # find what n_components is
  *         if n_args > whereK:
  *             temp = args[whereK]             # <<<<<<<<<<<<<<
@@ -5193,14 +5308,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_args == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 312, __pyx_L1_error)
+        __PYX_ERR(0, 316, __pyx_L1_error)
       }
       __pyx_t_11 = PyList_GET_ITEM(__pyx_v_args, __pyx_v_whereK);
       __Pyx_INCREF(__pyx_t_11);
       __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_11);
       __pyx_t_11 = 0;
 
-      /* "hyperlearn/cython/base.pyx":313
+      /* "hyperlearn/cython/base.pyx":317
  *         if n_args > whereK:
  *             temp = args[whereK]
  *             try:             # <<<<<<<<<<<<<<
@@ -5216,17 +5331,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_XGOTREF(__pyx_t_20);
         /*try:*/ {
 
-          /* "hyperlearn/cython/base.pyx":314
+          /* "hyperlearn/cython/base.pyx":318
  *             temp = args[whereK]
  *             try:
  *                 temp_components = <double> temp             # <<<<<<<<<<<<<<
  *             except:
  *                 raise AssertionError(f"n_components = ({temp}) is not "
  */
-          __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_v_temp); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 314, __pyx_L16_error)
+          __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_v_temp); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 318, __pyx_L16_error)
           __pyx_v_temp_components = ((double)__pyx_t_9);
 
-          /* "hyperlearn/cython/base.pyx":313
+          /* "hyperlearn/cython/base.pyx":317
  *         if n_args > whereK:
  *             temp = args[whereK]
  *             try:             # <<<<<<<<<<<<<<
@@ -5242,7 +5357,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-        /* "hyperlearn/cython/base.pyx":315
+        /* "hyperlearn/cython/base.pyx":319
  *             try:
  *                 temp_components = <double> temp
  *             except:             # <<<<<<<<<<<<<<
@@ -5251,19 +5366,19 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         /*except:*/ {
           __Pyx_AddTraceback("hyperlearn.cython.base.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_11, &__pyx_t_12, &__pyx_t_21) < 0) __PYX_ERR(0, 315, __pyx_L18_except_error)
+          if (__Pyx_GetException(&__pyx_t_11, &__pyx_t_12, &__pyx_t_21) < 0) __PYX_ERR(0, 319, __pyx_L18_except_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GOTREF(__pyx_t_21);
 
-          /* "hyperlearn/cython/base.pyx":316
+          /* "hyperlearn/cython/base.pyx":320
  *                 temp_components = <double> temp
  *             except:
  *                 raise AssertionError(f"n_components = ({temp}) is not "             # <<<<<<<<<<<<<<
  *                         "the correct type. Must be int or float.")
  *             default_n_components = temp_components
  */
-          __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 316, __pyx_L18_except_error)
+          __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 320, __pyx_L18_except_error)
           __Pyx_GOTREF(__pyx_t_22);
           __pyx_t_2 = 0;
           __pyx_t_14 = 127;
@@ -5271,7 +5386,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_t_2 += 16;
           __Pyx_GIVEREF(__pyx_kp_u_n_components_2);
           PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_kp_u_n_components_2);
-          __pyx_t_23 = __Pyx_PyObject_FormatSimple(__pyx_v_temp, __pyx_empty_unicode); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 316, __pyx_L18_except_error)
+          __pyx_t_23 = __Pyx_PyObject_FormatSimple(__pyx_v_temp, __pyx_empty_unicode); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 320, __pyx_L18_except_error)
           __Pyx_GOTREF(__pyx_t_23);
           __pyx_t_14 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_23) > __pyx_t_14) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_23) : __pyx_t_14;
           __pyx_t_2 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_23);
@@ -5282,19 +5397,19 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_t_2 += 48;
           __Pyx_GIVEREF(__pyx_kp_u_is_not_the_correct_type_Must_be);
           PyTuple_SET_ITEM(__pyx_t_22, 2, __pyx_kp_u_is_not_the_correct_type_Must_be);
-          __pyx_t_23 = __Pyx_PyUnicode_Join(__pyx_t_22, 3, __pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 316, __pyx_L18_except_error)
+          __pyx_t_23 = __Pyx_PyUnicode_Join(__pyx_t_22, 3, __pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 320, __pyx_L18_except_error)
           __Pyx_GOTREF(__pyx_t_23);
           __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __pyx_t_22 = __Pyx_PyObject_CallOneArg(__pyx_builtin_AssertionError, __pyx_t_23); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 316, __pyx_L18_except_error)
+          __pyx_t_22 = __Pyx_PyObject_CallOneArg(__pyx_builtin_AssertionError, __pyx_t_23); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 320, __pyx_L18_except_error)
           __Pyx_GOTREF(__pyx_t_22);
           __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
           __Pyx_Raise(__pyx_t_22, 0, 0, 0);
           __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
-          __PYX_ERR(0, 316, __pyx_L18_except_error)
+          __PYX_ERR(0, 320, __pyx_L18_except_error)
         }
         __pyx_L18_except_error:;
 
-        /* "hyperlearn/cython/base.pyx":313
+        /* "hyperlearn/cython/base.pyx":317
  *         if n_args > whereK:
  *             temp = args[whereK]
  *             try:             # <<<<<<<<<<<<<<
@@ -5309,7 +5424,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_L21_try_end:;
       }
 
-      /* "hyperlearn/cython/base.pyx":318
+      /* "hyperlearn/cython/base.pyx":322
  *                 raise AssertionError(f"n_components = ({temp}) is not "
  *                         "the correct type. Must be int or float.")
  *             default_n_components = temp_components             # <<<<<<<<<<<<<<
@@ -5318,7 +5433,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_default_n_components = __pyx_v_temp_components;
 
-      /* "hyperlearn/cython/base.pyx":320
+      /* "hyperlearn/cython/base.pyx":324
  *             default_n_components = temp_components
  * 
  *             if temp_components < 1:             # <<<<<<<<<<<<<<
@@ -5328,7 +5443,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = ((__pyx_v_temp_components < 1.0) != 0);
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":321
+        /* "hyperlearn/cython/base.pyx":325
  * 
  *             if temp_components < 1:
  *                 a = n if n < p else p # min(n, p)             # <<<<<<<<<<<<<<
@@ -5342,7 +5457,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         }
         __pyx_v_a = __pyx_t_15;
 
-        /* "hyperlearn/cython/base.pyx":322
+        /* "hyperlearn/cython/base.pyx":326
  *             if temp_components < 1:
  *                 a = n if n < p else p # min(n, p)
  *                 temp_components *= a             # <<<<<<<<<<<<<<
@@ -5351,7 +5466,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_temp_components = (__pyx_v_temp_components * __pyx_v_a);
 
-        /* "hyperlearn/cython/base.pyx":323
+        /* "hyperlearn/cython/base.pyx":327
  *                 a = n if n < p else p # min(n, p)
  *                 temp_components *= a
  *                 if temp_components < 1:    temp_components = 1             # <<<<<<<<<<<<<<
@@ -5363,7 +5478,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_v_temp_components = 1.0;
         }
 
-        /* "hyperlearn/cython/base.pyx":320
+        /* "hyperlearn/cython/base.pyx":324
  *             default_n_components = temp_components
  * 
  *             if temp_components < 1:             # <<<<<<<<<<<<<<
@@ -5372,7 +5487,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":324
+      /* "hyperlearn/cython/base.pyx":328
  *                 temp_components *= a
  *                 if temp_components < 1:    temp_components = 1
  *             if temp_components > p:  temp_components = p             # <<<<<<<<<<<<<<
@@ -5384,7 +5499,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_v_temp_components = __pyx_v_p;
       }
 
-      /* "hyperlearn/cython/base.pyx":326
+      /* "hyperlearn/cython/base.pyx":330
  *             if temp_components > p:  temp_components = p
  * 
  *             n_components = <int> temp_components             # <<<<<<<<<<<<<<
@@ -5393,7 +5508,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_n_components = ((int)__pyx_v_temp_components);
 
-      /* "hyperlearn/cython/base.pyx":328
+      /* "hyperlearn/cython/base.pyx":332
  *             n_components = <int> temp_components
  *             # if n_components is changed:
  *             if n_components != default_n_components:             # <<<<<<<<<<<<<<
@@ -5403,23 +5518,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = ((__pyx_v_n_components != __pyx_v_default_n_components) != 0);
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":329
+        /* "hyperlearn/cython/base.pyx":333
  *             # if n_components is changed:
  *             if n_components != default_n_components:
  *                 args[whereK] = n_components             # <<<<<<<<<<<<<<
  * 
  *             hasK = False # don't need to check kwargs
  */
-        __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 329, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 333, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         if (unlikely(__pyx_v_args == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 329, __pyx_L1_error)
+          __PYX_ERR(0, 333, __pyx_L1_error)
         }
-        if (unlikely(__Pyx_SetItemInt(__pyx_v_args, __pyx_v_whereK, __pyx_t_21, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 329, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_v_args, __pyx_v_whereK, __pyx_t_21, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 333, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-        /* "hyperlearn/cython/base.pyx":328
+        /* "hyperlearn/cython/base.pyx":332
  *             n_components = <int> temp_components
  *             # if n_components is changed:
  *             if n_components != default_n_components:             # <<<<<<<<<<<<<<
@@ -5428,7 +5543,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":331
+      /* "hyperlearn/cython/base.pyx":335
  *                 args[whereK] = n_components
  * 
  *             hasK = False # don't need to check kwargs             # <<<<<<<<<<<<<<
@@ -5437,7 +5552,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_hasK = 0;
 
-      /* "hyperlearn/cython/base.pyx":311
+      /* "hyperlearn/cython/base.pyx":315
  *         #########
  *         # find what n_components is
  *         if n_args > whereK:             # <<<<<<<<<<<<<<
@@ -5446,7 +5561,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":336
+    /* "hyperlearn/cython/base.pyx":340
  *         # check booleans and if an array is seen
  *         # for eg: L_only, Q_only
  *         duplicate = <bool*> malloc(sizeof(bool) * n_args)             # <<<<<<<<<<<<<<
@@ -5455,7 +5570,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     __pyx_v_duplicate = ((__pyx_t_10hyperlearn_6cython_4base_bool *)malloc(((sizeof(__pyx_t_10hyperlearn_6cython_4base_bool)) * __pyx_v_n_args)));
 
-    /* "hyperlearn/cython/base.pyx":338
+    /* "hyperlearn/cython/base.pyx":342
  *         duplicate = <bool*> malloc(sizeof(bool) * n_args)
  * 
  *         for j in range(n_args):             # <<<<<<<<<<<<<<
@@ -5467,7 +5582,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_6; __pyx_t_5+=1) {
       __pyx_v_j = __pyx_t_5;
 
-      /* "hyperlearn/cython/base.pyx":339
+      /* "hyperlearn/cython/base.pyx":343
  * 
  *         for j in range(n_args):
  *             temp = args[j]             # <<<<<<<<<<<<<<
@@ -5476,14 +5591,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_args == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 339, __pyx_L1_error)
+        __PYX_ERR(0, 343, __pyx_L1_error)
       }
       __pyx_t_21 = PyList_GET_ITEM(__pyx_v_args, __pyx_v_j);
       __Pyx_INCREF(__pyx_t_21);
       __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_21);
       __pyx_t_21 = 0;
 
-      /* "hyperlearn/cython/base.pyx":340
+      /* "hyperlearn/cython/base.pyx":344
  *         for j in range(n_args):
  *             temp = args[j]
  *             dtype = type(temp)             # <<<<<<<<<<<<<<
@@ -5493,7 +5608,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_temp)));
       __Pyx_XDECREF_SET(__pyx_v_dtype, ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_temp))));
 
-      /* "hyperlearn/cython/base.pyx":342
+      /* "hyperlearn/cython/base.pyx":346
  *             dtype = type(temp)
  * 
  *             if dtype is BOOL and memory_length > 0:             # <<<<<<<<<<<<<<
@@ -5512,7 +5627,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_L31_bool_binop_done:;
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":343
+        /* "hyperlearn/cython/base.pyx":347
  * 
  *             if dtype is BOOL and memory_length > 0:
  *                 duplicate[j] = True             # <<<<<<<<<<<<<<
@@ -5521,7 +5636,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         (__pyx_v_duplicate[__pyx_v_j]) = 1;
 
-        /* "hyperlearn/cython/base.pyx":344
+        /* "hyperlearn/cython/base.pyx":348
  *             if dtype is BOOL and memory_length > 0:
  *                 duplicate[j] = True
  *                 if j >= memory_length:             # <<<<<<<<<<<<<<
@@ -5531,14 +5646,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_10 = ((__pyx_v_j >= __pyx_v_memory_length) != 0);
         if (unlikely(__pyx_t_10)) {
 
-          /* "hyperlearn/cython/base.pyx":345
+          /* "hyperlearn/cython/base.pyx":349
  *                 duplicate[j] = True
  *                 if j >= memory_length:
  *                     raise IndexError(f"Too many arguments. Argument ({temp}) is wrong.")             # <<<<<<<<<<<<<<
  *                 i = memory_keys[j]
  *                 kwargs[i] = temp
  */
-          __pyx_t_21 = PyTuple_New(3); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 345, __pyx_L1_error)
+          __pyx_t_21 = PyTuple_New(3); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 349, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
           __pyx_t_2 = 0;
           __pyx_t_14 = 127;
@@ -5546,7 +5661,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_t_2 += 30;
           __Pyx_GIVEREF(__pyx_kp_u_Too_many_arguments_Argument);
           PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_kp_u_Too_many_arguments_Argument);
-          __pyx_t_12 = __Pyx_PyObject_FormatSimple(__pyx_v_temp, __pyx_empty_unicode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 345, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyObject_FormatSimple(__pyx_v_temp, __pyx_empty_unicode); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 349, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_14 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_12) > __pyx_t_14) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_12) : __pyx_t_14;
           __pyx_t_2 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_12);
@@ -5557,17 +5672,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_t_2 += 11;
           __Pyx_GIVEREF(__pyx_kp_u_is_wrong);
           PyTuple_SET_ITEM(__pyx_t_21, 2, __pyx_kp_u_is_wrong);
-          __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_21, 3, __pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 345, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_21, 3, __pyx_t_2, __pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 349, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __pyx_t_21 = __Pyx_PyObject_CallOneArg(__pyx_builtin_IndexError, __pyx_t_12); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 345, __pyx_L1_error)
+          __pyx_t_21 = __Pyx_PyObject_CallOneArg(__pyx_builtin_IndexError, __pyx_t_12); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 349, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __Pyx_Raise(__pyx_t_21, 0, 0, 0);
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __PYX_ERR(0, 345, __pyx_L1_error)
+          __PYX_ERR(0, 349, __pyx_L1_error)
 
-          /* "hyperlearn/cython/base.pyx":344
+          /* "hyperlearn/cython/base.pyx":348
  *             if dtype is BOOL and memory_length > 0:
  *                 duplicate[j] = True
  *                 if j >= memory_length:             # <<<<<<<<<<<<<<
@@ -5576,7 +5691,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         }
 
-        /* "hyperlearn/cython/base.pyx":346
+        /* "hyperlearn/cython/base.pyx":350
  *                 if j >= memory_length:
  *                     raise IndexError(f"Too many arguments. Argument ({temp}) is wrong.")
  *                 i = memory_keys[j]             # <<<<<<<<<<<<<<
@@ -5585,15 +5700,15 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_memory_keys == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 346, __pyx_L1_error)
+          __PYX_ERR(0, 350, __pyx_L1_error)
         }
-        if (!(likely(PyUnicode_CheckExact(PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j)))||((PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j))->tp_name), 0))) __PYX_ERR(0, 346, __pyx_L1_error)
+        if (!(likely(PyUnicode_CheckExact(PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j)))||((PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j))->tp_name), 0))) __PYX_ERR(0, 350, __pyx_L1_error)
         __pyx_t_21 = PyList_GET_ITEM(__pyx_v_memory_keys, __pyx_v_j);
         __Pyx_INCREF(__pyx_t_21);
         __Pyx_XDECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_21));
         __pyx_t_21 = 0;
 
-        /* "hyperlearn/cython/base.pyx":347
+        /* "hyperlearn/cython/base.pyx":351
  *                     raise IndexError(f"Too many arguments. Argument ({temp}) is wrong.")
  *                 i = memory_keys[j]
  *                 kwargs[i] = temp             # <<<<<<<<<<<<<<
@@ -5602,11 +5717,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 347, __pyx_L1_error)
+          __PYX_ERR(0, 351, __pyx_L1_error)
         }
-        if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_v_temp) < 0)) __PYX_ERR(0, 347, __pyx_L1_error)
+        if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_v_temp) < 0)) __PYX_ERR(0, 351, __pyx_L1_error)
 
-        /* "hyperlearn/cython/base.pyx":342
+        /* "hyperlearn/cython/base.pyx":346
  *             dtype = type(temp)
  * 
  *             if dtype is BOOL and memory_length > 0:             # <<<<<<<<<<<<<<
@@ -5616,7 +5731,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         goto __pyx_L30;
       }
 
-      /* "hyperlearn/cython/base.pyx":349
+      /* "hyperlearn/cython/base.pyx":353
  *                 kwargs[i] = temp
  *             else:
  *                 duplicate[j] = False             # <<<<<<<<<<<<<<
@@ -5629,7 +5744,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_L30:;
     }
 
-    /* "hyperlearn/cython/base.pyx":353
+    /* "hyperlearn/cython/base.pyx":357
  *         #########
  *         # check if arguments are indeed accepted
  *         for i in kwargs.keys():             # <<<<<<<<<<<<<<
@@ -5639,9 +5754,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_2 = 0;
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-      __PYX_ERR(0, 353, __pyx_L1_error)
+      __PYX_ERR(0, 357, __pyx_L1_error)
     }
-    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_1), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 353, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_1), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 357, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_XDECREF(__pyx_t_21);
     __pyx_t_21 = __pyx_t_12;
@@ -5649,13 +5764,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     while (1) {
       __pyx_t_6 = __Pyx_dict_iter_next(__pyx_t_21, __pyx_t_1, &__pyx_t_2, &__pyx_t_12, NULL, NULL, __pyx_t_7);
       if (unlikely(__pyx_t_6 == 0)) break;
-      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 353, __pyx_L1_error)
+      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 357, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 353, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 357, __pyx_L1_error)
       __Pyx_XDECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_12));
       __pyx_t_12 = 0;
 
-      /* "hyperlearn/cython/base.pyx":354
+      /* "hyperlearn/cython/base.pyx":358
  *         # check if arguments are indeed accepted
  *         for i in kwargs.keys():
  *             try:             # <<<<<<<<<<<<<<
@@ -5671,18 +5786,18 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_XGOTREF(__pyx_t_18);
         /*try:*/ {
 
-          /* "hyperlearn/cython/base.pyx":355
+          /* "hyperlearn/cython/base.pyx":359
  *         for i in kwargs.keys():
  *             try:
  *                 function_args[i]             # <<<<<<<<<<<<<<
  *             except:
  *                 raise NameError(f"Argument ({i}) is not recognised in function. "
  */
-          __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_v_function_args, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 355, __pyx_L36_error)
+          __pyx_t_12 = __Pyx_PyObject_Dict_GetItem(__pyx_v_function_args, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 359, __pyx_L36_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-          /* "hyperlearn/cython/base.pyx":354
+          /* "hyperlearn/cython/base.pyx":358
  *         # check if arguments are indeed accepted
  *         for i in kwargs.keys():
  *             try:             # <<<<<<<<<<<<<<
@@ -5700,7 +5815,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":356
+        /* "hyperlearn/cython/base.pyx":360
  *             try:
  *                 function_args[i]
  *             except:             # <<<<<<<<<<<<<<
@@ -5709,19 +5824,19 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         /*except:*/ {
           __Pyx_AddTraceback("hyperlearn.cython.base.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_11, &__pyx_t_22) < 0) __PYX_ERR(0, 356, __pyx_L38_except_error)
+          if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_11, &__pyx_t_22) < 0) __PYX_ERR(0, 360, __pyx_L38_except_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_GOTREF(__pyx_t_22);
 
-          /* "hyperlearn/cython/base.pyx":357
+          /* "hyperlearn/cython/base.pyx":361
  *                 function_args[i]
  *             except:
  *                 raise NameError(f"Argument ({i}) is not recognised in function. "             # <<<<<<<<<<<<<<
  *                     f"Function accepted signature is ({function_signature}).")
  * 
  */
-          __pyx_t_23 = PyTuple_New(5); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 357, __pyx_L38_except_error)
+          __pyx_t_23 = PyTuple_New(5); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 361, __pyx_L38_except_error)
           __Pyx_GOTREF(__pyx_t_23);
           __pyx_t_25 = 0;
           __pyx_t_14 = 127;
@@ -5729,7 +5844,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_t_25 += 10;
           __Pyx_GIVEREF(__pyx_kp_u_Argument);
           PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_kp_u_Argument);
-          __pyx_t_26 = __Pyx_PyUnicode_Unicode(__pyx_v_i); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 357, __pyx_L38_except_error)
+          __pyx_t_26 = __Pyx_PyUnicode_Unicode(__pyx_v_i); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 361, __pyx_L38_except_error)
           __Pyx_GOTREF(__pyx_t_26);
           __pyx_t_14 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_26) > __pyx_t_14) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_26) : __pyx_t_14;
           __pyx_t_25 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_26);
@@ -5741,14 +5856,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __Pyx_GIVEREF(__pyx_kp_u_is_not_recognised_in_function_F);
           PyTuple_SET_ITEM(__pyx_t_23, 2, __pyx_kp_u_is_not_recognised_in_function_F);
 
-          /* "hyperlearn/cython/base.pyx":358
+          /* "hyperlearn/cython/base.pyx":362
  *             except:
  *                 raise NameError(f"Argument ({i}) is not recognised in function. "
  *                     f"Function accepted signature is ({function_signature}).")             # <<<<<<<<<<<<<<
  * 
  *             temp = kwargs[i]
  */
-          __pyx_t_26 = __Pyx_PyObject_FormatSimple(__pyx_v_function_signature, __pyx_empty_unicode); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 358, __pyx_L38_except_error)
+          __pyx_t_26 = __Pyx_PyObject_FormatSimple(__pyx_v_function_signature, __pyx_empty_unicode); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 362, __pyx_L38_except_error)
           __Pyx_GOTREF(__pyx_t_26);
           __pyx_t_14 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_26) > __pyx_t_14) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_26) : __pyx_t_14;
           __pyx_t_25 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_26);
@@ -5760,26 +5875,26 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __Pyx_GIVEREF(__pyx_kp_u_);
           PyTuple_SET_ITEM(__pyx_t_23, 4, __pyx_kp_u_);
 
-          /* "hyperlearn/cython/base.pyx":357
+          /* "hyperlearn/cython/base.pyx":361
  *                 function_args[i]
  *             except:
  *                 raise NameError(f"Argument ({i}) is not recognised in function. "             # <<<<<<<<<<<<<<
  *                     f"Function accepted signature is ({function_signature}).")
  * 
  */
-          __pyx_t_26 = __Pyx_PyUnicode_Join(__pyx_t_23, 5, __pyx_t_25, __pyx_t_14); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 357, __pyx_L38_except_error)
+          __pyx_t_26 = __Pyx_PyUnicode_Join(__pyx_t_23, 5, __pyx_t_25, __pyx_t_14); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 361, __pyx_L38_except_error)
           __Pyx_GOTREF(__pyx_t_26);
           __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          __pyx_t_23 = __Pyx_PyObject_CallOneArg(__pyx_builtin_NameError, __pyx_t_26); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 357, __pyx_L38_except_error)
+          __pyx_t_23 = __Pyx_PyObject_CallOneArg(__pyx_builtin_NameError, __pyx_t_26); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 361, __pyx_L38_except_error)
           __Pyx_GOTREF(__pyx_t_23);
           __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
           __Pyx_Raise(__pyx_t_23, 0, 0, 0);
           __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-          __PYX_ERR(0, 357, __pyx_L38_except_error)
+          __PYX_ERR(0, 361, __pyx_L38_except_error)
         }
         __pyx_L38_except_error:;
 
-        /* "hyperlearn/cython/base.pyx":354
+        /* "hyperlearn/cython/base.pyx":358
  *         # check if arguments are indeed accepted
  *         for i in kwargs.keys():
  *             try:             # <<<<<<<<<<<<<<
@@ -5794,7 +5909,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_L43_try_end:;
       }
 
-      /* "hyperlearn/cython/base.pyx":360
+      /* "hyperlearn/cython/base.pyx":364
  *                     f"Function accepted signature is ({function_signature}).")
  * 
  *             temp = kwargs[i]             # <<<<<<<<<<<<<<
@@ -5803,14 +5918,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 360, __pyx_L1_error)
+        __PYX_ERR(0, 364, __pyx_L1_error)
       }
-      __pyx_t_22 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 360, __pyx_L1_error)
+      __pyx_t_22 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 364, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_22);
       __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_22);
       __pyx_t_22 = 0;
 
-      /* "hyperlearn/cython/base.pyx":361
+      /* "hyperlearn/cython/base.pyx":365
  * 
  *             temp = kwargs[i]
  *             dtype = type(temp)             # <<<<<<<<<<<<<<
@@ -5820,7 +5935,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_temp)));
       __Pyx_XDECREF_SET(__pyx_v_dtype, ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_temp))));
 
-      /* "hyperlearn/cython/base.pyx":363
+      /* "hyperlearn/cython/base.pyx":367
  *             dtype = type(temp)
  * 
  *             if dtype is BOOL and "only" in i:             # <<<<<<<<<<<<<<
@@ -5836,25 +5951,25 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       }
       if (unlikely(__pyx_v_i == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-        __PYX_ERR(0, 363, __pyx_L1_error)
+        __PYX_ERR(0, 367, __pyx_L1_error)
       }
-      __pyx_t_13 = (__Pyx_PyUnicode_ContainsTF(__pyx_n_u_only, __pyx_v_i, Py_EQ)); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 363, __pyx_L1_error)
+      __pyx_t_13 = (__Pyx_PyUnicode_ContainsTF(__pyx_n_u_only, __pyx_v_i, Py_EQ)); if (unlikely(__pyx_t_13 < 0)) __PYX_ERR(0, 367, __pyx_L1_error)
       __pyx_t_24 = (__pyx_t_13 != 0);
       __pyx_t_10 = __pyx_t_24;
       __pyx_L47_bool_binop_done:;
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":364
+        /* "hyperlearn/cython/base.pyx":368
  * 
  *             if dtype is BOOL and "only" in i:
  *                 otherYes += <int> temp             # <<<<<<<<<<<<<<
  * 
  *             #########
  */
-        __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_temp); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 364, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyInt_As_int(__pyx_v_temp); if (unlikely((__pyx_t_6 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 368, __pyx_L1_error)
         __pyx_v_otherYes = (__pyx_v_otherYes + ((int)__pyx_t_6));
 
-        /* "hyperlearn/cython/base.pyx":363
+        /* "hyperlearn/cython/base.pyx":367
  *             dtype = type(temp)
  * 
  *             if dtype is BOOL and "only" in i:             # <<<<<<<<<<<<<<
@@ -5863,7 +5978,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":368
+      /* "hyperlearn/cython/base.pyx":372
  *             #########
  *             # if n_components seen
  *             if hasK and i == "n_components":             # <<<<<<<<<<<<<<
@@ -5876,13 +5991,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_10 = __pyx_t_24;
         goto __pyx_L50_bool_binop_done;
       }
-      __pyx_t_24 = (__Pyx_PyUnicode_Equals(__pyx_v_i, __pyx_n_u_n_components, Py_EQ)); if (unlikely(__pyx_t_24 < 0)) __PYX_ERR(0, 368, __pyx_L1_error)
+      __pyx_t_24 = (__Pyx_PyUnicode_Equals(__pyx_v_i, __pyx_n_u_n_components, Py_EQ)); if (unlikely(__pyx_t_24 < 0)) __PYX_ERR(0, 372, __pyx_L1_error)
       __pyx_t_13 = (__pyx_t_24 != 0);
       __pyx_t_10 = __pyx_t_13;
       __pyx_L50_bool_binop_done:;
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":369
+        /* "hyperlearn/cython/base.pyx":373
  *             # if n_components seen
  *             if hasK and i == "n_components":
  *                 try:             # <<<<<<<<<<<<<<
@@ -5898,17 +6013,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __Pyx_XGOTREF(__pyx_t_20);
           /*try:*/ {
 
-            /* "hyperlearn/cython/base.pyx":370
+            /* "hyperlearn/cython/base.pyx":374
  *             if hasK and i == "n_components":
  *                 try:
  *                     temp_components = <double> temp             # <<<<<<<<<<<<<<
  *                 except:
  *                     raise AssertionError(f"n_components = ({temp}) is not "
  */
-            __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_v_temp); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 370, __pyx_L52_error)
+            __pyx_t_9 = __pyx_PyFloat_AsDouble(__pyx_v_temp); if (unlikely((__pyx_t_9 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 374, __pyx_L52_error)
             __pyx_v_temp_components = ((double)__pyx_t_9);
 
-            /* "hyperlearn/cython/base.pyx":369
+            /* "hyperlearn/cython/base.pyx":373
  *             # if n_components seen
  *             if hasK and i == "n_components":
  *                 try:             # <<<<<<<<<<<<<<
@@ -5927,7 +6042,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
           __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
 
-          /* "hyperlearn/cython/base.pyx":371
+          /* "hyperlearn/cython/base.pyx":375
  *                 try:
  *                     temp_components = <double> temp
  *                 except:             # <<<<<<<<<<<<<<
@@ -5936,19 +6051,19 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
           /*except:*/ {
             __Pyx_AddTraceback("hyperlearn.cython.base.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-            if (__Pyx_GetException(&__pyx_t_22, &__pyx_t_11, &__pyx_t_12) < 0) __PYX_ERR(0, 371, __pyx_L54_except_error)
+            if (__Pyx_GetException(&__pyx_t_22, &__pyx_t_11, &__pyx_t_12) < 0) __PYX_ERR(0, 375, __pyx_L54_except_error)
             __Pyx_GOTREF(__pyx_t_22);
             __Pyx_GOTREF(__pyx_t_11);
             __Pyx_GOTREF(__pyx_t_12);
 
-            /* "hyperlearn/cython/base.pyx":372
+            /* "hyperlearn/cython/base.pyx":376
  *                     temp_components = <double> temp
  *                 except:
  *                     raise AssertionError(f"n_components = ({temp}) is not "             # <<<<<<<<<<<<<<
  *                             "the correct type. Must be int or float.")
  *                 default_n_components = temp_components
  */
-            __pyx_t_23 = PyTuple_New(3); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 372, __pyx_L54_except_error)
+            __pyx_t_23 = PyTuple_New(3); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 376, __pyx_L54_except_error)
             __Pyx_GOTREF(__pyx_t_23);
             __pyx_t_25 = 0;
             __pyx_t_14 = 127;
@@ -5956,7 +6071,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
             __pyx_t_25 += 16;
             __Pyx_GIVEREF(__pyx_kp_u_n_components_2);
             PyTuple_SET_ITEM(__pyx_t_23, 0, __pyx_kp_u_n_components_2);
-            __pyx_t_26 = __Pyx_PyObject_FormatSimple(__pyx_v_temp, __pyx_empty_unicode); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 372, __pyx_L54_except_error)
+            __pyx_t_26 = __Pyx_PyObject_FormatSimple(__pyx_v_temp, __pyx_empty_unicode); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 376, __pyx_L54_except_error)
             __Pyx_GOTREF(__pyx_t_26);
             __pyx_t_14 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_26) > __pyx_t_14) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_26) : __pyx_t_14;
             __pyx_t_25 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_26);
@@ -5967,19 +6082,19 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
             __pyx_t_25 += 48;
             __Pyx_GIVEREF(__pyx_kp_u_is_not_the_correct_type_Must_be);
             PyTuple_SET_ITEM(__pyx_t_23, 2, __pyx_kp_u_is_not_the_correct_type_Must_be);
-            __pyx_t_26 = __Pyx_PyUnicode_Join(__pyx_t_23, 3, __pyx_t_25, __pyx_t_14); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 372, __pyx_L54_except_error)
+            __pyx_t_26 = __Pyx_PyUnicode_Join(__pyx_t_23, 3, __pyx_t_25, __pyx_t_14); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 376, __pyx_L54_except_error)
             __Pyx_GOTREF(__pyx_t_26);
             __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __pyx_t_23 = __Pyx_PyObject_CallOneArg(__pyx_builtin_AssertionError, __pyx_t_26); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 372, __pyx_L54_except_error)
+            __pyx_t_23 = __Pyx_PyObject_CallOneArg(__pyx_builtin_AssertionError, __pyx_t_26); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 376, __pyx_L54_except_error)
             __Pyx_GOTREF(__pyx_t_23);
             __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
             __Pyx_Raise(__pyx_t_23, 0, 0, 0);
             __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
-            __PYX_ERR(0, 372, __pyx_L54_except_error)
+            __PYX_ERR(0, 376, __pyx_L54_except_error)
           }
           __pyx_L54_except_error:;
 
-          /* "hyperlearn/cython/base.pyx":369
+          /* "hyperlearn/cython/base.pyx":373
  *             # if n_components seen
  *             if hasK and i == "n_components":
  *                 try:             # <<<<<<<<<<<<<<
@@ -5994,7 +6109,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_L59_try_end:;
         }
 
-        /* "hyperlearn/cython/base.pyx":374
+        /* "hyperlearn/cython/base.pyx":378
  *                     raise AssertionError(f"n_components = ({temp}) is not "
  *                             "the correct type. Must be int or float.")
  *                 default_n_components = temp_components             # <<<<<<<<<<<<<<
@@ -6003,7 +6118,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_default_n_components = __pyx_v_temp_components;
 
-        /* "hyperlearn/cython/base.pyx":376
+        /* "hyperlearn/cython/base.pyx":380
  *                 default_n_components = temp_components
  * 
  *                 if temp_components < 1:             # <<<<<<<<<<<<<<
@@ -6013,7 +6128,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_10 = ((__pyx_v_temp_components < 1.0) != 0);
         if (__pyx_t_10) {
 
-          /* "hyperlearn/cython/base.pyx":377
+          /* "hyperlearn/cython/base.pyx":381
  * 
  *                 if temp_components < 1:
  *                     a = n if n < p else p # min(n, p)             # <<<<<<<<<<<<<<
@@ -6027,7 +6142,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           }
           __pyx_v_a = __pyx_t_15;
 
-          /* "hyperlearn/cython/base.pyx":378
+          /* "hyperlearn/cython/base.pyx":382
  *                 if temp_components < 1:
  *                     a = n if n < p else p # min(n, p)
  *                     temp_components *= a             # <<<<<<<<<<<<<<
@@ -6036,7 +6151,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
           __pyx_v_temp_components = (__pyx_v_temp_components * __pyx_v_a);
 
-          /* "hyperlearn/cython/base.pyx":379
+          /* "hyperlearn/cython/base.pyx":383
  *                     a = n if n < p else p # min(n, p)
  *                     temp_components *= a
  *                     if temp_components < 1:    temp_components = 1             # <<<<<<<<<<<<<<
@@ -6048,7 +6163,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
             __pyx_v_temp_components = 1.0;
           }
 
-          /* "hyperlearn/cython/base.pyx":376
+          /* "hyperlearn/cython/base.pyx":380
  *                 default_n_components = temp_components
  * 
  *                 if temp_components < 1:             # <<<<<<<<<<<<<<
@@ -6057,7 +6172,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         }
 
-        /* "hyperlearn/cython/base.pyx":380
+        /* "hyperlearn/cython/base.pyx":384
  *                     temp_components *= a
  *                     if temp_components < 1:    temp_components = 1
  *                 if temp_components > p:  temp_components = p             # <<<<<<<<<<<<<<
@@ -6069,7 +6184,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           __pyx_v_temp_components = __pyx_v_p;
         }
 
-        /* "hyperlearn/cython/base.pyx":382
+        /* "hyperlearn/cython/base.pyx":386
  *                 if temp_components > p:  temp_components = p
  * 
  *                 n_components = <int> temp_components             # <<<<<<<<<<<<<<
@@ -6078,7 +6193,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_n_components = ((int)__pyx_v_temp_components);
 
-        /* "hyperlearn/cython/base.pyx":384
+        /* "hyperlearn/cython/base.pyx":388
  *                 n_components = <int> temp_components
  *                 # if n_components is changed:
  *                 if n_components != default_n_components:             # <<<<<<<<<<<<<<
@@ -6088,23 +6203,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_10 = ((__pyx_v_n_components != __pyx_v_default_n_components) != 0);
         if (__pyx_t_10) {
 
-          /* "hyperlearn/cython/base.pyx":385
+          /* "hyperlearn/cython/base.pyx":389
  *                 # if n_components is changed:
  *                 if n_components != default_n_components:
  *                     kwargs[i] = n_components             # <<<<<<<<<<<<<<
  * 
  *                 hasK = False # don't need to check kwargs
  */
-          __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 385, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 389, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           if (unlikely(__pyx_v_kwargs == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 385, __pyx_L1_error)
+            __PYX_ERR(0, 389, __pyx_L1_error)
           }
-          if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_12) < 0)) __PYX_ERR(0, 385, __pyx_L1_error)
+          if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_12) < 0)) __PYX_ERR(0, 389, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-          /* "hyperlearn/cython/base.pyx":384
+          /* "hyperlearn/cython/base.pyx":388
  *                 n_components = <int> temp_components
  *                 # if n_components is changed:
  *                 if n_components != default_n_components:             # <<<<<<<<<<<<<<
@@ -6113,7 +6228,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         }
 
-        /* "hyperlearn/cython/base.pyx":387
+        /* "hyperlearn/cython/base.pyx":391
  *                     kwargs[i] = n_components
  * 
  *                 hasK = False # don't need to check kwargs             # <<<<<<<<<<<<<<
@@ -6122,7 +6237,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         __pyx_v_hasK = 0;
 
-        /* "hyperlearn/cython/base.pyx":368
+        /* "hyperlearn/cython/base.pyx":372
  *             #########
  *             # if n_components seen
  *             if hasK and i == "n_components":             # <<<<<<<<<<<<<<
@@ -6133,7 +6248,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     }
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-    /* "hyperlearn/cython/base.pyx":391
+    /* "hyperlearn/cython/base.pyx":395
  *         #########
  *         # if too many TRUEs or no TRUEs
  *         if otherYes == memory_length-1 or otherYes == 0:             # <<<<<<<<<<<<<<
@@ -6151,7 +6266,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_L67_bool_binop_done:;
     if (__pyx_t_10) {
 
-      /* "hyperlearn/cython/base.pyx":392
+      /* "hyperlearn/cython/base.pyx":396
  *         # if too many TRUEs or no TRUEs
  *         if otherYes == memory_length-1 or otherYes == 0:
  *             for i in kwargs.keys():             # <<<<<<<<<<<<<<
@@ -6161,9 +6276,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_1 = 0;
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-        __PYX_ERR(0, 392, __pyx_L1_error)
+        __PYX_ERR(0, 396, __pyx_L1_error)
       }
-      __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_2), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 392, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_2), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 396, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_XDECREF(__pyx_t_21);
       __pyx_t_21 = __pyx_t_12;
@@ -6171,13 +6286,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       while (1) {
         __pyx_t_6 = __Pyx_dict_iter_next(__pyx_t_21, __pyx_t_2, &__pyx_t_1, &__pyx_t_12, NULL, NULL, __pyx_t_7);
         if (unlikely(__pyx_t_6 == 0)) break;
-        if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 392, __pyx_L1_error)
+        if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 396, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 392, __pyx_L1_error)
+        if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 396, __pyx_L1_error)
         __Pyx_XDECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_12));
         __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":393
+        /* "hyperlearn/cython/base.pyx":397
  *         if otherYes == memory_length-1 or otherYes == 0:
  *             for i in kwargs.keys():
  *                 temp = kwargs[i]             # <<<<<<<<<<<<<<
@@ -6186,14 +6301,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 393, __pyx_L1_error)
+          __PYX_ERR(0, 397, __pyx_L1_error)
         }
-        __pyx_t_12 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 393, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 397, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_12);
         __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":394
+        /* "hyperlearn/cython/base.pyx":398
  *             for i in kwargs.keys():
  *                 temp = kwargs[i]
  *                 dtype = type(temp)             # <<<<<<<<<<<<<<
@@ -6203,7 +6318,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_temp)));
         __Pyx_XDECREF_SET(__pyx_v_dtype, ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_temp))));
 
-        /* "hyperlearn/cython/base.pyx":395
+        /* "hyperlearn/cython/base.pyx":399
  *                 temp = kwargs[i]
  *                 dtype = type(temp)
  *                 if dtype is BOOL and "only" in i:             # <<<<<<<<<<<<<<
@@ -6219,15 +6334,15 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         }
         if (unlikely(__pyx_v_i == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-          __PYX_ERR(0, 395, __pyx_L1_error)
+          __PYX_ERR(0, 399, __pyx_L1_error)
         }
-        __pyx_t_24 = (__Pyx_PyUnicode_ContainsTF(__pyx_n_u_only, __pyx_v_i, Py_EQ)); if (unlikely(__pyx_t_24 < 0)) __PYX_ERR(0, 395, __pyx_L1_error)
+        __pyx_t_24 = (__Pyx_PyUnicode_ContainsTF(__pyx_n_u_only, __pyx_v_i, Py_EQ)); if (unlikely(__pyx_t_24 < 0)) __PYX_ERR(0, 399, __pyx_L1_error)
         __pyx_t_13 = (__pyx_t_24 != 0);
         __pyx_t_10 = __pyx_t_13;
         __pyx_L72_bool_binop_done:;
         if (__pyx_t_10) {
 
-          /* "hyperlearn/cython/base.pyx":396
+          /* "hyperlearn/cython/base.pyx":400
  *                 dtype = type(temp)
  *                 if dtype is BOOL and "only" in i:
  *                     kwargs[i] = False # set to all False             # <<<<<<<<<<<<<<
@@ -6236,11 +6351,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
           if (unlikely(__pyx_v_kwargs == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 396, __pyx_L1_error)
+            __PYX_ERR(0, 400, __pyx_L1_error)
           }
-          if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, Py_False) < 0)) __PYX_ERR(0, 396, __pyx_L1_error)
+          if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, Py_False) < 0)) __PYX_ERR(0, 400, __pyx_L1_error)
 
-          /* "hyperlearn/cython/base.pyx":395
+          /* "hyperlearn/cython/base.pyx":399
  *                 temp = kwargs[i]
  *                 dtype = type(temp)
  *                 if dtype is BOOL and "only" in i:             # <<<<<<<<<<<<<<
@@ -6251,7 +6366,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       }
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-      /* "hyperlearn/cython/base.pyx":397
+      /* "hyperlearn/cython/base.pyx":401
  *                 if dtype is BOOL and "only" in i:
  *                     kwargs[i] = False # set to all False
  *             kwargs["X"] = True # all true             # <<<<<<<<<<<<<<
@@ -6260,11 +6375,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 397, __pyx_L1_error)
+        __PYX_ERR(0, 401, __pyx_L1_error)
       }
-      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_n_u_X, Py_True) < 0)) __PYX_ERR(0, 397, __pyx_L1_error)
+      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_n_u_X, Py_True) < 0)) __PYX_ERR(0, 401, __pyx_L1_error)
 
-      /* "hyperlearn/cython/base.pyx":391
+      /* "hyperlearn/cython/base.pyx":395
  *         #########
  *         # if too many TRUEs or no TRUEs
  *         if otherYes == memory_length-1 or otherYes == 0:             # <<<<<<<<<<<<<<
@@ -6274,7 +6389,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       goto __pyx_L66;
     }
 
-    /* "hyperlearn/cython/base.pyx":399
+    /* "hyperlearn/cython/base.pyx":403
  *             kwargs["X"] = True # all true
  *         else:
  *             kwargs["X"] = False             # <<<<<<<<<<<<<<
@@ -6284,13 +6399,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     /*else*/ {
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 399, __pyx_L1_error)
+        __PYX_ERR(0, 403, __pyx_L1_error)
       }
-      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_n_u_X, Py_False) < 0)) __PYX_ERR(0, 399, __pyx_L1_error)
+      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_n_u_X, Py_False) < 0)) __PYX_ERR(0, 403, __pyx_L1_error)
     }
     __pyx_L66:;
 
-    /* "hyperlearn/cython/base.pyx":403
+    /* "hyperlearn/cython/base.pyx":407
  *         #########
  *         # if n_components not seen
  *         i = "n_components"             # <<<<<<<<<<<<<<
@@ -6300,7 +6415,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __Pyx_INCREF(__pyx_n_u_n_components);
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_n_u_n_components);
 
-    /* "hyperlearn/cython/base.pyx":404
+    /* "hyperlearn/cython/base.pyx":408
  *         # if n_components not seen
  *         i = "n_components"
  *         if hasK:             # <<<<<<<<<<<<<<
@@ -6310,7 +6425,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_10 = (__pyx_v_hasK != 0);
     if (__pyx_t_10) {
 
-      /* "hyperlearn/cython/base.pyx":406
+      /* "hyperlearn/cython/base.pyx":410
  *         if hasK:
  *             # add default n_components as per function
  *             try:    n_components = function_args[i].default             # <<<<<<<<<<<<<<
@@ -6325,12 +6440,12 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_XGOTREF(__pyx_t_19);
         __Pyx_XGOTREF(__pyx_t_18);
         /*try:*/ {
-          __pyx_t_21 = __Pyx_PyObject_Dict_GetItem(__pyx_v_function_args, __pyx_v_i); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 406, __pyx_L75_error)
+          __pyx_t_21 = __Pyx_PyObject_Dict_GetItem(__pyx_v_function_args, __pyx_v_i); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 410, __pyx_L75_error)
           __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_default); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 406, __pyx_L75_error)
+          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_default); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 410, __pyx_L75_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_12); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 406, __pyx_L75_error)
+          __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_12); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 410, __pyx_L75_error)
           __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
           __pyx_v_n_components = __pyx_t_7;
         }
@@ -6346,7 +6461,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
         __Pyx_XDECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":407
+        /* "hyperlearn/cython/base.pyx":411
  *             # add default n_components as per function
  *             try:    n_components = function_args[i].default
  *             except: n_components = 1             # <<<<<<<<<<<<<<
@@ -6355,7 +6470,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         /*except:*/ {
           __Pyx_AddTraceback("hyperlearn.cython.base.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-          if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_21, &__pyx_t_11) < 0) __PYX_ERR(0, 407, __pyx_L77_except_error)
+          if (__Pyx_GetException(&__pyx_t_12, &__pyx_t_21, &__pyx_t_11) < 0) __PYX_ERR(0, 411, __pyx_L77_except_error)
           __Pyx_GOTREF(__pyx_t_12);
           __Pyx_GOTREF(__pyx_t_21);
           __Pyx_GOTREF(__pyx_t_11);
@@ -6367,7 +6482,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         }
         __pyx_L77_except_error:;
 
-        /* "hyperlearn/cython/base.pyx":406
+        /* "hyperlearn/cython/base.pyx":410
  *         if hasK:
  *             # add default n_components as per function
  *             try:    n_components = function_args[i].default             # <<<<<<<<<<<<<<
@@ -6387,23 +6502,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_L80_try_end:;
       }
 
-      /* "hyperlearn/cython/base.pyx":408
+      /* "hyperlearn/cython/base.pyx":412
  *             try:    n_components = function_args[i].default
  *             except: n_components = 1
  *             kwargs[i] = n_components             # <<<<<<<<<<<<<<
  *             default_n_components = n_components
  * 
  */
-      __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 408, __pyx_L1_error)
+      __pyx_t_11 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 412, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 408, __pyx_L1_error)
+        __PYX_ERR(0, 412, __pyx_L1_error)
       }
-      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_11) < 0)) __PYX_ERR(0, 408, __pyx_L1_error)
+      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_11) < 0)) __PYX_ERR(0, 412, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-      /* "hyperlearn/cython/base.pyx":409
+      /* "hyperlearn/cython/base.pyx":413
  *             except: n_components = 1
  *             kwargs[i] = n_components
  *             default_n_components = n_components             # <<<<<<<<<<<<<<
@@ -6412,7 +6527,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_default_n_components = __pyx_v_n_components;
 
-      /* "hyperlearn/cython/base.pyx":404
+      /* "hyperlearn/cython/base.pyx":408
  *         # if n_components not seen
  *         i = "n_components"
  *         if hasK:             # <<<<<<<<<<<<<<
@@ -6421,7 +6536,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":413
+    /* "hyperlearn/cython/base.pyx":417
  *         #########
  *         # Now check data types of arrays
  *         n_kwargs = len(kwargs)             # <<<<<<<<<<<<<<
@@ -6430,12 +6545,12 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-      __PYX_ERR(0, 413, __pyx_L1_error)
+      __PYX_ERR(0, 417, __pyx_L1_error)
     }
-    __pyx_t_2 = PyDict_Size(__pyx_v_kwargs); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 413, __pyx_L1_error)
+    __pyx_t_2 = PyDict_Size(__pyx_v_kwargs); if (unlikely(__pyx_t_2 == ((Py_ssize_t)-1))) __PYX_ERR(0, 417, __pyx_L1_error)
     __pyx_v_n_kwargs = __pyx_t_2;
 
-    /* "hyperlearn/cython/base.pyx":414
+    /* "hyperlearn/cython/base.pyx":418
  *         # Now check data types of arrays
  *         n_kwargs = len(kwargs)
  *         new_dtypes = <char*> malloc(sizeof(char) * (n_args + n_kwargs) )             # <<<<<<<<<<<<<<
@@ -6444,7 +6559,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     __pyx_v_new_dtypes = ((char *)malloc(((sizeof(char)) * (__pyx_v_n_args + __pyx_v_n_kwargs))));
 
-    /* "hyperlearn/cython/base.pyx":417
+    /* "hyperlearn/cython/base.pyx":421
  * 
  *         # Go through ARGS
  *         for j in range(n_args):             # <<<<<<<<<<<<<<
@@ -6456,7 +6571,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_6; __pyx_t_5+=1) {
       __pyx_v_j = __pyx_t_5;
 
-      /* "hyperlearn/cython/base.pyx":418
+      /* "hyperlearn/cython/base.pyx":422
  *         # Go through ARGS
  *         for j in range(n_args):
  *             temp = args[j]             # <<<<<<<<<<<<<<
@@ -6465,14 +6580,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_args == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 418, __pyx_L1_error)
+        __PYX_ERR(0, 422, __pyx_L1_error)
       }
       __pyx_t_11 = PyList_GET_ITEM(__pyx_v_args, __pyx_v_j);
       __Pyx_INCREF(__pyx_t_11);
       __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_11);
       __pyx_t_11 = 0;
 
-      /* "hyperlearn/cython/base.pyx":419
+      /* "hyperlearn/cython/base.pyx":423
  *         for j in range(n_args):
  *             temp = args[j]
  *             if j != 0:             # <<<<<<<<<<<<<<
@@ -6482,7 +6597,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = ((__pyx_v_j != 0) != 0);
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":420
+        /* "hyperlearn/cython/base.pyx":424
  *             temp = args[j]
  *             if j != 0:
  *                 dtype = type(temp)             # <<<<<<<<<<<<<<
@@ -6492,16 +6607,16 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_temp)));
         __Pyx_XDECREF_SET(__pyx_v_dtype, ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_temp))));
 
-        /* "hyperlearn/cython/base.pyx":423
+        /* "hyperlearn/cython/base.pyx":427
  * 
  *                 # Convert matrices
  *                 if dtype is np.matrix:             # <<<<<<<<<<<<<<
  *                     a = temp.shape[0]
  *                     args[j] = temp.A1 if a == 1 else temp.A
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 423, __pyx_L1_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_11, __pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 427, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_matrix); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 423, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_matrix); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 427, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __pyx_t_10 = (__pyx_v_dtype == ((PyTypeObject*)__pyx_t_21));
@@ -6509,23 +6624,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_13 = (__pyx_t_10 != 0);
         if (__pyx_t_13) {
 
-          /* "hyperlearn/cython/base.pyx":424
+          /* "hyperlearn/cython/base.pyx":428
  *                 # Convert matrices
  *                 if dtype is np.matrix:
  *                     a = temp.shape[0]             # <<<<<<<<<<<<<<
  *                     args[j] = temp.A1 if a == 1 else temp.A
  *                     temp = args[j]
  */
-          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_shape); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 424, __pyx_L1_error)
+          __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_shape); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 428, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
-          __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_21, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 424, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_GetItemInt(__pyx_t_21, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 428, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-          __pyx_t_15 = __Pyx_PyIndex_AsSsize_t(__pyx_t_11); if (unlikely((__pyx_t_15 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 424, __pyx_L1_error)
+          __pyx_t_15 = __Pyx_PyIndex_AsSsize_t(__pyx_t_11); if (unlikely((__pyx_t_15 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 428, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           __pyx_v_a = __pyx_t_15;
 
-          /* "hyperlearn/cython/base.pyx":425
+          /* "hyperlearn/cython/base.pyx":429
  *                 if dtype is np.matrix:
  *                     a = temp.shape[0]
  *                     args[j] = temp.A1 if a == 1 else temp.A             # <<<<<<<<<<<<<<
@@ -6533,24 +6648,24 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  *             a, dt = arg_process(temp, square)
  */
           if (((__pyx_v_a == 1) != 0)) {
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A1); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 425, __pyx_L1_error)
+            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A1); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 429, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_21);
             __pyx_t_11 = __pyx_t_21;
             __pyx_t_21 = 0;
           } else {
-            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 425, __pyx_L1_error)
+            __pyx_t_21 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 429, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_21);
             __pyx_t_11 = __pyx_t_21;
             __pyx_t_21 = 0;
           }
           if (unlikely(__pyx_v_args == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 425, __pyx_L1_error)
+            __PYX_ERR(0, 429, __pyx_L1_error)
           }
-          if (unlikely(__Pyx_SetItemInt(__pyx_v_args, __pyx_v_j, __pyx_t_11, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 425, __pyx_L1_error)
+          if (unlikely(__Pyx_SetItemInt(__pyx_v_args, __pyx_v_j, __pyx_t_11, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 429, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-          /* "hyperlearn/cython/base.pyx":426
+          /* "hyperlearn/cython/base.pyx":430
  *                     a = temp.shape[0]
  *                     args[j] = temp.A1 if a == 1 else temp.A
  *                     temp = args[j]             # <<<<<<<<<<<<<<
@@ -6559,14 +6674,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
           if (unlikely(__pyx_v_args == Py_None)) {
             PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-            __PYX_ERR(0, 426, __pyx_L1_error)
+            __PYX_ERR(0, 430, __pyx_L1_error)
           }
           __pyx_t_11 = PyList_GET_ITEM(__pyx_v_args, __pyx_v_j);
           __Pyx_INCREF(__pyx_t_11);
           __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_11);
           __pyx_t_11 = 0;
 
-          /* "hyperlearn/cython/base.pyx":423
+          /* "hyperlearn/cython/base.pyx":427
  * 
  *                 # Convert matrices
  *                 if dtype is np.matrix:             # <<<<<<<<<<<<<<
@@ -6575,7 +6690,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         }
 
-        /* "hyperlearn/cython/base.pyx":419
+        /* "hyperlearn/cython/base.pyx":423
  *         for j in range(n_args):
  *             temp = args[j]
  *             if j != 0:             # <<<<<<<<<<<<<<
@@ -6584,7 +6699,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":427
+      /* "hyperlearn/cython/base.pyx":431
  *                     args[j] = temp.A1 if a == 1 else temp.A
  *                     temp = args[j]
  *             a, dt = arg_process(temp, square)             # <<<<<<<<<<<<<<
@@ -6597,7 +6712,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_v_a = __pyx_t_4;
       __pyx_v_dt = __pyx_t_28;
 
-      /* "hyperlearn/cython/base.pyx":430
+      /* "hyperlearn/cython/base.pyx":434
  * 
  *             # Get datatype(X)
  *             if j == 0:             # <<<<<<<<<<<<<<
@@ -6607,7 +6722,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_13 = ((__pyx_v_j == 0) != 0);
       if (__pyx_t_13) {
 
-        /* "hyperlearn/cython/base.pyx":431
+        /* "hyperlearn/cython/base.pyx":435
  *             # Get datatype(X)
  *             if j == 0:
  *                 if dt == PASS:             # <<<<<<<<<<<<<<
@@ -6617,20 +6732,20 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_13 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_PASS) != 0);
         if (__pyx_t_13) {
 
-          /* "hyperlearn/cython/base.pyx":432
+          /* "hyperlearn/cython/base.pyx":436
  *             if j == 0:
  *                 if dt == PASS:
  *                     X_dtype = X.dtype             # <<<<<<<<<<<<<<
  *                 else:
  *                     X_dtype = np.dtype(chr(dt))
  */
-          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_X), __pyx_n_s_dtype); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 432, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_X), __pyx_n_s_dtype); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 436, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
-          if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_dtype))))) __PYX_ERR(0, 432, __pyx_L1_error)
+          if (!(likely(((__pyx_t_11) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_11, __pyx_ptype_5numpy_dtype))))) __PYX_ERR(0, 436, __pyx_L1_error)
           __Pyx_XDECREF_SET(__pyx_v_X_dtype, ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_11));
           __pyx_t_11 = 0;
 
-          /* "hyperlearn/cython/base.pyx":431
+          /* "hyperlearn/cython/base.pyx":435
  *             # Get datatype(X)
  *             if j == 0:
  *                 if dt == PASS:             # <<<<<<<<<<<<<<
@@ -6640,7 +6755,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
           goto __pyx_L88;
         }
 
-        /* "hyperlearn/cython/base.pyx":434
+        /* "hyperlearn/cython/base.pyx":438
  *                     X_dtype = X.dtype
  *                 else:
  *                     X_dtype = np.dtype(chr(dt))             # <<<<<<<<<<<<<<
@@ -6648,12 +6763,12 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  *             new_dtypes[j] = dt
  */
         /*else*/ {
-          __pyx_t_11 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 434, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 438, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
-          __pyx_t_21 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_11); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 434, __pyx_L1_error)
+          __pyx_t_21 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_11); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 438, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_21);
           __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          __pyx_t_11 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_t_21); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 434, __pyx_L1_error)
+          __pyx_t_11 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_t_21); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 438, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
           __Pyx_XDECREF_SET(__pyx_v_X_dtype, ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_11));
@@ -6661,7 +6776,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         }
         __pyx_L88:;
 
-        /* "hyperlearn/cython/base.pyx":430
+        /* "hyperlearn/cython/base.pyx":434
  * 
  *             # Get datatype(X)
  *             if j == 0:             # <<<<<<<<<<<<<<
@@ -6670,7 +6785,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":435
+      /* "hyperlearn/cython/base.pyx":439
  *                 else:
  *                     X_dtype = np.dtype(chr(dt))
  *             memoryNeed += a             # <<<<<<<<<<<<<<
@@ -6679,7 +6794,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_memoryNeed = (__pyx_v_memoryNeed + __pyx_v_a);
 
-      /* "hyperlearn/cython/base.pyx":436
+      /* "hyperlearn/cython/base.pyx":440
  *                     X_dtype = np.dtype(chr(dt))
  *             memoryNeed += a
  *             new_dtypes[j] = dt             # <<<<<<<<<<<<<<
@@ -6689,7 +6804,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       (__pyx_v_new_dtypes[__pyx_v_j]) = __pyx_v_dt;
     }
 
-    /* "hyperlearn/cython/base.pyx":439
+    /* "hyperlearn/cython/base.pyx":443
  * 
  *         # Go through KWARGS
  *         j = n_args             # <<<<<<<<<<<<<<
@@ -6698,7 +6813,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     __pyx_v_j = __pyx_v_n_args;
 
-    /* "hyperlearn/cython/base.pyx":440
+    /* "hyperlearn/cython/base.pyx":444
  *         # Go through KWARGS
  *         j = n_args
  *         for i in kwargs.keys():             # <<<<<<<<<<<<<<
@@ -6708,9 +6823,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_2 = 0;
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-      __PYX_ERR(0, 440, __pyx_L1_error)
+      __PYX_ERR(0, 444, __pyx_L1_error)
     }
-    __pyx_t_21 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_1), (&__pyx_t_7)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 440, __pyx_L1_error)
+    __pyx_t_21 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_1), (&__pyx_t_7)); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 444, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_21);
     __Pyx_XDECREF(__pyx_t_11);
     __pyx_t_11 = __pyx_t_21;
@@ -6718,13 +6833,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     while (1) {
       __pyx_t_6 = __Pyx_dict_iter_next(__pyx_t_11, __pyx_t_1, &__pyx_t_2, &__pyx_t_21, NULL, NULL, __pyx_t_7);
       if (unlikely(__pyx_t_6 == 0)) break;
-      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 440, __pyx_L1_error)
+      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 444, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_21))||((__pyx_t_21) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_21)->tp_name), 0))) __PYX_ERR(0, 440, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_21))||((__pyx_t_21) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_21)->tp_name), 0))) __PYX_ERR(0, 444, __pyx_L1_error)
       __Pyx_DECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_21));
       __pyx_t_21 = 0;
 
-      /* "hyperlearn/cython/base.pyx":441
+      /* "hyperlearn/cython/base.pyx":445
  *         j = n_args
  *         for i in kwargs.keys():
  *             temp = kwargs[i]             # <<<<<<<<<<<<<<
@@ -6733,14 +6848,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 441, __pyx_L1_error)
+        __PYX_ERR(0, 445, __pyx_L1_error)
       }
-      __pyx_t_21 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 441, __pyx_L1_error)
+      __pyx_t_21 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 445, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
       __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_21);
       __pyx_t_21 = 0;
 
-      /* "hyperlearn/cython/base.pyx":442
+      /* "hyperlearn/cython/base.pyx":446
  *         for i in kwargs.keys():
  *             temp = kwargs[i]
  *             dtype = type(temp)             # <<<<<<<<<<<<<<
@@ -6750,16 +6865,16 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __Pyx_INCREF(((PyObject *)Py_TYPE(__pyx_v_temp)));
       __Pyx_XDECREF_SET(__pyx_v_dtype, ((PyTypeObject*)((PyObject *)Py_TYPE(__pyx_v_temp))));
 
-      /* "hyperlearn/cython/base.pyx":445
+      /* "hyperlearn/cython/base.pyx":449
  * 
  *             # Convert matrices
  *             if dtype is np.matrix:             # <<<<<<<<<<<<<<
  *                 a = temp.shape[0]
  *                 kwargs[i] = temp.A1 if a == 1 else temp.A
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_np); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 445, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_np); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 449, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_matrix); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 445, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_matrix); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 449, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
       __pyx_t_13 = (__pyx_v_dtype == ((PyTypeObject*)__pyx_t_12));
@@ -6767,23 +6882,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = (__pyx_t_13 != 0);
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":446
+        /* "hyperlearn/cython/base.pyx":450
  *             # Convert matrices
  *             if dtype is np.matrix:
  *                 a = temp.shape[0]             # <<<<<<<<<<<<<<
  *                 kwargs[i] = temp.A1 if a == 1 else temp.A
  *                 temp = kwargs[i]
  */
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_shape); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 446, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_shape); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 450, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_12, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 446, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_GetItemInt(__pyx_t_12, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 0); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 450, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_15 = __Pyx_PyIndex_AsSsize_t(__pyx_t_21); if (unlikely((__pyx_t_15 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 446, __pyx_L1_error)
+        __pyx_t_15 = __Pyx_PyIndex_AsSsize_t(__pyx_t_21); if (unlikely((__pyx_t_15 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 450, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
         __pyx_v_a = __pyx_t_15;
 
-        /* "hyperlearn/cython/base.pyx":447
+        /* "hyperlearn/cython/base.pyx":451
  *             if dtype is np.matrix:
  *                 a = temp.shape[0]
  *                 kwargs[i] = temp.A1 if a == 1 else temp.A             # <<<<<<<<<<<<<<
@@ -6791,24 +6906,24 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  *             a, dt = arg_process(temp, square)
  */
         if (((__pyx_v_a == 1) != 0)) {
-          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 447, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A1); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 451, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_21 = __pyx_t_12;
           __pyx_t_12 = 0;
         } else {
-          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 447, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_v_temp, __pyx_n_s_A); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 451, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_12);
           __pyx_t_21 = __pyx_t_12;
           __pyx_t_12 = 0;
         }
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 447, __pyx_L1_error)
+          __PYX_ERR(0, 451, __pyx_L1_error)
         }
-        if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_21) < 0)) __PYX_ERR(0, 447, __pyx_L1_error)
+        if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_21) < 0)) __PYX_ERR(0, 451, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-        /* "hyperlearn/cython/base.pyx":448
+        /* "hyperlearn/cython/base.pyx":452
  *                 a = temp.shape[0]
  *                 kwargs[i] = temp.A1 if a == 1 else temp.A
  *                 temp = kwargs[i]             # <<<<<<<<<<<<<<
@@ -6817,14 +6932,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 448, __pyx_L1_error)
+          __PYX_ERR(0, 452, __pyx_L1_error)
         }
-        __pyx_t_21 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 448, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 452, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_DECREF_SET(__pyx_v_temp, __pyx_t_21);
         __pyx_t_21 = 0;
 
-        /* "hyperlearn/cython/base.pyx":445
+        /* "hyperlearn/cython/base.pyx":449
  * 
  *             # Convert matrices
  *             if dtype is np.matrix:             # <<<<<<<<<<<<<<
@@ -6833,7 +6948,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":449
+      /* "hyperlearn/cython/base.pyx":453
  *                 kwargs[i] = temp.A1 if a == 1 else temp.A
  *                 temp = kwargs[i]
  *             a, dt = arg_process(temp, square)             # <<<<<<<<<<<<<<
@@ -6846,7 +6961,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_v_a = __pyx_t_6;
       __pyx_v_dt = __pyx_t_28;
 
-      /* "hyperlearn/cython/base.pyx":452
+      /* "hyperlearn/cython/base.pyx":456
  * 
  *             # Get datatype(X)
  *             memoryNeed += a             # <<<<<<<<<<<<<<
@@ -6855,7 +6970,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_memoryNeed = (__pyx_v_memoryNeed + __pyx_v_a);
 
-      /* "hyperlearn/cython/base.pyx":453
+      /* "hyperlearn/cython/base.pyx":457
  *             # Get datatype(X)
  *             memoryNeed += a
  *             new_dtypes[j] = dt             # <<<<<<<<<<<<<<
@@ -6864,7 +6979,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       (__pyx_v_new_dtypes[__pyx_v_j]) = __pyx_v_dt;
 
-      /* "hyperlearn/cython/base.pyx":454
+      /* "hyperlearn/cython/base.pyx":458
  *             memoryNeed += a
  *             new_dtypes[j] = dt
  *             j += 1             # <<<<<<<<<<<<<<
@@ -6875,7 +6990,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     }
     __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-    /* "hyperlearn/cython/base.pyx":458
+    /* "hyperlearn/cython/base.pyx":462
  *         #########
  *         # Now fix n_components
  *         if n_components != 0:  shape = (n, p, n_components)             # <<<<<<<<<<<<<<
@@ -6884,13 +6999,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     __pyx_t_10 = ((__pyx_v_n_components != 0) != 0);
     if (__pyx_t_10) {
-      __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 458, __pyx_L1_error)
+      __pyx_t_11 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 462, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
-      __pyx_t_21 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 458, __pyx_L1_error)
+      __pyx_t_21 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 462, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
-      __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 458, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyInt_From_int(__pyx_v_n_components); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 462, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 458, __pyx_L1_error)
+      __pyx_t_22 = PyTuple_New(3); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 462, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_22);
       __Pyx_GIVEREF(__pyx_t_11);
       PyTuple_SET_ITEM(__pyx_t_22, 0, __pyx_t_11);
@@ -6906,7 +7021,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       goto __pyx_L92;
     }
 
-    /* "hyperlearn/cython/base.pyx":459
+    /* "hyperlearn/cython/base.pyx":463
  *         # Now fix n_components
  *         if n_components != 0:  shape = (n, p, n_components)
  *         else:                  shape = (n, p)             # <<<<<<<<<<<<<<
@@ -6914,11 +7029,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  *         for i in memory_keys:
  */
     /*else*/ {
-      __pyx_t_22 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_22 = PyInt_FromSsize_t(__pyx_v_n); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_22);
-      __pyx_t_12 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_12 = PyInt_FromSsize_t(__pyx_v_p); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_21 = PyTuple_New(2); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 459, __pyx_L1_error)
+      __pyx_t_21 = PyTuple_New(2); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 463, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
       __Pyx_GIVEREF(__pyx_t_22);
       PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_t_22);
@@ -6931,7 +7046,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     }
     __pyx_L92:;
 
-    /* "hyperlearn/cython/base.pyx":461
+    /* "hyperlearn/cython/base.pyx":465
  *         else:                  shape = (n, p)
  * 
  *         for i in memory_keys:             # <<<<<<<<<<<<<<
@@ -6940,22 +7055,22 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     if (unlikely(__pyx_v_memory_keys == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-      __PYX_ERR(0, 461, __pyx_L1_error)
+      __PYX_ERR(0, 465, __pyx_L1_error)
     }
     __pyx_t_21 = __pyx_v_memory_keys; __Pyx_INCREF(__pyx_t_21); __pyx_t_1 = 0;
     for (;;) {
       if (__pyx_t_1 >= PyList_GET_SIZE(__pyx_t_21)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_12 = PyList_GET_ITEM(__pyx_t_21, __pyx_t_1); __Pyx_INCREF(__pyx_t_12); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 461, __pyx_L1_error)
+      __pyx_t_12 = PyList_GET_ITEM(__pyx_t_21, __pyx_t_1); __Pyx_INCREF(__pyx_t_12); __pyx_t_1++; if (unlikely(0 < 0)) __PYX_ERR(0, 465, __pyx_L1_error)
       #else
-      __pyx_t_12 = PySequence_ITEM(__pyx_t_21, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 461, __pyx_L1_error)
+      __pyx_t_12 = PySequence_ITEM(__pyx_t_21, __pyx_t_1); __pyx_t_1++; if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 465, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
       #endif
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 461, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 465, __pyx_L1_error)
       __Pyx_DECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_12));
       __pyx_t_12 = 0;
 
-      /* "hyperlearn/cython/base.pyx":462
+      /* "hyperlearn/cython/base.pyx":466
  * 
  *         for i in memory_keys:
  *             if kwargs[i]:             # <<<<<<<<<<<<<<
@@ -6964,15 +7079,15 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 462, __pyx_L1_error)
+        __PYX_ERR(0, 466, __pyx_L1_error)
       }
-      __pyx_t_12 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_12 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 462, __pyx_L1_error)
+      __pyx_t_10 = __Pyx_PyObject_IsTrue(__pyx_t_12); if (unlikely(__pyx_t_10 < 0)) __PYX_ERR(0, 466, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":463
+        /* "hyperlearn/cython/base.pyx":467
  *         for i in memory_keys:
  *             if kwargs[i]:
  *                 memoryNeed += memory(shape, X_dtype, memcheck[i])             # <<<<<<<<<<<<<<
@@ -6981,15 +7096,15 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_memcheck == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 463, __pyx_L1_error)
+          __PYX_ERR(0, 467, __pyx_L1_error)
         }
-        __pyx_t_12 = __Pyx_PyDict_GetItem(__pyx_v_memcheck, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 463, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyDict_GetItem(__pyx_v_memcheck, __pyx_v_i); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 467, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 463, __pyx_L1_error)
+        if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 467, __pyx_L1_error)
         __pyx_v_memoryNeed = (__pyx_v_memoryNeed + __pyx_f_10hyperlearn_6cython_4base_memory(__pyx_v_shape, __pyx_v_X_dtype, ((PyObject*)__pyx_t_12)));
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":464
+        /* "hyperlearn/cython/base.pyx":468
  *             if kwargs[i]:
  *                 memoryNeed += memory(shape, X_dtype, memcheck[i])
  *                 break             # <<<<<<<<<<<<<<
@@ -6998,7 +7113,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         goto __pyx_L94_break;
 
-        /* "hyperlearn/cython/base.pyx":462
+        /* "hyperlearn/cython/base.pyx":466
  * 
  *         for i in memory_keys:
  *             if kwargs[i]:             # <<<<<<<<<<<<<<
@@ -7007,7 +7122,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":461
+      /* "hyperlearn/cython/base.pyx":465
  *         else:                  shape = (n, p)
  * 
  *         for i in memory_keys:             # <<<<<<<<<<<<<<
@@ -7018,7 +7133,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_L94_break:;
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-    /* "hyperlearn/cython/base.pyx":468
+    /* "hyperlearn/cython/base.pyx":472
  *         #########
  *         # confirm memory is enough for data conversion
  *         if memoryNeed > 0:             # <<<<<<<<<<<<<<
@@ -7028,7 +7143,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_10 = ((__pyx_v_memoryNeed > 0) != 0);
     if (__pyx_t_10) {
 
-      /* "hyperlearn/cython/base.pyx":469
+      /* "hyperlearn/cython/base.pyx":473
  *         # confirm memory is enough for data conversion
  *         if memoryNeed > 0:
  *             memoryFree = available_memory()             # <<<<<<<<<<<<<<
@@ -7037,7 +7152,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_memoryFree = __pyx_f_10hyperlearn_6cython_4base_available_memory(0);
 
-      /* "hyperlearn/cython/base.pyx":470
+      /* "hyperlearn/cython/base.pyx":474
  *         if memoryNeed > 0:
  *             memoryFree = available_memory()
  *             if memoryNeed > memoryFree:             # <<<<<<<<<<<<<<
@@ -7047,14 +7162,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = ((__pyx_v_memoryNeed > __pyx_v_memoryFree) != 0);
       if (unlikely(__pyx_t_10)) {
 
-        /* "hyperlearn/cython/base.pyx":471
+        /* "hyperlearn/cython/base.pyx":475
  *             memoryFree = available_memory()
  *             if memoryNeed > memoryFree:
  *                 raise MemoryError(f"Operation requires {memoryNeed} MB,"             # <<<<<<<<<<<<<<
  *             f"but {memoryFree} MB is free, so an extra {memoryNeed-memoryFree} MB is required.")
  * 
  */
-        __pyx_t_21 = PyTuple_New(7); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 471, __pyx_L1_error)
+        __pyx_t_21 = PyTuple_New(7); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __pyx_t_1 = 0;
         __pyx_t_14 = 127;
@@ -7062,7 +7177,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_1 += 19;
         __Pyx_GIVEREF(__pyx_kp_u_Operation_requires);
         PyTuple_SET_ITEM(__pyx_t_21, 0, __pyx_kp_u_Operation_requires);
-        __pyx_t_12 = __Pyx_PyUnicode_From_int(__pyx_v_memoryNeed, 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 471, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyUnicode_From_int(__pyx_v_memoryNeed, 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __pyx_t_1 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_12);
         __Pyx_GIVEREF(__pyx_t_12);
@@ -7073,14 +7188,14 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_GIVEREF(__pyx_kp_u_MB_but);
         PyTuple_SET_ITEM(__pyx_t_21, 2, __pyx_kp_u_MB_but);
 
-        /* "hyperlearn/cython/base.pyx":472
+        /* "hyperlearn/cython/base.pyx":476
  *             if memoryNeed > memoryFree:
  *                 raise MemoryError(f"Operation requires {memoryNeed} MB,"
  *             f"but {memoryFree} MB is free, so an extra {memoryNeed-memoryFree} MB is required.")             # <<<<<<<<<<<<<<
  * 
  *         #########
  */
-        __pyx_t_12 = __Pyx_PyUnicode_From_int(__pyx_v_memoryFree, 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 472, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyUnicode_From_int(__pyx_v_memoryFree, 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __pyx_t_1 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_12);
         __Pyx_GIVEREF(__pyx_t_12);
@@ -7090,7 +7205,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __pyx_t_1 += 25;
         __Pyx_GIVEREF(__pyx_kp_u_MB_is_free_so_an_extra);
         PyTuple_SET_ITEM(__pyx_t_21, 4, __pyx_kp_u_MB_is_free_so_an_extra);
-        __pyx_t_12 = __Pyx_PyUnicode_From_int((__pyx_v_memoryNeed - __pyx_v_memoryFree), 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 472, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyUnicode_From_int((__pyx_v_memoryNeed - __pyx_v_memoryFree), 0, ' ', 'd'); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 476, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __pyx_t_1 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_12);
         __Pyx_GIVEREF(__pyx_t_12);
@@ -7101,24 +7216,24 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         __Pyx_GIVEREF(__pyx_kp_u_MB_is_required);
         PyTuple_SET_ITEM(__pyx_t_21, 6, __pyx_kp_u_MB_is_required);
 
-        /* "hyperlearn/cython/base.pyx":471
+        /* "hyperlearn/cython/base.pyx":475
  *             memoryFree = available_memory()
  *             if memoryNeed > memoryFree:
  *                 raise MemoryError(f"Operation requires {memoryNeed} MB,"             # <<<<<<<<<<<<<<
  *             f"but {memoryFree} MB is free, so an extra {memoryNeed-memoryFree} MB is required.")
  * 
  */
-        __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_21, 7, __pyx_t_1, __pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 471, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyUnicode_Join(__pyx_t_21, 7, __pyx_t_1, __pyx_t_14); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyObject_CallOneArg(__pyx_builtin_MemoryError, __pyx_t_12); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 471, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyObject_CallOneArg(__pyx_builtin_MemoryError, __pyx_t_12); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 475, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_Raise(__pyx_t_21, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __PYX_ERR(0, 471, __pyx_L1_error)
+        __PYX_ERR(0, 475, __pyx_L1_error)
 
-        /* "hyperlearn/cython/base.pyx":470
+        /* "hyperlearn/cython/base.pyx":474
  *         if memoryNeed > 0:
  *             memoryFree = available_memory()
  *             if memoryNeed > memoryFree:             # <<<<<<<<<<<<<<
@@ -7127,7 +7242,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":468
+      /* "hyperlearn/cython/base.pyx":472
  *         #########
  *         # confirm memory is enough for data conversion
  *         if memoryNeed > 0:             # <<<<<<<<<<<<<<
@@ -7136,7 +7251,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":476
+    /* "hyperlearn/cython/base.pyx":480
  *         #########
  *         # convert data dtypes
  *         for j in range(n_args):             # <<<<<<<<<<<<<<
@@ -7148,7 +7263,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_6; __pyx_t_5+=1) {
       __pyx_v_j = __pyx_t_5;
 
-      /* "hyperlearn/cython/base.pyx":477
+      /* "hyperlearn/cython/base.pyx":481
  *         # convert data dtypes
  *         for j in range(n_args):
  *             dt = new_dtypes[j]             # <<<<<<<<<<<<<<
@@ -7157,7 +7272,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_dt = (__pyx_v_new_dtypes[__pyx_v_j]);
 
-      /* "hyperlearn/cython/base.pyx":478
+      /* "hyperlearn/cython/base.pyx":482
  *         for j in range(n_args):
  *             dt = new_dtypes[j]
  *             if dt != PASS and dt != ERROR:             # <<<<<<<<<<<<<<
@@ -7175,25 +7290,25 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_L101_bool_binop_done:;
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":479
+        /* "hyperlearn/cython/base.pyx":483
  *             dt = new_dtypes[j]
  *             if dt != PASS and dt != ERROR:
  *                 X_dtype = np.dtype(chr(dt))             # <<<<<<<<<<<<<<
  *                 args[j] = args[j].astype(X_dtype)
  * 
  */
-        __pyx_t_21 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 479, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
-        __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_21); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 479, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_21); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-        __pyx_t_21 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_t_12); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 479, __pyx_L1_error)
+        __pyx_t_21 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_t_12); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 483, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         __Pyx_XDECREF_SET(__pyx_v_X_dtype, ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_21));
         __pyx_t_21 = 0;
 
-        /* "hyperlearn/cython/base.pyx":480
+        /* "hyperlearn/cython/base.pyx":484
  *             if dt != PASS and dt != ERROR:
  *                 X_dtype = np.dtype(chr(dt))
  *                 args[j] = args[j].astype(X_dtype)             # <<<<<<<<<<<<<<
@@ -7202,9 +7317,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_args == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 480, __pyx_L1_error)
+          __PYX_ERR(0, 484, __pyx_L1_error)
         }
-        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_args, __pyx_v_j), __pyx_n_s_astype); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 480, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_GetAttrStr(PyList_GET_ITEM(__pyx_v_args, __pyx_v_j), __pyx_n_s_astype); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 484, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __pyx_t_22 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_12))) {
@@ -7218,17 +7333,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         }
         __pyx_t_21 = (__pyx_t_22) ? __Pyx_PyObject_Call2Args(__pyx_t_12, __pyx_t_22, ((PyObject *)__pyx_v_X_dtype)) : __Pyx_PyObject_CallOneArg(__pyx_t_12, ((PyObject *)__pyx_v_X_dtype));
         __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-        if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 480, __pyx_L1_error)
+        if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 484, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_21);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
         if (unlikely(__pyx_v_args == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 480, __pyx_L1_error)
+          __PYX_ERR(0, 484, __pyx_L1_error)
         }
-        if (unlikely(__Pyx_SetItemInt(__pyx_v_args, __pyx_v_j, __pyx_t_21, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 480, __pyx_L1_error)
+        if (unlikely(__Pyx_SetItemInt(__pyx_v_args, __pyx_v_j, __pyx_t_21, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 484, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-        /* "hyperlearn/cython/base.pyx":478
+        /* "hyperlearn/cython/base.pyx":482
  *         for j in range(n_args):
  *             dt = new_dtypes[j]
  *             if dt != PASS and dt != ERROR:             # <<<<<<<<<<<<<<
@@ -7238,7 +7353,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       }
     }
 
-    /* "hyperlearn/cython/base.pyx":482
+    /* "hyperlearn/cython/base.pyx":486
  *                 args[j] = args[j].astype(X_dtype)
  * 
  *         j = n_args             # <<<<<<<<<<<<<<
@@ -7247,7 +7362,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     __pyx_v_j = __pyx_v_n_args;
 
-    /* "hyperlearn/cython/base.pyx":483
+    /* "hyperlearn/cython/base.pyx":487
  * 
  *         j = n_args
  *         for i in kwargs.keys():             # <<<<<<<<<<<<<<
@@ -7257,9 +7372,9 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_t_1 = 0;
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "keys");
-      __PYX_ERR(0, 483, __pyx_L1_error)
+      __PYX_ERR(0, 487, __pyx_L1_error)
     }
-    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_2), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 483, __pyx_L1_error)
+    __pyx_t_12 = __Pyx_dict_iterator(__pyx_v_kwargs, 1, __pyx_n_s_keys, (&__pyx_t_2), (&__pyx_t_7)); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 487, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_12);
     __Pyx_XDECREF(__pyx_t_21);
     __pyx_t_21 = __pyx_t_12;
@@ -7267,13 +7382,13 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     while (1) {
       __pyx_t_6 = __Pyx_dict_iter_next(__pyx_t_21, __pyx_t_2, &__pyx_t_1, &__pyx_t_12, NULL, NULL, __pyx_t_7);
       if (unlikely(__pyx_t_6 == 0)) break;
-      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 483, __pyx_L1_error)
+      if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 487, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_12);
-      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 483, __pyx_L1_error)
+      if (!(likely(PyUnicode_CheckExact(__pyx_t_12))||((__pyx_t_12) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_t_12)->tp_name), 0))) __PYX_ERR(0, 487, __pyx_L1_error)
       __Pyx_DECREF_SET(__pyx_v_i, ((PyObject*)__pyx_t_12));
       __pyx_t_12 = 0;
 
-      /* "hyperlearn/cython/base.pyx":484
+      /* "hyperlearn/cython/base.pyx":488
  *         j = n_args
  *         for i in kwargs.keys():
  *             dt = new_dtypes[j]             # <<<<<<<<<<<<<<
@@ -7282,7 +7397,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       __pyx_v_dt = (__pyx_v_new_dtypes[__pyx_v_j]);
 
-      /* "hyperlearn/cython/base.pyx":485
+      /* "hyperlearn/cython/base.pyx":489
  *         for i in kwargs.keys():
  *             dt = new_dtypes[j]
  *             if dt != PASS and dt != ERROR:             # <<<<<<<<<<<<<<
@@ -7300,25 +7415,25 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_L106_bool_binop_done:;
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":486
+        /* "hyperlearn/cython/base.pyx":490
  *             dt = new_dtypes[j]
  *             if dt != PASS and dt != ERROR:
  *                 X_dtype = np.dtype(chr(dt))             # <<<<<<<<<<<<<<
  *                 kwargs[i] = kwargs[i].astype(X_dtype)
  *             j += 1
  */
-        __pyx_t_12 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 486, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 490, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
-        __pyx_t_22 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_12); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 486, __pyx_L1_error)
+        __pyx_t_22 = __Pyx_PyObject_CallOneArg(__pyx_builtin_chr, __pyx_t_12); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 490, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_22);
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
-        __pyx_t_12 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_t_22); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 486, __pyx_L1_error)
+        __pyx_t_12 = __Pyx_PyObject_CallOneArg(((PyObject *)__pyx_ptype_5numpy_dtype), __pyx_t_22); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 490, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
         __Pyx_XDECREF_SET(__pyx_v_X_dtype, ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_12));
         __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":487
+        /* "hyperlearn/cython/base.pyx":491
  *             if dt != PASS and dt != ERROR:
  *                 X_dtype = np.dtype(chr(dt))
  *                 kwargs[i] = kwargs[i].astype(X_dtype)             # <<<<<<<<<<<<<<
@@ -7327,11 +7442,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 487, __pyx_L1_error)
+          __PYX_ERR(0, 491, __pyx_L1_error)
         }
-        __pyx_t_22 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_22 = __Pyx_PyDict_GetItem(__pyx_v_kwargs, __pyx_v_i); if (unlikely(!__pyx_t_22)) __PYX_ERR(0, 491, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_22);
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_astype); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 487, __pyx_L1_error)
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_22, __pyx_n_s_astype); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 491, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_11);
         __Pyx_DECREF(__pyx_t_22); __pyx_t_22 = 0;
         __pyx_t_22 = NULL;
@@ -7346,17 +7461,17 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
         }
         __pyx_t_12 = (__pyx_t_22) ? __Pyx_PyObject_Call2Args(__pyx_t_11, __pyx_t_22, ((PyObject *)__pyx_v_X_dtype)) : __Pyx_PyObject_CallOneArg(__pyx_t_11, ((PyObject *)__pyx_v_X_dtype));
         __Pyx_XDECREF(__pyx_t_22); __pyx_t_22 = 0;
-        if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 487, __pyx_L1_error)
+        if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 491, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_12);
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         if (unlikely(__pyx_v_kwargs == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 487, __pyx_L1_error)
+          __PYX_ERR(0, 491, __pyx_L1_error)
         }
-        if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_12) < 0)) __PYX_ERR(0, 487, __pyx_L1_error)
+        if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_v_i, __pyx_t_12) < 0)) __PYX_ERR(0, 491, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_12); __pyx_t_12 = 0;
 
-        /* "hyperlearn/cython/base.pyx":485
+        /* "hyperlearn/cython/base.pyx":489
  *         for i in kwargs.keys():
  *             dt = new_dtypes[j]
  *             if dt != PASS and dt != ERROR:             # <<<<<<<<<<<<<<
@@ -7365,7 +7480,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":488
+      /* "hyperlearn/cython/base.pyx":492
  *                 X_dtype = np.dtype(chr(dt))
  *                 kwargs[i] = kwargs[i].astype(X_dtype)
  *             j += 1             # <<<<<<<<<<<<<<
@@ -7376,7 +7491,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     }
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-    /* "hyperlearn/cython/base.pyx":492
+    /* "hyperlearn/cython/base.pyx":496
  *         #########
  *         # clean up args so no duplicates are seen
  *         n_args -= 1             # <<<<<<<<<<<<<<
@@ -7385,7 +7500,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     __pyx_v_n_args = (__pyx_v_n_args - 1);
 
-    /* "hyperlearn/cython/base.pyx":493
+    /* "hyperlearn/cython/base.pyx":497
  *         # clean up args so no duplicates are seen
  *         n_args -= 1
  *         while n_args > 0:             # <<<<<<<<<<<<<<
@@ -7396,7 +7511,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = ((__pyx_v_n_args > 0) != 0);
       if (!__pyx_t_10) break;
 
-      /* "hyperlearn/cython/base.pyx":494
+      /* "hyperlearn/cython/base.pyx":498
  *         n_args -= 1
  *         while n_args > 0:
  *             if duplicate[n_args]:             # <<<<<<<<<<<<<<
@@ -7406,7 +7521,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_t_10 = ((__pyx_v_duplicate[__pyx_v_n_args]) != 0);
       if (__pyx_t_10) {
 
-        /* "hyperlearn/cython/base.pyx":495
+        /* "hyperlearn/cython/base.pyx":499
  *         while n_args > 0:
  *             if duplicate[n_args]:
  *                 del args[n_args]             # <<<<<<<<<<<<<<
@@ -7415,11 +7530,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
         if (unlikely(__pyx_v_args == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-          __PYX_ERR(0, 495, __pyx_L1_error)
+          __PYX_ERR(0, 499, __pyx_L1_error)
         }
-        if (unlikely(__Pyx_DelItemInt(__pyx_v_args, __pyx_v_n_args, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 495, __pyx_L1_error)
+        if (unlikely(__Pyx_DelItemInt(__pyx_v_args, __pyx_v_n_args, int, 1, __Pyx_PyInt_From_int, 1, 0, 0) < 0)) __PYX_ERR(0, 499, __pyx_L1_error)
 
-        /* "hyperlearn/cython/base.pyx":494
+        /* "hyperlearn/cython/base.pyx":498
  *         n_args -= 1
  *         while n_args > 0:
  *             if duplicate[n_args]:             # <<<<<<<<<<<<<<
@@ -7428,7 +7543,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
       }
 
-      /* "hyperlearn/cython/base.pyx":496
+      /* "hyperlearn/cython/base.pyx":500
  *             if duplicate[n_args]:
  *                 del args[n_args]
  *             n_args -= 1             # <<<<<<<<<<<<<<
@@ -7438,7 +7553,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
       __pyx_v_n_args = (__pyx_v_n_args - 1);
     }
 
-    /* "hyperlearn/cython/base.pyx":497
+    /* "hyperlearn/cython/base.pyx":501
  *                 del args[n_args]
  *             n_args -= 1
  *         del kwargs["X"]  # no need for first argument             # <<<<<<<<<<<<<<
@@ -7447,11 +7562,11 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     if (unlikely(__pyx_v_kwargs == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 497, __pyx_L1_error)
+      __PYX_ERR(0, 501, __pyx_L1_error)
     }
-    if (unlikely(PyDict_DelItem(__pyx_v_kwargs, __pyx_n_u_X) < 0)) __PYX_ERR(0, 497, __pyx_L1_error)
+    if (unlikely(PyDict_DelItem(__pyx_v_kwargs, __pyx_n_u_X) < 0)) __PYX_ERR(0, 501, __pyx_L1_error)
 
-    /* "hyperlearn/cython/base.pyx":501
+    /* "hyperlearn/cython/base.pyx":505
  *         #########
  *         # if default n_components:
  *         if fractional is False and hasComponents is True:             # <<<<<<<<<<<<<<
@@ -7469,23 +7584,23 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
     __pyx_L112_bool_binop_done:;
     if (__pyx_t_10) {
 
-      /* "hyperlearn/cython/base.pyx":502
+      /* "hyperlearn/cython/base.pyx":506
  *         # if default n_components:
  *         if fractional is False and hasComponents is True:
  *             kwargs["n_components"] = default_n_components             # <<<<<<<<<<<<<<
  * 
  *         #########
  */
-      __pyx_t_21 = PyFloat_FromDouble(__pyx_v_default_n_components); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 502, __pyx_L1_error)
+      __pyx_t_21 = PyFloat_FromDouble(__pyx_v_default_n_components); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 506, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_21);
       if (unlikely(__pyx_v_kwargs == Py_None)) {
         PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-        __PYX_ERR(0, 502, __pyx_L1_error)
+        __PYX_ERR(0, 506, __pyx_L1_error)
       }
-      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_n_u_n_components, __pyx_t_21) < 0)) __PYX_ERR(0, 502, __pyx_L1_error)
+      if (unlikely(PyDict_SetItem(__pyx_v_kwargs, __pyx_n_u_n_components, __pyx_t_21) < 0)) __PYX_ERR(0, 506, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
 
-      /* "hyperlearn/cython/base.pyx":501
+      /* "hyperlearn/cython/base.pyx":505
  *         #########
  *         # if default n_components:
  *         if fractional is False and hasComponents is True:             # <<<<<<<<<<<<<<
@@ -7494,7 +7609,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     }
 
-    /* "hyperlearn/cython/base.pyx":505
+    /* "hyperlearn/cython/base.pyx":509
  * 
  *         #########
  *         free(duplicate)             # <<<<<<<<<<<<<<
@@ -7503,7 +7618,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     free(__pyx_v_duplicate);
 
-    /* "hyperlearn/cython/base.pyx":506
+    /* "hyperlearn/cython/base.pyx":510
  *         #########
  *         free(duplicate)
  *         free(new_dtypes)             # <<<<<<<<<<<<<<
@@ -7512,7 +7627,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
     free(__pyx_v_new_dtypes);
 
-    /* "hyperlearn/cython/base.pyx":273
+    /* "hyperlearn/cython/base.pyx":277
  *                 break
  * 
  *     if ifCheck:             # <<<<<<<<<<<<<<
@@ -7521,10 +7636,10 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":229
+  /* "hyperlearn/cython/base.pyx":233
  * 
  * #########
- * cpdef (void) wrapper(             # <<<<<<<<<<<<<<
+ * cdef (void) wrapper(             # <<<<<<<<<<<<<<
  *     dict memcheck, bool square, bool fractional, int memory_length,
  *     list memory_keys, function_signature, function_args,
  */
@@ -7550,177 +7665,7 @@ static void __pyx_f_10hyperlearn_6cython_4base_wrapper(PyObject *__pyx_v_memchec
   __Pyx_RefNannyFinishContext();
 }
 
-/* Python wrapper */
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7wrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_10hyperlearn_6cython_4base_6wrapper[] = "\n    Performs memory checks, data type checks and other checks.\n    Cythonized to reduce time from approx 500us to now 9us or so.\n    ";
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7wrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_memcheck = 0;
-  __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square;
-  __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_fractional;
-  int __pyx_v_memory_length;
-  PyObject *__pyx_v_memory_keys = 0;
-  PyObject *__pyx_v_function_signature = 0;
-  PyObject *__pyx_v_function_args = 0;
-  PyObject *__pyx_v_args = 0;
-  PyObject *__pyx_v_kwargs = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("wrapper (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_memcheck,&__pyx_n_s_square,&__pyx_n_s_fractional,&__pyx_n_s_memory_length,&__pyx_n_s_memory_keys,&__pyx_n_s_function_signature,&__pyx_n_s_function_args,&__pyx_n_s_args,&__pyx_n_s_kwargs,0};
-    PyObject* values[9] = {0,0,0,0,0,0,0,0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
-        CYTHON_FALLTHROUGH;
-        case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
-        CYTHON_FALLTHROUGH;
-        case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
-        CYTHON_FALLTHROUGH;
-        case  6: values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
-        CYTHON_FALLTHROUGH;
-        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-        CYTHON_FALLTHROUGH;
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_memcheck)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_square)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 1); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_fractional)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 2); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_memory_length)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 3); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  4:
-        if (likely((values[4] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_memory_keys)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 4); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  5:
-        if (likely((values[5] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_function_signature)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 5); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  6:
-        if (likely((values[6] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_function_args)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 6); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  7:
-        if (likely((values[7] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_args)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 7); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  8:
-        if (likely((values[8] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_kwargs)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, 8); __PYX_ERR(0, 229, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "wrapper") < 0)) __PYX_ERR(0, 229, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-      values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-      values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-      values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
-      values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
-      values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
-      values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
-    }
-    __pyx_v_memcheck = ((PyObject*)values[0]);
-    __pyx_v_square = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_square == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L3_error)
-    __pyx_v_fractional = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_fractional == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L3_error)
-    __pyx_v_memory_length = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_memory_length == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L3_error)
-    __pyx_v_memory_keys = ((PyObject*)values[4]);
-    __pyx_v_function_signature = values[5];
-    __pyx_v_function_args = values[6];
-    __pyx_v_args = ((PyObject*)values[7]);
-    __pyx_v_kwargs = ((PyObject*)values[8]);
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("wrapper", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 229, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("hyperlearn.cython.base.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_memcheck), (&PyDict_Type), 1, "memcheck", 1))) __PYX_ERR(0, 230, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_memory_keys), (&PyList_Type), 1, "memory_keys", 1))) __PYX_ERR(0, 231, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_args), (&PyList_Type), 1, "args", 1))) __PYX_ERR(0, 232, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_kwargs), (&PyDict_Type), 1, "kwargs", 1))) __PYX_ERR(0, 232, __pyx_L1_error)
-  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_6wrapper(__pyx_self, __pyx_v_memcheck, __pyx_v_square, __pyx_v_fractional, __pyx_v_memory_length, __pyx_v_memory_keys, __pyx_v_function_signature, __pyx_v_function_args, __pyx_v_args, __pyx_v_kwargs);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6wrapper(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_memcheck, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_square, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_fractional, int __pyx_v_memory_length, PyObject *__pyx_v_memory_keys, PyObject *__pyx_v_function_signature, PyObject *__pyx_v_function_args, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("wrapper", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_10hyperlearn_6cython_4base_wrapper(__pyx_v_memcheck, __pyx_v_square, __pyx_v_fractional, __pyx_v_memory_length, __pyx_v_memory_keys, __pyx_v_function_signature, __pyx_v_function_args, __pyx_v_args, __pyx_v_kwargs, 0)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("hyperlearn.cython.base.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "hyperlearn/cython/base.pyx":516
+/* "hyperlearn/cython/base.pyx":537
  *     cdef bool square, fractional, not_processed
  * 
  *     def __init__(self, memcheck = {}, bool square = False, bool fractional = True):             # <<<<<<<<<<<<<<
@@ -7775,7 +7720,7 @@ static int __pyx_pw_10hyperlearn_6cython_4base_7process_1__init__(PyObject *__py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 516, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 537, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -7791,19 +7736,19 @@ static int __pyx_pw_10hyperlearn_6cython_4base_7process_1__init__(PyObject *__py
     }
     __pyx_v_memcheck = values[0];
     if (values[1]) {
-      __pyx_v_square = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_square == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 516, __pyx_L3_error)
+      __pyx_v_square = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_square == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 537, __pyx_L3_error)
     } else {
       __pyx_v_square = ((__pyx_t_10hyperlearn_6cython_4base_bool)0);
     }
     if (values[2]) {
-      __pyx_v_fractional = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_fractional == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 516, __pyx_L3_error)
+      __pyx_v_fractional = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_fractional == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 537, __pyx_L3_error)
     } else {
       __pyx_v_fractional = ((__pyx_t_10hyperlearn_6cython_4base_bool)1);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 516, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 0, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 537, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("hyperlearn.cython.base.process.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7827,7 +7772,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "hyperlearn/cython/base.pyx":517
+  /* "hyperlearn/cython/base.pyx":538
  * 
  *     def __init__(self, memcheck = {}, bool square = False, bool fractional = True):
  *         if isinstance(memcheck, str):             # <<<<<<<<<<<<<<
@@ -7838,23 +7783,23 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "hyperlearn/cython/base.pyx":518
+    /* "hyperlearn/cython/base.pyx":539
  *     def __init__(self, memcheck = {}, bool square = False, bool fractional = True):
  *         if isinstance(memcheck, str):
  *             self.memcheck = {"X":memcheck}             # <<<<<<<<<<<<<<
  *         else:
  *             self.memcheck = memcheck
  */
-    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 518, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_X, __pyx_v_memcheck) < 0) __PYX_ERR(0, 518, __pyx_L1_error)
+    if (PyDict_SetItem(__pyx_t_3, __pyx_n_u_X, __pyx_v_memcheck) < 0) __PYX_ERR(0, 539, __pyx_L1_error)
     __Pyx_GIVEREF(__pyx_t_3);
     __Pyx_GOTREF(__pyx_v_self->memcheck);
     __Pyx_DECREF(__pyx_v_self->memcheck);
     __pyx_v_self->memcheck = __pyx_t_3;
     __pyx_t_3 = 0;
 
-    /* "hyperlearn/cython/base.pyx":517
+    /* "hyperlearn/cython/base.pyx":538
  * 
  *     def __init__(self, memcheck = {}, bool square = False, bool fractional = True):
  *         if isinstance(memcheck, str):             # <<<<<<<<<<<<<<
@@ -7864,7 +7809,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
     goto __pyx_L3;
   }
 
-  /* "hyperlearn/cython/base.pyx":520
+  /* "hyperlearn/cython/base.pyx":541
  *             self.memcheck = {"X":memcheck}
  *         else:
  *             self.memcheck = memcheck             # <<<<<<<<<<<<<<
@@ -7880,7 +7825,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
   }
   __pyx_L3:;
 
-  /* "hyperlearn/cython/base.pyx":522
+  /* "hyperlearn/cython/base.pyx":543
  *             self.memcheck = memcheck
  * 
  *         self.memory_length = len(self.memcheck)             # <<<<<<<<<<<<<<
@@ -7889,18 +7834,18 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
  */
   __pyx_t_3 = __pyx_v_self->memcheck;
   __Pyx_INCREF(__pyx_t_3);
-  __pyx_t_4 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 522, __pyx_L1_error)
+  __pyx_t_4 = PyObject_Length(__pyx_t_3); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 543, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_self->memory_length = __pyx_t_4;
 
-  /* "hyperlearn/cython/base.pyx":523
+  /* "hyperlearn/cython/base.pyx":544
  * 
  *         self.memory_length = len(self.memcheck)
  *         self.memory_keys = list(self.memcheck.keys())             # <<<<<<<<<<<<<<
  *         self.square = square
  *         self.fractional = fractional
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->memcheck, __pyx_n_s_keys); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 523, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->memcheck, __pyx_n_s_keys); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 544, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_6 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -7914,10 +7859,10 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
   }
   __pyx_t_3 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 523, __pyx_L1_error)
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 544, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 523, __pyx_L1_error)
+  __pyx_t_5 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 544, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_GIVEREF(__pyx_t_5);
@@ -7926,7 +7871,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
   __pyx_v_self->memory_keys = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
 
-  /* "hyperlearn/cython/base.pyx":524
+  /* "hyperlearn/cython/base.pyx":545
  *         self.memory_length = len(self.memcheck)
  *         self.memory_keys = list(self.memcheck.keys())
  *         self.square = square             # <<<<<<<<<<<<<<
@@ -7935,7 +7880,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
  */
   __pyx_v_self->square = __pyx_v_square;
 
-  /* "hyperlearn/cython/base.pyx":525
+  /* "hyperlearn/cython/base.pyx":546
  *         self.memory_keys = list(self.memcheck.keys())
  *         self.square = square
  *         self.fractional = fractional             # <<<<<<<<<<<<<<
@@ -7944,7 +7889,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
  */
   __pyx_v_self->fractional = __pyx_v_fractional;
 
-  /* "hyperlearn/cython/base.pyx":526
+  /* "hyperlearn/cython/base.pyx":547
  *         self.square = square
  *         self.fractional = fractional
  *         self.not_processed = True             # <<<<<<<<<<<<<<
@@ -7953,7 +7898,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
  */
   __pyx_v_self->not_processed = 1;
 
-  /* "hyperlearn/cython/base.pyx":516
+  /* "hyperlearn/cython/base.pyx":537
  *     cdef bool square, fractional, not_processed
  * 
  *     def __init__(self, memcheck = {}, bool square = False, bool fractional = True):             # <<<<<<<<<<<<<<
@@ -7975,7 +7920,7 @@ static int __pyx_pf_10hyperlearn_6cython_4base_7process___init__(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":528
+/* "hyperlearn/cython/base.pyx":549
  *         self.not_processed = True
  * 
  *     def __call__(self, f = None):             # <<<<<<<<<<<<<<
@@ -8012,7 +7957,7 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7process_3__call__(PyObject
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__call__") < 0)) __PYX_ERR(0, 528, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__call__") < 0)) __PYX_ERR(0, 549, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -8026,7 +7971,7 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7process_3__call__(PyObject
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__call__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 528, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__call__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 549, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("hyperlearn.cython.base.process.__call__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -8039,7 +7984,7 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7process_3__call__(PyObject
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":534
+/* "hyperlearn/cython/base.pyx":555
  *             self.not_processed = False
  * 
  *         def decorate(f):             # <<<<<<<<<<<<<<
@@ -8061,7 +8006,7 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7process_8__call___1decorat
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":536
+/* "hyperlearn/cython/base.pyx":557
  *         def decorate(f):
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):             # <<<<<<<<<<<<<<
@@ -8109,64 +8054,64 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
   __pyx_cur_scope = __pyx_outer_scope;
   __Pyx_INCREF(__pyx_v_args);
 
-  /* "hyperlearn/cython/base.pyx":537
+  /* "hyperlearn/cython/base.pyx":558
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):
  *                 args = list(args)             # <<<<<<<<<<<<<<
  *                 wrapper(
  *                     self.memcheck, self.square, self.fractional, self.memory_length,
  */
-  __pyx_t_1 = PySequence_List(__pyx_v_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 537, __pyx_L1_error)
+  __pyx_t_1 = PySequence_List(__pyx_v_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 558, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_args, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "hyperlearn/cython/base.pyx":538
+  /* "hyperlearn/cython/base.pyx":559
  *             def wrapper(*args, **kwargs):
  *                 args = list(args)
  *                 wrapper(             # <<<<<<<<<<<<<<
  *                     self.memcheck, self.square, self.fractional, self.memory_length,
  *                     self.memory_keys, self.function_signature, self.function_args,
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_v_wrapper)) { __Pyx_RaiseClosureNameError("wrapper"); __PYX_ERR(0, 538, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_v_wrapper)) { __Pyx_RaiseClosureNameError("wrapper"); __PYX_ERR(0, 559, __pyx_L1_error) }
 
-  /* "hyperlearn/cython/base.pyx":539
+  /* "hyperlearn/cython/base.pyx":560
  *                 args = list(args)
  *                 wrapper(
  *                     self.memcheck, self.square, self.fractional, self.memory_length,             # <<<<<<<<<<<<<<
  *                     self.memory_keys, self.function_signature, self.function_args,
  *                     args, kwargs
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 539, __pyx_L1_error) }
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 539, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->square); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 539, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 560, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 560, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->square); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 539, __pyx_L1_error) }
-  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->fractional); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 560, __pyx_L1_error) }
+  __pyx_t_2 = __Pyx_PyBool_FromLong(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->fractional); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 539, __pyx_L1_error) }
-  __pyx_t_3 = PyInt_FromSsize_t(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->memory_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 539, __pyx_L1_error)
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 560, __pyx_L1_error) }
+  __pyx_t_3 = PyInt_FromSsize_t(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->memory_length); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 560, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "hyperlearn/cython/base.pyx":540
+  /* "hyperlearn/cython/base.pyx":561
  *                 wrapper(
  *                     self.memcheck, self.square, self.fractional, self.memory_length,
  *                     self.memory_keys, self.function_signature, self.function_args,             # <<<<<<<<<<<<<<
  *                     args, kwargs
  *                     ) # Process arguments
  */
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 540, __pyx_L1_error) }
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 540, __pyx_L1_error) }
-  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 540, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 561, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 561, __pyx_L1_error) }
+  if (unlikely(!__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self)) { __Pyx_RaiseClosureNameError("self"); __PYX_ERR(0, 561, __pyx_L1_error) }
 
-  /* "hyperlearn/cython/base.pyx":538
+  /* "hyperlearn/cython/base.pyx":559
  *             def wrapper(*args, **kwargs):
  *                 args = list(args)
  *                 wrapper(             # <<<<<<<<<<<<<<
  *                     self.memcheck, self.square, self.fractional, self.memory_length,
  *                     self.memory_keys, self.function_signature, self.function_args,
  */
-  __pyx_t_4 = PyTuple_New(9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 559, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->memcheck);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_outer_scope->__pyx_v_self->memcheck);
@@ -8195,12 +8140,12 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_cur_scope->__pyx_v_wrapper, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 538, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_cur_scope->__pyx_v_wrapper, __pyx_t_4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 559, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "hyperlearn/cython/base.pyx":543
+  /* "hyperlearn/cython/base.pyx":564
  *                     args, kwargs
  *                     ) # Process arguments
  *                 try:             # <<<<<<<<<<<<<<
@@ -8216,7 +8161,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
     __Pyx_XGOTREF(__pyx_t_7);
     /*try:*/ {
 
-      /* "hyperlearn/cython/base.pyx":544
+      /* "hyperlearn/cython/base.pyx":565
  *                     ) # Process arguments
  *                 try:
  *                     return f(*args, **kwargs)             # <<<<<<<<<<<<<<
@@ -8224,17 +8169,17 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
  *                     # Memory Error again --> didnt catch
  */
       __Pyx_XDECREF(__pyx_r);
-      if (unlikely(!__pyx_cur_scope->__pyx_v_f)) { __Pyx_RaiseClosureNameError("f"); __PYX_ERR(0, 544, __pyx_L3_error) }
-      __pyx_t_3 = __Pyx_PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 544, __pyx_L3_error)
+      if (unlikely(!__pyx_cur_scope->__pyx_v_f)) { __Pyx_RaiseClosureNameError("f"); __PYX_ERR(0, 565, __pyx_L3_error) }
+      __pyx_t_3 = __Pyx_PySequence_Tuple(__pyx_v_args); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 565, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_cur_scope->__pyx_v_f, __pyx_t_3, __pyx_v_kwargs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 544, __pyx_L3_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_cur_scope->__pyx_v_f, __pyx_t_3, __pyx_v_kwargs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 565, __pyx_L3_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __pyx_r = __pyx_t_4;
       __pyx_t_4 = 0;
       goto __pyx_L7_try_return;
 
-      /* "hyperlearn/cython/base.pyx":543
+      /* "hyperlearn/cython/base.pyx":564
  *                     args, kwargs
  *                     ) # Process arguments
  *                 try:             # <<<<<<<<<<<<<<
@@ -8248,7 +8193,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "hyperlearn/cython/base.pyx":545
+    /* "hyperlearn/cython/base.pyx":566
  *                 try:
  *                     return f(*args, **kwargs)
  *                 except:             # <<<<<<<<<<<<<<
@@ -8257,27 +8202,27 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
  */
     /*except:*/ {
       __Pyx_AddTraceback("hyperlearn.cython.base.process.__call__.decorate.wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
-      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_3, &__pyx_t_2) < 0) __PYX_ERR(0, 545, __pyx_L5_except_error)
+      if (__Pyx_GetException(&__pyx_t_4, &__pyx_t_3, &__pyx_t_2) < 0) __PYX_ERR(0, 566, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_GOTREF(__pyx_t_2);
 
-      /* "hyperlearn/cython/base.pyx":547
+      /* "hyperlearn/cython/base.pyx":568
  *                 except:
  *                     # Memory Error again --> didnt catch
  *                     raise MemoryError("Operation requires more memory than "             # <<<<<<<<<<<<<<
  *             "what the system resources offer.")
  *             return wrapper
  */
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L5_except_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_MemoryError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 568, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_Raise(__pyx_t_1, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __PYX_ERR(0, 547, __pyx_L5_except_error)
+      __PYX_ERR(0, 568, __pyx_L5_except_error)
     }
     __pyx_L5_except_error:;
 
-    /* "hyperlearn/cython/base.pyx":543
+    /* "hyperlearn/cython/base.pyx":564
  *                     args, kwargs
  *                     ) # Process arguments
  *                 try:             # <<<<<<<<<<<<<<
@@ -8297,7 +8242,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
     goto __pyx_L0;
   }
 
-  /* "hyperlearn/cython/base.pyx":536
+  /* "hyperlearn/cython/base.pyx":557
  *         def decorate(f):
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):             # <<<<<<<<<<<<<<
@@ -8320,7 +8265,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___8decorat
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":534
+/* "hyperlearn/cython/base.pyx":555
  *             self.not_processed = False
  * 
  *         def decorate(f):             # <<<<<<<<<<<<<<
@@ -8338,7 +8283,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 534, __pyx_L1_error)
+    __PYX_ERR(0, 555, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -8349,20 +8294,20 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_f);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_f);
 
-  /* "hyperlearn/cython/base.pyx":536
+  /* "hyperlearn/cython/base.pyx":557
  *         def decorate(f):
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):             # <<<<<<<<<<<<<<
  *                 args = list(args)
  *                 wrapper(
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_7process_8__call___8decorate_1wrapper, 0, __pyx_n_s_call___locals_decorate_locals, ((PyObject*)__pyx_cur_scope), __pyx_n_s_hyperlearn_cython_base, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 536, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_7process_8__call___8decorate_1wrapper, 0, __pyx_n_s_call___locals_decorate_locals, ((PyObject*)__pyx_cur_scope), __pyx_n_s_hyperlearn_cython_base, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 557, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __pyx_cur_scope->__pyx_v_wrapper = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "hyperlearn/cython/base.pyx":549
+  /* "hyperlearn/cython/base.pyx":570
  *                     raise MemoryError("Operation requires more memory than "
  *             "what the system resources offer.")
  *             return wrapper             # <<<<<<<<<<<<<<
@@ -8374,7 +8319,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate
   __pyx_r = __pyx_cur_scope->__pyx_v_wrapper;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":534
+  /* "hyperlearn/cython/base.pyx":555
  *             self.not_processed = False
  * 
  *         def decorate(f):             # <<<<<<<<<<<<<<
@@ -8394,7 +8339,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":528
+/* "hyperlearn/cython/base.pyx":549
  *         self.not_processed = True
  * 
  *     def __call__(self, f = None):             # <<<<<<<<<<<<<<
@@ -8416,7 +8361,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_10hyperlearn_6cython_4base___pyx_scope_struct____call__ *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 528, __pyx_L1_error)
+    __PYX_ERR(0, 549, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -8424,7 +8369,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
 
-  /* "hyperlearn/cython/base.pyx":529
+  /* "hyperlearn/cython/base.pyx":550
  * 
  *     def __call__(self, f = None):
  *         if self.not_processed:             # <<<<<<<<<<<<<<
@@ -8434,14 +8379,14 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
   __pyx_t_1 = (__pyx_cur_scope->__pyx_v_self->not_processed != 0);
   if (__pyx_t_1) {
 
-    /* "hyperlearn/cython/base.pyx":530
+    /* "hyperlearn/cython/base.pyx":551
  *     def __call__(self, f = None):
  *         if self.not_processed:
  *             self.function_signature = signature(f)             # <<<<<<<<<<<<<<
  *             self.function_args = self.function_signature.parameters
  *             self.not_processed = False
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_signature); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 530, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_signature); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_4 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -8455,7 +8400,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
     }
     __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_v_f) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_v_f);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GIVEREF(__pyx_t_2);
@@ -8464,14 +8409,14 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
     __pyx_cur_scope->__pyx_v_self->function_signature = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "hyperlearn/cython/base.pyx":531
+    /* "hyperlearn/cython/base.pyx":552
  *         if self.not_processed:
  *             self.function_signature = signature(f)
  *             self.function_args = self.function_signature.parameters             # <<<<<<<<<<<<<<
  *             self.not_processed = False
  * 
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->function_signature, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 531, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->function_signature, __pyx_n_s_parameters); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_2);
     __Pyx_GOTREF(__pyx_cur_scope->__pyx_v_self->function_args);
@@ -8479,7 +8424,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
     __pyx_cur_scope->__pyx_v_self->function_args = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "hyperlearn/cython/base.pyx":532
+    /* "hyperlearn/cython/base.pyx":553
  *             self.function_signature = signature(f)
  *             self.function_args = self.function_signature.parameters
  *             self.not_processed = False             # <<<<<<<<<<<<<<
@@ -8488,7 +8433,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
  */
     __pyx_cur_scope->__pyx_v_self->not_processed = 0;
 
-    /* "hyperlearn/cython/base.pyx":529
+    /* "hyperlearn/cython/base.pyx":550
  * 
  *     def __call__(self, f = None):
  *         if self.not_processed:             # <<<<<<<<<<<<<<
@@ -8497,36 +8442,36 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":534
+  /* "hyperlearn/cython/base.pyx":555
  *             self.not_processed = False
  * 
  *         def decorate(f):             # <<<<<<<<<<<<<<
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):
  */
-  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_7process_8__call___1decorate, 0, __pyx_n_s_call___locals_decorate, ((PyObject*)__pyx_cur_scope), __pyx_n_s_hyperlearn_cython_base, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 534, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_7process_8__call___1decorate, 0, __pyx_n_s_call___locals_decorate, ((PyObject*)__pyx_cur_scope), __pyx_n_s_hyperlearn_cython_base, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_v_decorate = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "hyperlearn/cython/base.pyx":550
+  /* "hyperlearn/cython/base.pyx":571
  *             "what the system resources offer.")
  *             return wrapper
  *         if f: return decorate(f)             # <<<<<<<<<<<<<<
  *         return decorate
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_f); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 550, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_f); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 571, __pyx_L1_error)
   if (__pyx_t_1) {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = __pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate(__pyx_v_decorate, __pyx_v_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 550, __pyx_L1_error)
+    __pyx_t_2 = __pyx_pf_10hyperlearn_6cython_4base_7process_8__call___decorate(__pyx_v_decorate, __pyx_v_f); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 571, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_r = __pyx_t_2;
     __pyx_t_2 = 0;
     goto __pyx_L0;
   }
 
-  /* "hyperlearn/cython/base.pyx":551
+  /* "hyperlearn/cython/base.pyx":572
  *             return wrapper
  *         if f: return decorate(f)
  *         return decorate             # <<<<<<<<<<<<<<
@@ -8538,7 +8483,7 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_2__call__(struct _
   __pyx_r = __pyx_v_decorate;
   goto __pyx_L0;
 
-  /* "hyperlearn/cython/base.pyx":528
+  /* "hyperlearn/cython/base.pyx":549
  *         self.not_processed = True
  * 
  *     def __call__(self, f = None):             # <<<<<<<<<<<<<<
@@ -8906,611 +8851,1017 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_7process_6__setstate_cython
   return __pyx_r;
 }
 
-/* "hyperlearn/cython/base.pyx":555
+/* "hyperlearn/cython/base.pyx":588
+ *     cdef f
  * 
- * #########
- * cpdef str lapack(char dtype, BOOL turbo, str function):             # <<<<<<<<<<<<<<
- *     cdef bool TURBO = <bool> turbo
- *     if dtype == float32 and TURBO:
+ *     def __init__(self, str function, numba = None, bool turbo = True):             # <<<<<<<<<<<<<<
+ *         self.function = function
+ *         self.turbo = turbo
  */
 
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_9lapack(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_10hyperlearn_6cython_4base_lapack(char __pyx_v_dtype, PyBoolObject *__pyx_v_turbo, PyObject *__pyx_v_function, CYTHON_UNUSED int __pyx_skip_dispatch) {
-  __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_TURBO;
-  PyObject *__pyx_r = NULL;
+/* Python wrapper */
+static int __pyx_pw_10hyperlearn_6cython_4base_6lapack_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_10hyperlearn_6cython_4base_6lapack_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_function = 0;
+  PyObject *__pyx_v_numba = 0;
+  __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_turbo;
+  int __pyx_r;
   __Pyx_RefNannyDeclarations
-  __pyx_t_10hyperlearn_6cython_4base_bool __pyx_t_1;
+  __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_function,&__pyx_n_s_numba,&__pyx_n_s_turbo,0};
+    PyObject* values[3] = {0,0,0};
+    values[1] = ((PyObject *)Py_None);
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_function)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_numba);
+          if (value) { values[1] = value; kw_args--; }
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_turbo);
+          if (value) { values[2] = value; kw_args--; }
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 588, __pyx_L3_error)
+      }
+    } else {
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+    }
+    __pyx_v_function = ((PyObject*)values[0]);
+    __pyx_v_numba = values[1];
+    if (values[2]) {
+      __pyx_v_turbo = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_turbo == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 588, __pyx_L3_error)
+    } else {
+      __pyx_v_turbo = ((__pyx_t_10hyperlearn_6cython_4base_bool)1);
+    }
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 588, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("hyperlearn.cython.base.lapack.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return -1;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function), (&PyUnicode_Type), 1, "function", 1))) __PYX_ERR(0, 588, __pyx_L1_error)
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_6lapack___init__(((struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)__pyx_v_self), __pyx_v_function, __pyx_v_numba, __pyx_v_turbo);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_10hyperlearn_6cython_4base_6lapack___init__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self, PyObject *__pyx_v_function, PyObject *__pyx_v_numba, __pyx_t_10hyperlearn_6cython_4base_bool __pyx_v_turbo) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
   int __pyx_t_2;
-  int __pyx_t_3;
+  PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  __Pyx_RefNannySetupContext("lapack", 0);
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  PyObject *__pyx_t_9 = NULL;
+  __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "hyperlearn/cython/base.pyx":556
- * #########
- * cpdef str lapack(char dtype, BOOL turbo, str function):
- *     cdef bool TURBO = <bool> turbo             # <<<<<<<<<<<<<<
- *     if dtype == float32 and TURBO:
- *         return f"_lapack.s{function}"
+  /* "hyperlearn/cython/base.pyx":589
+ * 
+ *     def __init__(self, str function, numba = None, bool turbo = True):
+ *         self.function = function             # <<<<<<<<<<<<<<
+ *         self.turbo = turbo
+ *         self.f = None
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(((PyObject *)__pyx_v_turbo)); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 556, __pyx_L1_error)
-  __pyx_v_TURBO = ((__pyx_t_10hyperlearn_6cython_4base_bool)__pyx_t_1);
+  __Pyx_INCREF(__pyx_v_function);
+  __Pyx_GIVEREF(__pyx_v_function);
+  __Pyx_GOTREF(__pyx_v_self->function);
+  __Pyx_DECREF(__pyx_v_self->function);
+  __pyx_v_self->function = __pyx_v_function;
 
-  /* "hyperlearn/cython/base.pyx":557
- * cpdef str lapack(char dtype, BOOL turbo, str function):
- *     cdef bool TURBO = <bool> turbo
- *     if dtype == float32 and TURBO:             # <<<<<<<<<<<<<<
- *         return f"_lapack.s{function}"
- *     elif dtype == float64 or not TURBO or dtype == cfloat:
+  /* "hyperlearn/cython/base.pyx":590
+ *     def __init__(self, str function, numba = None, bool turbo = True):
+ *         self.function = function
+ *         self.turbo = turbo             # <<<<<<<<<<<<<<
+ *         self.f = None
+ * 
  */
-  __pyx_t_3 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_float32) != 0);
-  if (__pyx_t_3) {
-  } else {
-    __pyx_t_2 = __pyx_t_3;
-    goto __pyx_L4_bool_binop_done;
-  }
-  __pyx_t_3 = (__pyx_v_TURBO != 0);
-  __pyx_t_2 = __pyx_t_3;
-  __pyx_L4_bool_binop_done:;
+  __pyx_v_self->turbo = __pyx_v_turbo;
+
+  /* "hyperlearn/cython/base.pyx":591
+ *         self.function = function
+ *         self.turbo = turbo
+ *         self.f = None             # <<<<<<<<<<<<<<
+ * 
+ *         if numba is not None:
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->f);
+  __Pyx_DECREF(__pyx_v_self->f);
+  __pyx_v_self->f = Py_None;
+
+  /* "hyperlearn/cython/base.pyx":593
+ *         self.f = None
+ * 
+ *         if numba is not None:             # <<<<<<<<<<<<<<
+ *             try:
+ *                 self.f = eval(f'_numba.{numba}')
+ */
+  __pyx_t_1 = (__pyx_v_numba != Py_None);
+  __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "hyperlearn/cython/base.pyx":558
- *     cdef bool TURBO = <bool> turbo
- *     if dtype == float32 and TURBO:
- *         return f"_lapack.s{function}"             # <<<<<<<<<<<<<<
- *     elif dtype == float64 or not TURBO or dtype == cfloat:
- *         return f"_lapack.d{function}"
+    /* "hyperlearn/cython/base.pyx":594
+ * 
+ *         if numba is not None:
+ *             try:             # <<<<<<<<<<<<<<
+ *                 self.f = eval(f'_numba.{numba}')
+ *                 self.function = numba
  */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 558, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_s, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 558, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_5);
-    __pyx_t_5 = 0;
-    goto __pyx_L0;
+    {
+      __Pyx_PyThreadState_declare
+      __Pyx_PyThreadState_assign
+      __Pyx_ExceptionSave(&__pyx_t_3, &__pyx_t_4, &__pyx_t_5);
+      __Pyx_XGOTREF(__pyx_t_3);
+      __Pyx_XGOTREF(__pyx_t_4);
+      __Pyx_XGOTREF(__pyx_t_5);
+      /*try:*/ {
 
-    /* "hyperlearn/cython/base.pyx":557
- * cpdef str lapack(char dtype, BOOL turbo, str function):
- *     cdef bool TURBO = <bool> turbo
- *     if dtype == float32 and TURBO:             # <<<<<<<<<<<<<<
- *         return f"_lapack.s{function}"
- *     elif dtype == float64 or not TURBO or dtype == cfloat:
+        /* "hyperlearn/cython/base.pyx":595
+ *         if numba is not None:
+ *             try:
+ *                 self.f = eval(f'_numba.{numba}')             # <<<<<<<<<<<<<<
+ *                 self.function = numba
+ *             except:
+ */
+        __pyx_t_6 = __Pyx_PyObject_FormatSimple(__pyx_v_numba, __pyx_empty_unicode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_7 = __Pyx_PyUnicode_Concat(__pyx_kp_u_numba_2, __pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+        __pyx_t_6 = __Pyx_Globals(); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_6);
+        __pyx_t_8 = __Pyx_PyDict_NewPresized(4); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        if (__pyx_v_function) {
+          if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_function, __pyx_v_function) < 0) __PYX_ERR(0, 595, __pyx_L4_error)
+        }
+        if (__pyx_v_numba) {
+          if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_numba, __pyx_v_numba) < 0) __PYX_ERR(0, 595, __pyx_L4_error)
+        }
+        if (((PyObject *)__pyx_v_self)) {
+          if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_self, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 595, __pyx_L4_error)
+        }
+        __pyx_t_9 = __Pyx_PyBool_FromLong(__pyx_v_turbo); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        if (__pyx_t_9) {
+          if (PyDict_SetItem(__pyx_t_8, __pyx_n_s_turbo, __pyx_t_9) < 0) __PYX_ERR(0, 595, __pyx_L4_error)
+        }
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        __Pyx_GIVEREF(__pyx_t_7);
+        PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7);
+        __Pyx_GIVEREF(__pyx_t_6);
+        PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_6);
+        __Pyx_GIVEREF(__pyx_t_8);
+        PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_t_8);
+        __pyx_t_7 = 0;
+        __pyx_t_6 = 0;
+        __pyx_t_8 = 0;
+        __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_eval, __pyx_t_9, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 595, __pyx_L4_error)
+        __Pyx_GOTREF(__pyx_t_8);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_GIVEREF(__pyx_t_8);
+        __Pyx_GOTREF(__pyx_v_self->f);
+        __Pyx_DECREF(__pyx_v_self->f);
+        __pyx_v_self->f = __pyx_t_8;
+        __pyx_t_8 = 0;
+
+        /* "hyperlearn/cython/base.pyx":596
+ *             try:
+ *                 self.f = eval(f'_numba.{numba}')
+ *                 self.function = numba             # <<<<<<<<<<<<<<
+ *             except:
+ *                 pass
+ */
+        if (!(likely(PyUnicode_CheckExact(__pyx_v_numba))||((__pyx_v_numba) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(__pyx_v_numba)->tp_name), 0))) __PYX_ERR(0, 596, __pyx_L4_error)
+        __pyx_t_8 = __pyx_v_numba;
+        __Pyx_INCREF(__pyx_t_8);
+        __Pyx_GIVEREF(__pyx_t_8);
+        __Pyx_GOTREF(__pyx_v_self->function);
+        __Pyx_DECREF(__pyx_v_self->function);
+        __pyx_v_self->function = ((PyObject*)__pyx_t_8);
+        __pyx_t_8 = 0;
+
+        /* "hyperlearn/cython/base.pyx":594
+ * 
+ *         if numba is not None:
+ *             try:             # <<<<<<<<<<<<<<
+ *                 self.f = eval(f'_numba.{numba}')
+ *                 self.function = numba
+ */
+      }
+      __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+      __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+      goto __pyx_L9_try_end;
+      __pyx_L4_error:;
+      __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+      __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+      __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
+
+      /* "hyperlearn/cython/base.pyx":597
+ *                 self.f = eval(f'_numba.{numba}')
+ *                 self.function = numba
+ *             except:             # <<<<<<<<<<<<<<
+ *                 pass
+ * 
+ */
+      /*except:*/ {
+        __Pyx_ErrRestore(0,0,0);
+        goto __pyx_L5_exception_handled;
+      }
+      __pyx_L5_exception_handled:;
+      __Pyx_XGIVEREF(__pyx_t_3);
+      __Pyx_XGIVEREF(__pyx_t_4);
+      __Pyx_XGIVEREF(__pyx_t_5);
+      __Pyx_ExceptionReset(__pyx_t_3, __pyx_t_4, __pyx_t_5);
+      __pyx_L9_try_end:;
+    }
+
+    /* "hyperlearn/cython/base.pyx":593
+ *         self.f = None
+ * 
+ *         if numba is not None:             # <<<<<<<<<<<<<<
+ *             try:
+ *                 self.f = eval(f'_numba.{numba}')
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":559
- *     if dtype == float32 and TURBO:
- *         return f"_lapack.s{function}"
- *     elif dtype == float64 or not TURBO or dtype == cfloat:             # <<<<<<<<<<<<<<
- *         return f"_lapack.d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:
+  /* "hyperlearn/cython/base.pyx":588
+ *     cdef f
+ * 
+ *     def __init__(self, str function, numba = None, bool turbo = True):             # <<<<<<<<<<<<<<
+ *         self.function = function
+ *         self.turbo = turbo
  */
-  __pyx_t_3 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_float64) != 0);
-  if (!__pyx_t_3) {
-  } else {
-    __pyx_t_2 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
-  }
-  __pyx_t_3 = ((!(__pyx_v_TURBO != 0)) != 0);
-  if (!__pyx_t_3) {
-  } else {
-    __pyx_t_2 = __pyx_t_3;
-    goto __pyx_L6_bool_binop_done;
-  }
-  __pyx_t_3 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_cfloat) != 0);
-  __pyx_t_2 = __pyx_t_3;
-  __pyx_L6_bool_binop_done:;
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hyperlearn/cython/base.pyx":601
+ * 
+ * 
+ *     def __call__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
+ *         cdef DTYPE dtype
+ *         cdef char dt
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_6lapack_3__call__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_6lapack_3__call__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_args = 0;
+  PyObject *__pyx_v_kwargs = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__call__ (wrapper)", 0);
+  if (unlikely(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__call__", 1))) return NULL;
+  __pyx_v_kwargs = (__pyx_kwds) ? PyDict_Copy(__pyx_kwds) : PyDict_New(); if (unlikely(!__pyx_v_kwargs)) return NULL;
+  __Pyx_GOTREF(__pyx_v_kwargs);
+  __Pyx_INCREF(__pyx_args);
+  __pyx_v_args = __pyx_args;
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_6lapack_2__call__(((struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
+
+  /* function exit code */
+  __Pyx_XDECREF(__pyx_v_args);
+  __Pyx_XDECREF(__pyx_v_kwargs);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6lapack_2__call__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
+  __pyx_t_10hyperlearn_6cython_4base_DTYPE __pyx_v_dtype = 0;
+  char __pyx_v_dt;
+  PyObject *__pyx_v_fx = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  long __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  __Pyx_RefNannySetupContext("__call__", 0);
+
+  /* "hyperlearn/cython/base.pyx":606
+ *         cdef str fx
+ * 
+ *         if self.f is None:             # <<<<<<<<<<<<<<
+ * 
+ *             if len(args) > 0:
+ */
+  __pyx_t_1 = (__pyx_v_self->f == Py_None);
+  __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "hyperlearn/cython/base.pyx":560
- *         return f"_lapack.s{function}"
- *     elif dtype == float64 or not TURBO or dtype == cfloat:
- *         return f"_lapack.d{function}"             # <<<<<<<<<<<<<<
- *     elif dtype == complex64 or dtype == ccomplex:
- *         return f"_lapack.c{function}"
+    /* "hyperlearn/cython/base.pyx":608
+ *         if self.f is None:
+ * 
+ *             if len(args) > 0:             # <<<<<<<<<<<<<<
+ *                 dtype = args[0].dtype
+ *             else:
  */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 560, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 608, __pyx_L1_error)
+    __pyx_t_2 = ((__pyx_t_3 > 0) != 0);
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":609
+ * 
+ *             if len(args) > 0:
+ *                 dtype = args[0].dtype             # <<<<<<<<<<<<<<
+ *             else:
+ *                 dtype = next(iter(kwargs.values())).dtype
+ */
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 609, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_dtype))))) __PYX_ERR(0, 609, __pyx_L1_error)
+      __pyx_v_dtype = ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_4);
+      __pyx_t_4 = 0;
+
+      /* "hyperlearn/cython/base.pyx":608
+ *         if self.f is None:
+ * 
+ *             if len(args) > 0:             # <<<<<<<<<<<<<<
+ *                 dtype = args[0].dtype
+ *             else:
+ */
+      goto __pyx_L4;
+    }
+
+    /* "hyperlearn/cython/base.pyx":611
+ *                 dtype = args[0].dtype
+ *             else:
+ *                 dtype = next(iter(kwargs.values())).dtype             # <<<<<<<<<<<<<<
+ *             dt = ord(dtype.char)
+ * 
+ */
+    /*else*/ {
+      __pyx_t_4 = __Pyx_PyDict_Values(__pyx_v_kwargs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 611, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 611, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyIter_Next(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 611, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_dtype); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 611, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_dtype))))) __PYX_ERR(0, 611, __pyx_L1_error)
+      __pyx_v_dtype = ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_5);
+      __pyx_t_5 = 0;
+    }
+    __pyx_L4:;
+
+    /* "hyperlearn/cython/base.pyx":612
+ *             else:
+ *                 dtype = next(iter(kwargs.values())).dtype
+ *             dt = ord(dtype.char)             # <<<<<<<<<<<<<<
+ * 
+ *             # Compare dtype of first data matrix
+ */
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_dtype), __pyx_n_s_char); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 612, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_d, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_6 = __Pyx_PyObject_Ord(__pyx_t_5); if (unlikely(__pyx_t_6 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 612, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_4);
-    __pyx_t_4 = 0;
-    goto __pyx_L0;
+    __pyx_v_dt = __pyx_t_6;
 
-    /* "hyperlearn/cython/base.pyx":559
- *     if dtype == float32 and TURBO:
- *         return f"_lapack.s{function}"
- *     elif dtype == float64 or not TURBO or dtype == cfloat:             # <<<<<<<<<<<<<<
- *         return f"_lapack.d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:
- */
-  }
-
-  /* "hyperlearn/cython/base.pyx":561
- *     elif dtype == float64 or not TURBO or dtype == cfloat:
- *         return f"_lapack.d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:             # <<<<<<<<<<<<<<
- *         return f"_lapack.c{function}"
- *     else:
- */
-  __pyx_t_3 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_complex64) != 0);
-  if (!__pyx_t_3) {
-  } else {
-    __pyx_t_2 = __pyx_t_3;
-    goto __pyx_L9_bool_binop_done;
-  }
-  __pyx_t_3 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_ccomplex) != 0);
-  __pyx_t_2 = __pyx_t_3;
-  __pyx_L9_bool_binop_done:;
-  if (__pyx_t_2) {
-
-    /* "hyperlearn/cython/base.pyx":562
- *         return f"_lapack.d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:
- *         return f"_lapack.c{function}"             # <<<<<<<<<<<<<<
- *     else:
- *         return f"_lapack.z{function}"
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 562, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_c, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 562, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_5);
-    __pyx_t_5 = 0;
-    goto __pyx_L0;
-
-    /* "hyperlearn/cython/base.pyx":561
- *     elif dtype == float64 or not TURBO or dtype == cfloat:
- *         return f"_lapack.d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:             # <<<<<<<<<<<<<<
- *         return f"_lapack.c{function}"
- *     else:
- */
-  }
-
-  /* "hyperlearn/cython/base.pyx":564
- *         return f"_lapack.c{function}"
- *     else:
- *         return f"_lapack.z{function}"             # <<<<<<<<<<<<<<
+    /* "hyperlearn/cython/base.pyx":615
  * 
- * 
+ *             # Compare dtype of first data matrix
+ *             if dt == float32 and self.turbo:             # <<<<<<<<<<<<<<
+ *                 fx = f"_lapack.s{self.function}"
+ *             elif dt == float64 or not self.turbo or dt == cfloat:
  */
-  /*else*/ {
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 564, __pyx_L1_error)
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_float32) != 0);
+    if (__pyx_t_1) {
+    } else {
+      __pyx_t_2 = __pyx_t_1;
+      goto __pyx_L6_bool_binop_done;
+    }
+    __pyx_t_1 = (__pyx_v_self->turbo != 0);
+    __pyx_t_2 = __pyx_t_1;
+    __pyx_L6_bool_binop_done:;
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":616
+ *             # Compare dtype of first data matrix
+ *             if dt == float32 and self.turbo:
+ *                 fx = f"_lapack.s{self.function}"             # <<<<<<<<<<<<<<
+ *             elif dt == float64 or not self.turbo or dt == cfloat:
+ *                 fx = f"_lapack.d{self.function}"
+ */
+      __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 616, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_4 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_s, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 616, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_4);
+      __pyx_t_4 = 0;
+
+      /* "hyperlearn/cython/base.pyx":615
+ * 
+ *             # Compare dtype of first data matrix
+ *             if dt == float32 and self.turbo:             # <<<<<<<<<<<<<<
+ *                 fx = f"_lapack.s{self.function}"
+ *             elif dt == float64 or not self.turbo or dt == cfloat:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "hyperlearn/cython/base.pyx":617
+ *             if dt == float32 and self.turbo:
+ *                 fx = f"_lapack.s{self.function}"
+ *             elif dt == float64 or not self.turbo or dt == cfloat:             # <<<<<<<<<<<<<<
+ *                 fx = f"_lapack.d{self.function}"
+ *             elif dt == complex64 or dtype == ccomplex:
+ */
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_float64) != 0);
+    if (!__pyx_t_1) {
+    } else {
+      __pyx_t_2 = __pyx_t_1;
+      goto __pyx_L8_bool_binop_done;
+    }
+    __pyx_t_1 = ((!(__pyx_v_self->turbo != 0)) != 0);
+    if (!__pyx_t_1) {
+    } else {
+      __pyx_t_2 = __pyx_t_1;
+      goto __pyx_L8_bool_binop_done;
+    }
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_cfloat) != 0);
+    __pyx_t_2 = __pyx_t_1;
+    __pyx_L8_bool_binop_done:;
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":618
+ *                 fx = f"_lapack.s{self.function}"
+ *             elif dt == float64 or not self.turbo or dt == cfloat:
+ *                 fx = f"_lapack.d{self.function}"             # <<<<<<<<<<<<<<
+ *             elif dt == complex64 or dtype == ccomplex:
+ *                 fx = f"_lapack.c{self.function}"
+ */
+      __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 618, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_d, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 618, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_5);
+      __pyx_t_5 = 0;
+
+      /* "hyperlearn/cython/base.pyx":617
+ *             if dt == float32 and self.turbo:
+ *                 fx = f"_lapack.s{self.function}"
+ *             elif dt == float64 or not self.turbo or dt == cfloat:             # <<<<<<<<<<<<<<
+ *                 fx = f"_lapack.d{self.function}"
+ *             elif dt == complex64 or dtype == ccomplex:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "hyperlearn/cython/base.pyx":619
+ *             elif dt == float64 or not self.turbo or dt == cfloat:
+ *                 fx = f"_lapack.d{self.function}"
+ *             elif dt == complex64 or dtype == ccomplex:             # <<<<<<<<<<<<<<
+ *                 fx = f"_lapack.c{self.function}"
+ *             else:
+ */
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_complex64) != 0);
+    if (!__pyx_t_1) {
+    } else {
+      __pyx_t_2 = __pyx_t_1;
+      goto __pyx_L11_bool_binop_done;
+    }
+    __pyx_t_5 = __Pyx_PyInt_From_char(__pyx_v_10hyperlearn_6cython_4base_ccomplex); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 619, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_z, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 564, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_4 = PyObject_RichCompare(((PyObject *)__pyx_v_dtype), __pyx_t_5, Py_EQ); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 619, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_4);
+    __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_1 < 0)) __PYX_ERR(0, 619, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_2 = __pyx_t_1;
+    __pyx_L11_bool_binop_done:;
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":620
+ *                 fx = f"_lapack.d{self.function}"
+ *             elif dt == complex64 or dtype == ccomplex:
+ *                 fx = f"_lapack.c{self.function}"             # <<<<<<<<<<<<<<
+ *             else:
+ *                 fx = f"_lapack.z{self.function}"
+ */
+      __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 620, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_c, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 620, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_5);
+      __pyx_t_5 = 0;
+
+      /* "hyperlearn/cython/base.pyx":619
+ *             elif dt == float64 or not self.turbo or dt == cfloat:
+ *                 fx = f"_lapack.d{self.function}"
+ *             elif dt == complex64 or dtype == ccomplex:             # <<<<<<<<<<<<<<
+ *                 fx = f"_lapack.c{self.function}"
+ *             else:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "hyperlearn/cython/base.pyx":622
+ *                 fx = f"_lapack.c{self.function}"
+ *             else:
+ *                 fx = f"_lapack.z{self.function}"             # <<<<<<<<<<<<<<
+ *             self.f = eval(fx)
+ * 
+ */
+    /*else*/ {
+      __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 622, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_4 = __Pyx_PyUnicode_Concat(__pyx_kp_u_lapack_z, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 622, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_4);
+      __pyx_t_4 = 0;
+    }
+    __pyx_L5:;
+
+    /* "hyperlearn/cython/base.pyx":623
+ *             else:
+ *                 fx = f"_lapack.z{self.function}"
+ *             self.f = eval(fx)             # <<<<<<<<<<<<<<
+ * 
+ *         return self.f(*args, **kwargs)
+ */
+    __pyx_t_4 = __Pyx_Globals(); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 623, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 623, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    if (__pyx_v_args) {
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_args, __pyx_v_args) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
+    }
+    __pyx_t_7 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 623, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    if (__pyx_t_7) {
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dt, __pyx_t_7) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
+    }
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (((PyObject *)__pyx_v_dtype)) {
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_dtype, ((PyObject *)__pyx_v_dtype)) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
+    }
+    if (__pyx_v_fx) {
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_fx, __pyx_v_fx) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
+    }
+    if (__pyx_v_kwargs) {
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_kwargs, __pyx_v_kwargs) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
+    }
+    if (((PyObject *)__pyx_v_self)) {
+      if (PyDict_SetItem(__pyx_t_5, __pyx_n_s_self, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
+    }
+    __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 623, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_INCREF(__pyx_v_fx);
+    __Pyx_GIVEREF(__pyx_v_fx);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_v_fx);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_7, 2, __pyx_t_5);
     __pyx_t_4 = 0;
-    goto __pyx_L0;
+    __pyx_t_5 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_eval, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 623, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_GIVEREF(__pyx_t_5);
+    __Pyx_GOTREF(__pyx_v_self->f);
+    __Pyx_DECREF(__pyx_v_self->f);
+    __pyx_v_self->f = __pyx_t_5;
+    __pyx_t_5 = 0;
+
+    /* "hyperlearn/cython/base.pyx":606
+ *         cdef str fx
+ * 
+ *         if self.f is None:             # <<<<<<<<<<<<<<
+ * 
+ *             if len(args) > 0:
+ */
   }
 
-  /* "hyperlearn/cython/base.pyx":555
+  /* "hyperlearn/cython/base.pyx":625
+ *             self.f = eval(fx)
  * 
- * #########
- * cpdef str lapack(char dtype, BOOL turbo, str function):             # <<<<<<<<<<<<<<
- *     cdef bool TURBO = <bool> turbo
- *     if dtype == float32 and TURBO:
+ *         return self.f(*args, **kwargs)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_v_self->f, __pyx_v_args, __pyx_v_kwargs); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 625, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_r = __pyx_t_5;
+  __pyx_t_5 = 0;
+  goto __pyx_L0;
+
+  /* "hyperlearn/cython/base.pyx":601
+ * 
+ * 
+ *     def __call__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
+ *         cdef DTYPE dtype
+ *         cdef char dt
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("hyperlearn.cython.base.lapack", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("hyperlearn.cython.base.lapack.__call__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
   __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_dtype);
+  __Pyx_XDECREF(__pyx_v_fx);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
 /* Python wrapper */
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_9lapack(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_9lapack(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  char __pyx_v_dtype;
-  PyBoolObject *__pyx_v_turbo = 0;
-  PyObject *__pyx_v_function = 0;
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_6lapack_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_6lapack_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("lapack (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_dtype,&__pyx_n_s_turbo,&__pyx_n_s_function,0};
-    PyObject* values[3] = {0,0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dtype)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_turbo)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("lapack", 1, 3, 3, 1); __PYX_ERR(0, 555, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_function)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("lapack", 1, 3, 3, 2); __PYX_ERR(0, 555, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "lapack") < 0)) __PYX_ERR(0, 555, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-    }
-    __pyx_v_dtype = __Pyx_PyInt_As_char(values[0]); if (unlikely((__pyx_v_dtype == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 555, __pyx_L3_error)
-    __pyx_v_turbo = ((PyBoolObject *)values[1]);
-    __pyx_v_function = ((PyObject*)values[2]);
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("lapack", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 555, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("hyperlearn.cython.base.lapack", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_turbo), __pyx_ptype_7cpython_4bool_bool, 1, "turbo", 0))) __PYX_ERR(0, 555, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function), (&PyUnicode_Type), 1, "function", 1))) __PYX_ERR(0, 555, __pyx_L1_error)
-  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_8lapack(__pyx_self, __pyx_v_dtype, __pyx_v_turbo, __pyx_v_function);
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_6lapack_4__reduce_cython__(((struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)__pyx_v_self));
 
   /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_8lapack(CYTHON_UNUSED PyObject *__pyx_self, char __pyx_v_dtype, PyBoolObject *__pyx_v_turbo, PyObject *__pyx_v_function) {
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6lapack_4__reduce_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self) {
+  PyObject *__pyx_v_state = 0;
+  PyObject *__pyx_v__dict = 0;
+  int __pyx_v_use_setstate;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("lapack", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_10hyperlearn_6cython_4base_lapack(__pyx_v_dtype, __pyx_v_turbo, __pyx_v_function, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 555, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("hyperlearn.cython.base.lapack", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "hyperlearn/cython/base.pyx":568
- * 
- * #########
- * cpdef str blas(char dtype, str function, str left):             # <<<<<<<<<<<<<<
- *     if dtype == float32:
- *         return f"_blas.{left}s{function}"
- */
-
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_11blas(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_10hyperlearn_6cython_4base_blas(char __pyx_v_dtype, PyObject *__pyx_v_function, PyObject *__pyx_v_left, CYTHON_UNUSED int __pyx_skip_dispatch) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  Py_UCS4 __pyx_t_4;
-  PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  __Pyx_RefNannySetupContext("blas", 0);
+  int __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
 
-  /* "hyperlearn/cython/base.pyx":569
- * #########
- * cpdef str blas(char dtype, str function, str left):
- *     if dtype == float32:             # <<<<<<<<<<<<<<
- *         return f"_blas.{left}s{function}"
- *     elif dtype == float64 or dtype == cfloat:
+  /* "(tree fragment)":5
+ *     cdef object _dict
+ *     cdef bint use_setstate
+ *     state = (self.f, self.function, self.turbo)             # <<<<<<<<<<<<<<
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
  */
-  __pyx_t_1 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_float32) != 0);
-  if (__pyx_t_1) {
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->turbo); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_INCREF(__pyx_v_self->f);
+  __Pyx_GIVEREF(__pyx_v_self->f);
+  PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v_self->f);
+  __Pyx_INCREF(__pyx_v_self->function);
+  __Pyx_GIVEREF(__pyx_v_self->function);
+  PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_v_self->function);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_t_1);
+  __pyx_t_1 = 0;
+  __pyx_v_state = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
 
-    /* "hyperlearn/cython/base.pyx":570
- * cpdef str blas(char dtype, str function, str left):
- *     if dtype == float32:
- *         return f"_blas.{left}s{function}"             # <<<<<<<<<<<<<<
- *     elif dtype == float64 or dtype == cfloat:
- *         return f"_blas.{left}d{function}"
+  /* "(tree fragment)":6
+ *     cdef bint use_setstate
+ *     state = (self.f, self.function, self.turbo)
+ *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
+ *     if _dict is not None:
+ *         state += (_dict,)
  */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 570, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v__dict = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "(tree fragment)":7
+ *     state = (self.f, self.function, self.turbo)
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+  __pyx_t_3 = (__pyx_v__dict != Py_None);
+  __pyx_t_4 = (__pyx_t_3 != 0);
+  if (__pyx_t_4) {
+
+    /* "(tree fragment)":8
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ *         state += (_dict,)             # <<<<<<<<<<<<<<
+ *         use_setstate = True
+ *     else:
+ */
+    __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 8, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = 0;
-    __pyx_t_4 = 127;
-    __Pyx_INCREF(__pyx_kp_u_blas);
-    __pyx_t_3 += 6;
-    __Pyx_GIVEREF(__pyx_kp_u_blas);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_kp_u_blas);
-    __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_left); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 570, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_5);
-    __pyx_t_5 = 0;
-    __Pyx_INCREF(__pyx_n_u_s);
-    __pyx_t_3 += 1;
-    __Pyx_GIVEREF(__pyx_n_u_s);
-    PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_n_u_s);
-    __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 570, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_t_5);
-    __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 570, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_INCREF(__pyx_v__dict);
+    __Pyx_GIVEREF(__pyx_v__dict);
+    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_v__dict);
+    __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_5);
-    __pyx_t_5 = 0;
-    goto __pyx_L0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_1));
+    __pyx_t_1 = 0;
 
-    /* "hyperlearn/cython/base.pyx":569
- * #########
- * cpdef str blas(char dtype, str function, str left):
- *     if dtype == float32:             # <<<<<<<<<<<<<<
- *         return f"_blas.{left}s{function}"
- *     elif dtype == float64 or dtype == cfloat:
+    /* "(tree fragment)":9
+ *     if _dict is not None:
+ *         state += (_dict,)
+ *         use_setstate = True             # <<<<<<<<<<<<<<
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None
  */
+    __pyx_v_use_setstate = 1;
+
+    /* "(tree fragment)":7
+ *     state = (self.f, self.function, self.turbo)
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+    goto __pyx_L3;
   }
 
-  /* "hyperlearn/cython/base.pyx":571
- *     if dtype == float32:
- *         return f"_blas.{left}s{function}"
- *     elif dtype == float64 or dtype == cfloat:             # <<<<<<<<<<<<<<
- *         return f"_blas.{left}d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:
+  /* "(tree fragment)":11
+ *         use_setstate = True
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None             # <<<<<<<<<<<<<<
+ *     if use_setstate:
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, None), state
  */
-  __pyx_t_6 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_float64) != 0);
-  if (!__pyx_t_6) {
-  } else {
-    __pyx_t_1 = __pyx_t_6;
-    goto __pyx_L4_bool_binop_done;
+  /*else*/ {
+    __pyx_t_3 = (__pyx_v_self->f != Py_None);
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_4 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->function != ((PyObject*)Py_None));
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    __pyx_t_4 = __pyx_t_3;
+    __pyx_L4_bool_binop_done:;
+    __pyx_v_use_setstate = __pyx_t_4;
   }
-  __pyx_t_6 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_cfloat) != 0);
-  __pyx_t_1 = __pyx_t_6;
-  __pyx_L4_bool_binop_done:;
-  if (__pyx_t_1) {
+  __pyx_L3:;
 
-    /* "hyperlearn/cython/base.pyx":572
- *         return f"_blas.{left}s{function}"
- *     elif dtype == float64 or dtype == cfloat:
- *         return f"_blas.{left}d{function}"             # <<<<<<<<<<<<<<
- *     elif dtype == complex64 or dtype == ccomplex:
- *         return f"_blas.{left}c{function}"
+  /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, None), state
+ *     else:
+ */
+  __pyx_t_4 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_4) {
+
+    /* "(tree fragment)":13
+ *         use_setstate = self.f is not None or self.function is not None
+ *     if use_setstate:
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, None), state             # <<<<<<<<<<<<<<
+ *     else:
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, state)
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 572, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = 0;
-    __pyx_t_4 = 127;
-    __Pyx_INCREF(__pyx_kp_u_blas);
-    __pyx_t_3 += 6;
-    __Pyx_GIVEREF(__pyx_kp_u_blas);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_kp_u_blas);
-    __pyx_t_2 = __Pyx_PyUnicode_Unicode(__pyx_v_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 572, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_pyx_unpickle_lapack); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_211965179);
+    __Pyx_GIVEREF(__pyx_int_211965179);
+    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_211965179);
+    __Pyx_INCREF(Py_None);
+    __Pyx_GIVEREF(Py_None);
+    PyTuple_SET_ITEM(__pyx_t_2, 2, Py_None);
+    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_2);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_v_state);
+    __pyx_t_1 = 0;
     __pyx_t_2 = 0;
-    __Pyx_INCREF(__pyx_n_u_d);
-    __pyx_t_3 += 1;
-    __Pyx_GIVEREF(__pyx_n_u_d);
-    PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_n_u_d);
-    __pyx_t_2 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 572, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_t_2);
-    __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_5, 4, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 572, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
+    __pyx_r = __pyx_t_6;
+    __pyx_t_6 = 0;
     goto __pyx_L0;
 
-    /* "hyperlearn/cython/base.pyx":571
- *     if dtype == float32:
- *         return f"_blas.{left}s{function}"
- *     elif dtype == float64 or dtype == cfloat:             # <<<<<<<<<<<<<<
- *         return f"_blas.{left}d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:
- */
-  }
-
-  /* "hyperlearn/cython/base.pyx":573
- *     elif dtype == float64 or dtype == cfloat:
- *         return f"_blas.{left}d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:             # <<<<<<<<<<<<<<
- *         return f"_blas.{left}c{function}"
+    /* "(tree fragment)":12
  *     else:
- */
-  __pyx_t_6 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_complex64) != 0);
-  if (!__pyx_t_6) {
-  } else {
-    __pyx_t_1 = __pyx_t_6;
-    goto __pyx_L6_bool_binop_done;
-  }
-  __pyx_t_6 = ((__pyx_v_dtype == __pyx_v_10hyperlearn_6cython_4base_ccomplex) != 0);
-  __pyx_t_1 = __pyx_t_6;
-  __pyx_L6_bool_binop_done:;
-  if (__pyx_t_1) {
-
-    /* "hyperlearn/cython/base.pyx":574
- *         return f"_blas.{left}d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:
- *         return f"_blas.{left}c{function}"             # <<<<<<<<<<<<<<
- *     else:
- *         return f"_blas.{left}z{function}"
- */
-    __Pyx_XDECREF(__pyx_r);
-    __pyx_t_2 = PyTuple_New(4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 574, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = 0;
-    __pyx_t_4 = 127;
-    __Pyx_INCREF(__pyx_kp_u_blas);
-    __pyx_t_3 += 6;
-    __Pyx_GIVEREF(__pyx_kp_u_blas);
-    PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_kp_u_blas);
-    __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_left); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_5);
-    __pyx_t_5 = 0;
-    __Pyx_INCREF(__pyx_n_u_c);
-    __pyx_t_3 += 1;
-    __Pyx_GIVEREF(__pyx_n_u_c);
-    PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_n_u_c);
-    __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_2, 3, __pyx_t_5);
-    __pyx_t_5 = 0;
-    __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_2, 4, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 574, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_5);
-    __pyx_t_5 = 0;
-    goto __pyx_L0;
-
-    /* "hyperlearn/cython/base.pyx":573
- *     elif dtype == float64 or dtype == cfloat:
- *         return f"_blas.{left}d{function}"
- *     elif dtype == complex64 or dtype == ccomplex:             # <<<<<<<<<<<<<<
- *         return f"_blas.{left}c{function}"
+ *         use_setstate = self.f is not None or self.function is not None
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, None), state
  *     else:
  */
   }
 
-  /* "hyperlearn/cython/base.pyx":576
- *         return f"_blas.{left}c{function}"
+  /* "(tree fragment)":15
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, None), state
  *     else:
- *         return f"_blas.{left}z{function}"             # <<<<<<<<<<<<<<
- * 
- * 
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, state)             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_lapack__set_state(self, __pyx_state)
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 576, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_3 = 0;
-    __pyx_t_4 = 127;
-    __Pyx_INCREF(__pyx_kp_u_blas);
-    __pyx_t_3 += 6;
-    __Pyx_GIVEREF(__pyx_kp_u_blas);
-    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_kp_u_blas);
-    __pyx_t_2 = __Pyx_PyUnicode_Unicode(__pyx_v_left); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pyx_unpickle_lapack); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_211965179);
+    __Pyx_GIVEREF(__pyx_int_211965179);
+    PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_int_211965179);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_v_state);
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6);
     __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_2);
+    __pyx_t_6 = 0;
     __pyx_t_2 = 0;
-    __Pyx_INCREF(__pyx_n_u_z);
-    __pyx_t_3 += 1;
-    __Pyx_GIVEREF(__pyx_n_u_z);
-    PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_n_u_z);
-    __pyx_t_2 = __Pyx_PyUnicode_Unicode(__pyx_v_function); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) > __pyx_t_4) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_2) : __pyx_t_4;
-    __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_2);
-    __Pyx_GIVEREF(__pyx_t_2);
-    PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_t_2);
-    __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyUnicode_Join(__pyx_t_5, 4, __pyx_t_3, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 576, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_r = ((PyObject*)__pyx_t_2);
-    __pyx_t_2 = 0;
+    __pyx_r = __pyx_t_1;
+    __pyx_t_1 = 0;
     goto __pyx_L0;
   }
 
-  /* "hyperlearn/cython/base.pyx":568
- * 
- * #########
- * cpdef str blas(char dtype, str function, str left):             # <<<<<<<<<<<<<<
- *     if dtype == float32:
- *         return f"_blas.{left}s{function}"
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
  */
 
   /* function exit code */
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("hyperlearn.cython.base.blas", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("hyperlearn.cython.base.lapack.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_state);
+  __Pyx_XDECREF(__pyx_v__dict);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_lapack__set_state(self, __pyx_state)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_6lapack_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_6lapack_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_6lapack_6__setstate_cython__(((struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6lapack_6__setstate_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":17
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, state)
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_lapack__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ */
+  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_lapack__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_lapack, (type(self), 0xca254fb, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_lapack__set_state(self, __pyx_state)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("hyperlearn.cython.base.lapack.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
+/* "hyperlearn/cython/base.pyx":642
+ * 
+ * 
+ *     def __init__(self, str function, str left = ""):             # <<<<<<<<<<<<<<
+ *         self.function = function
+ *         self.f = None
+ */
+
 /* Python wrapper */
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_11blas(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_11blas(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  char __pyx_v_dtype;
+static int __pyx_pw_10hyperlearn_6cython_4base_4blas_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_10hyperlearn_6cython_4base_4blas_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_function = 0;
   PyObject *__pyx_v_left = 0;
-  PyObject *__pyx_r = 0;
+  int __pyx_r;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("blas (wrapper)", 0);
+  __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_dtype,&__pyx_n_s_function,&__pyx_n_s_left,0};
-    PyObject* values[3] = {0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_function,&__pyx_n_s_left,0};
+    PyObject* values[2] = {0,0};
+    values[1] = ((PyObject*)__pyx_kp_u__10);
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
         case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
@@ -9521,72 +9872,874 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_11blas(PyObject *__pyx_self
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_dtype)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_function)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_function)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("blas", 1, 3, 3, 1); __PYX_ERR(0, 568, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_left)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("blas", 1, 3, 3, 2); __PYX_ERR(0, 568, __pyx_L3_error)
+        if (kw_args > 0) {
+          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_left);
+          if (value) { values[1] = value; kw_args--; }
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "blas") < 0)) __PYX_ERR(0, 568, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 642, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
-      goto __pyx_L5_argtuple_error;
     } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+      switch (PyTuple_GET_SIZE(__pyx_args)) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        break;
+        default: goto __pyx_L5_argtuple_error;
+      }
     }
-    __pyx_v_dtype = __Pyx_PyInt_As_char(values[0]); if (unlikely((__pyx_v_dtype == (char)-1) && PyErr_Occurred())) __PYX_ERR(0, 568, __pyx_L3_error)
-    __pyx_v_function = ((PyObject*)values[1]);
-    __pyx_v_left = ((PyObject*)values[2]);
+    __pyx_v_function = ((PyObject*)values[0]);
+    __pyx_v_left = ((PyObject*)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("blas", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 568, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 642, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("hyperlearn.cython.base.blas", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("hyperlearn.cython.base.blas.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
-  return NULL;
+  return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function), (&PyUnicode_Type), 1, "function", 1))) __PYX_ERR(0, 568, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_left), (&PyUnicode_Type), 1, "left", 1))) __PYX_ERR(0, 568, __pyx_L1_error)
-  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_10blas(__pyx_self, __pyx_v_dtype, __pyx_v_function, __pyx_v_left);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_function), (&PyUnicode_Type), 1, "function", 1))) __PYX_ERR(0, 642, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_left), (&PyUnicode_Type), 1, "left", 1))) __PYX_ERR(0, 642, __pyx_L1_error)
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_4blas___init__(((struct __pyx_obj_10hyperlearn_6cython_4base_blas *)__pyx_v_self), __pyx_v_function, __pyx_v_left);
 
   /* function exit code */
   goto __pyx_L0;
   __pyx_L1_error:;
-  __pyx_r = NULL;
+  __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_10blas(CYTHON_UNUSED PyObject *__pyx_self, char __pyx_v_dtype, PyObject *__pyx_v_function, PyObject *__pyx_v_left) {
+static int __pyx_pf_10hyperlearn_6cython_4base_4blas___init__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self, PyObject *__pyx_v_function, PyObject *__pyx_v_left) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__init__", 0);
+
+  /* "hyperlearn/cython/base.pyx":643
+ * 
+ *     def __init__(self, str function, str left = ""):
+ *         self.function = function             # <<<<<<<<<<<<<<
+ *         self.f = None
+ *         self.left = left
+ */
+  __Pyx_INCREF(__pyx_v_function);
+  __Pyx_GIVEREF(__pyx_v_function);
+  __Pyx_GOTREF(__pyx_v_self->function);
+  __Pyx_DECREF(__pyx_v_self->function);
+  __pyx_v_self->function = __pyx_v_function;
+
+  /* "hyperlearn/cython/base.pyx":644
+ *     def __init__(self, str function, str left = ""):
+ *         self.function = function
+ *         self.f = None             # <<<<<<<<<<<<<<
+ *         self.left = left
+ * 
+ */
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->f);
+  __Pyx_DECREF(__pyx_v_self->f);
+  __pyx_v_self->f = Py_None;
+
+  /* "hyperlearn/cython/base.pyx":645
+ *         self.function = function
+ *         self.f = None
+ *         self.left = left             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_INCREF(__pyx_v_left);
+  __Pyx_GIVEREF(__pyx_v_left);
+  __Pyx_GOTREF(__pyx_v_self->left);
+  __Pyx_DECREF(__pyx_v_self->left);
+  __pyx_v_self->left = __pyx_v_left;
+
+  /* "hyperlearn/cython/base.pyx":642
+ * 
+ * 
+ *     def __init__(self, str function, str left = ""):             # <<<<<<<<<<<<<<
+ *         self.function = function
+ *         self.f = None
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "hyperlearn/cython/base.pyx":648
+ * 
+ * 
+ *     def __call__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
+ *         cdef DTYPE dtype
+ *         cdef char dt
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_4blas_3__call__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_4blas_3__call__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_args = 0;
+  PyObject *__pyx_v_kwargs = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__call__ (wrapper)", 0);
+  if (unlikely(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__call__", 1))) return NULL;
+  __pyx_v_kwargs = (__pyx_kwds) ? PyDict_Copy(__pyx_kwds) : PyDict_New(); if (unlikely(!__pyx_v_kwargs)) return NULL;
+  __Pyx_GOTREF(__pyx_v_kwargs);
+  __Pyx_INCREF(__pyx_args);
+  __pyx_v_args = __pyx_args;
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_4blas_2__call__(((struct __pyx_obj_10hyperlearn_6cython_4base_blas *)__pyx_v_self), __pyx_v_args, __pyx_v_kwargs);
+
+  /* function exit code */
+  __Pyx_XDECREF(__pyx_v_args);
+  __Pyx_XDECREF(__pyx_v_kwargs);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4blas_2__call__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self, PyObject *__pyx_v_args, PyObject *__pyx_v_kwargs) {
+  __pyx_t_10hyperlearn_6cython_4base_DTYPE __pyx_v_dtype = 0;
+  char __pyx_v_dt;
+  PyObject *__pyx_v_fx = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  long __pyx_t_6;
+  Py_UCS4 __pyx_t_7;
+  PyObject *__pyx_t_8 = NULL;
+  __Pyx_RefNannySetupContext("__call__", 0);
+
+  /* "hyperlearn/cython/base.pyx":653
+ *         cdef str fx
+ * 
+ *         if self.f is None:             # <<<<<<<<<<<<<<
+ * 
+ *             if len(args) > 0:
+ */
+  __pyx_t_1 = (__pyx_v_self->f == Py_None);
+  __pyx_t_2 = (__pyx_t_1 != 0);
+  if (__pyx_t_2) {
+
+    /* "hyperlearn/cython/base.pyx":655
+ *         if self.f is None:
+ * 
+ *             if len(args) > 0:             # <<<<<<<<<<<<<<
+ *                 dtype = args[0].dtype
+ *             else:
+ */
+    __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(0, 655, __pyx_L1_error)
+    __pyx_t_2 = ((__pyx_t_3 > 0) != 0);
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":656
+ * 
+ *             if len(args) > 0:
+ *                 dtype = args[0].dtype             # <<<<<<<<<<<<<<
+ *             else:
+ *                 dtype = next(iter(kwargs.values())).dtype
+ */
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(PyTuple_GET_ITEM(__pyx_v_args, 0), __pyx_n_s_dtype); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 656, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      if (!(likely(((__pyx_t_4) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_4, __pyx_ptype_5numpy_dtype))))) __PYX_ERR(0, 656, __pyx_L1_error)
+      __pyx_v_dtype = ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_4);
+      __pyx_t_4 = 0;
+
+      /* "hyperlearn/cython/base.pyx":655
+ *         if self.f is None:
+ * 
+ *             if len(args) > 0:             # <<<<<<<<<<<<<<
+ *                 dtype = args[0].dtype
+ *             else:
+ */
+      goto __pyx_L4;
+    }
+
+    /* "hyperlearn/cython/base.pyx":658
+ *                 dtype = args[0].dtype
+ *             else:
+ *                 dtype = next(iter(kwargs.values())).dtype             # <<<<<<<<<<<<<<
+ *             dt = ord(dtype.char)
+ * 
+ */
+    /*else*/ {
+      __pyx_t_4 = __Pyx_PyDict_Values(__pyx_v_kwargs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_5 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyIter_Next(__pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_dtype); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 658, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (!(likely(((__pyx_t_5) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_5, __pyx_ptype_5numpy_dtype))))) __PYX_ERR(0, 658, __pyx_L1_error)
+      __pyx_v_dtype = ((__pyx_t_10hyperlearn_6cython_4base_DTYPE)__pyx_t_5);
+      __pyx_t_5 = 0;
+    }
+    __pyx_L4:;
+
+    /* "hyperlearn/cython/base.pyx":659
+ *             else:
+ *                 dtype = next(iter(kwargs.values())).dtype
+ *             dt = ord(dtype.char)             # <<<<<<<<<<<<<<
+ * 
+ *             # Compare dtype of first data matrix
+ */
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_dtype), __pyx_n_s_char); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 659, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_6 = __Pyx_PyObject_Ord(__pyx_t_5); if (unlikely(__pyx_t_6 == ((long)(long)(Py_UCS4)-1))) __PYX_ERR(0, 659, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_v_dt = __pyx_t_6;
+
+    /* "hyperlearn/cython/base.pyx":662
+ * 
+ *             # Compare dtype of first data matrix
+ *             if dt == float32:             # <<<<<<<<<<<<<<
+ *                 fx = f"_blas.{self.left}s{self.function}"
+ *             elif dt == float64 or dt == cfloat:
+ */
+    __pyx_t_2 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_float32) != 0);
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":663
+ *             # Compare dtype of first data matrix
+ *             if dt == float32:
+ *                 fx = f"_blas.{self.left}s{self.function}"             # <<<<<<<<<<<<<<
+ *             elif dt == float64 or dt == cfloat:
+ *                 fx = f"_blas.{self.left}d{self.function}"
+ */
+      __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 663, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_3 = 0;
+      __pyx_t_7 = 127;
+      __Pyx_INCREF(__pyx_kp_u_blas);
+      __pyx_t_3 += 6;
+      __Pyx_GIVEREF(__pyx_kp_u_blas);
+      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_kp_u_blas);
+      __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_self->left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 663, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __Pyx_INCREF(__pyx_n_u_s);
+      __pyx_t_3 += 1;
+      __Pyx_GIVEREF(__pyx_n_u_s);
+      PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_n_u_s);
+      __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 663, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_5, 4, __pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 663, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_4);
+      __pyx_t_4 = 0;
+
+      /* "hyperlearn/cython/base.pyx":662
+ * 
+ *             # Compare dtype of first data matrix
+ *             if dt == float32:             # <<<<<<<<<<<<<<
+ *                 fx = f"_blas.{self.left}s{self.function}"
+ *             elif dt == float64 or dt == cfloat:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "hyperlearn/cython/base.pyx":664
+ *             if dt == float32:
+ *                 fx = f"_blas.{self.left}s{self.function}"
+ *             elif dt == float64 or dt == cfloat:             # <<<<<<<<<<<<<<
+ *                 fx = f"_blas.{self.left}d{self.function}"
+ *             elif dt == complex64 or dt == ccomplex:
+ */
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_float64) != 0);
+    if (!__pyx_t_1) {
+    } else {
+      __pyx_t_2 = __pyx_t_1;
+      goto __pyx_L6_bool_binop_done;
+    }
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_cfloat) != 0);
+    __pyx_t_2 = __pyx_t_1;
+    __pyx_L6_bool_binop_done:;
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":665
+ *                 fx = f"_blas.{self.left}s{self.function}"
+ *             elif dt == float64 or dt == cfloat:
+ *                 fx = f"_blas.{self.left}d{self.function}"             # <<<<<<<<<<<<<<
+ *             elif dt == complex64 or dt == ccomplex:
+ *                 fx = f"_blas.{self.left}c{self.function}"
+ */
+      __pyx_t_4 = PyTuple_New(4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 665, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_3 = 0;
+      __pyx_t_7 = 127;
+      __Pyx_INCREF(__pyx_kp_u_blas);
+      __pyx_t_3 += 6;
+      __Pyx_GIVEREF(__pyx_kp_u_blas);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_kp_u_blas);
+      __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_self->left); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 665, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __Pyx_INCREF(__pyx_n_u_d);
+      __pyx_t_3 += 1;
+      __Pyx_GIVEREF(__pyx_n_u_d);
+      PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_n_u_d);
+      __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 665, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_4, 3, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_4, 4, __pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 665, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_5);
+      __pyx_t_5 = 0;
+
+      /* "hyperlearn/cython/base.pyx":664
+ *             if dt == float32:
+ *                 fx = f"_blas.{self.left}s{self.function}"
+ *             elif dt == float64 or dt == cfloat:             # <<<<<<<<<<<<<<
+ *                 fx = f"_blas.{self.left}d{self.function}"
+ *             elif dt == complex64 or dt == ccomplex:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "hyperlearn/cython/base.pyx":666
+ *             elif dt == float64 or dt == cfloat:
+ *                 fx = f"_blas.{self.left}d{self.function}"
+ *             elif dt == complex64 or dt == ccomplex:             # <<<<<<<<<<<<<<
+ *                 fx = f"_blas.{self.left}c{self.function}"
+ *             else:
+ */
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_complex64) != 0);
+    if (!__pyx_t_1) {
+    } else {
+      __pyx_t_2 = __pyx_t_1;
+      goto __pyx_L8_bool_binop_done;
+    }
+    __pyx_t_1 = ((__pyx_v_dt == __pyx_v_10hyperlearn_6cython_4base_ccomplex) != 0);
+    __pyx_t_2 = __pyx_t_1;
+    __pyx_L8_bool_binop_done:;
+    if (__pyx_t_2) {
+
+      /* "hyperlearn/cython/base.pyx":667
+ *                 fx = f"_blas.{self.left}d{self.function}"
+ *             elif dt == complex64 or dt == ccomplex:
+ *                 fx = f"_blas.{self.left}c{self.function}"             # <<<<<<<<<<<<<<
+ *             else:
+ *                 fx = f"_blas.{self.left}z{self.function}"
+ */
+      __pyx_t_5 = PyTuple_New(4); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 667, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_3 = 0;
+      __pyx_t_7 = 127;
+      __Pyx_INCREF(__pyx_kp_u_blas);
+      __pyx_t_3 += 6;
+      __Pyx_GIVEREF(__pyx_kp_u_blas);
+      PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_kp_u_blas);
+      __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_self->left); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 667, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __Pyx_INCREF(__pyx_n_u_c);
+      __pyx_t_3 += 1;
+      __Pyx_GIVEREF(__pyx_n_u_c);
+      PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_n_u_c);
+      __pyx_t_4 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 667, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_4) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_4);
+      __Pyx_GIVEREF(__pyx_t_4);
+      PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_t_4);
+      __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyUnicode_Join(__pyx_t_5, 4, __pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 667, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_4);
+      __pyx_t_4 = 0;
+
+      /* "hyperlearn/cython/base.pyx":666
+ *             elif dt == float64 or dt == cfloat:
+ *                 fx = f"_blas.{self.left}d{self.function}"
+ *             elif dt == complex64 or dt == ccomplex:             # <<<<<<<<<<<<<<
+ *                 fx = f"_blas.{self.left}c{self.function}"
+ *             else:
+ */
+      goto __pyx_L5;
+    }
+
+    /* "hyperlearn/cython/base.pyx":669
+ *                 fx = f"_blas.{self.left}c{self.function}"
+ *             else:
+ *                 fx = f"_blas.{self.left}z{self.function}"             # <<<<<<<<<<<<<<
+ *             self.f = eval(fx)
+ * 
+ */
+    /*else*/ {
+      __pyx_t_4 = PyTuple_New(4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_3 = 0;
+      __pyx_t_7 = 127;
+      __Pyx_INCREF(__pyx_kp_u_blas);
+      __pyx_t_3 += 6;
+      __Pyx_GIVEREF(__pyx_kp_u_blas);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_kp_u_blas);
+      __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_self->left); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __Pyx_INCREF(__pyx_n_u_z);
+      __pyx_t_3 += 1;
+      __Pyx_GIVEREF(__pyx_n_u_z);
+      PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_n_u_z);
+      __pyx_t_5 = __Pyx_PyUnicode_Unicode(__pyx_v_self->function); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_7 = (__Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) > __pyx_t_7) ? __Pyx_PyUnicode_MAX_CHAR_VALUE(__pyx_t_5) : __pyx_t_7;
+      __pyx_t_3 += __Pyx_PyUnicode_GET_LENGTH(__pyx_t_5);
+      __Pyx_GIVEREF(__pyx_t_5);
+      PyTuple_SET_ITEM(__pyx_t_4, 3, __pyx_t_5);
+      __pyx_t_5 = 0;
+      __pyx_t_5 = __Pyx_PyUnicode_Join(__pyx_t_4, 4, __pyx_t_3, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 669, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_v_fx = ((PyObject*)__pyx_t_5);
+      __pyx_t_5 = 0;
+    }
+    __pyx_L5:;
+
+    /* "hyperlearn/cython/base.pyx":670
+ *             else:
+ *                 fx = f"_blas.{self.left}z{self.function}"
+ *             self.f = eval(fx)             # <<<<<<<<<<<<<<
+ * 
+ *         return self.f(*args, **kwargs)
+ */
+    __pyx_t_5 = __Pyx_Globals(); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    if (__pyx_v_args) {
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_args, __pyx_v_args) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
+    }
+    __pyx_t_8 = __Pyx_PyInt_From_char(__pyx_v_dt); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    if (__pyx_t_8) {
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dt, __pyx_t_8) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
+    }
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    if (((PyObject *)__pyx_v_dtype)) {
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, ((PyObject *)__pyx_v_dtype)) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
+    }
+    if (__pyx_v_fx) {
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_fx, __pyx_v_fx) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
+    }
+    if (__pyx_v_kwargs) {
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_kwargs, __pyx_v_kwargs) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
+    }
+    if (((PyObject *)__pyx_v_self)) {
+      if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_self, ((PyObject *)__pyx_v_self)) < 0) __PYX_ERR(0, 670, __pyx_L1_error)
+    }
+    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_INCREF(__pyx_v_fx);
+    __Pyx_GIVEREF(__pyx_v_fx);
+    PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v_fx);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_4);
+    __pyx_t_5 = 0;
+    __pyx_t_4 = 0;
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_eval, __pyx_t_8, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 670, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_GIVEREF(__pyx_t_4);
+    __Pyx_GOTREF(__pyx_v_self->f);
+    __Pyx_DECREF(__pyx_v_self->f);
+    __pyx_v_self->f = __pyx_t_4;
+    __pyx_t_4 = 0;
+
+    /* "hyperlearn/cython/base.pyx":653
+ *         cdef str fx
+ * 
+ *         if self.f is None:             # <<<<<<<<<<<<<<
+ * 
+ *             if len(args) > 0:
+ */
+  }
+
+  /* "hyperlearn/cython/base.pyx":672
+ *             self.f = eval(fx)
+ * 
+ *         return self.f(*args, **kwargs)             # <<<<<<<<<<<<<<
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_v_self->f, __pyx_v_args, __pyx_v_kwargs); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 672, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_r = __pyx_t_4;
+  __pyx_t_4 = 0;
+  goto __pyx_L0;
+
+  /* "hyperlearn/cython/base.pyx":648
+ * 
+ * 
+ *     def __call__(self, *args, **kwargs):             # <<<<<<<<<<<<<<
+ *         cdef DTYPE dtype
+ *         cdef char dt
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("hyperlearn.cython.base.blas.__call__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF((PyObject *)__pyx_v_dtype);
+  __Pyx_XDECREF(__pyx_v_fx);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_4blas_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_4blas_5__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_4blas_4__reduce_cython__(((struct __pyx_obj_10hyperlearn_6cython_4base_blas *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4blas_4__reduce_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self) {
+  PyObject *__pyx_v_state = 0;
+  PyObject *__pyx_v__dict = 0;
+  int __pyx_v_use_setstate;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("blas", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_10hyperlearn_6cython_4base_blas(__pyx_v_dtype, __pyx_v_function, __pyx_v_left, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 568, __pyx_L1_error)
+  int __pyx_t_2;
+  int __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  __Pyx_RefNannySetupContext("__reduce_cython__", 0);
+
+  /* "(tree fragment)":5
+ *     cdef object _dict
+ *     cdef bint use_setstate
+ *     state = (self.f, self.function, self.left)             # <<<<<<<<<<<<<<
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ */
+  __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
+  __Pyx_INCREF(__pyx_v_self->f);
+  __Pyx_GIVEREF(__pyx_v_self->f);
+  PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v_self->f);
+  __Pyx_INCREF(__pyx_v_self->function);
+  __Pyx_GIVEREF(__pyx_v_self->function);
+  PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_v_self->function);
+  __Pyx_INCREF(__pyx_v_self->left);
+  __Pyx_GIVEREF(__pyx_v_self->left);
+  PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_self->left);
+  __pyx_v_state = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
-  goto __pyx_L0;
+
+  /* "(tree fragment)":6
+ *     cdef bint use_setstate
+ *     state = (self.f, self.function, self.left)
+ *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
+ *     if _dict is not None:
+ *         state += (_dict,)
+ */
+  __pyx_t_1 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_v__dict = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "(tree fragment)":7
+ *     state = (self.f, self.function, self.left)
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+  __pyx_t_2 = (__pyx_v__dict != Py_None);
+  __pyx_t_3 = (__pyx_t_2 != 0);
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":8
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:
+ *         state += (_dict,)             # <<<<<<<<<<<<<<
+ *         use_setstate = True
+ *     else:
+ */
+    __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(__pyx_v__dict);
+    __Pyx_GIVEREF(__pyx_v__dict);
+    PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_v__dict);
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_4));
+    __pyx_t_4 = 0;
+
+    /* "(tree fragment)":9
+ *     if _dict is not None:
+ *         state += (_dict,)
+ *         use_setstate = True             # <<<<<<<<<<<<<<
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None or self.left is not None
+ */
+    __pyx_v_use_setstate = 1;
+
+    /* "(tree fragment)":7
+ *     state = (self.f, self.function, self.left)
+ *     _dict = getattr(self, '__dict__', None)
+ *     if _dict is not None:             # <<<<<<<<<<<<<<
+ *         state += (_dict,)
+ *         use_setstate = True
+ */
+    goto __pyx_L3;
+  }
+
+  /* "(tree fragment)":11
+ *         use_setstate = True
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None or self.left is not None             # <<<<<<<<<<<<<<
+ *     if use_setstate:
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, None), state
+ */
+  /*else*/ {
+    __pyx_t_2 = (__pyx_v_self->f != Py_None);
+    __pyx_t_5 = (__pyx_t_2 != 0);
+    if (!__pyx_t_5) {
+    } else {
+      __pyx_t_3 = __pyx_t_5;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_5 = (__pyx_v_self->function != ((PyObject*)Py_None));
+    __pyx_t_2 = (__pyx_t_5 != 0);
+    if (!__pyx_t_2) {
+    } else {
+      __pyx_t_3 = __pyx_t_2;
+      goto __pyx_L4_bool_binop_done;
+    }
+    __pyx_t_2 = (__pyx_v_self->left != ((PyObject*)Py_None));
+    __pyx_t_5 = (__pyx_t_2 != 0);
+    __pyx_t_3 = __pyx_t_5;
+    __pyx_L4_bool_binop_done:;
+    __pyx_v_use_setstate = __pyx_t_3;
+  }
+  __pyx_L3:;
+
+  /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None or self.left is not None
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, None), state
+ *     else:
+ */
+  __pyx_t_3 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":13
+ *         use_setstate = self.f is not None or self.function is not None or self.left is not None
+ *     if use_setstate:
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, None), state             # <<<<<<<<<<<<<<
+ *     else:
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, state)
+ */
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pyx_unpickle_blas); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_40934254);
+    __Pyx_GIVEREF(__pyx_int_40934254);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_40934254);
+    __Pyx_INCREF(Py_None);
+    __Pyx_GIVEREF(Py_None);
+    PyTuple_SET_ITEM(__pyx_t_1, 2, Py_None);
+    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_1);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_v_state);
+    __pyx_t_4 = 0;
+    __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_6;
+    __pyx_t_6 = 0;
+    goto __pyx_L0;
+
+    /* "(tree fragment)":12
+ *     else:
+ *         use_setstate = self.f is not None or self.function is not None or self.left is not None
+ *     if use_setstate:             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, None), state
+ *     else:
+ */
+  }
+
+  /* "(tree fragment)":15
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, None), state
+ *     else:
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, state)             # <<<<<<<<<<<<<<
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_blas__set_state(self, __pyx_state)
+ */
+  /*else*/ {
+    __Pyx_XDECREF(__pyx_r);
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pyx_unpickle_blas); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_1 = PyTuple_New(3); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    PyTuple_SET_ITEM(__pyx_t_1, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_40934254);
+    __Pyx_GIVEREF(__pyx_int_40934254);
+    PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_40934254);
+    __Pyx_INCREF(__pyx_v_state);
+    __Pyx_GIVEREF(__pyx_v_state);
+    PyTuple_SET_ITEM(__pyx_t_1, 2, __pyx_v_state);
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_6);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_6);
+    __Pyx_GIVEREF(__pyx_t_1);
+    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_1);
+    __pyx_t_6 = 0;
+    __pyx_t_1 = 0;
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
+    goto __pyx_L0;
+  }
+
+  /* "(tree fragment)":1
+ * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
+ *     cdef tuple state
+ *     cdef object _dict
+ */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("hyperlearn.cython.base.blas", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_AddTraceback("hyperlearn.cython.base.blas.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_state);
+  __Pyx_XDECREF(__pyx_v__dict);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_blas__set_state(self, __pyx_state)
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_4blas_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_4blas_7__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_4blas_6__setstate_cython__(((struct __pyx_obj_10hyperlearn_6cython_4base_blas *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_4blas_6__setstate_cython__(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__setstate_cython__", 0);
+
+  /* "(tree fragment)":17
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, state)
+ * def __setstate_cython__(self, __pyx_state):
+ *     __pyx_unpickle_blas__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ */
+  if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(1, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_blas__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "(tree fragment)":16
+ *     else:
+ *         return __pyx_unpickle_blas, (type(self), 0x2709b6e, state)
+ * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_blas__set_state(self, __pyx_state)
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("hyperlearn.cython.base.blas.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -9601,9 +10754,9 @@ static PyObject *__pyx_pf_10hyperlearn_6cython_4base_10blas(CYTHON_UNUSED PyObje
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_13__pyx_unpickle_process(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_10hyperlearn_6cython_4base_13__pyx_unpickle_process = {"__pyx_unpickle_process", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_13__pyx_unpickle_process, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_10hyperlearn_6cython_4base_13__pyx_unpickle_process(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7__pyx_unpickle_process(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_10hyperlearn_6cython_4base_7__pyx_unpickle_process = {"__pyx_unpickle_process", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_7__pyx_unpickle_process, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_7__pyx_unpickle_process(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -9666,14 +10819,14 @@ static PyObject *__pyx_pw_10hyperlearn_6cython_4base_13__pyx_unpickle_process(Py
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_12__pyx_unpickle_process(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_6__pyx_unpickle_process(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10hyperlearn_6cython_4base_12__pyx_unpickle_process(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_6__pyx_unpickle_process(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -10037,7 +11190,816 @@ static PyObject *__pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_process__set_
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":258
+/* "(tree fragment)":1
+ * def __pyx_unpickle_lapack(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_9__pyx_unpickle_lapack(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_10hyperlearn_6cython_4base_9__pyx_unpickle_lapack = {"__pyx_unpickle_lapack", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_9__pyx_unpickle_lapack, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_9__pyx_unpickle_lapack(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v___pyx_type = 0;
+  long __pyx_v___pyx_checksum;
+  PyObject *__pyx_v___pyx_state = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__pyx_unpickle_lapack (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_type)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_lapack", 1, 3, 3, 1); __PYX_ERR(1, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_lapack", 1, 3, 3, 2); __PYX_ERR(1, 1, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_lapack") < 0)) __PYX_ERR(1, 1, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v___pyx_type = values[0];
+    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 1, __pyx_L3_error)
+    __pyx_v___pyx_state = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_lapack", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("hyperlearn.cython.base.__pyx_unpickle_lapack", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_8__pyx_unpickle_lapack(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_8__pyx_unpickle_lapack(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_v___pyx_PickleError = 0;
+  PyObject *__pyx_v___pyx_result = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_lapack", 0);
+
+  /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xca254fb:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)
+ */
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xca254fb) != 0);
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":5
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xca254fb:
+ *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)
+ *     __pyx_result = lapack.__new__(__pyx_type)
+ */
+    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_n_s_PickleError);
+    __Pyx_GIVEREF(__pyx_n_s_PickleError);
+    PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PickleError);
+    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_v___pyx_PickleError = __pyx_t_2;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":6
+ *     if __pyx_checksum != 0xca254fb:
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *     __pyx_result = lapack.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xca, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_INCREF(__pyx_v___pyx_PickleError);
+    __pyx_t_2 = __pyx_v___pyx_PickleError; __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(1, 6, __pyx_L1_error)
+
+    /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0xca254fb:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)
+ */
+  }
+
+  /* "(tree fragment)":7
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)
+ *     __pyx_result = lapack.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_10hyperlearn_6cython_4base_lapack), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v___pyx_type) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v___pyx_type);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v___pyx_result = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)
+ *     __pyx_result = lapack.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
+  __pyx_t_6 = (__pyx_t_1 != 0);
+  if (__pyx_t_6) {
+
+    /* "(tree fragment)":9
+ *     __pyx_result = lapack.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *     return __pyx_result
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):
+ */
+    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(1, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_lapack__set_state(((struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 9, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xca254fb = (f, function, turbo))" % __pyx_checksum)
+ *     __pyx_result = lapack.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  }
+
+  /* "(tree fragment)":10
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)
+ *     return __pyx_result             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v___pyx_result);
+  __pyx_r = __pyx_v___pyx_result;
+  goto __pyx_L0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_lapack(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("hyperlearn.cython.base.__pyx_unpickle_lapack", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v___pyx_PickleError);
+  __Pyx_XDECREF(__pyx_v___pyx_result);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":11
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ */
+
+static PyObject *__pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_lapack__set_state(struct __pyx_obj_10hyperlearn_6cython_4base_lapack *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __pyx_t_10hyperlearn_6cython_4base_bool __pyx_t_2;
+  int __pyx_t_3;
+  Py_ssize_t __pyx_t_4;
+  int __pyx_t_5;
+  int __pyx_t_6;
+  PyObject *__pyx_t_7 = NULL;
+  PyObject *__pyx_t_8 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_lapack__set_state", 0);
+
+  /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[3])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 0);
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->f);
+  __Pyx_DECREF(__pyx_v___pyx_result->f);
+  __pyx_v___pyx_result->f = __pyx_t_1;
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  if (!(likely(PyUnicode_CheckExact(PyTuple_GET_ITEM(__pyx_v___pyx_state, 1)))||((PyTuple_GET_ITEM(__pyx_v___pyx_state, 1)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(PyTuple_GET_ITEM(__pyx_v___pyx_state, 1))->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 1);
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->function);
+  __Pyx_DECREF(__pyx_v___pyx_result->function);
+  __pyx_v___pyx_result->function = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_v___pyx_result->turbo = __pyx_t_2;
+
+  /* "(tree fragment)":13
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[3])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(1, 13, __pyx_L1_error)
+  }
+  __pyx_t_4 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(1, 13, __pyx_L1_error)
+  __pyx_t_5 = ((__pyx_t_4 > 3) != 0);
+  if (__pyx_t_5) {
+  } else {
+    __pyx_t_3 = __pyx_t_5;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_5 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_5 == ((int)-1))) __PYX_ERR(1, 13, __pyx_L1_error)
+  __pyx_t_6 = (__pyx_t_5 != 0);
+  __pyx_t_3 = __pyx_t_6;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_3) {
+
+    /* "(tree fragment)":14
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[3])             # <<<<<<<<<<<<<<
+ */
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_update); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(__pyx_v___pyx_state == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(1, 14, __pyx_L1_error)
+    }
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_8);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_8, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_7, PyTuple_GET_ITEM(__pyx_v___pyx_state, 3)) : __Pyx_PyObject_CallOneArg(__pyx_t_8, PyTuple_GET_ITEM(__pyx_v___pyx_state, 3));
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "(tree fragment)":13
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[3])
+ */
+  }
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_lapack__set_state(<lapack> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_lapack__set_state(lapack __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.turbo = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_AddTraceback("hyperlearn.cython.base.__pyx_unpickle_lapack__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":1
+ * def __pyx_unpickle_blas(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_11__pyx_unpickle_blas(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_10hyperlearn_6cython_4base_11__pyx_unpickle_blas = {"__pyx_unpickle_blas", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_11__pyx_unpickle_blas, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_10hyperlearn_6cython_4base_11__pyx_unpickle_blas(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v___pyx_type = 0;
+  long __pyx_v___pyx_checksum;
+  PyObject *__pyx_v___pyx_state = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__pyx_unpickle_blas (wrapper)", 0);
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
+    PyObject* values[3] = {0,0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_type)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_blas", 1, 3, 3, 1); __PYX_ERR(1, 1, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_blas", 1, 3, 3, 2); __PYX_ERR(1, 1, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_blas") < 0)) __PYX_ERR(1, 1, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+      values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
+    }
+    __pyx_v___pyx_type = values[0];
+    __pyx_v___pyx_checksum = __Pyx_PyInt_As_long(values[1]); if (unlikely((__pyx_v___pyx_checksum == (long)-1) && PyErr_Occurred())) __PYX_ERR(1, 1, __pyx_L3_error)
+    __pyx_v___pyx_state = values[2];
+  }
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_blas", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(1, 1, __pyx_L3_error)
+  __pyx_L3_error:;
+  __Pyx_AddTraceback("hyperlearn.cython.base.__pyx_unpickle_blas", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  __pyx_r = __pyx_pf_10hyperlearn_6cython_4base_10__pyx_unpickle_blas(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_10hyperlearn_6cython_4base_10__pyx_unpickle_blas(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_v___pyx_PickleError = 0;
+  PyObject *__pyx_v___pyx_result = 0;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_blas", 0);
+
+  /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0x2709b6e:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)
+ */
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0x2709b6e) != 0);
+  if (__pyx_t_1) {
+
+    /* "(tree fragment)":5
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0x2709b6e:
+ *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)
+ *     __pyx_result = blas.__new__(__pyx_type)
+ */
+    __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_n_s_PickleError);
+    __Pyx_GIVEREF(__pyx_n_s_PickleError);
+    PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_s_PickleError);
+    __pyx_t_3 = __Pyx_Import(__pyx_n_s_pickle, __pyx_t_2, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_ImportFrom(__pyx_t_3, __pyx_n_s_PickleError); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_INCREF(__pyx_t_2);
+    __pyx_v___pyx_PickleError = __pyx_t_2;
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":6
+ *     if __pyx_checksum != 0x2709b6e:
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *     __pyx_result = blas.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ */
+    __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0x27, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_INCREF(__pyx_v___pyx_PickleError);
+    __pyx_t_2 = __pyx_v___pyx_PickleError; __pyx_t_5 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
+      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_2);
+      if (likely(__pyx_t_5)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+        __Pyx_INCREF(__pyx_t_5);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_2, function);
+      }
+    }
+    __pyx_t_3 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __Pyx_Raise(__pyx_t_3, 0, 0, 0);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+    __PYX_ERR(1, 6, __pyx_L1_error)
+
+    /* "(tree fragment)":4
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ *     if __pyx_checksum != 0x2709b6e:             # <<<<<<<<<<<<<<
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)
+ */
+  }
+
+  /* "(tree fragment)":7
+ *         from pickle import PickleError as __pyx_PickleError
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)
+ *     __pyx_result = blas.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_10hyperlearn_6cython_4base_blas), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_4 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+    }
+  }
+  __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_v___pyx_type) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v___pyx_type);
+  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 7, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v___pyx_result = __pyx_t_3;
+  __pyx_t_3 = 0;
+
+  /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)
+ *     __pyx_result = blas.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
+  __pyx_t_6 = (__pyx_t_1 != 0);
+  if (__pyx_t_6) {
+
+    /* "(tree fragment)":9
+ *     __pyx_result = blas.__new__(__pyx_type)
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *     return __pyx_result
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):
+ */
+    if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(1, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_blas__set_state(((struct __pyx_obj_10hyperlearn_6cython_4base_blas *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 9, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+
+    /* "(tree fragment)":8
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x2709b6e = (f, function, left))" % __pyx_checksum)
+ *     __pyx_result = blas.__new__(__pyx_type)
+ *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ */
+  }
+
+  /* "(tree fragment)":10
+ *     if __pyx_state is not None:
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)
+ *     return __pyx_result             # <<<<<<<<<<<<<<
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v___pyx_result);
+  __pyx_r = __pyx_v___pyx_result;
+  goto __pyx_L0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_blas(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("hyperlearn.cython.base.__pyx_unpickle_blas", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v___pyx_PickleError);
+  __Pyx_XDECREF(__pyx_v___pyx_result);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "(tree fragment)":11
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ */
+
+static PyObject *__pyx_f_10hyperlearn_6cython_4base___pyx_unpickle_blas__set_state(struct __pyx_obj_10hyperlearn_6cython_4base_blas *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_2;
+  Py_ssize_t __pyx_t_3;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
+  __Pyx_RefNannySetupContext("__pyx_unpickle_blas__set_state", 0);
+
+  /* "(tree fragment)":12
+ *     return __pyx_result
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[3])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 0);
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->f);
+  __Pyx_DECREF(__pyx_v___pyx_result->f);
+  __pyx_v___pyx_result->f = __pyx_t_1;
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  if (!(likely(PyUnicode_CheckExact(PyTuple_GET_ITEM(__pyx_v___pyx_state, 1)))||((PyTuple_GET_ITEM(__pyx_v___pyx_state, 1)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(PyTuple_GET_ITEM(__pyx_v___pyx_state, 1))->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 1);
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->function);
+  __Pyx_DECREF(__pyx_v___pyx_result->function);
+  __pyx_v___pyx_result->function = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  if (!(likely(PyUnicode_CheckExact(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)))||((PyTuple_GET_ITEM(__pyx_v___pyx_state, 2)) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "unicode", Py_TYPE(PyTuple_GET_ITEM(__pyx_v___pyx_state, 2))->tp_name), 0))) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_GET_ITEM(__pyx_v___pyx_state, 2);
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->left);
+  __Pyx_DECREF(__pyx_v___pyx_result->left);
+  __pyx_v___pyx_result->left = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
+
+  /* "(tree fragment)":13
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[3])
+ */
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
+    __PYX_ERR(1, 13, __pyx_L1_error)
+  }
+  __pyx_t_3 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_3 == ((Py_ssize_t)-1))) __PYX_ERR(1, 13, __pyx_L1_error)
+  __pyx_t_4 = ((__pyx_t_3 > 3) != 0);
+  if (__pyx_t_4) {
+  } else {
+    __pyx_t_2 = __pyx_t_4;
+    goto __pyx_L4_bool_binop_done;
+  }
+  __pyx_t_4 = __Pyx_HasAttr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(1, 13, __pyx_L1_error)
+  __pyx_t_5 = (__pyx_t_4 != 0);
+  __pyx_t_2 = __pyx_t_5;
+  __pyx_L4_bool_binop_done:;
+  if (__pyx_t_2) {
+
+    /* "(tree fragment)":14
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[3])             # <<<<<<<<<<<<<<
+ */
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_update); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(__pyx_v___pyx_state == Py_None)) {
+      PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+      __PYX_ERR(1, 14, __pyx_L1_error)
+    }
+    __pyx_t_6 = NULL;
+    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
+      __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_7);
+      if (likely(__pyx_t_6)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
+        __Pyx_INCREF(__pyx_t_6);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_7, function);
+      }
+    }
+    __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_7, __pyx_t_6, PyTuple_GET_ITEM(__pyx_v___pyx_state, 3)) : __Pyx_PyObject_CallOneArg(__pyx_t_7, PyTuple_GET_ITEM(__pyx_v___pyx_state, 3));
+    __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+    /* "(tree fragment)":13
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[3])
+ */
+  }
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_blas__set_state(<blas> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_blas__set_state(blas __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.f = __pyx_state[0]; __pyx_result.function = __pyx_state[1]; __pyx_result.left = __pyx_state[2]
+ *     if len(__pyx_state) > 3 and hasattr(__pyx_result, '__dict__'):
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
+  __Pyx_AddTraceback("hyperlearn.cython.base.__pyx_unpickle_blas__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":258
  *         # experimental exception made for __getbuffer__ and __releasebuffer__
  *         # -- the details of this may change.
  *         def __getbuffer__(ndarray self, Py_buffer* info, int flags):             # <<<<<<<<<<<<<<
@@ -10086,7 +12048,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_v_info->obj = Py_None; __Pyx_INCREF(Py_None);
   __Pyx_GIVEREF(__pyx_v_info->obj);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":265
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":265
  * 
  *             cdef int i, ndim
  *             cdef int endian_detector = 1             # <<<<<<<<<<<<<<
@@ -10095,7 +12057,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_endian_detector = 1;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":266
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":266
  *             cdef int i, ndim
  *             cdef int endian_detector = 1
  *             cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)             # <<<<<<<<<<<<<<
@@ -10104,7 +12066,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_little_endian = ((((char *)(&__pyx_v_endian_detector))[0]) != 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":268
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":268
  *             cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)
  * 
  *             ndim = PyArray_NDIM(self)             # <<<<<<<<<<<<<<
@@ -10113,7 +12075,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_ndim = PyArray_NDIM(__pyx_v_self);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
  *             ndim = PyArray_NDIM(self)
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -10127,7 +12089,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L4_bool_binop_done;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":271
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":271
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_ARRAY_C_CONTIGUOUS)):             # <<<<<<<<<<<<<<
@@ -10138,7 +12100,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = __pyx_t_2;
   __pyx_L4_bool_binop_done:;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
  *             ndim = PyArray_NDIM(self)
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -10147,20 +12109,20 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   if (unlikely(__pyx_t_1)) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":272
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":272
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_ARRAY_C_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not C contiguous")             # <<<<<<<<<<<<<<
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 272, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 272, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __PYX_ERR(2, 272, __pyx_L1_error)
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":270
  *             ndim = PyArray_NDIM(self)
  * 
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -10169,7 +12131,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
  *                 raise ValueError(u"ndarray is not C contiguous")
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -10183,7 +12145,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L7_bool_binop_done;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":275
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":275
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_ARRAY_F_CONTIGUOUS)):             # <<<<<<<<<<<<<<
@@ -10194,7 +12156,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = __pyx_t_2;
   __pyx_L7_bool_binop_done:;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
  *                 raise ValueError(u"ndarray is not C contiguous")
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -10203,20 +12165,20 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   if (unlikely(__pyx_t_1)) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":276
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":276
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_ARRAY_F_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not Fortran contiguous")             # <<<<<<<<<<<<<<
  * 
  *             info.buf = PyArray_DATA(self)
  */
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__11, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 276, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 276, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_Raise(__pyx_t_3, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __PYX_ERR(2, 276, __pyx_L1_error)
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":274
  *                 raise ValueError(u"ndarray is not C contiguous")
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)             # <<<<<<<<<<<<<<
@@ -10225,7 +12187,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":278
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":278
  *                 raise ValueError(u"ndarray is not Fortran contiguous")
  * 
  *             info.buf = PyArray_DATA(self)             # <<<<<<<<<<<<<<
@@ -10234,7 +12196,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->buf = PyArray_DATA(__pyx_v_self);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":279
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":279
  * 
  *             info.buf = PyArray_DATA(self)
  *             info.ndim = ndim             # <<<<<<<<<<<<<<
@@ -10243,7 +12205,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->ndim = __pyx_v_ndim;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":280
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":280
  *             info.buf = PyArray_DATA(self)
  *             info.ndim = ndim
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -10253,7 +12215,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = (((sizeof(npy_intp)) != (sizeof(Py_ssize_t))) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":283
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":283
  *                 # Allocate new buffer for strides and shape info.
  *                 # This is allocated as one block, strides first.
  *                 info.strides = <Py_ssize_t*>PyObject_Malloc(sizeof(Py_ssize_t) * 2 * <size_t>ndim)             # <<<<<<<<<<<<<<
@@ -10262,7 +12224,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_info->strides = ((Py_ssize_t *)PyObject_Malloc((((sizeof(Py_ssize_t)) * 2) * ((size_t)__pyx_v_ndim))));
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":284
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":284
  *                 # This is allocated as one block, strides first.
  *                 info.strides = <Py_ssize_t*>PyObject_Malloc(sizeof(Py_ssize_t) * 2 * <size_t>ndim)
  *                 info.shape = info.strides + ndim             # <<<<<<<<<<<<<<
@@ -10271,7 +12233,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_info->shape = (__pyx_v_info->strides + __pyx_v_ndim);
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":285
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":285
  *                 info.strides = <Py_ssize_t*>PyObject_Malloc(sizeof(Py_ssize_t) * 2 * <size_t>ndim)
  *                 info.shape = info.strides + ndim
  *                 for i in range(ndim):             # <<<<<<<<<<<<<<
@@ -10283,7 +12245,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
       __pyx_v_i = __pyx_t_6;
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":286
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":286
  *                 info.shape = info.strides + ndim
  *                 for i in range(ndim):
  *                     info.strides[i] = PyArray_STRIDES(self)[i]             # <<<<<<<<<<<<<<
@@ -10292,7 +12254,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
       (__pyx_v_info->strides[__pyx_v_i]) = (PyArray_STRIDES(__pyx_v_self)[__pyx_v_i]);
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":287
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":287
  *                 for i in range(ndim):
  *                     info.strides[i] = PyArray_STRIDES(self)[i]
  *                     info.shape[i] = PyArray_DIMS(self)[i]             # <<<<<<<<<<<<<<
@@ -10302,7 +12264,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       (__pyx_v_info->shape[__pyx_v_i]) = (PyArray_DIMS(__pyx_v_self)[__pyx_v_i]);
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":280
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":280
  *             info.buf = PyArray_DATA(self)
  *             info.ndim = ndim
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -10312,7 +12274,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     goto __pyx_L9;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":289
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":289
  *                     info.shape[i] = PyArray_DIMS(self)[i]
  *             else:
  *                 info.strides = <Py_ssize_t*>PyArray_STRIDES(self)             # <<<<<<<<<<<<<<
@@ -10322,7 +12284,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   /*else*/ {
     __pyx_v_info->strides = ((Py_ssize_t *)PyArray_STRIDES(__pyx_v_self));
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":290
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":290
  *             else:
  *                 info.strides = <Py_ssize_t*>PyArray_STRIDES(self)
  *                 info.shape = <Py_ssize_t*>PyArray_DIMS(self)             # <<<<<<<<<<<<<<
@@ -10333,7 +12295,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   }
   __pyx_L9:;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":291
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":291
  *                 info.strides = <Py_ssize_t*>PyArray_STRIDES(self)
  *                 info.shape = <Py_ssize_t*>PyArray_DIMS(self)
  *             info.suboffsets = NULL             # <<<<<<<<<<<<<<
@@ -10342,7 +12304,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->suboffsets = NULL;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":292
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":292
  *                 info.shape = <Py_ssize_t*>PyArray_DIMS(self)
  *             info.suboffsets = NULL
  *             info.itemsize = PyArray_ITEMSIZE(self)             # <<<<<<<<<<<<<<
@@ -10351,7 +12313,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->itemsize = PyArray_ITEMSIZE(__pyx_v_self);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":293
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":293
  *             info.suboffsets = NULL
  *             info.itemsize = PyArray_ITEMSIZE(self)
  *             info.readonly = not PyArray_ISWRITEABLE(self)             # <<<<<<<<<<<<<<
@@ -10360,7 +12322,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_info->readonly = (!(PyArray_ISWRITEABLE(__pyx_v_self) != 0));
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":296
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":296
  * 
  *             cdef int t
  *             cdef char* f = NULL             # <<<<<<<<<<<<<<
@@ -10369,7 +12331,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   __pyx_v_f = NULL;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":297
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":297
  *             cdef int t
  *             cdef char* f = NULL
  *             cdef dtype descr = <dtype>PyArray_DESCR(self)             # <<<<<<<<<<<<<<
@@ -10382,7 +12344,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_v_descr = ((PyArray_Descr *)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":300
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":300
  *             cdef int offset
  * 
  *             info.obj = self             # <<<<<<<<<<<<<<
@@ -10395,7 +12357,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __Pyx_DECREF(__pyx_v_info->obj);
   __pyx_v_info->obj = ((PyObject *)__pyx_v_self);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":302
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":302
  *             info.obj = self
  * 
  *             if not PyDataType_HASFIELDS(descr):             # <<<<<<<<<<<<<<
@@ -10405,7 +12367,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   __pyx_t_1 = ((!(PyDataType_HASFIELDS(__pyx_v_descr) != 0)) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":303
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":303
  * 
  *             if not PyDataType_HASFIELDS(descr):
  *                 t = descr.type_num             # <<<<<<<<<<<<<<
@@ -10415,7 +12377,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_t_4 = __pyx_v_descr->type_num;
     __pyx_v_t = __pyx_t_4;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":304
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":304
  *             if not PyDataType_HASFIELDS(descr):
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -10435,7 +12397,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     }
     __pyx_L15_next_or:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":305
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":305
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or
  *                     (descr.byteorder == c'<' and not little_endian)):             # <<<<<<<<<<<<<<
@@ -10452,7 +12414,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_t_1 = __pyx_t_2;
     __pyx_L14_bool_binop_done:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":304
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":304
  *             if not PyDataType_HASFIELDS(descr):
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -10461,20 +12423,20 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     if (unlikely(__pyx_t_1)) {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":306
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":306
  *                 if ((descr.byteorder == c'>' and little_endian) or
  *                     (descr.byteorder == c'<' and not little_endian)):
  *                     raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 306, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 306, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(2, 306, __pyx_L1_error)
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":304
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":304
  *             if not PyDataType_HASFIELDS(descr):
  *                 t = descr.type_num
  *                 if ((descr.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -10483,7 +12445,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":307
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":307
  *                     (descr.byteorder == c'<' and not little_endian)):
  *                     raise ValueError(u"Non-native byte order not supported")
  *                 if   t == NPY_BYTE:        f = "b"             # <<<<<<<<<<<<<<
@@ -10496,7 +12458,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_UBYTE:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":308
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":308
  *                     raise ValueError(u"Non-native byte order not supported")
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"             # <<<<<<<<<<<<<<
@@ -10507,7 +12469,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_SHORT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":309
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":309
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  *                 elif t == NPY_SHORT:       f = "h"             # <<<<<<<<<<<<<<
@@ -10518,7 +12480,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_USHORT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":310
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":310
  *                 elif t == NPY_UBYTE:       f = "B"
  *                 elif t == NPY_SHORT:       f = "h"
  *                 elif t == NPY_USHORT:      f = "H"             # <<<<<<<<<<<<<<
@@ -10529,7 +12491,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_INT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":311
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":311
  *                 elif t == NPY_SHORT:       f = "h"
  *                 elif t == NPY_USHORT:      f = "H"
  *                 elif t == NPY_INT:         f = "i"             # <<<<<<<<<<<<<<
@@ -10540,7 +12502,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_UINT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":312
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":312
  *                 elif t == NPY_USHORT:      f = "H"
  *                 elif t == NPY_INT:         f = "i"
  *                 elif t == NPY_UINT:        f = "I"             # <<<<<<<<<<<<<<
@@ -10551,7 +12513,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_LONG:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":313
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":313
  *                 elif t == NPY_INT:         f = "i"
  *                 elif t == NPY_UINT:        f = "I"
  *                 elif t == NPY_LONG:        f = "l"             # <<<<<<<<<<<<<<
@@ -10562,7 +12524,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_ULONG:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":314
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":314
  *                 elif t == NPY_UINT:        f = "I"
  *                 elif t == NPY_LONG:        f = "l"
  *                 elif t == NPY_ULONG:       f = "L"             # <<<<<<<<<<<<<<
@@ -10573,7 +12535,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_LONGLONG:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":315
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":315
  *                 elif t == NPY_LONG:        f = "l"
  *                 elif t == NPY_ULONG:       f = "L"
  *                 elif t == NPY_LONGLONG:    f = "q"             # <<<<<<<<<<<<<<
@@ -10584,7 +12546,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_ULONGLONG:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":316
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":316
  *                 elif t == NPY_ULONG:       f = "L"
  *                 elif t == NPY_LONGLONG:    f = "q"
  *                 elif t == NPY_ULONGLONG:   f = "Q"             # <<<<<<<<<<<<<<
@@ -10595,7 +12557,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_FLOAT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":317
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":317
  *                 elif t == NPY_LONGLONG:    f = "q"
  *                 elif t == NPY_ULONGLONG:   f = "Q"
  *                 elif t == NPY_FLOAT:       f = "f"             # <<<<<<<<<<<<<<
@@ -10606,7 +12568,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_DOUBLE:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":318
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":318
  *                 elif t == NPY_ULONGLONG:   f = "Q"
  *                 elif t == NPY_FLOAT:       f = "f"
  *                 elif t == NPY_DOUBLE:      f = "d"             # <<<<<<<<<<<<<<
@@ -10617,7 +12579,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_LONGDOUBLE:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":319
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":319
  *                 elif t == NPY_FLOAT:       f = "f"
  *                 elif t == NPY_DOUBLE:      f = "d"
  *                 elif t == NPY_LONGDOUBLE:  f = "g"             # <<<<<<<<<<<<<<
@@ -10628,7 +12590,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_CFLOAT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":320
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":320
  *                 elif t == NPY_DOUBLE:      f = "d"
  *                 elif t == NPY_LONGDOUBLE:  f = "g"
  *                 elif t == NPY_CFLOAT:      f = "Zf"             # <<<<<<<<<<<<<<
@@ -10639,7 +12601,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_CDOUBLE:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":321
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":321
  *                 elif t == NPY_LONGDOUBLE:  f = "g"
  *                 elif t == NPY_CFLOAT:      f = "Zf"
  *                 elif t == NPY_CDOUBLE:     f = "Zd"             # <<<<<<<<<<<<<<
@@ -10650,7 +12612,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_CLONGDOUBLE:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":322
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":322
  *                 elif t == NPY_CFLOAT:      f = "Zf"
  *                 elif t == NPY_CDOUBLE:     f = "Zd"
  *                 elif t == NPY_CLONGDOUBLE: f = "Zg"             # <<<<<<<<<<<<<<
@@ -10661,7 +12623,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       case NPY_OBJECT:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":323
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":323
  *                 elif t == NPY_CDOUBLE:     f = "Zd"
  *                 elif t == NPY_CLONGDOUBLE: f = "Zg"
  *                 elif t == NPY_OBJECT:      f = "O"             # <<<<<<<<<<<<<<
@@ -10672,7 +12634,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
       default:
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":325
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":325
  *                 elif t == NPY_OBJECT:      f = "O"
  *                 else:
  *                     raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)             # <<<<<<<<<<<<<<
@@ -10693,7 +12655,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
       break;
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":326
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":326
  *                 else:
  *                     raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *                 info.format = f             # <<<<<<<<<<<<<<
@@ -10702,7 +12664,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_info->format = __pyx_v_f;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":327
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":327
  *                     raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *                 info.format = f
  *                 return             # <<<<<<<<<<<<<<
@@ -10712,7 +12674,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_r = 0;
     goto __pyx_L0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":302
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":302
  *             info.obj = self
  * 
  *             if not PyDataType_HASFIELDS(descr):             # <<<<<<<<<<<<<<
@@ -10721,7 +12683,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":329
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":329
  *                 return
  *             else:
  *                 info.format = <char*>PyObject_Malloc(_buffer_format_string_len)             # <<<<<<<<<<<<<<
@@ -10731,7 +12693,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   /*else*/ {
     __pyx_v_info->format = ((char *)PyObject_Malloc(0xFF));
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":330
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":330
  *             else:
  *                 info.format = <char*>PyObject_Malloc(_buffer_format_string_len)
  *                 info.format[0] = c'^' # Native data types, manual alignment             # <<<<<<<<<<<<<<
@@ -10740,7 +12702,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     (__pyx_v_info->format[0]) = '^';
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":331
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":331
  *                 info.format = <char*>PyObject_Malloc(_buffer_format_string_len)
  *                 info.format[0] = c'^' # Native data types, manual alignment
  *                 offset = 0             # <<<<<<<<<<<<<<
@@ -10749,7 +12711,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
  */
     __pyx_v_offset = 0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":332
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":332
  *                 info.format[0] = c'^' # Native data types, manual alignment
  *                 offset = 0
  *                 f = _util_dtypestring(descr, info.format + 1,             # <<<<<<<<<<<<<<
@@ -10759,7 +12721,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     __pyx_t_9 = __pyx_f_5numpy__util_dtypestring(__pyx_v_descr, (__pyx_v_info->format + 1), (__pyx_v_info->format + 0xFF), (&__pyx_v_offset)); if (unlikely(__pyx_t_9 == ((char *)NULL))) __PYX_ERR(2, 332, __pyx_L1_error)
     __pyx_v_f = __pyx_t_9;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":335
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":335
  *                                       info.format + _buffer_format_string_len,
  *                                       &offset)
  *                 f[0] = c'\0' # Terminate format string             # <<<<<<<<<<<<<<
@@ -10769,7 +12731,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
     (__pyx_v_f[0]) = '\x00';
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":258
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":258
  *         # experimental exception made for __getbuffer__ and __releasebuffer__
  *         # -- the details of this may change.
  *         def __getbuffer__(ndarray self, Py_buffer* info, int flags):             # <<<<<<<<<<<<<<
@@ -10801,7 +12763,7 @@ static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, P
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":337
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":337
  *                 f[0] = c'\0' # Terminate format string
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):             # <<<<<<<<<<<<<<
@@ -10825,7 +12787,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__releasebuffer__", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":338
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":338
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):
  *             if PyArray_HASFIELDS(self):             # <<<<<<<<<<<<<<
@@ -10835,7 +12797,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   __pyx_t_1 = (PyArray_HASFIELDS(__pyx_v_self) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":339
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":339
  *         def __releasebuffer__(ndarray self, Py_buffer* info):
  *             if PyArray_HASFIELDS(self):
  *                 PyObject_Free(info.format)             # <<<<<<<<<<<<<<
@@ -10844,7 +12806,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
     PyObject_Free(__pyx_v_info->format);
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":338
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":338
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):
  *             if PyArray_HASFIELDS(self):             # <<<<<<<<<<<<<<
@@ -10853,7 +12815,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":340
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":340
  *             if PyArray_HASFIELDS(self):
  *                 PyObject_Free(info.format)
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -10863,7 +12825,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   __pyx_t_1 = (((sizeof(npy_intp)) != (sizeof(Py_ssize_t))) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":341
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":341
  *                 PyObject_Free(info.format)
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):
  *                 PyObject_Free(info.strides)             # <<<<<<<<<<<<<<
@@ -10872,7 +12834,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
     PyObject_Free(__pyx_v_info->strides);
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":340
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":340
  *             if PyArray_HASFIELDS(self):
  *                 PyObject_Free(info.format)
  *             if sizeof(npy_intp) != sizeof(Py_ssize_t):             # <<<<<<<<<<<<<<
@@ -10881,7 +12843,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":337
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":337
  *                 f[0] = c'\0' # Terminate format string
  * 
  *         def __releasebuffer__(ndarray self, Py_buffer* info):             # <<<<<<<<<<<<<<
@@ -10893,7 +12855,7 @@ static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_s
   __Pyx_RefNannyFinishContext();
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":821
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":821
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -10907,7 +12869,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew1", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":822
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":822
  * 
  * cdef inline object PyArray_MultiIterNew1(a):
  *     return PyArray_MultiIterNew(1, <void*>a)             # <<<<<<<<<<<<<<
@@ -10921,7 +12883,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":821
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":821
  * ctypedef npy_cdouble     complex_t
  * 
  * cdef inline object PyArray_MultiIterNew1(a):             # <<<<<<<<<<<<<<
@@ -10940,7 +12902,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew1(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":824
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":824
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -10954,7 +12916,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew2", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":825
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":825
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)             # <<<<<<<<<<<<<<
@@ -10968,7 +12930,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":824
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":824
  *     return PyArray_MultiIterNew(1, <void*>a)
  * 
  * cdef inline object PyArray_MultiIterNew2(a, b):             # <<<<<<<<<<<<<<
@@ -10987,7 +12949,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew2(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":827
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":827
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -11001,7 +12963,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew3", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":828
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":828
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)             # <<<<<<<<<<<<<<
@@ -11015,7 +12977,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":827
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":827
  *     return PyArray_MultiIterNew(2, <void*>a, <void*>b)
  * 
  * cdef inline object PyArray_MultiIterNew3(a, b, c):             # <<<<<<<<<<<<<<
@@ -11034,7 +12996,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew3(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":830
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":830
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -11048,7 +13010,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew4", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":831
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":831
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)             # <<<<<<<<<<<<<<
@@ -11062,7 +13024,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":830
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":830
  *     return PyArray_MultiIterNew(3, <void*>a, <void*>b, <void*> c)
  * 
  * cdef inline object PyArray_MultiIterNew4(a, b, c, d):             # <<<<<<<<<<<<<<
@@ -11081,7 +13043,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew4(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":833
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":833
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -11095,7 +13057,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("PyArray_MultiIterNew5", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":834
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":834
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)             # <<<<<<<<<<<<<<
@@ -11109,7 +13071,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":833
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":833
  *     return PyArray_MultiIterNew(4, <void*>a, <void*>b, <void*>c, <void*> d)
  * 
  * cdef inline object PyArray_MultiIterNew5(a, b, c, d, e):             # <<<<<<<<<<<<<<
@@ -11128,7 +13090,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyArray_MultiIterNew5(PyObject *__
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":836
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":836
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
@@ -11142,7 +13104,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("PyDataType_SHAPE", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":837
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":837
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
@@ -11152,7 +13114,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   __pyx_t_1 = (PyDataType_HASSUBARRAY(__pyx_v_d) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":838
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":838
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):
  *         return <tuple>d.subarray.shape             # <<<<<<<<<<<<<<
@@ -11164,7 +13126,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     __pyx_r = ((PyObject*)__pyx_v_d->subarray->shape);
     goto __pyx_L0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":837
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":837
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):
  *     if PyDataType_HASSUBARRAY(d):             # <<<<<<<<<<<<<<
@@ -11173,7 +13135,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":840
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":840
  *         return <tuple>d.subarray.shape
  *     else:
  *         return ()             # <<<<<<<<<<<<<<
@@ -11187,7 +13149,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
     goto __pyx_L0;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":836
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":836
  *     return PyArray_MultiIterNew(5, <void*>a, <void*>b, <void*>c, <void*> d, <void*> e)
  * 
  * cdef inline tuple PyDataType_SHAPE(dtype d):             # <<<<<<<<<<<<<<
@@ -11202,7 +13164,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_PyDataType_SHAPE(PyArray_Descr *__
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":842
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":842
  *         return ()
  * 
  * cdef inline char* _util_dtypestring(dtype descr, char* f, char* end, int* offset) except NULL:             # <<<<<<<<<<<<<<
@@ -11231,7 +13193,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   char *__pyx_t_9;
   __Pyx_RefNannySetupContext("_util_dtypestring", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":847
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":847
  * 
  *     cdef dtype child
  *     cdef int endian_detector = 1             # <<<<<<<<<<<<<<
@@ -11240,7 +13202,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
   __pyx_v_endian_detector = 1;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":848
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":848
  *     cdef dtype child
  *     cdef int endian_detector = 1
  *     cdef bint little_endian = ((<char*>&endian_detector)[0] != 0)             # <<<<<<<<<<<<<<
@@ -11249,7 +13211,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
   __pyx_v_little_endian = ((((char *)(&__pyx_v_endian_detector))[0]) != 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":851
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":851
  *     cdef tuple fields
  * 
  *     for childname in descr.names:             # <<<<<<<<<<<<<<
@@ -11272,7 +13234,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_childname, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":852
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":852
  * 
  *     for childname in descr.names:
  *         fields = descr.fields[childname]             # <<<<<<<<<<<<<<
@@ -11289,7 +13251,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_fields, ((PyObject*)__pyx_t_3));
     __pyx_t_3 = 0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":853
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":853
  *     for childname in descr.names:
  *         fields = descr.fields[childname]
  *         child, new_offset = fields             # <<<<<<<<<<<<<<
@@ -11324,7 +13286,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __Pyx_XDECREF_SET(__pyx_v_new_offset, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":855
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":855
  *         child, new_offset = fields
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:             # <<<<<<<<<<<<<<
@@ -11341,20 +13303,20 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = ((((__pyx_v_end - __pyx_v_f) - ((int)__pyx_t_5)) < 15) != 0);
     if (unlikely(__pyx_t_6)) {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":856
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":856
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")             # <<<<<<<<<<<<<<
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 856, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 856, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(2, 856, __pyx_L1_error)
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":855
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":855
  *         child, new_offset = fields
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:             # <<<<<<<<<<<<<<
@@ -11363,7 +13325,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":858
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":858
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -11383,7 +13345,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     }
     __pyx_L8_next_or:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":859
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":859
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):             # <<<<<<<<<<<<<<
@@ -11400,7 +13362,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = __pyx_t_7;
     __pyx_L7_bool_binop_done:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":858
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":858
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -11409,20 +13371,20 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     if (unlikely(__pyx_t_6)) {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":860
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":860
  *         if ((child.byteorder == c'>' and little_endian) or
  *             (child.byteorder == c'<' and not little_endian)):
  *             raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *             # One could encode it in the format string and have Cython
  *             # complain instead, BUT: < and > in format strings also imply
  */
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__12, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 860, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_ValueError, __pyx_tuple__13, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 860, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_Raise(__pyx_t_3, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __PYX_ERR(2, 860, __pyx_L1_error)
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":858
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":858
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")
  * 
  *         if ((child.byteorder == c'>' and little_endian) or             # <<<<<<<<<<<<<<
@@ -11431,7 +13393,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":870
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":870
  * 
  *         # Output padding bytes
  *         while offset[0] < new_offset:             # <<<<<<<<<<<<<<
@@ -11447,7 +13409,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (!__pyx_t_6) break;
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":871
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":871
  *         # Output padding bytes
  *         while offset[0] < new_offset:
  *             f[0] = 120 # "x"; pad byte             # <<<<<<<<<<<<<<
@@ -11456,7 +13418,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       (__pyx_v_f[0]) = 0x78;
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":872
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":872
  *         while offset[0] < new_offset:
  *             f[0] = 120 # "x"; pad byte
  *             f += 1             # <<<<<<<<<<<<<<
@@ -11465,7 +13427,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       __pyx_v_f = (__pyx_v_f + 1);
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":873
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":873
  *             f[0] = 120 # "x"; pad byte
  *             f += 1
  *             offset[0] += 1             # <<<<<<<<<<<<<<
@@ -11476,7 +13438,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       (__pyx_v_offset[__pyx_t_8]) = ((__pyx_v_offset[__pyx_t_8]) + 1);
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":875
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":875
  *             offset[0] += 1
  * 
  *         offset[0] += child.itemsize             # <<<<<<<<<<<<<<
@@ -11486,7 +13448,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_8 = 0;
     (__pyx_v_offset[__pyx_t_8]) = ((__pyx_v_offset[__pyx_t_8]) + __pyx_v_child->elsize);
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":877
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":877
  *         offset[0] += child.itemsize
  * 
  *         if not PyDataType_HASFIELDS(child):             # <<<<<<<<<<<<<<
@@ -11496,7 +13458,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     __pyx_t_6 = ((!(PyDataType_HASFIELDS(__pyx_v_child) != 0)) != 0);
     if (__pyx_t_6) {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":878
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":878
  * 
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num             # <<<<<<<<<<<<<<
@@ -11508,7 +13470,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __Pyx_XDECREF_SET(__pyx_v_t, __pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":879
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":879
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num
  *             if end - f < 5:             # <<<<<<<<<<<<<<
@@ -11518,20 +13480,20 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       __pyx_t_6 = (((__pyx_v_end - __pyx_v_f) < 5) != 0);
       if (unlikely(__pyx_t_6)) {
 
-        /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":880
+        /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":880
  *             t = child.type_num
  *             if end - f < 5:
  *                 raise RuntimeError(u"Format string allocated too short.")             # <<<<<<<<<<<<<<
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__14, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 880, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 880, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_Raise(__pyx_t_4, 0, 0, 0);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __PYX_ERR(2, 880, __pyx_L1_error)
 
-        /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":879
+        /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":879
  *         if not PyDataType_HASFIELDS(child):
  *             t = child.type_num
  *             if end - f < 5:             # <<<<<<<<<<<<<<
@@ -11540,7 +13502,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":883
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":883
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"             # <<<<<<<<<<<<<<
@@ -11558,7 +13520,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":884
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":884
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"             # <<<<<<<<<<<<<<
@@ -11576,7 +13538,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":885
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":885
  *             if   t == NPY_BYTE:        f[0] =  98 #"b"
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"             # <<<<<<<<<<<<<<
@@ -11594,7 +13556,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":886
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":886
  *             elif t == NPY_UBYTE:       f[0] =  66 #"B"
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"             # <<<<<<<<<<<<<<
@@ -11612,7 +13574,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":887
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":887
  *             elif t == NPY_SHORT:       f[0] = 104 #"h"
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"
  *             elif t == NPY_INT:         f[0] = 105 #"i"             # <<<<<<<<<<<<<<
@@ -11630,7 +13592,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":888
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":888
  *             elif t == NPY_USHORT:      f[0] =  72 #"H"
  *             elif t == NPY_INT:         f[0] = 105 #"i"
  *             elif t == NPY_UINT:        f[0] =  73 #"I"             # <<<<<<<<<<<<<<
@@ -11648,7 +13610,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":889
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":889
  *             elif t == NPY_INT:         f[0] = 105 #"i"
  *             elif t == NPY_UINT:        f[0] =  73 #"I"
  *             elif t == NPY_LONG:        f[0] = 108 #"l"             # <<<<<<<<<<<<<<
@@ -11666,7 +13628,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":890
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":890
  *             elif t == NPY_UINT:        f[0] =  73 #"I"
  *             elif t == NPY_LONG:        f[0] = 108 #"l"
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"             # <<<<<<<<<<<<<<
@@ -11684,7 +13646,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":891
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":891
  *             elif t == NPY_LONG:        f[0] = 108 #"l"
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"             # <<<<<<<<<<<<<<
@@ -11702,7 +13664,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":892
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":892
  *             elif t == NPY_ULONG:       f[0] = 76  #"L"
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"             # <<<<<<<<<<<<<<
@@ -11720,7 +13682,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":893
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":893
  *             elif t == NPY_LONGLONG:    f[0] = 113 #"q"
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"             # <<<<<<<<<<<<<<
@@ -11738,7 +13700,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":894
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":894
  *             elif t == NPY_ULONGLONG:   f[0] = 81  #"Q"
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"             # <<<<<<<<<<<<<<
@@ -11756,7 +13718,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":895
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":895
  *             elif t == NPY_FLOAT:       f[0] = 102 #"f"
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"             # <<<<<<<<<<<<<<
@@ -11774,7 +13736,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":896
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":896
  *             elif t == NPY_DOUBLE:      f[0] = 100 #"d"
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf             # <<<<<<<<<<<<<<
@@ -11794,7 +13756,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":897
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":897
  *             elif t == NPY_LONGDOUBLE:  f[0] = 103 #"g"
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd             # <<<<<<<<<<<<<<
@@ -11814,7 +13776,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":898
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":898
  *             elif t == NPY_CFLOAT:      f[0] = 90; f[1] = 102; f += 1 # Zf
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd
  *             elif t == NPY_CLONGDOUBLE: f[0] = 90; f[1] = 103; f += 1 # Zg             # <<<<<<<<<<<<<<
@@ -11834,7 +13796,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":899
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":899
  *             elif t == NPY_CDOUBLE:     f[0] = 90; f[1] = 100; f += 1 # Zd
  *             elif t == NPY_CLONGDOUBLE: f[0] = 90; f[1] = 103; f += 1 # Zg
  *             elif t == NPY_OBJECT:      f[0] = 79 #"O"             # <<<<<<<<<<<<<<
@@ -11852,7 +13814,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
         goto __pyx_L15;
       }
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":901
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":901
  *             elif t == NPY_OBJECT:      f[0] = 79 #"O"
  *             else:
  *                 raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)             # <<<<<<<<<<<<<<
@@ -11871,7 +13833,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       }
       __pyx_L15:;
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":902
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":902
  *             else:
  *                 raise ValueError(u"unknown dtype code in numpy.pxd (%d)" % t)
  *             f += 1             # <<<<<<<<<<<<<<
@@ -11880,7 +13842,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
  */
       __pyx_v_f = (__pyx_v_f + 1);
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":877
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":877
  *         offset[0] += child.itemsize
  * 
  *         if not PyDataType_HASFIELDS(child):             # <<<<<<<<<<<<<<
@@ -11890,7 +13852,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
       goto __pyx_L13;
     }
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":906
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":906
  *             # Cython ignores struct boundary information ("T{...}"),
  *             # so don't output it
  *             f = _util_dtypestring(child, f, end, offset)             # <<<<<<<<<<<<<<
@@ -11903,7 +13865,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
     }
     __pyx_L13:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":851
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":851
  *     cdef tuple fields
  * 
  *     for childname in descr.names:             # <<<<<<<<<<<<<<
@@ -11913,7 +13875,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":907
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":907
  *             # so don't output it
  *             f = _util_dtypestring(child, f, end, offset)
  *     return f             # <<<<<<<<<<<<<<
@@ -11923,7 +13885,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   __pyx_r = __pyx_v_f;
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":842
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":842
  *         return ()
  * 
  * cdef inline char* _util_dtypestring(dtype descr, char* f, char* end, int* offset) except NULL:             # <<<<<<<<<<<<<<
@@ -11948,7 +13910,7 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *__pyx
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1022
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1022
  *     int _import_umath() except -1
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -11960,7 +13922,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_array_base", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1023
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1023
  * 
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!             # <<<<<<<<<<<<<<
@@ -11969,7 +13931,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   Py_INCREF(__pyx_v_base);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1024
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1024
  * cdef inline void set_array_base(ndarray arr, object base):
  *     Py_INCREF(base) # important to do this before stealing the reference below!
  *     PyArray_SetBaseObject(arr, base)             # <<<<<<<<<<<<<<
@@ -11978,7 +13940,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
  */
   (void)(PyArray_SetBaseObject(__pyx_v_arr, __pyx_v_base));
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1022
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1022
  *     int _import_umath() except -1
  * 
  * cdef inline void set_array_base(ndarray arr, object base):             # <<<<<<<<<<<<<<
@@ -11990,7 +13952,7 @@ static CYTHON_INLINE void __pyx_f_5numpy_set_array_base(PyArrayObject *__pyx_v_a
   __Pyx_RefNannyFinishContext();
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1026
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1026
  *     PyArray_SetBaseObject(arr, base)
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -12005,7 +13967,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("get_array_base", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1027
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1027
  * 
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)             # <<<<<<<<<<<<<<
@@ -12014,7 +13976,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   __pyx_v_base = PyArray_BASE(__pyx_v_arr);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1028
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1028
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)
  *     if base is NULL:             # <<<<<<<<<<<<<<
@@ -12024,7 +13986,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_t_1 = ((__pyx_v_base == NULL) != 0);
   if (__pyx_t_1) {
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1029
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1029
  *     base = PyArray_BASE(arr)
  *     if base is NULL:
  *         return None             # <<<<<<<<<<<<<<
@@ -12035,7 +13997,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
     __pyx_r = Py_None; __Pyx_INCREF(Py_None);
     goto __pyx_L0;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1028
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1028
  * cdef inline object get_array_base(ndarray arr):
  *     base = PyArray_BASE(arr)
  *     if base is NULL:             # <<<<<<<<<<<<<<
@@ -12044,7 +14006,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
  */
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1030
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1030
  *     if base is NULL:
  *         return None
  *     return <object>base             # <<<<<<<<<<<<<<
@@ -12056,7 +14018,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   __pyx_r = ((PyObject *)__pyx_v_base);
   goto __pyx_L0;
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1026
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1026
  *     PyArray_SetBaseObject(arr, base)
  * 
  * cdef inline object get_array_base(ndarray arr):             # <<<<<<<<<<<<<<
@@ -12071,7 +14033,7 @@ static CYTHON_INLINE PyObject *__pyx_f_5numpy_get_array_base(PyArrayObject *__py
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1034
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1034
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -12092,7 +14054,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("import_array", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1035
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1035
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12108,7 +14070,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1036
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1036
  * cdef inline int import_array() except -1:
  *     try:
  *         _import_array()             # <<<<<<<<<<<<<<
@@ -12117,7 +14079,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
  */
       __pyx_t_4 = _import_array(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(2, 1036, __pyx_L3_error)
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1035
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1035
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12131,7 +14093,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1037
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1037
  *     try:
  *         _import_array()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -12146,14 +14108,14 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1038
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1038
  *         _import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_umath() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__15, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 1038, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 1038, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -12162,7 +14124,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1035
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1035
  * # Cython code.
  * cdef inline int import_array() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12177,7 +14139,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1034
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1034
  * # Versions of the import_* functions which are more suitable for
  * # Cython code.
  * cdef inline int import_array() except -1:             # <<<<<<<<<<<<<<
@@ -12200,7 +14162,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void) {
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1040
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1040
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -12221,7 +14183,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("import_umath", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1041
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1041
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12237,7 +14199,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1042
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1042
  * cdef inline int import_umath() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -12246,7 +14208,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(2, 1042, __pyx_L3_error)
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1041
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1041
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12260,7 +14222,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1043
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1043
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -12275,14 +14237,14 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1044
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1044
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_ufunc() except -1:
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 1044, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 1044, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -12291,7 +14253,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1041
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1041
  * 
  * cdef inline int import_umath() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12306,7 +14268,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1040
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1040
  *         raise ImportError("numpy.core.multiarray failed to import")
  * 
  * cdef inline int import_umath() except -1:             # <<<<<<<<<<<<<<
@@ -12329,7 +14291,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_umath(void) {
   return __pyx_r;
 }
 
-/* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1046
+/* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1046
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -12350,7 +14312,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   PyObject *__pyx_t_8 = NULL;
   __Pyx_RefNannySetupContext("import_ufunc", 0);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1047
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1047
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12366,7 +14328,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __Pyx_XGOTREF(__pyx_t_3);
     /*try:*/ {
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1048
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1048
  * cdef inline int import_ufunc() except -1:
  *     try:
  *         _import_umath()             # <<<<<<<<<<<<<<
@@ -12375,7 +14337,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
  */
       __pyx_t_4 = _import_umath(); if (unlikely(__pyx_t_4 == ((int)-1))) __PYX_ERR(2, 1048, __pyx_L3_error)
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1047
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1047
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12389,7 +14351,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     goto __pyx_L8_try_end;
     __pyx_L3_error:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1049
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1049
  *     try:
  *         _import_umath()
  *     except Exception:             # <<<<<<<<<<<<<<
@@ -12403,12 +14365,12 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_GOTREF(__pyx_t_7);
 
-      /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1050
+      /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1050
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  */
-      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__16, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 1050, __pyx_L5_except_error)
+      __pyx_t_8 = __Pyx_PyObject_Call(__pyx_builtin_ImportError, __pyx_tuple__17, NULL); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 1050, __pyx_L5_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_Raise(__pyx_t_8, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -12417,7 +14379,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     goto __pyx_L5_except_error;
     __pyx_L5_except_error:;
 
-    /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1047
+    /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1047
  * 
  * cdef inline int import_ufunc() except -1:
  *     try:             # <<<<<<<<<<<<<<
@@ -12432,7 +14394,7 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
     __pyx_L8_try_end:;
   }
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1046
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1046
  *         raise ImportError("numpy.core.umath failed to import")
  * 
  * cdef inline int import_ufunc() except -1:             # <<<<<<<<<<<<<<
@@ -12603,7 +14565,7 @@ static PyObject *__Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_t_10hyperlearn_6
  *         """wrap(n: 'SIZE', p: 'SIZE') -> 'SIZE'"""
  *         return f(n, p)
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap, 0, __pyx_n_s_Pyx_CFunc_SIZE____SIZE____SIZE, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cfunc_to_py, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11cfunc_dot_to_py_40__Pyx_CFunc_SIZE____SIZE____SIZE___to_py_1wrap, 0, __pyx_n_s_Pyx_CFunc_SIZE____SIZE____SIZE, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cfunc_to_py, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_wrap = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12800,7 +14762,7 @@ static PyObject *__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_t_10hyper
  *         """wrap(n: 'SIZE', p: 'SIZE', k: 'int') -> 'SIZE'"""
  *         return f(n, p, k)
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap, 0, __pyx_n_s_Pyx_CFunc_SIZE____SIZE____SIZE_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cfunc_to_py, __pyx_d, ((PyObject *)__pyx_codeobj__20)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_11cfunc_dot_to_py_47__Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py_1wrap, 0, __pyx_n_s_Pyx_CFunc_SIZE____SIZE____SIZE_2, ((PyObject*)__pyx_cur_scope), __pyx_n_s_cfunc_to_py, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_wrap = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -12938,7 +14900,7 @@ static PyTypeObject __pyx_type_10hyperlearn_6cython_4base_process = {
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
-  0, /*tp_doc*/
+  "\n    Cython equivalent of Hyperlearn's base.process, but this is much faster.\n    >>> process(memcheck = {}, square = False, fractional = True)\n    [Added 7/1/19]\n\n    Parameters\n    -----------\n    memcheck:       Dictionary of memcheck arguments or 1 string. Used to check\n                    whether the matrix X satifies the system's memory constraints.\n    square:         Check whether the matrix X must be square.\n    fractional:     (default = True). Whether to convert n_components float to int\n                    (eg: 0.5 == 50%*p)\n    Returns\n    -----------\n    Wrapped up function - can call like normal functions.\n    ", /*tp_doc*/
   __pyx_tp_traverse_10hyperlearn_6cython_4base_process, /*tp_traverse*/
   __pyx_tp_clear_10hyperlearn_6cython_4base_process, /*tp_clear*/
   0, /*tp_richcompare*/
@@ -12956,6 +14918,228 @@ static PyTypeObject __pyx_type_10hyperlearn_6cython_4base_process = {
   __pyx_pw_10hyperlearn_6cython_4base_7process_1__init__, /*tp_init*/
   0, /*tp_alloc*/
   __pyx_tp_new_10hyperlearn_6cython_4base_process, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base_lapack(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_10hyperlearn_6cython_4base_lapack *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)o);
+  p->function = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->f = Py_None; Py_INCREF(Py_None);
+  return o;
+}
+
+static void __pyx_tp_dealloc_10hyperlearn_6cython_4base_lapack(PyObject *o) {
+  struct __pyx_obj_10hyperlearn_6cython_4base_lapack *p = (struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->function);
+  Py_CLEAR(p->f);
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static int __pyx_tp_traverse_10hyperlearn_6cython_4base_lapack(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_10hyperlearn_6cython_4base_lapack *p = (struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)o;
+  if (p->f) {
+    e = (*v)(p->f, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_10hyperlearn_6cython_4base_lapack(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_10hyperlearn_6cython_4base_lapack *p = (struct __pyx_obj_10hyperlearn_6cython_4base_lapack *)o;
+  tmp = ((PyObject*)p->f);
+  p->f = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_10hyperlearn_6cython_4base_lapack[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_6lapack_5__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_6lapack_7__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_10hyperlearn_6cython_4base_lapack = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "hyperlearn.cython.base.lapack", /*tp_name*/
+  sizeof(struct __pyx_obj_10hyperlearn_6cython_4base_lapack), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_10hyperlearn_6cython_4base_lapack, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  __pyx_pw_10hyperlearn_6cython_4base_6lapack_3__call__, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  "\n    Calls LAPACK functions from Scipy. Use like this: lapack(\"LAPACK function\")(\"args\")\n    For example: lapack(\"gesdd\")(X, full_matrices = False) for SVD. Types are automatically\n    determined from X, so no need to specify the type of the matrix.\n    >>> lapack(function, numba = None, turbo = True)\n    ", /*tp_doc*/
+  __pyx_tp_traverse_10hyperlearn_6cython_4base_lapack, /*tp_traverse*/
+  __pyx_tp_clear_10hyperlearn_6cython_4base_lapack, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_10hyperlearn_6cython_4base_lapack, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  __pyx_pw_10hyperlearn_6cython_4base_6lapack_1__init__, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_10hyperlearn_6cython_4base_lapack, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+};
+
+static PyObject *__pyx_tp_new_10hyperlearn_6cython_4base_blas(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_10hyperlearn_6cython_4base_blas *p;
+  PyObject *o;
+  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
+    o = (*t->tp_alloc)(t, 0);
+  } else {
+    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
+  }
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_10hyperlearn_6cython_4base_blas *)o);
+  p->function = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  p->f = Py_None; Py_INCREF(Py_None);
+  p->left = ((PyObject*)Py_None); Py_INCREF(Py_None);
+  return o;
+}
+
+static void __pyx_tp_dealloc_10hyperlearn_6cython_4base_blas(PyObject *o) {
+  struct __pyx_obj_10hyperlearn_6cython_4base_blas *p = (struct __pyx_obj_10hyperlearn_6cython_4base_blas *)o;
+  #if CYTHON_USE_TP_FINALIZE
+  if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
+    if (PyObject_CallFinalizerFromDealloc(o)) return;
+  }
+  #endif
+  PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->function);
+  Py_CLEAR(p->f);
+  Py_CLEAR(p->left);
+  (*Py_TYPE(o)->tp_free)(o);
+}
+
+static int __pyx_tp_traverse_10hyperlearn_6cython_4base_blas(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_10hyperlearn_6cython_4base_blas *p = (struct __pyx_obj_10hyperlearn_6cython_4base_blas *)o;
+  if (p->f) {
+    e = (*v)(p->f, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_10hyperlearn_6cython_4base_blas(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_10hyperlearn_6cython_4base_blas *p = (struct __pyx_obj_10hyperlearn_6cython_4base_blas *)o;
+  tmp = ((PyObject*)p->f);
+  p->f = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+
+static PyMethodDef __pyx_methods_10hyperlearn_6cython_4base_blas[] = {
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_4blas_5__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_4blas_7__setstate_cython__, METH_O, 0},
+  {0, 0, 0, 0}
+};
+
+static PyTypeObject __pyx_type_10hyperlearn_6cython_4base_blas = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "hyperlearn.cython.base.blas", /*tp_name*/
+  sizeof(struct __pyx_obj_10hyperlearn_6cython_4base_blas), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_10hyperlearn_6cython_4base_blas, /*tp_dealloc*/
+  0, /*tp_print*/
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  __pyx_pw_10hyperlearn_6cython_4base_4blas_3__call__, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  "\n    Calls BLAS functions from Scipy. Use like this: blas(\"BLAS function\")(\"args\")\n    For example: blas(\"syrk\")(X) for symmetric matrix multiply. Types are automatically\n    determined from X, so no need to specify the type of the matrix.\n    >>> lapack(function, left = \"\")\n    ", /*tp_doc*/
+  __pyx_tp_traverse_10hyperlearn_6cython_4base_blas, /*tp_traverse*/
+  __pyx_tp_clear_10hyperlearn_6cython_4base_blas, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  __pyx_methods_10hyperlearn_6cython_4base_blas, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  __pyx_pw_10hyperlearn_6cython_4base_4blas_1__init__, /*tp_init*/
+  0, /*tp_alloc*/
+  __pyx_tp_new_10hyperlearn_6cython_4base_blas, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -13360,9 +15544,6 @@ static PyMethodDef __pyx_methods[] = {
   {"isList", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_1isList, METH_O, 0},
   {"available_memory", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_3available_memory, METH_NOARGS, __pyx_doc_10hyperlearn_6cython_4base_2available_memory},
   {"isComplex", (PyCFunction)__pyx_pw_10hyperlearn_6cython_4base_5isComplex, METH_O, __pyx_doc_10hyperlearn_6cython_4base_4isComplex},
-  {"wrapper", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_7wrapper, METH_VARARGS|METH_KEYWORDS, __pyx_doc_10hyperlearn_6cython_4base_6wrapper},
-  {"lapack", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_9lapack, METH_VARARGS|METH_KEYWORDS, 0},
-  {"blas", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_10hyperlearn_6cython_4base_11blas, METH_VARARGS|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 
@@ -13421,7 +15602,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Function_has_too_many_inputs_Onl, __pyx_k_Function_has_too_many_inputs_Onl, sizeof(__pyx_k_Function_has_too_many_inputs_Onl), 0, 1, 0, 0},
   {&__pyx_kp_u_Function_needs_1_function_argume, __pyx_k_Function_needs_1_function_argume, sizeof(__pyx_k_Function_needs_1_function_argume), 0, 1, 0, 0},
   {&__pyx_n_s_ImportError, __pyx_k_ImportError, sizeof(__pyx_k_ImportError), 0, 0, 1, 1},
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0x27, __pyx_k_Incompatible_checksums_s_vs_0x27, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x27), 0, 0, 1, 0},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0xbb, __pyx_k_Incompatible_checksums_s_vs_0xbb, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xbb), 0, 0, 1, 0},
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0xca, __pyx_k_Incompatible_checksums_s_vs_0xca, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xca), 0, 0, 1, 0},
   {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
   {&__pyx_kp_u_MB_but, __pyx_k_MB_but, sizeof(__pyx_k_MB_but), 0, 1, 0, 0},
   {&__pyx_kp_u_MB_is_free_so_an_extra, __pyx_k_MB_is_free_so_an_extra, sizeof(__pyx_k_MB_is_free_so_an_extra), 0, 1, 0, 0},
@@ -13440,10 +15623,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
   {&__pyx_n_u_X, __pyx_k_X, sizeof(__pyx_k_X), 0, 1, 0, 1},
+  {&__pyx_kp_u__10, __pyx_k__10, sizeof(__pyx_k__10), 0, 1, 0, 0},
   {&__pyx_n_s_args, __pyx_k_args, sizeof(__pyx_k_args), 0, 0, 1, 1},
   {&__pyx_n_s_astype, __pyx_k_astype, sizeof(__pyx_k_astype), 0, 0, 1, 1},
   {&__pyx_n_s_available, __pyx_k_available, sizeof(__pyx_k_available), 0, 0, 1, 1},
+  {&__pyx_kp_s_base_pyx, __pyx_k_base_pyx, sizeof(__pyx_k_base_pyx), 0, 0, 1, 0},
   {&__pyx_kp_u_blas, __pyx_k_blas, sizeof(__pyx_k_blas), 0, 1, 0, 0},
+  {&__pyx_n_s_blas_2, __pyx_k_blas_2, sizeof(__pyx_k_blas_2), 0, 0, 1, 1},
+  {&__pyx_n_s_blas_3, __pyx_k_blas_3, sizeof(__pyx_k_blas_3), 0, 0, 1, 1},
   {&__pyx_n_u_c, __pyx_k_c, sizeof(__pyx_k_c), 0, 1, 0, 1},
   {&__pyx_n_s_call___locals_decorate, __pyx_k_call___locals_decorate, sizeof(__pyx_k_call___locals_decorate), 0, 0, 1, 1},
   {&__pyx_n_s_call___locals_decorate_locals, __pyx_k_call___locals_decorate_locals, sizeof(__pyx_k_call___locals_decorate_locals), 0, 0, 1, 1},
@@ -13456,7 +15643,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_decorate, __pyx_k_decorate, sizeof(__pyx_k_decorate), 0, 0, 1, 1},
   {&__pyx_n_s_default, __pyx_k_default, sizeof(__pyx_k_default), 0, 0, 1, 1},
   {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
+  {&__pyx_n_s_dt, __pyx_k_dt, sizeof(__pyx_k_dt), 0, 0, 1, 1},
   {&__pyx_n_s_dtype, __pyx_k_dtype, sizeof(__pyx_k_dtype), 0, 0, 1, 1},
+  {&__pyx_n_s_eval, __pyx_k_eval, sizeof(__pyx_k_eval), 0, 0, 1, 1},
   {&__pyx_n_u_extended, __pyx_k_extended, sizeof(__pyx_k_extended), 0, 1, 0, 1},
   {&__pyx_n_u_extra, __pyx_k_extra, sizeof(__pyx_k_extra), 0, 1, 0, 1},
   {&__pyx_n_s_f, __pyx_k_f, sizeof(__pyx_k_f), 0, 0, 1, 1},
@@ -13465,13 +15654,12 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_float64, __pyx_k_float64, sizeof(__pyx_k_float64), 0, 0, 1, 1},
   {&__pyx_n_s_fractional, __pyx_k_fractional, sizeof(__pyx_k_fractional), 0, 0, 1, 1},
   {&__pyx_n_u_full, __pyx_k_full, sizeof(__pyx_k_full), 0, 1, 0, 1},
+  {&__pyx_n_s_funcs, __pyx_k_funcs, sizeof(__pyx_k_funcs), 0, 0, 1, 1},
   {&__pyx_n_s_function, __pyx_k_function, sizeof(__pyx_k_function), 0, 0, 1, 1},
-  {&__pyx_n_s_function_args, __pyx_k_function_args, sizeof(__pyx_k_function_args), 0, 0, 1, 1},
-  {&__pyx_n_s_function_signature, __pyx_k_function_signature, sizeof(__pyx_k_function_signature), 0, 0, 1, 1},
   {&__pyx_n_s_functools, __pyx_k_functools, sizeof(__pyx_k_functools), 0, 0, 1, 1},
+  {&__pyx_n_s_fx, __pyx_k_fx, sizeof(__pyx_k_fx), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
   {&__pyx_n_s_hyperlearn_cython_base, __pyx_k_hyperlearn_cython_base, sizeof(__pyx_k_hyperlearn_cython_base), 0, 0, 1, 1},
-  {&__pyx_kp_s_hyperlearn_cython_base_pyx, __pyx_k_hyperlearn_cython_base_pyx, sizeof(__pyx_k_hyperlearn_cython_base_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_iinfo, __pyx_k_iinfo, sizeof(__pyx_k_iinfo), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_inspect, __pyx_k_inspect, sizeof(__pyx_k_inspect), 0, 0, 1, 1},
@@ -13486,6 +15674,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 0, 1, 1},
   {&__pyx_n_s_keys, __pyx_k_keys, sizeof(__pyx_k_keys), 0, 0, 1, 1},
   {&__pyx_n_s_kwargs, __pyx_k_kwargs, sizeof(__pyx_k_kwargs), 0, 0, 1, 1},
+  {&__pyx_n_s_lapack, __pyx_k_lapack, sizeof(__pyx_k_lapack), 0, 0, 1, 1},
+  {&__pyx_n_s_lapack_2, __pyx_k_lapack_2, sizeof(__pyx_k_lapack_2), 0, 0, 1, 1},
   {&__pyx_kp_u_lapack_c, __pyx_k_lapack_c, sizeof(__pyx_k_lapack_c), 0, 1, 0, 0},
   {&__pyx_kp_u_lapack_d, __pyx_k_lapack_d, sizeof(__pyx_k_lapack_d), 0, 1, 0, 0},
   {&__pyx_kp_u_lapack_s, __pyx_k_lapack_s, sizeof(__pyx_k_lapack_s), 0, 1, 0, 0},
@@ -13495,8 +15685,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_matrix, __pyx_k_matrix, sizeof(__pyx_k_matrix), 0, 0, 1, 1},
   {&__pyx_n_s_max, __pyx_k_max, sizeof(__pyx_k_max), 0, 0, 1, 1},
   {&__pyx_n_s_memcheck, __pyx_k_memcheck, sizeof(__pyx_k_memcheck), 0, 0, 1, 1},
-  {&__pyx_n_s_memory_keys, __pyx_k_memory_keys, sizeof(__pyx_k_memory_keys), 0, 0, 1, 1},
-  {&__pyx_n_s_memory_length, __pyx_k_memory_length, sizeof(__pyx_k_memory_length), 0, 0, 1, 1},
   {&__pyx_n_u_min_left, __pyx_k_min_left, sizeof(__pyx_k_min_left), 0, 1, 0, 1},
   {&__pyx_n_u_min_right, __pyx_k_min_right, sizeof(__pyx_k_min_right), 0, 1, 0, 1},
   {&__pyx_n_u_minimum, __pyx_k_minimum, sizeof(__pyx_k_minimum), 0, 1, 0, 1},
@@ -13509,6 +15697,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
   {&__pyx_n_u_nocheck, __pyx_k_nocheck, sizeof(__pyx_k_nocheck), 0, 1, 0, 1},
   {&__pyx_n_s_np, __pyx_k_np, sizeof(__pyx_k_np), 0, 0, 1, 1},
+  {&__pyx_n_s_numba, __pyx_k_numba, sizeof(__pyx_k_numba), 0, 0, 1, 1},
+  {&__pyx_kp_u_numba_2, __pyx_k_numba_2, sizeof(__pyx_k_numba_2), 0, 1, 0, 0},
+  {&__pyx_n_s_numba_3, __pyx_k_numba_3, sizeof(__pyx_k_numba_3), 0, 0, 1, 1},
   {&__pyx_n_s_numpy, __pyx_k_numpy, sizeof(__pyx_k_numpy), 0, 0, 1, 1},
   {&__pyx_kp_u_numpy_core_multiarray_failed_to, __pyx_k_numpy_core_multiarray_failed_to, sizeof(__pyx_k_numpy_core_multiarray_failed_to), 0, 1, 0, 0},
   {&__pyx_kp_u_numpy_core_umath_failed_to_impor, __pyx_k_numpy_core_umath_failed_to_impor, sizeof(__pyx_k_numpy_core_umath_failed_to_impor), 0, 1, 0, 0},
@@ -13523,6 +15714,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_result, __pyx_k_pyx_result, sizeof(__pyx_k_pyx_result), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_type, __pyx_k_pyx_type, sizeof(__pyx_k_pyx_type), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_blas, __pyx_k_pyx_unpickle_blas, sizeof(__pyx_k_pyx_unpickle_blas), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_lapack, __pyx_k_pyx_unpickle_lapack, sizeof(__pyx_k_pyx_unpickle_lapack), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_unpickle_process, __pyx_k_pyx_unpickle_process, sizeof(__pyx_k_pyx_unpickle_process), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
@@ -13530,6 +15723,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
   {&__pyx_n_u_s, __pyx_k_s, sizeof(__pyx_k_s), 0, 1, 0, 1},
   {&__pyx_n_u_same, __pyx_k_same, sizeof(__pyx_k_same), 0, 1, 0, 1},
+  {&__pyx_n_s_scipy_linalg, __pyx_k_scipy_linalg, sizeof(__pyx_k_scipy_linalg), 0, 0, 1, 1},
+  {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
   {&__pyx_n_s_shape, __pyx_k_shape, sizeof(__pyx_k_shape), 0, 0, 1, 1},
@@ -13546,6 +15741,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_uint8, __pyx_k_uint8, sizeof(__pyx_k_uint8), 0, 0, 1, 1},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
+  {&__pyx_n_s_values, __pyx_k_values, sizeof(__pyx_k_values), 0, 0, 1, 1},
   {&__pyx_n_s_virtual_memory, __pyx_k_virtual_memory, sizeof(__pyx_k_virtual_memory), 0, 0, 1, 1},
   {&__pyx_n_s_wrap, __pyx_k_wrap, sizeof(__pyx_k_wrap), 0, 0, 1, 1},
   {&__pyx_n_s_wrapper, __pyx_k_wrapper, sizeof(__pyx_k_wrapper), 0, 0, 1, 1},
@@ -13554,13 +15750,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 193, __pyx_L1_error)
-  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 220, __pyx_L1_error)
-  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 222, __pyx_L1_error)
-  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(0, 275, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 338, __pyx_L1_error)
-  __pyx_builtin_NameError = __Pyx_GetBuiltinName(__pyx_n_s_NameError); if (!__pyx_builtin_NameError) __PYX_ERR(0, 357, __pyx_L1_error)
-  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 471, __pyx_L1_error)
+  __pyx_builtin_AssertionError = __Pyx_GetBuiltinName(__pyx_n_s_AssertionError); if (!__pyx_builtin_AssertionError) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_builtin_chr = __Pyx_GetBuiltinName(__pyx_n_s_chr); if (!__pyx_builtin_chr) __PYX_ERR(0, 226, __pyx_L1_error)
+  __pyx_builtin_IndexError = __Pyx_GetBuiltinName(__pyx_n_s_IndexError); if (!__pyx_builtin_IndexError) __PYX_ERR(0, 279, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 342, __pyx_L1_error)
+  __pyx_builtin_NameError = __Pyx_GetBuiltinName(__pyx_n_s_NameError); if (!__pyx_builtin_NameError) __PYX_ERR(0, 361, __pyx_L1_error)
+  __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) __PYX_ERR(0, 475, __pyx_L1_error)
+  __pyx_builtin_eval = __Pyx_GetBuiltinName(__pyx_n_s_eval); if (!__pyx_builtin_eval) __PYX_ERR(0, 595, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 272, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 856, __pyx_L1_error)
   __pyx_builtin_ImportError = __Pyx_GetBuiltinName(__pyx_n_s_ImportError); if (!__pyx_builtin_ImportError) __PYX_ERR(2, 1038, __pyx_L1_error)
@@ -13573,139 +15770,139 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "hyperlearn/cython/base.pyx":275
+  /* "hyperlearn/cython/base.pyx":279
  *     if ifCheck:
  *         if size == 0:
  *             raise IndexError("Function needs >= 1 function arguments.")             # <<<<<<<<<<<<<<
  * 
  *         if size > number_args:
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_Function_needs_1_function_argume); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 275, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_Function_needs_1_function_argume); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 279, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "hyperlearn/cython/base.pyx":294
+  /* "hyperlearn/cython/base.pyx":298
  *         # if not array
  *         elif Xdtype is not np.ndarray:
  *             raise IndexError("First argument is not a 2D array. Must be an array.")             # <<<<<<<<<<<<<<
  *         else:
  *             X = args[0]
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_First_argument_is_not_a_2D_array); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 294, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_First_argument_is_not_a_2D_array); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 298, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "hyperlearn/cython/base.pyx":547
+  /* "hyperlearn/cython/base.pyx":568
  *                 except:
  *                     # Memory Error again --> didnt catch
  *                     raise MemoryError("Operation requires more memory than "             # <<<<<<<<<<<<<<
  *             "what the system resources offer.")
  *             return wrapper
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Operation_requires_more_memory_t); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 547, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_Operation_requires_more_memory_t); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 568, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "hyperlearn/cython/base.pyx":536
+  /* "hyperlearn/cython/base.pyx":557
  *         def decorate(f):
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):             # <<<<<<<<<<<<<<
  *                 args = list(args)
  *                 wrapper(
  */
-  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_n_s_args, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 536, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(2, __pyx_n_s_args, __pyx_n_s_kwargs); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 557, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
-  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyperlearn_cython_base_pyx, __pyx_n_s_wrapper, 536, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 536, __pyx_L1_error)
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS|CO_VARARGS|CO_VARKEYWORDS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__6, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_base_pyx, __pyx_n_s_wrapper, 557, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(0, 557, __pyx_L1_error)
 
-  /* "hyperlearn/cython/base.pyx":534
+  /* "hyperlearn/cython/base.pyx":555
  *             self.not_processed = False
  * 
  *         def decorate(f):             # <<<<<<<<<<<<<<
  *             #@wraps(f)
  *             def wrapper(*args, **kwargs):
  */
-  __pyx_tuple__8 = PyTuple_Pack(3, __pyx_n_s_f, __pyx_n_s_wrapper, __pyx_n_s_wrapper); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 534, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(3, __pyx_n_s_f, __pyx_n_s_wrapper, __pyx_n_s_wrapper); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(0, 555, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_hyperlearn_cython_base_pyx, __pyx_n_s_decorate, 534, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 534, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_base_pyx, __pyx_n_s_decorate, 555, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(0, 555, __pyx_L1_error)
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":272
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":272
  *             if ((flags & pybuf.PyBUF_C_CONTIGUOUS == pybuf.PyBUF_C_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_ARRAY_C_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not C contiguous")             # <<<<<<<<<<<<<<
  * 
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(2, 272, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__10);
-  __Pyx_GIVEREF(__pyx_tuple__10);
+  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_C_contiguous); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 272, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":276
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":276
  *             if ((flags & pybuf.PyBUF_F_CONTIGUOUS == pybuf.PyBUF_F_CONTIGUOUS)
  *                 and not PyArray_CHKFLAGS(self, NPY_ARRAY_F_CONTIGUOUS)):
  *                 raise ValueError(u"ndarray is not Fortran contiguous")             # <<<<<<<<<<<<<<
  * 
  *             info.buf = PyArray_DATA(self)
  */
-  __pyx_tuple__11 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(2, 276, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__11);
-  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_ndarray_is_not_Fortran_contiguou); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 276, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__12);
+  __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":306
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":306
  *                 if ((descr.byteorder == c'>' and little_endian) or
  *                     (descr.byteorder == c'<' and not little_endian)):
  *                     raise ValueError(u"Non-native byte order not supported")             # <<<<<<<<<<<<<<
  *                 if   t == NPY_BYTE:        f = "b"
  *                 elif t == NPY_UBYTE:       f = "B"
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(2, 306, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__12);
-  __Pyx_GIVEREF(__pyx_tuple__12);
+  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_Non_native_byte_order_not_suppor); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 306, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__13);
+  __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":856
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":856
  * 
  *         if (end - f) - <int>(new_offset - offset[0]) < 15:
  *             raise RuntimeError(u"Format string allocated too short, see comment in numpy.pxd")             # <<<<<<<<<<<<<<
  * 
  *         if ((child.byteorder == c'>' and little_endian) or
  */
-  __pyx_tuple__13 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(2, 856, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
+  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 856, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__14);
+  __Pyx_GIVEREF(__pyx_tuple__14);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":880
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":880
  *             t = child.type_num
  *             if end - f < 5:
  *                 raise RuntimeError(u"Format string allocated too short.")             # <<<<<<<<<<<<<<
  * 
  *             # Until ticket #99 is fixed, use integers to avoid warnings
  */
-  __pyx_tuple__14 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(2, 880, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__14);
-  __Pyx_GIVEREF(__pyx_tuple__14);
+  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_u_Format_string_allocated_too_shor_2); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(2, 880, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1038
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1038
  *         _import_array()
  *     except Exception:
  *         raise ImportError("numpy.core.multiarray failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_umath() except -1:
  */
-  __pyx_tuple__15 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(2, 1038, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__15);
-  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_multiarray_failed_to); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(2, 1038, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__16);
+  __Pyx_GIVEREF(__pyx_tuple__16);
 
-  /* "../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1044
+  /* "../../../../Anaconda3/lib/site-packages/Cython/Includes/numpy/__init__.pxd":1044
  *         _import_umath()
  *     except Exception:
  *         raise ImportError("numpy.core.umath failed to import")             # <<<<<<<<<<<<<<
  * 
  * cdef inline int import_ufunc() except -1:
  */
-  __pyx_tuple__16 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(2, 1044, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__16);
-  __Pyx_GIVEREF(__pyx_tuple__16);
+  __pyx_tuple__17 = PyTuple_Pack(1, __pyx_kp_u_numpy_core_umath_failed_to_impor); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(2, 1044, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__17);
+  __Pyx_GIVEREF(__pyx_tuple__17);
 
   /* "cfunc.to_py":65
  * @cname("__Pyx_CFunc_SIZE____SIZE____SIZE___to_py")
@@ -13714,24 +15911,32 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         """wrap(n: 'SIZE', p: 'SIZE') -> 'SIZE'"""
  *         return f(n, p)
  */
-  __pyx_tuple__17 = PyTuple_Pack(2, __pyx_n_s_n, __pyx_n_s_p); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(1, 65, __pyx_L1_error)
-  __pyx_tuple__19 = PyTuple_Pack(3, __pyx_n_s_n, __pyx_n_s_p, __pyx_n_s_k); if (unlikely(!__pyx_tuple__19)) __PYX_ERR(1, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(2, __pyx_n_s_n, __pyx_n_s_p); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__18);
+  __Pyx_GIVEREF(__pyx_tuple__18);
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(3, __pyx_n_s_n, __pyx_n_s_p, __pyx_n_s_k); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(1, 65, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__20);
+  __Pyx_GIVEREF(__pyx_tuple__20);
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_wrap, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(1, 65, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_process(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_tuple__21 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__21)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__21);
-  __Pyx_GIVEREF(__pyx_tuple__21);
-  __pyx_codeobj__22 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__21, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_process, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__22)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_tuple__22 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__22);
+  __Pyx_GIVEREF(__pyx_tuple__22);
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_process, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__24);
+  __Pyx_GIVEREF(__pyx_tuple__24);
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_lapack, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__26);
+  __Pyx_GIVEREF(__pyx_tuple__26);
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_blas, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -13747,9 +15952,12 @@ PyEval_InitThreads();
 
 if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 2, __pyx_L1_error)
 
+  __pyx_umethod_PyDict_Type_values.type = (PyObject*)&PyDict_Type;
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 2, __pyx_L1_error);
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_int_40934254 = PyInt_FromLong(40934254L); if (unlikely(!__pyx_int_40934254)) __PYX_ERR(0, 2, __pyx_L1_error)
   __pyx_int_196726357 = PyInt_FromLong(196726357L); if (unlikely(!__pyx_int_196726357)) __PYX_ERR(0, 2, __pyx_L1_error)
+  __pyx_int_211965179 = PyInt_FromLong(211965179L); if (unlikely(!__pyx_int_211965179)) __PYX_ERR(0, 2, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -13792,21 +16000,37 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base_process) < 0) __PYX_ERR(0, 510, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base_process) < 0) __PYX_ERR(0, 515, __pyx_L1_error)
   __pyx_type_10hyperlearn_6cython_4base_process.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10hyperlearn_6cython_4base_process.tp_dictoffset && __pyx_type_10hyperlearn_6cython_4base_process.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_10hyperlearn_6cython_4base_process.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_process, (PyObject *)&__pyx_type_10hyperlearn_6cython_4base_process) < 0) __PYX_ERR(0, 510, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10hyperlearn_6cython_4base_process) < 0) __PYX_ERR(0, 510, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_process, (PyObject *)&__pyx_type_10hyperlearn_6cython_4base_process) < 0) __PYX_ERR(0, 515, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10hyperlearn_6cython_4base_process) < 0) __PYX_ERR(0, 515, __pyx_L1_error)
   __pyx_ptype_10hyperlearn_6cython_4base_process = &__pyx_type_10hyperlearn_6cython_4base_process;
-  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__) < 0) __PYX_ERR(0, 528, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base_lapack) < 0) __PYX_ERR(0, 577, __pyx_L1_error)
+  __pyx_type_10hyperlearn_6cython_4base_lapack.tp_print = 0;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10hyperlearn_6cython_4base_lapack.tp_dictoffset && __pyx_type_10hyperlearn_6cython_4base_lapack.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_10hyperlearn_6cython_4base_lapack.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_lapack, (PyObject *)&__pyx_type_10hyperlearn_6cython_4base_lapack) < 0) __PYX_ERR(0, 577, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10hyperlearn_6cython_4base_lapack) < 0) __PYX_ERR(0, 577, __pyx_L1_error)
+  __pyx_ptype_10hyperlearn_6cython_4base_lapack = &__pyx_type_10hyperlearn_6cython_4base_lapack;
+  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base_blas) < 0) __PYX_ERR(0, 630, __pyx_L1_error)
+  __pyx_type_10hyperlearn_6cython_4base_blas.tp_print = 0;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10hyperlearn_6cython_4base_blas.tp_dictoffset && __pyx_type_10hyperlearn_6cython_4base_blas.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_10hyperlearn_6cython_4base_blas.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_blas_2, (PyObject *)&__pyx_type_10hyperlearn_6cython_4base_blas) < 0) __PYX_ERR(0, 630, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10hyperlearn_6cython_4base_blas) < 0) __PYX_ERR(0, 630, __pyx_L1_error)
+  __pyx_ptype_10hyperlearn_6cython_4base_blas = &__pyx_type_10hyperlearn_6cython_4base_blas;
+  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__) < 0) __PYX_ERR(0, 549, __pyx_L1_error)
   __pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__.tp_dictoffset && __pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
   }
   __pyx_ptype_10hyperlearn_6cython_4base___pyx_scope_struct____call__ = &__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct____call__;
-  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate) < 0) __PYX_ERR(0, 534, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate) < 0) __PYX_ERR(0, 555, __pyx_L1_error)
   __pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate.tp_dictoffset && __pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_10hyperlearn_6cython_4base___pyx_scope_struct_1_decorate.tp_getattro = __Pyx_PyObject_GenericGetAttrNoDict;
@@ -14105,7 +16329,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   #endif
 
-  /* "hyperlearn/cython/DEFINE.pyx":3
+  /* "DEFINE.pyx":3
  * 
  * cimport numpy as np
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -14117,7 +16341,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(6, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "hyperlearn/cython/DEFINE.pyx":4
+  /* "DEFINE.pyx":4
  * cimport numpy as np
  * import numpy as np
  * np.import_array()             # <<<<<<<<<<<<<<
@@ -14126,7 +16350,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_t_2 = __pyx_f_5numpy_import_array(); if (unlikely(__pyx_t_2 == ((int)-1))) __PYX_ERR(6, 4, __pyx_L1_error)
 
-  /* "hyperlearn/cython/DEFINE.pyx":29
+  /* "DEFINE.pyx":29
  * 
  * cdef char float32, float64, complex64, complex128, cfloat, ccomplex
  * float32, float64, complex64, complex128, cfloat, ccomplex = 102, 100, 70, 68, 103, 71             # <<<<<<<<<<<<<<
@@ -14146,7 +16370,7 @@ if (!__Pyx_RefNanny) {
   __pyx_v_10hyperlearn_6cython_4base_cfloat = __pyx_t_7;
   __pyx_v_10hyperlearn_6cython_4base_ccomplex = __pyx_t_8;
 
-  /* "hyperlearn/cython/DEFINE.pyx":30
+  /* "DEFINE.pyx":30
  * cdef char float32, float64, complex64, complex128, cfloat, ccomplex
  * float32, float64, complex64, complex128, cfloat, ccomplex = 102, 100, 70, 68, 103, 71
  * cdef char float16 = 101             # <<<<<<<<<<<<<<
@@ -14155,7 +16379,7 @@ if (!__Pyx_RefNanny) {
  */
   __pyx_v_10hyperlearn_6cython_4base_float16 = 0x65;
 
-  /* "hyperlearn/cython/DEFINE.pyx":33
+  /* "DEFINE.pyx":33
  * 
  * cdef char boolean, int8, int16, int32, int64, cint, pointer
  * boolean, int8, int16, int32, int64, cint, pointer = 63, 98, 104, 108, 113, 105, 112             # <<<<<<<<<<<<<<
@@ -14177,7 +16401,7 @@ if (!__Pyx_RefNanny) {
   __pyx_v_10hyperlearn_6cython_4base_cint = __pyx_t_3;
   __pyx_v_10hyperlearn_6cython_4base_pointer = __pyx_t_9;
 
-  /* "hyperlearn/cython/DEFINE.pyx":36
+  /* "DEFINE.pyx":36
  * 
  * cdef char uint8, uint16, uint32, uint64, cuint, upointer
  * uint8, uint16, uint32, uint64, cuint, upointer = 66, 72, 76, 81, 73, 80             # <<<<<<<<<<<<<<
@@ -14197,7 +16421,7 @@ if (!__Pyx_RefNanny) {
   __pyx_v_10hyperlearn_6cython_4base_cuint = __pyx_t_6;
   __pyx_v_10hyperlearn_6cython_4base_upointer = __pyx_t_7;
 
-  /* "hyperlearn/cython/DEFINE.pyx":39
+  /* "DEFINE.pyx":39
  * 
  * cdef char ERROR, PASS
  * ERROR, PASS = 1, 0             # <<<<<<<<<<<<<<
@@ -14209,7 +16433,7 @@ if (!__Pyx_RefNanny) {
   __pyx_v_10hyperlearn_6cython_4base_ERROR = __pyx_t_7;
   __pyx_v_10hyperlearn_6cython_4base_PASS = __pyx_t_6;
 
-  /* "hyperlearn/cython/DEFINE.pyx":42
+  /* "DEFINE.pyx":42
  * 
  * 
  * cdef SIZE uint8_max = <SIZE> np.iinfo(np.uint8).max             # <<<<<<<<<<<<<<
@@ -14237,7 +16461,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_v_10hyperlearn_6cython_4base_uint8_max = ((__pyx_t_10hyperlearn_6cython_4base_SIZE)__pyx_t_12);
 
-  /* "hyperlearn/cython/DEFINE.pyx":43
+  /* "DEFINE.pyx":43
  * 
  * cdef SIZE uint8_max = <SIZE> np.iinfo(np.uint8).max
  * cdef SIZE uint16_max = <SIZE> np.iinfo(np.uint16).max             # <<<<<<<<<<<<<<
@@ -14265,7 +16489,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_v_10hyperlearn_6cython_4base_uint16_max = ((__pyx_t_10hyperlearn_6cython_4base_SIZE)__pyx_t_12);
 
-  /* "hyperlearn/cython/DEFINE.pyx":44
+  /* "DEFINE.pyx":44
  * cdef SIZE uint8_max = <SIZE> np.iinfo(np.uint8).max
  * cdef SIZE uint16_max = <SIZE> np.iinfo(np.uint16).max
  * cdef SIZE uint32_max = <SIZE> np.iinfo(np.uint32).max             # <<<<<<<<<<<<<<
@@ -14293,7 +16517,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_10hyperlearn_6cython_4base_uint32_max = ((__pyx_t_10hyperlearn_6cython_4base_SIZE)__pyx_t_12);
 
-  /* "hyperlearn/cython/DEFINE.pyx":46
+  /* "DEFINE.pyx":46
  * cdef SIZE uint32_max = <SIZE> np.iinfo(np.uint32).max
  * 
  * cdef SIZE int8_max = <SIZE> np.iinfo(np.int8).max             # <<<<<<<<<<<<<<
@@ -14321,7 +16545,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_v_10hyperlearn_6cython_4base_int8_max = ((__pyx_t_10hyperlearn_6cython_4base_SIZE)__pyx_t_12);
 
-  /* "hyperlearn/cython/DEFINE.pyx":47
+  /* "DEFINE.pyx":47
  * 
  * cdef SIZE int8_max = <SIZE> np.iinfo(np.int8).max
  * cdef SIZE int16_max = <SIZE> np.iinfo(np.int16).max             # <<<<<<<<<<<<<<
@@ -14349,7 +16573,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __pyx_v_10hyperlearn_6cython_4base_int16_max = ((__pyx_t_10hyperlearn_6cython_4base_SIZE)__pyx_t_12);
 
-  /* "hyperlearn/cython/DEFINE.pyx":48
+  /* "DEFINE.pyx":48
  * cdef SIZE int8_max = <SIZE> np.iinfo(np.int8).max
  * cdef SIZE int16_max = <SIZE> np.iinfo(np.int16).max
  * cdef SIZE int32_max = <SIZE> np.iinfo(np.int32).max             # <<<<<<<<<<<<<<
@@ -14377,7 +16601,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_10hyperlearn_6cython_4base_int32_max = ((__pyx_t_10hyperlearn_6cython_4base_SIZE)__pyx_t_12);
 
-  /* "hyperlearn/cython/DEFINE.pyx":50
+  /* "DEFINE.pyx":50
  * cdef SIZE int32_max = <SIZE> np.iinfo(np.int32).max
  * 
  * cdef float float32_max = <float> np.finfo(np.float32).max             # <<<<<<<<<<<<<<
@@ -14405,7 +16629,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __pyx_v_10hyperlearn_6cython_4base_float32_max = ((float)__pyx_t_13);
 
-  /* "hyperlearn/cython/DEFINE.pyx":51
+  /* "DEFINE.pyx":51
  * 
  * cdef float float32_max = <float> np.finfo(np.float32).max
  * cdef double float64_max = <double> np.finfo(np.float64).max             # <<<<<<<<<<<<<<
@@ -14436,164 +16660,213 @@ if (!__Pyx_RefNanny) {
  * include "DEFINE.pyx"
  * #########
  * cdef double MAX_MEMORY = 0.94             # <<<<<<<<<<<<<<
+ * 
  * from psutil import virtual_memory
- * from inspect import signature
  */
   __pyx_v_10hyperlearn_6cython_4base_MAX_MEMORY = 0.94;
 
-  /* "hyperlearn/cython/base.pyx":5
- * #########
+  /* "hyperlearn/cython/base.pyx":6
  * cdef double MAX_MEMORY = 0.94
+ * 
  * from psutil import virtual_memory             # <<<<<<<<<<<<<<
  * from inspect import signature
  * from functools import wraps
  */
-  __pyx_t_10 = PyList_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_INCREF(__pyx_n_s_virtual_memory);
   __Pyx_GIVEREF(__pyx_n_s_virtual_memory);
   PyList_SET_ITEM(__pyx_t_10, 0, __pyx_n_s_virtual_memory);
-  __pyx_t_11 = __Pyx_Import(__pyx_n_s_psutil, __pyx_t_10, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_Import(__pyx_n_s_psutil, __pyx_t_10, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_ImportFrom(__pyx_t_11, __pyx_n_s_virtual_memory); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 5, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_ImportFrom(__pyx_t_11, __pyx_n_s_virtual_memory); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_virtual_memory, __pyx_t_10) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_virtual_memory, __pyx_t_10) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "hyperlearn/cython/base.pyx":6
- * cdef double MAX_MEMORY = 0.94
+  /* "hyperlearn/cython/base.pyx":7
+ * 
  * from psutil import virtual_memory
  * from inspect import signature             # <<<<<<<<<<<<<<
  * from functools import wraps
  * 
  */
-  __pyx_t_11 = PyList_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_11 = PyList_New(1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_INCREF(__pyx_n_s_signature);
   __Pyx_GIVEREF(__pyx_n_s_signature);
   PyList_SET_ITEM(__pyx_t_11, 0, __pyx_n_s_signature);
-  __pyx_t_10 = __Pyx_patch_inspect(__Pyx_Import(__pyx_n_s_inspect, __pyx_t_11, 0)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_patch_inspect(__Pyx_Import(__pyx_n_s_inspect, __pyx_t_11, 0)); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-  __pyx_t_11 = __Pyx_ImportFrom(__pyx_t_10, __pyx_n_s_signature); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 6, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_ImportFrom(__pyx_t_10, __pyx_n_s_signature); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_signature, __pyx_t_11) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_signature, __pyx_t_11) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "hyperlearn/cython/base.pyx":7
+  /* "hyperlearn/cython/base.pyx":8
  * from psutil import virtual_memory
  * from inspect import signature
  * from functools import wraps             # <<<<<<<<<<<<<<
  * 
- * 
+ * from scipy.linalg import lapack as _lapack, blas as _blas
  */
-  __pyx_t_10 = PyList_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_10 = PyList_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_INCREF(__pyx_n_s_wraps);
   __Pyx_GIVEREF(__pyx_n_s_wraps);
   PyList_SET_ITEM(__pyx_t_10, 0, __pyx_n_s_wraps);
-  __pyx_t_11 = __Pyx_Import(__pyx_n_s_functools, __pyx_t_10, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_Import(__pyx_n_s_functools, __pyx_t_10, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_ImportFrom(__pyx_t_11, __pyx_n_s_wraps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 7, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_ImportFrom(__pyx_t_11, __pyx_n_s_wraps); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_wraps, __pyx_t_10) < 0) __PYX_ERR(0, 7, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_wraps, __pyx_t_10) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-  /* "hyperlearn/cython/base.pyx":13
+  /* "hyperlearn/cython/base.pyx":10
+ * from functools import wraps
+ * 
+ * from scipy.linalg import lapack as _lapack, blas as _blas             # <<<<<<<<<<<<<<
+ * from ..numba import funcs as _numba
+ * 
+ */
+  __pyx_t_11 = PyList_New(2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_11);
+  __Pyx_INCREF(__pyx_n_s_lapack);
+  __Pyx_GIVEREF(__pyx_n_s_lapack);
+  PyList_SET_ITEM(__pyx_t_11, 0, __pyx_n_s_lapack);
+  __Pyx_INCREF(__pyx_n_s_blas_2);
+  __Pyx_GIVEREF(__pyx_n_s_blas_2);
+  PyList_SET_ITEM(__pyx_t_11, 1, __pyx_n_s_blas_2);
+  __pyx_t_10 = __Pyx_Import(__pyx_n_s_scipy_linalg, __pyx_t_11, 0); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = __Pyx_ImportFrom(__pyx_t_10, __pyx_n_s_lapack); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_11);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_lapack_2, __pyx_t_11) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_11 = __Pyx_ImportFrom(__pyx_t_10, __pyx_n_s_blas_2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_11);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_blas_3, __pyx_t_11) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+
+  /* "hyperlearn/cython/base.pyx":11
+ * 
+ * from scipy.linalg import lapack as _lapack, blas as _blas
+ * from ..numba import funcs as _numba             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_t_10 = PyList_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  __Pyx_INCREF(__pyx_n_s_funcs);
+  __Pyx_GIVEREF(__pyx_n_s_funcs);
+  PyList_SET_ITEM(__pyx_t_10, 0, __pyx_n_s_funcs);
+  __pyx_t_11 = __Pyx_Import(__pyx_n_s_numba, __pyx_t_10, 2); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_11);
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __pyx_t_10 = __Pyx_ImportFrom(__pyx_t_11, __pyx_n_s_funcs); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_10);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_numba_3, __pyx_t_10) < 0) __PYX_ERR(0, 11, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+  /* "hyperlearn/cython/base.pyx":17
  * ###
  * cdef dict MEMORY_FUNCTIONS = {
  *     "full": full_, "extended": svd_, "same": same_,             # <<<<<<<<<<<<<<
  *     "triu": triu_, "squared": squared_, "columns": columns_,
  *     "extra": extra_, "truncated": truncated_, "minimum": minimum_,
  */
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(11); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(11); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_full_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_full_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_full, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_full, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_svd_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_svd_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_extended, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_extended, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_same_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 13, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_same_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_same, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_same, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "hyperlearn/cython/base.pyx":14
+  /* "hyperlearn/cython/base.pyx":18
  * cdef dict MEMORY_FUNCTIONS = {
  *     "full": full_, "extended": svd_, "same": same_,
  *     "triu": triu_, "squared": squared_, "columns": columns_,             # <<<<<<<<<<<<<<
  *     "extra": extra_, "truncated": truncated_, "minimum": minimum_,
  *     "min_left": min_left_, "min_right": min_right_
  */
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_triu_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_triu_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_triu, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_triu, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_squared_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_squared_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_squared, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_squared, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_columns_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_columns_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_columns, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_columns, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "hyperlearn/cython/base.pyx":15
+  /* "hyperlearn/cython/base.pyx":19
  *     "full": full_, "extended": svd_, "same": same_,
  *     "triu": triu_, "squared": squared_, "columns": columns_,
  *     "extra": extra_, "truncated": truncated_, "minimum": minimum_,             # <<<<<<<<<<<<<<
  *     "min_left": min_left_, "min_right": min_right_
  * }
  */
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_extra_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE___to_py(__pyx_f_10hyperlearn_6cython_4base_extra_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_extra, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_extra, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_truncated_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_truncated_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_truncated, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_truncated, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_minimum_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 15, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_minimum_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_minimum, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_minimum, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "hyperlearn/cython/base.pyx":16
+  /* "hyperlearn/cython/base.pyx":20
  *     "triu": triu_, "squared": squared_, "columns": columns_,
  *     "extra": extra_, "truncated": truncated_, "minimum": minimum_,
  *     "min_left": min_left_, "min_right": min_right_             # <<<<<<<<<<<<<<
  * }
  * 
  */
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_min_left_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_min_left_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_min_left, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_min_left, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_min_right_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 16, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_CFunc_SIZE____SIZE____SIZE____int___to_py(__pyx_f_10hyperlearn_6cython_4base_min_right_); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
-  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_min_right, __pyx_t_10) < 0) __PYX_ERR(0, 13, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_11, __pyx_n_u_min_right, __pyx_t_10) < 0) __PYX_ERR(0, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_XGOTREF(__pyx_v_10hyperlearn_6cython_4base_MEMORY_FUNCTIONS);
   __Pyx_DECREF_SET(__pyx_v_10hyperlearn_6cython_4base_MEMORY_FUNCTIONS, ((PyObject*)__pyx_t_11));
   __Pyx_GIVEREF(__pyx_t_11);
   __pyx_t_11 = 0;
 
-  /* "hyperlearn/cython/base.pyx":516
+  /* "hyperlearn/cython/base.pyx":537
  *     cdef bool square, fractional, not_processed
  * 
  *     def __init__(self, memcheck = {}, bool square = False, bool fractional = True):             # <<<<<<<<<<<<<<
  *         if isinstance(memcheck, str):
  *             self.memcheck = {"X":memcheck}
  */
-  __pyx_t_11 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 516, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 537, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __pyx_k__4 = __pyx_t_11;
   __Pyx_GIVEREF(__pyx_t_11);
@@ -14604,9 +16877,31 @@ if (!__Pyx_RefNanny) {
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_11 = PyCFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_13__pyx_unpickle_process, NULL, __pyx_n_s_hyperlearn_cython_base); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_11 = PyCFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_7__pyx_unpickle_process, NULL, __pyx_n_s_hyperlearn_cython_base); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_process, __pyx_t_11) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+  /* "(tree fragment)":11
+ *         __pyx_unpickle_process__set_state(<process> __pyx_result, __pyx_state)
+ *     return __pyx_result
+ * cdef __pyx_unpickle_process__set_state(process __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result.fractional = __pyx_state[0]; __pyx_result.function_args = __pyx_state[1]; __pyx_result.function_signature = __pyx_state[2]; __pyx_result.memcheck = __pyx_state[3]; __pyx_result.memory_keys = __pyx_state[4]; __pyx_result.memory_length = __pyx_state[5]; __pyx_result.not_processed = __pyx_state[6]; __pyx_result.square = __pyx_state[7]
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):
+ */
+  __pyx_t_11 = PyCFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_9__pyx_unpickle_lapack, NULL, __pyx_n_s_hyperlearn_cython_base); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_11);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_lapack, __pyx_t_11) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+
+  /* "(tree fragment)":1
+ * def __pyx_unpickle_blas(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ *     cdef object __pyx_PickleError
+ *     cdef object __pyx_result
+ */
+  __pyx_t_11 = PyCFunction_NewEx(&__pyx_mdef_10hyperlearn_6cython_4base_11__pyx_unpickle_blas, NULL, __pyx_n_s_hyperlearn_cython_base); if (unlikely(!__pyx_t_11)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_11);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_blas, __pyx_t_11) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
   /* "hyperlearn/cython/base.pyx":2
@@ -14669,6 +16964,7 @@ static CYTHON_SMALL_CODE void __Pyx_CleanupGlobals(void) {
       PyMem_Free(entries);
   }
 
+Py_CLEAR(__pyx_umethod_PyDict_Type_values.method);
 }
 static void __pyx_module_cleanup(CYTHON_UNUSED PyObject *self) {
   __Pyx_CleanupGlobals();
@@ -14680,6 +16976,7 @@ static void __pyx_module_cleanup(CYTHON_UNUSED PyObject *self) {
   Py_CLEAR(__pyx_builtin_range);
   Py_CLEAR(__pyx_builtin_NameError);
   Py_CLEAR(__pyx_builtin_MemoryError);
+  Py_CLEAR(__pyx_builtin_eval);
   /*--- Intern cleanup code ---*/
   Py_CLEAR(__pyx_empty_tuple);
   while (__pyx_freecount_10hyperlearn_6cython_4base___pyx_scope_struct____call__ > 0) {
@@ -16531,32 +18828,6 @@ static CYTHON_INLINE int __Pyx_DelItemInt_Fast(PyObject *o, Py_ssize_t i,
     return __Pyx_DelItem_Generic(o, PyInt_FromSsize_t(i));
 }
 
-/* RaiseArgTupleInvalid */
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
-}
-
 /* RaiseDoubleKeywords */
 static void __Pyx_RaiseDoubleKeywordsError(
     const char* func_name,
@@ -16671,6 +18942,32 @@ invalid_keyword:
     #endif
 bad:
     return -1;
+}
+
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
 }
 
 /* KeywordStringCheck */
@@ -17404,6 +19701,108 @@ static PyObject *__Pyx_GetAttr3Default(PyObject *d) {
 static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *o, PyObject *n, PyObject *d) {
     PyObject *r = __Pyx_GetAttr(o, n);
     return (likely(r)) ? r : __Pyx_GetAttr3Default(d);
+}
+
+/* IterNext */
+static PyObject *__Pyx_PyIter_Next2Default(PyObject* defval) {
+    PyObject* exc_type;
+    __Pyx_PyThreadState_declare
+    __Pyx_PyThreadState_assign
+    exc_type = __Pyx_PyErr_Occurred();
+    if (unlikely(exc_type)) {
+        if (!defval || unlikely(!__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration)))
+            return NULL;
+        __Pyx_PyErr_Clear();
+        Py_INCREF(defval);
+        return defval;
+    }
+    if (defval) {
+        Py_INCREF(defval);
+        return defval;
+    }
+    __Pyx_PyErr_SetNone(PyExc_StopIteration);
+    return NULL;
+}
+static void __Pyx_PyIter_Next_ErrorNoIterator(PyObject *iterator) {
+    PyErr_Format(PyExc_TypeError,
+        "%.200s object is not an iterator", Py_TYPE(iterator)->tp_name);
+}
+static CYTHON_INLINE PyObject *__Pyx_PyIter_Next2(PyObject* iterator, PyObject* defval) {
+    PyObject* next;
+    iternextfunc iternext = Py_TYPE(iterator)->tp_iternext;
+    if (likely(iternext)) {
+#if CYTHON_USE_TYPE_SLOTS
+        next = iternext(iterator);
+        if (likely(next))
+            return next;
+        #if PY_VERSION_HEX >= 0x02070000
+        if (unlikely(iternext == &_PyObject_NextNotImplemented))
+            return NULL;
+        #endif
+#else
+        next = PyIter_Next(iterator);
+        if (likely(next))
+            return next;
+#endif
+    } else if (CYTHON_USE_TYPE_SLOTS || unlikely(!PyIter_Check(iterator))) {
+        __Pyx_PyIter_Next_ErrorNoIterator(iterator);
+        return NULL;
+    }
+#if !CYTHON_USE_TYPE_SLOTS
+    else {
+        next = PyIter_Next(iterator);
+        if (likely(next))
+            return next;
+    }
+#endif
+    return __Pyx_PyIter_Next2Default(defval);
+}
+
+/* UnpackUnboundCMethod */
+static int __Pyx_TryUnpackUnboundCMethod(__Pyx_CachedCFunction* target) {
+    PyObject *method;
+    method = __Pyx_PyObject_GetAttrStr(target->type, *target->method_name);
+    if (unlikely(!method))
+        return -1;
+    target->method = method;
+#if CYTHON_COMPILING_IN_CPYTHON
+    #if PY_MAJOR_VERSION >= 3
+    if (likely(__Pyx_TypeCheck(method, &PyMethodDescr_Type)))
+    #endif
+    {
+        PyMethodDescrObject *descr = (PyMethodDescrObject*) method;
+        target->func = descr->d_method->ml_meth;
+        target->flag = descr->d_method->ml_flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_STACKLESS);
+    }
+#endif
+    return 0;
+}
+
+/* CallUnboundCMethod0 */
+static PyObject* __Pyx__CallUnboundCMethod0(__Pyx_CachedCFunction* cfunc, PyObject* self) {
+    PyObject *args, *result = NULL;
+    if (unlikely(!cfunc->method) && unlikely(__Pyx_TryUnpackUnboundCMethod(cfunc) < 0)) return NULL;
+#if CYTHON_ASSUME_SAFE_MACROS
+    args = PyTuple_New(1);
+    if (unlikely(!args)) goto bad;
+    Py_INCREF(self);
+    PyTuple_SET_ITEM(args, 0, self);
+#else
+    args = PyTuple_Pack(1, self);
+    if (unlikely(!args)) goto bad;
+#endif
+    result = __Pyx_PyObject_Call(cfunc->method, args, NULL);
+    Py_DECREF(args);
+bad:
+    return result;
+}
+
+/* py_dict_values */
+static CYTHON_INLINE PyObject* __Pyx_PyDict_Values(PyObject* d) {
+    if (PY_MAJOR_VERSION >= 3)
+        return __Pyx_CallUnboundCMethod0(&__pyx_umethod_PyDict_Type_values, d);
+    else
+        return PyDict_Values(d);
 }
 
 /* Import */
@@ -18670,195 +21069,6 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *x) {
-    const char neg_one = (char) ((char) 0 - (char) 1), const_zero = (char) 0;
-    const int is_unsigned = neg_one > const_zero;
-#if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_Check(x))) {
-        if (sizeof(char) < sizeof(long)) {
-            __PYX_VERIFY_RETURN_INT(char, long, PyInt_AS_LONG(x))
-        } else {
-            long val = PyInt_AS_LONG(x);
-            if (is_unsigned && unlikely(val < 0)) {
-                goto raise_neg_overflow;
-            }
-            return (char) val;
-        }
-    } else
-#endif
-    if (likely(PyLong_Check(x))) {
-        if (is_unsigned) {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (char) 0;
-                case  1: __PYX_VERIFY_RETURN_INT(char, digit, digits[0])
-                case 2:
-                    if (8 * sizeof(char) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) >= 2 * PyLong_SHIFT) {
-                            return (char) (((((char)digits[1]) << PyLong_SHIFT) | (char)digits[0]));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(char) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) >= 3 * PyLong_SHIFT) {
-                            return (char) (((((((char)digits[2]) << PyLong_SHIFT) | (char)digits[1]) << PyLong_SHIFT) | (char)digits[0]));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(char) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) >= 4 * PyLong_SHIFT) {
-                            return (char) (((((((((char)digits[3]) << PyLong_SHIFT) | (char)digits[2]) << PyLong_SHIFT) | (char)digits[1]) << PyLong_SHIFT) | (char)digits[0]));
-                        }
-                    }
-                    break;
-            }
-#endif
-#if CYTHON_COMPILING_IN_CPYTHON
-            if (unlikely(Py_SIZE(x) < 0)) {
-                goto raise_neg_overflow;
-            }
-#else
-            {
-                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
-                if (unlikely(result < 0))
-                    return (char) -1;
-                if (unlikely(result == 1))
-                    goto raise_neg_overflow;
-            }
-#endif
-            if (sizeof(char) <= sizeof(unsigned long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(char, unsigned long, PyLong_AsUnsignedLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(char) <= sizeof(unsigned PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(char, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
-#endif
-            }
-        } else {
-#if CYTHON_USE_PYLONG_INTERNALS
-            const digit* digits = ((PyLongObject*)x)->ob_digit;
-            switch (Py_SIZE(x)) {
-                case  0: return (char) 0;
-                case -1: __PYX_VERIFY_RETURN_INT(char, sdigit, (sdigit) (-(sdigit)digits[0]))
-                case  1: __PYX_VERIFY_RETURN_INT(char,  digit, +digits[0])
-                case -2:
-                    if (8 * sizeof(char) - 1 > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) - 1 > 2 * PyLong_SHIFT) {
-                            return (char) (((char)-1)*(((((char)digits[1]) << PyLong_SHIFT) | (char)digits[0])));
-                        }
-                    }
-                    break;
-                case 2:
-                    if (8 * sizeof(char) > 1 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) - 1 > 2 * PyLong_SHIFT) {
-                            return (char) ((((((char)digits[1]) << PyLong_SHIFT) | (char)digits[0])));
-                        }
-                    }
-                    break;
-                case -3:
-                    if (8 * sizeof(char) - 1 > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) - 1 > 3 * PyLong_SHIFT) {
-                            return (char) (((char)-1)*(((((((char)digits[2]) << PyLong_SHIFT) | (char)digits[1]) << PyLong_SHIFT) | (char)digits[0])));
-                        }
-                    }
-                    break;
-                case 3:
-                    if (8 * sizeof(char) > 2 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) - 1 > 3 * PyLong_SHIFT) {
-                            return (char) ((((((((char)digits[2]) << PyLong_SHIFT) | (char)digits[1]) << PyLong_SHIFT) | (char)digits[0])));
-                        }
-                    }
-                    break;
-                case -4:
-                    if (8 * sizeof(char) - 1 > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) - 1 > 4 * PyLong_SHIFT) {
-                            return (char) (((char)-1)*(((((((((char)digits[3]) << PyLong_SHIFT) | (char)digits[2]) << PyLong_SHIFT) | (char)digits[1]) << PyLong_SHIFT) | (char)digits[0])));
-                        }
-                    }
-                    break;
-                case 4:
-                    if (8 * sizeof(char) > 3 * PyLong_SHIFT) {
-                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
-                            __PYX_VERIFY_RETURN_INT(char, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
-                        } else if (8 * sizeof(char) - 1 > 4 * PyLong_SHIFT) {
-                            return (char) ((((((((((char)digits[3]) << PyLong_SHIFT) | (char)digits[2]) << PyLong_SHIFT) | (char)digits[1]) << PyLong_SHIFT) | (char)digits[0])));
-                        }
-                    }
-                    break;
-            }
-#endif
-            if (sizeof(char) <= sizeof(long)) {
-                __PYX_VERIFY_RETURN_INT_EXC(char, long, PyLong_AsLong(x))
-#ifdef HAVE_LONG_LONG
-            } else if (sizeof(char) <= sizeof(PY_LONG_LONG)) {
-                __PYX_VERIFY_RETURN_INT_EXC(char, PY_LONG_LONG, PyLong_AsLongLong(x))
-#endif
-            }
-        }
-        {
-#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
-            PyErr_SetString(PyExc_RuntimeError,
-                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
-#else
-            char val;
-            PyObject *v = __Pyx_PyNumber_IntOrLong(x);
- #if PY_MAJOR_VERSION < 3
-            if (likely(v) && !PyLong_Check(v)) {
-                PyObject *tmp = v;
-                v = PyNumber_Long(tmp);
-                Py_DECREF(tmp);
-            }
- #endif
-            if (likely(v)) {
-                int one = 1; int is_little = (int)*(unsigned char *)&one;
-                unsigned char *bytes = (unsigned char *)&val;
-                int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                              bytes, sizeof(val),
-                                              is_little, !is_unsigned);
-                Py_DECREF(v);
-                if (likely(!ret))
-                    return val;
-            }
-#endif
-            return (char) -1;
-        }
-    } else {
-        char val;
-        PyObject *tmp = __Pyx_PyNumber_IntOrLong(x);
-        if (!tmp) return (char) -1;
-        val = __Pyx_PyInt_As_char(tmp);
-        Py_DECREF(tmp);
-        return val;
-    }
-raise_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "value too large to convert to char");
-    return (char) -1;
-raise_neg_overflow:
-    PyErr_SetString(PyExc_OverflowError,
-        "can't convert negative value to char");
-    return (char) -1;
-}
-
-/* CIntFromPy */
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
@@ -19045,6 +21255,51 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to long");
     return (long) -1;
+}
+
+/* Globals */
+static PyObject* __Pyx_Globals(void) {
+    Py_ssize_t i;
+    PyObject *names;
+    PyObject *globals = __pyx_d;
+    Py_INCREF(globals);
+    names = PyObject_Dir(__pyx_m);
+    if (!names)
+        goto bad;
+    for (i = PyList_GET_SIZE(names)-1; i >= 0; i--) {
+#if CYTHON_COMPILING_IN_PYPY
+        PyObject* name = PySequence_ITEM(names, i);
+        if (!name)
+            goto bad;
+#else
+        PyObject* name = PyList_GET_ITEM(names, i);
+#endif
+        if (!PyDict_Contains(globals, name)) {
+            PyObject* value = __Pyx_GetAttr(__pyx_m, name);
+            if (!value) {
+#if CYTHON_COMPILING_IN_PYPY
+                Py_DECREF(name);
+#endif
+                goto bad;
+            }
+            if (PyDict_SetItem(globals, name, value) < 0) {
+#if CYTHON_COMPILING_IN_PYPY
+                Py_DECREF(name);
+#endif
+                Py_DECREF(value);
+                goto bad;
+            }
+        }
+#if CYTHON_COMPILING_IN_PYPY
+        Py_DECREF(name);
+#endif
+    }
+    Py_DECREF(names);
+    return globals;
+bad:
+    Py_XDECREF(names);
+    Py_XDECREF(globals);
+    return NULL;
 }
 
 /* FastTypeChecks */

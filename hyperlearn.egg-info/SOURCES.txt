@@ -5,6 +5,7 @@ MANIFEST.in
 README.md
 requirements.txt
 setup.py
+setup2.py
 hyperlearn/__init__.py
 hyperlearn/base.py
 hyperlearn/cfuncs.py
@@ -20,14 +21,5 @@ hyperlearn.egg-info/requires.txt
 hyperlearn.egg-info/top_level.txt
 hyperlearn/cython/base.c
 hyperlearn/cython/utils.c
-hyperlearn/cython/__init__.py
 hyperlearn/cython/base.c
-hyperlearn/cython/setup.py
 hyperlearn/cython/utils.c
-hyperlearn/numba/__init__.py
-hyperlearn/numba/funcs.py
-hyperlearn/numba/types.py
-hyperlearn/randomized/__init__.py
-hyperlearn/randomized/base.py
-hyperlearn/randomized/decomposition.py
-hyperlearn/randomized/linalg.py

@@ -2,9 +2,13 @@
 include "DEFINE.pyx"
 #########
 cdef double MAX_MEMORY = 0.94
+
 from psutil import virtual_memory
 from inspect import signature
 from functools import wraps
+
+from scipy.linalg import lapack as _lapack, blas as _blas
+from ..numba import funcs as _numba
 
 
 ######### Memory check functions
@@ -226,7 +230,7 @@ cdef (int, char) arg_process(x, bool square):
 
 
 #########
-cpdef (void) wrapper(
+cdef (void) wrapper(
     dict memcheck, bool square, bool fractional, int memory_length,
     list memory_keys, function_signature, function_args,
     list args, dict kwargs
@@ -506,8 +510,25 @@ cpdef (void) wrapper(
         free(new_dtypes)
         
 
+
 #########
 cdef class process():
+    """
+    Cython equivalent of Hyperlearn's base.process, but this is much faster.
+    >>> process(memcheck = {}, square = False, fractional = True)
+    [Added 7/1/19]
+
+    Parameters
+    -----------
+    memcheck:       Dictionary of memcheck arguments or 1 string. Used to check
+                    whether the matrix X satifies the system's memory constraints.
+    square:         Check whether the matrix X must be square.
+    fractional:     (default = True). Whether to convert n_components float to int
+                    (eg: 0.5 == 50%*p)
+    Returns
+    -----------
+    Wrapped up function - can call like normal functions.
+    """
     cdef SIZE memory_length
     cdef memcheck, function_signature, function_args
     cdef list memory_keys
@@ -551,29 +572,102 @@ cdef class process():
         return decorate
 
 
+
 #########
-cpdef str lapack(char dtype, BOOL turbo, str function):
-    cdef bool TURBO = <bool> turbo
-    if dtype == float32 and TURBO:
-        return f"_lapack.s{function}"
-    elif dtype == float64 or not TURBO or dtype == cfloat:
-        return f"_lapack.d{function}"
-    elif dtype == complex64 or dtype == ccomplex:
-        return f"_lapack.c{function}"
-    else:
-        return f"_lapack.z{function}"
+cdef class lapack():
+    """
+    Calls LAPACK functions from Scipy. Use like this: lapack("LAPACK function")("args")
+    For example: lapack("gesdd")(X, full_matrices = False) for SVD. Types are automatically
+    determined from X, so no need to specify the type of the matrix.
+    >>> lapack(function, numba = None, turbo = True)
+    """
+    cdef str function
+    cdef bool turbo
+    cdef f
     
-    
-#########
-cpdef str blas(char dtype, str function, str left):
-    if dtype == float32:
-        return f"_blas.{left}s{function}"
-    elif dtype == float64 or dtype == cfloat:
-        return f"_blas.{left}d{function}"
-    elif dtype == complex64 or dtype == ccomplex:
-        return f"_blas.{left}c{function}"
-    else:
-        return f"_blas.{left}z{function}"
+    def __init__(self, str function, numba = None, bool turbo = True):
+        self.function = function
+        self.turbo = turbo
+        self.f = None
+
+        if numba is not None:
+            try: 
+                self.f = eval(f'_numba.{numba}')
+                self.function = numba
+            except: 
+                pass
 
 
+    def __call__(self, *args, **kwargs):
+        cdef DTYPE dtype
+        cdef char dt
+        cdef str fx
+        
+        if self.f is None:
+
+            if len(args) > 0:
+                dtype = args[0].dtype
+            else:
+                dtype = next(iter(kwargs.values())).dtype
+            dt = ord(dtype.char)
+            
+            # Compare dtype of first data matrix
+            if dt == float32 and self.turbo:
+                fx = f"_lapack.s{self.function}"
+            elif dt == float64 or not self.turbo or dt == cfloat:
+                fx = f"_lapack.d{self.function}"
+            elif dt == complex64 or dtype == ccomplex:
+                fx = f"_lapack.c{self.function}"
+            else:
+                fx = f"_lapack.z{self.function}"
+            self.f = eval(fx)
+
+        return self.f(*args, **kwargs)
+    
+
+
+#########
+cdef class blas():
+    """
+    Calls BLAS functions from Scipy. Use like this: blas("BLAS function")("args")
+    For example: blas("syrk")(X) for symmetric matrix multiply. Types are automatically
+    determined from X, so no need to specify the type of the matrix.
+    >>> lapack(function, left = "")
+    """
+    cdef str function
+    cdef f
+    cdef str left
+
+
+    def __init__(self, str function, str left = ""):
+        self.function = function
+        self.f = None
+        self.left = left
+
+
+    def __call__(self, *args, **kwargs):
+        cdef DTYPE dtype
+        cdef char dt
+        cdef str fx
+
+        if self.f is None:
+
+            if len(args) > 0:
+                dtype = args[0].dtype
+            else:
+                dtype = next(iter(kwargs.values())).dtype
+            dt = ord(dtype.char)
+            
+            # Compare dtype of first data matrix
+            if dt == float32:
+                fx = f"_blas.{self.left}s{self.function}"
+            elif dt == float64 or dt == cfloat:
+                fx = f"_blas.{self.left}d{self.function}"
+            elif dt == complex64 or dt == ccomplex:
+                fx = f"_blas.{self.left}c{self.function}"
+            else:
+                fx = f"_blas.{self.left}z{self.function}"
+            self.f = eval(fx)
+
+        return self.f(*args, **kwargs)
 

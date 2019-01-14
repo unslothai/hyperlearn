@@ -57,7 +57,7 @@ https://github.com/danielhanchen/hyperlearn
 #             cwd = "hyperlearn/cython"
 #         )
 
-USE_CYTHON = False
+USE_CYTHON = True
 ext = '.pyx' if USE_CYTHON else '.c'
 
 ext_modules = [

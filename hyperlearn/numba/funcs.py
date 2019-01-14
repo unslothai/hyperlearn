@@ -4,21 +4,10 @@ import numpy as np
 from ..cfuncs import uinteger
 
 ###
-@jit([Tuple((M_32, A32, M_32))(M_32, bool_),Tuple((M_64, A64, M_64))(M64_, bool_),
+@jit([Tuple((M_32, A32, M_32))(M32_, bool_),Tuple((M_64, A64, M_64))(M64_, bool_),
       Tuple((M_32, A32, M_32))(M_32, bool_),Tuple((M_64, A64, M_64))(M_64, bool_)], **nogil)
 def svd(X, full_matrices = False): 
     return np.linalg.svd(X, full_matrices = full_matrices)
-
-###
-# @jit([M32(M32), M64(M64)], **nogil)
-# def pinv(X): return np.linalg.pinv(X)
-
-###
-# @jit([(A32, M32)(M32), (A64, M64)(M64)], **nogil)
-# def eigh(X): return np.linalg.eigh(X)
-
-# @jit
-# def cholesky(X): return np.linalg.cholesky(X)
 
 ###
 @jit([A32(M32_, A32), A64(M64_, A64)], **nogil)
@@ -32,20 +21,6 @@ def qr(X): return np.linalg.qr(X)
 @jit([F64(A64), F64(A32)])
 def norm(v): return np.linalg.norm(v)
 
-###
-# @njit
-# def __sign(X): return np.sign(X)
-
-###
-# def sign(X):
-#     S = __sign(X)
-#     if isComplex(X.dtype):
-#         return S.real
-#     return S
-
-###
-# @njit
-# def _sum(X, axis = 0): return np.sum(X, axis)
 
 ###
 @jit(**nogil)
