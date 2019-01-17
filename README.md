@@ -10,6 +10,10 @@
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/></a>
 https://hyperlearn.readthedocs.io/en/latest/index.html
 
+**Sadly, HyperLearn will not have any further upgrades. It has come to my attention that several large corporations intend and are using this reposistory for profit, and without following the license conditions I set out clearly on this page (ONLY RESEARCH USAGE, or NOT FOR PROFIT USAGE). This repo has been archived, and there will be deletions of important code sections which seem to have been used for profit.**
+
+**It is rather sad I have come to this decision, but will now focus primarily on my startup. Email me @ danielhanchen@gmail.com if you have questions.**
+
 *Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
 
 ![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
