@@ -150,772 +150,372 @@
             
   <h1>Source code for hyperlearn.utils</h1><div class="highlight"><pre>
 <span></span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.numba.types</span> <span class="k">import</span> <span class="o">*</span>
-<span class="n">ALPHA_DEFAULT32</span> <span class="o">=</span> <span class="mf">1e-3</span>
-<span class="n">ALPHA_DEFAULT64</span> <span class="o">=</span> <span class="mf">1e-6</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">uint</span><span class="p">,</span> <span class="n">newaxis</span><span class="p">,</span> <span class="n">finfo</span><span class="p">,</span> <span class="n">float32</span><span class="p">,</span> <span class="n">float64</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">sign</span><span class="p">,</span> <span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="k">import</span> <span class="n">njit</span><span class="p">,</span> <span class="n">prange</span>
+<span class="kn">from</span> <span class="nn">psutil</span> <span class="k">import</span> <span class="n">virtual_memory</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">FutureExceedsMemory</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg.blas</span> <span class="k">import</span> <span class="n">dsyrk</span><span class="p">,</span> <span class="n">ssyrk</span>		<span class="c1"># For XTX, XXT</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">lapack</span> <span class="k">as</span> <span class="n">_lapack</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numba</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">USE_NUMBA</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;lapack&#39;</span><span class="p">,</span><span class="s1">&#39;svd_flip&#39;</span><span class="p">,</span> <span class="s1">&#39;eig_flip&#39;</span><span class="p">,</span> <span class="s1">&#39;_svdCond&#39;</span><span class="p">,</span> <span class="s1">&#39;_eighCond&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;memoryXTX&#39;</span><span class="p">,</span> <span class="s1">&#39;memoryCovariance&#39;</span><span class="p">,</span> <span class="s1">&#39;memorySVD&#39;</span><span class="p">,</span> <span class="s1">&#39;_float&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;traceXTX&#39;</span><span class="p">,</span> <span class="s1">&#39;fastDot&#39;</span><span class="p">,</span> <span class="s1">&#39;_XTX&#39;</span><span class="p">,</span> <span class="s1">&#39;_XXT&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;rowSum&#39;</span><span class="p">,</span> <span class="s1">&#39;rowSum_A&#39;</span><span class="p">,</span><span class="s1">&#39;reflect&#39;</span><span class="p">,</span> 
+			<span class="s1">&#39;addDiagonal&#39;</span><span class="p">,</span> <span class="s1">&#39;setDiagonal&#39;</span><span class="p">]</span>
+
+<span class="n">_condition</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mf">1e3</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="mf">1e6</span><span class="p">}</span>
 
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="diag_set"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.diag_set">[docs]</a><span class="nd">@jit</span><span class="p">([</span> <span class="p">(</span><span class="n">M_32</span><span class="p">,</span> <span class="n">A32</span><span class="p">),</span> <span class="p">(</span><span class="n">M_64</span><span class="p">,</span> <span class="n">A64</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">diag_set</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sets the diagonal of a square matrix X to new.</span>
-<span class="sd">    [Added 5/1/19]</span>
-<span class="sd">    &quot;&quot;&quot;</span> 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+<div class="viewcode-block" id="lapack"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.lapack">[docs]</a><span class="k">class</span> <span class="nc">lapack</span><span class="p">():</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 11/11/2018] [Edited 13/11/2018 -&gt; made into a class]</span>
+<span class="sd">	[Edited 14/11/2018 -&gt; fixed class]</span>
+<span class="sd">	Get a LAPACK function based on the dtype(X). Acts like Scipy.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">numba</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="kc">None</span>
+
+		<span class="k">if</span> <span class="n">numba</span> <span class="o">!=</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">USE_NUMBA</span><span class="p">:</span>
+			<span class="k">try</span><span class="p">:</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;numba.</span><span class="si">{function}</span><span class="s1">&#39;</span><span class="p">)</span>
+			<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+			<span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span>
+
+	<span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">f</span><span class="s2">&quot;Calls LAPACK or Numba function </span><span class="si">{self.function}</span><span class="s2">&quot;</span>
+
+	<span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_lapack.d</span><span class="si">{self.function}</span><span class="s2">&quot;</span>
+			
+			<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+				<span class="n">a</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">a</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+			
+			<span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">fast</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;_lapack.s</span><span class="si">{self.function}</span><span class="s2">&quot;</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+		
 
 
-<span class="c1">###</span>
-<div class="viewcode-block" id="do_until_success"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.do_until_success">[docs]</a><span class="k">def</span> <span class="nf">do_until_success</span><span class="p">(</span>
-    <span class="n">f</span><span class="p">,</span> <span class="n">epsilon_f</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain</span>
-<span class="sd">    algorithms to converge via ridge regularization.</span>
-<span class="sd">    [Added 15/11/18] [Edited 25/11/18 Fixed Alpha setting, can now run in</span>
-<span class="sd">    approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]</span>
-<span class="sd">    [Edited 14/12/18 Some overwrite errors] [Edited 21/12/18 If see a 0]</span>
+<div class="viewcode-block" id="svd_flip"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.svd_flip">[docs]</a><span class="k">def</span> <span class="nf">svd_flip</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Flips the signs of U and VT for SVD in order to force deterministic output.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    -----------</span>
-<span class="sd">    f:          Function for solver</span>
-<span class="sd">    epsilon_f:  How to add epsilon</span>
-<span class="sd">    size:       Argument for epsilon_f</span>
-<span class="sd">    overwrite:  Whether to overwrite data matrix</span>
-<span class="sd">    alpha:      Ridge regularizer - default = 1e-6</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+<span class="sd">	Follows Sklearn convention by looking at U&#39;s maximum in columns</span>
+<span class="sd">	as default.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">U_decision</span><span class="p">:</span>
+		<span class="n">max_abs_cols</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+		<span class="n">signs</span> <span class="o">=</span> <span class="n">sign</span><span class="p">(</span> <span class="n">U</span><span class="p">[</span><span class="n">max_abs_cols</span><span class="p">,</span> <span class="n">arange</span><span class="p">(</span><span class="n">U</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>  <span class="p">]</span>  <span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="c1"># rows of v, columns of u</span>
+		<span class="n">max_abs_rows</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">VT</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">signs</span> <span class="o">=</span> <span class="n">sign</span><span class="p">(</span> <span class="n">VT</span><span class="p">[</span>  <span class="n">arange</span><span class="p">(</span><span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">,</span> <span class="n">max_abs_rows</span><span class="p">]</span> <span class="p">)</span>
 
-    <span class="c1"># Default alpha</span>
-    <span class="n">small</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">&lt;</span> <span class="mi">8</span>
-    <span class="n">default</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT32</span> <span class="k">if</span> <span class="n">small</span> <span class="k">else</span> <span class="n">ALPHA_DEFAULT64</span>
-    
-    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>   <span class="n">alpha</span> <span class="o">=</span> <span class="n">_max</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>           <span class="n">previous</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-    <span class="n">old_alpha</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">error</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">epsilon_f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">-</span> <span class="n">old_alpha</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
-        <span class="c1">#print(X.diagonal())</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">tuple</span><span class="p">:</span>
-                <span class="n">error</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">except</span><span class="p">:</span> 
-            <span class="k">pass</span>
-        <span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">old_alpha</span> <span class="o">=</span> <span class="n">alpha</span>
-            <span class="n">alpha</span> <span class="o">*=</span> <span class="mi">2</span>
-
-            <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">alpha</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT32</span> <span class="k">if</span> <span class="n">small</span> <span class="k">else</span> <span class="n">ALPHA_DEFAULT64</span>
-            
-            <span class="c1">#print(f&quot;Epsilon Jitter Algorithm Restart with alpha = {alpha}.&quot;)</span>
-            <span class="k">if</span> <span class="n">overwrite</span><span class="p">:</span>
-                <span class="c1">#print(&quot;Overwriting maybe have issues, please turn it off.&quot;)</span>
-                <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
-        <span class="n">diag_set</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">previous</span><span class="p">)</span>
-        <span class="c1">#epsilon_f(X, size, -alpha)</span>
-    <span class="k">return</span> <span class="n">out</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="add_jitter"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.add_jitter">[docs]</a><span class="nd">@jit</span><span class="p">([</span> <span class="p">(</span><span class="n">M_32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">F64</span><span class="p">,</span> <span class="n">F64</span><span class="p">),</span> <span class="p">(</span><span class="n">M_64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">F64</span><span class="p">,</span> <span class="n">F64</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">add_jitter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain</span>
-<span class="sd">    algorithms to converge via ridge regularization.</span>
-<span class="sd">    [Added 15/11/18] [Edited 25/11/18 for floating point errors]</span>
-<span class="sd">    [Edited 21/12/18 first pass checks what should be added]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">jitter</span> <span class="o">=</span> <span class="n">alpha</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">old</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">old</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">jitter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">jitter</span> <span class="o">=</span> <span class="n">default</span>
-
-        <span class="n">new</span> <span class="o">=</span> <span class="n">old</span> <span class="o">+</span> <span class="n">jitter</span>
-        <span class="k">while</span> <span class="n">new</span> <span class="o">-</span> <span class="n">old</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
-            <span class="n">jitter</span> <span class="o">*=</span> <span class="n">jitter</span>
-            <span class="n">new</span> <span class="o">=</span> <span class="n">old</span> <span class="o">+</span> <span class="n">jitter</span>            
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">jitter</span></div>
+	<span class="n">U</span> <span class="o">*=</span> <span class="n">signs</span>
+	<span class="n">VT</span> <span class="o">*=</span> <span class="n">signs</span><span class="p">[:,</span><span class="n">newaxis</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">VT</span></div>
 
 
 
-<span class="c1">### # output only U part. Overwrites LU matrix to save memory.</span>
-<div class="viewcode-block" id="triu"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.triu">[docs]</a><span class="nd">@jit</span><span class="p">([</span> <span class="n">M32</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">M_32</span><span class="p">),</span> <span class="n">M64</span><span class="p">(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">M_64</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span> 
-<span class="k">def</span> <span class="nf">triu</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">U</span><span class="p">):</span>
-    <span class="n">tall</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="n">p</span><span class="p">)</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="n">n</span>
+<div class="viewcode-block" id="eig_flip"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.eig_flip">[docs]</a><span class="k">def</span> <span class="nf">eig_flip</span><span class="p">(</span><span class="n">V</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Flips the signs of V for Eigendecomposition in order to </span>
+<span class="sd">	force deterministic output.</span>
 
-    <span class="k">if</span> <span class="n">tall</span><span class="p">:</span>
-        <span class="c1"># tall matrix</span>
-        <span class="c1"># U get all p rows</span>
-        <span class="n">U</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:</span><span class="n">p</span><span class="p">]</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="n">p</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-        <span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">return</span> <span class="n">U</span></div>
+<span class="sd">	Follows Sklearn convention by looking at V&#39;s maximum in columns</span>
+<span class="sd">	as default. This essentially mirrors svd_flip(U_decision = False)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">max_abs_rows</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+	<span class="n">signs</span> <span class="o">=</span> <span class="n">sign</span><span class="p">(</span> <span class="n">V</span><span class="p">[</span><span class="n">max_abs_rows</span><span class="p">,</span> <span class="n">arange</span><span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">]</span> <span class="p">)</span>
+	<span class="n">V</span> <span class="o">*=</span> <span class="n">signs</span>
+	<span class="k">return</span> <span class="n">V</span></div>
 
 
 
-<span class="c1">### # Output only L part. Overwrites LU matrix to save memory.</span>
-<div class="viewcode-block" id="L_process"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.L_process">[docs]</a><span class="nd">@jit</span><span class="p">([</span> <span class="n">Tuple</span><span class="p">((</span><span class="n">M32</span><span class="p">,</span> <span class="n">I64</span><span class="p">))(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">M_32</span><span class="p">),</span> <span class="n">Tuple</span><span class="p">((</span><span class="n">M64</span><span class="p">,</span> <span class="n">I64</span><span class="p">))(</span><span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">M_64</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>  
-<span class="k">def</span> <span class="nf">L_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
-        <span class="c1"># wide matrix</span>
-        <span class="c1"># L get all n rows, but only n columns</span>
-        <span class="n">L</span> <span class="o">=</span> <span class="n">L</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n</span><span class="p">]</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="n">n</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="n">p</span>
-
-    <span class="c1"># tall / wide matrix</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-        <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="c1"># Set diagonal to 1</span>
-    <span class="k">return</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span></div>
+<span class="k">def</span> <span class="nf">_svdCond</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Condition number from Scipy.</span>
+<span class="sd">	cond = 1e-3 / 1e-6  * eps * max(S)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">t</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+	<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span><span class="n">S</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">_condition</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">finfo</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+	<span class="n">rank</span> <span class="o">=</span> <span class="n">cond</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+	
+	<span class="n">S</span> <span class="o">/=</span> <span class="p">(</span><span class="n">S</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">U</span><span class="p">[:,</span> <span class="p">:</span><span class="n">rank</span><span class="p">],</span> <span class="n">S</span><span class="p">[:</span><span class="n">rank</span><span class="p">],</span> <span class="n">VT</span><span class="p">[:</span><span class="n">rank</span><span class="p">]</span>
 
 
-<span class="c1">### # Force triangular matrix U to be invertible using ridge regularization</span>
-<div class="viewcode-block" id="U_process"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.U_process">[docs]</a><span class="nd">@jit</span><span class="p">([</span> <span class="p">(</span><span class="n">M_32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">F64</span><span class="p">,</span> <span class="n">F64</span><span class="p">),</span> <span class="p">(</span><span class="n">M_64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">F64</span><span class="p">,</span> <span class="n">F64</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">U_process</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">default</span><span class="p">):</span>
-    <span class="n">jitter</span> <span class="o">=</span> <span class="n">alpha</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">old</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">old</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">jitter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">jitter</span> <span class="o">=</span> <span class="n">default</span>
+<span class="k">def</span> <span class="nf">_eighCond</span><span class="p">(</span><span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Condition number from Scipy.</span>
+<span class="sd">	cond = 1e-3 / 1e-6  * eps * max(S2)</span>
 
-            <span class="n">new</span> <span class="o">=</span> <span class="n">jitter</span>
-            <span class="k">while</span> <span class="n">old</span> <span class="o">&lt;</span> <span class="n">alpha</span><span class="p">:</span>
-                <span class="n">jitter</span> <span class="o">*=</span> <span class="n">jitter</span>
-                <span class="n">new</span> <span class="o">=</span> <span class="n">jitter</span>
+<span class="sd">	Note that maximum could be either S2[-1] or S2[0]</span>
+<span class="sd">	depending on it&#39;s absolute magnitude.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">t</span> <span class="o">=</span> <span class="n">S2</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">char</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+	<span class="n">absS</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">S2</span><span class="p">)</span>
+	<span class="n">maximum</span> <span class="o">=</span> <span class="n">absS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">absS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">absS</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">else</span> <span class="n">absS</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">jitter</span></div>
+	<span class="n">cond</span> <span class="o">=</span> <span class="p">(</span><span class="n">absS</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">_condition</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">*</span> <span class="n">finfo</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="n">maximum</span><span class="p">)</span> <span class="p">)</span>
+	<span class="n">S2</span> <span class="o">=</span> <span class="n">S2</span><span class="p">[</span><span class="n">cond</span><span class="p">]</span>
+	
+	<span class="k">return</span> <span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">[:,</span> <span class="n">cond</span><span class="p">]</span>
 
 
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">([</span> <span class="n">M32_</span><span class="p">(</span><span class="n">M32_</span><span class="p">),</span> <span class="n">M64_</span><span class="p">(</span><span class="n">M64_</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
+
+<div class="viewcode-block" id="memoryXTX"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.memoryXTX">[docs]</a><span class="k">def</span> <span class="nf">memoryXTX</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the memory usage for X.T @ X so that error messages</span>
+<span class="sd">	can be broadcast without submitting to a memory error.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">free</span> <span class="o">=</span> <span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">free</span> <span class="o">*</span> <span class="mf">0.95</span>
+	<span class="n">byte</span> <span class="o">=</span> <span class="mi">4</span> <span class="k">if</span> <span class="s1">&#39;32&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="k">else</span> <span class="mi">8</span>
+	<span class="n">memUsage</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">byte</span>
+
+	<span class="k">return</span> <span class="n">memUsage</span> <span class="o">&lt;</span> <span class="n">free</span></div>
+
+
+
+<div class="viewcode-block" id="memoryCovariance"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.memoryCovariance">[docs]</a><span class="k">def</span> <span class="nf">memoryCovariance</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the memory usage for X.T @ X or X @ X.T so that error messages</span>
+<span class="sd">	can be broadcast without submitting to a memory error.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">free</span> <span class="o">=</span> <span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">free</span> <span class="o">*</span> <span class="mf">0.95</span>
+	<span class="n">byte</span> <span class="o">=</span> <span class="mi">4</span> <span class="k">if</span> <span class="s1">&#39;32&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="k">else</span> <span class="mi">8</span>
+	<span class="n">size</span> <span class="o">=</span> <span class="n">p</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">p</span> <span class="k">else</span> <span class="n">n</span>
+	
+	<span class="n">memUsage</span> <span class="o">=</span> <span class="n">size</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">byte</span>
+
+	<span class="k">if</span> <span class="n">memUsage</span> <span class="o">&gt;</span> <span class="n">free</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="n">FutureExceedsMemory</span><span class="p">()</span>
+	<span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="memorySVD"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.memorySVD">[docs]</a><span class="k">def</span> <span class="nf">memorySVD</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the approximate memory usage of SVD(X) [transpose or not].</span>
+<span class="sd">	How it&#39;s computed:</span>
+<span class="sd">		X = U * S * VT</span>
+<span class="sd">		U(n,p) * S(p) * VT(p,p)</span>
+<span class="sd">		This means RAM usgae is np+p+p^2 approximately.</span>
+<span class="sd">	### TODO: Divide N Conquer SVD vs old SVD</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="n">p</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">,</span><span class="n">n</span>
+	<span class="n">free</span> <span class="o">=</span> <span class="n">virtual_memory</span><span class="p">()</span><span class="o">.</span><span class="n">free</span> <span class="o">*</span> <span class="mf">0.95</span>
+	<span class="n">byte</span> <span class="o">=</span> <span class="mi">4</span> <span class="k">if</span> <span class="s1">&#39;32&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="k">else</span> <span class="mi">8</span>
+
+	<span class="n">U</span> <span class="o">=</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="n">p</span>
+	<span class="n">VT</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="n">p</span>
+	<span class="n">memUsage</span> <span class="o">=</span> <span class="p">(</span><span class="n">U</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">VT</span><span class="p">)</span> <span class="o">*</span> <span class="n">byte</span>
+
+	<span class="k">return</span> <span class="n">memUsage</span> <span class="o">&lt;</span> <span class="n">free</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_float</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+	<span class="n">dtype</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;f&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dtype</span><span class="p">:</span>
+		<span class="k">if</span> <span class="s1">&#39;64&#39;</span> <span class="ow">in</span> <span class="n">dtype</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">float64</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">float32</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">data</span>
+
+
+<div class="viewcode-block" id="traceXTX"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.traceXTX">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">traceXTX</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 18/10/2018]</span>
+<span class="sd">	One drawback of truncated algorithms is that they can&#39;t output the correct</span>
+<span class="sd">	variance explained ratios, since the full eigenvalue decomp needs to be</span>
+<span class="sd">	done. However, using linear algebra, trace(XT*X) = sum(eigenvalues).</span>
+
+<span class="sd">	So, this function outputs the trace(XT*X) efficiently without computing</span>
+<span class="sd">	explicitly XT*X.</span>
+
+<span class="sd">	Changes --&gt; now uses Numba which is approx 20% faster.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+			<span class="n">xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+			<span class="n">s</span> <span class="o">+=</span> <span class="n">xij</span><span class="o">*</span><span class="n">xij</span>
+	<span class="k">return</span> <span class="n">s</span></div>
+
+
+
+<div class="viewcode-block" id="fastDot"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.fastDot">[docs]</a><span class="k">def</span> <span class="nf">fastDot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 23/9/2018]</span>
+<span class="sd">	[Updated 1/10/2018 Error in calculating which is faster]</span>
+<span class="sd">	Computes a fast matrix multiplication of 3 matrices.</span>
+<span class="sd">	Either performs (A @ B) @ C or A @ (B @ C) depending which is more</span>
+<span class="sd">	efficient.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">size</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">p</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+	
+	<span class="n">size</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+	
+	<span class="n">size</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">d</span> <span class="o">=</span> <span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span>
+	
+	<span class="c1"># Forward (A @ B) @ C</span>
+	<span class="c1"># p*k*n + k*d*n = kn(p+d)</span>
+	<span class="n">forward</span> <span class="o">=</span> <span class="n">k</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">d</span><span class="p">)</span>
+	
+	<span class="c1"># Backward A @ (B @ C)</span>
+	<span class="c1"># p*d*n + k*d*p = pd(n+k)</span>
+	<span class="n">backward</span> <span class="o">=</span> <span class="n">p</span><span class="o">*</span><span class="n">d</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="n">k</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="n">forward</span> <span class="o">&lt;=</span> <span class="n">backward</span><span class="p">:</span>
+		<span class="k">return</span> <span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">B</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span>
+	<span class="k">return</span> <span class="n">A</span> <span class="o">@</span> <span class="p">(</span><span class="n">B</span> <span class="o">@</span> <span class="n">C</span><span class="p">)</span></div>
+
+	
+
+<span class="k">def</span> <span class="nf">_XTX</span><span class="p">(</span><span class="n">XT</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 30/9/2018]</span>
+<span class="sd">	Computes XT @ X much faster than naive XT @ X.</span>
+<span class="sd">	Notice XT @ X is symmetric, hence instead of doing the</span>
+<span class="sd">	full matrix multiplication XT @ X which takes O(np^2) time,</span>
+<span class="sd">	compute only the upper triangular which takes slightly</span>
+<span class="sd">	less time and memory.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">XT</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">float64</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">dsyrk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">return</span> <span class="n">ssyrk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+
+
+<span class="k">def</span> <span class="nf">_XXT</span><span class="p">(</span><span class="n">XT</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 30/9/2018]</span>
+<span class="sd">	Computes X @ XT much faster than naive X @ XT.</span>
+<span class="sd">	Notice X @ XT is symmetric, hence instead of doing the</span>
+<span class="sd">	full matrix multiplication X @ XT which takes O(pn^2) time,</span>
+<span class="sd">	compute only the upper triangular which takes slightly</span>
+<span class="sd">	less time and memory.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">XT</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">float64</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">dsyrk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">return</span> <span class="n">ssyrk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">XT</span><span class="p">,</span> <span class="n">trans</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+
+
+<span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rowSum_0</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 17/10/2018]</span>
+<span class="sd">	Computes rowSum**2 for dense matrix efficiently, instead of using einsum</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">Xi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+			<span class="n">Xij</span> <span class="o">=</span> <span class="n">Xi</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+			<span class="n">s</span> <span class="o">+=</span> <span class="n">Xij</span><span class="o">*</span><span class="n">Xij</span>
+		<span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+	<span class="k">if</span> <span class="n">norm</span><span class="p">:</span>
+		<span class="n">S</span><span class="o">**=</span><span class="mf">0.5</span>
+	<span class="k">return</span> <span class="n">S</span>
+
+
+<div class="viewcode-block" id="rowSum_A"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.rowSum_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rowSum_A</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 22/10/2018]</span>
+<span class="sd">	Computes rowSum**2 for dense array efficiently, instead of using einsum</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">s</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+	<span class="k">if</span> <span class="n">norm</span><span class="p">:</span>
+		<span class="n">s</span> <span class="o">**=</span> <span class="mf">0.5</span>
+	<span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="rowSum"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.rowSum">[docs]</a><span class="k">def</span> <span class="nf">rowSum</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 22/10/2018]</span>
+<span class="sd">	Combines rowSum for matrices and arrays.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">rowSum_0</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">rowSum_A</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">norm</span><span class="p">)</span></div>
+
+
 <span class="k">def</span> <span class="nf">_reflect</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">X</span>
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">([</span> <span class="n">M32_</span><span class="p">(</span><span class="n">M32_</span><span class="p">),</span> <span class="n">M64_</span><span class="p">(</span><span class="n">M64_</span><span class="p">)</span> <span class="p">],</span> <span class="o">**</span><span class="n">parallel</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_reflect_parallel</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-            <span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">X</span>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="reflect"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.reflect">[docs]</a><span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">X</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">_reflect_parallel</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5000</span> <span class="k">else</span> <span class="n">_reflect</span>
-    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="amax_0"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.amax_0">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span>
-      <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M32_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M64_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>   
-<span class="k">def</span> <span class="nf">amax_0</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finds the sign(X[:,abs(X).argmax(0)])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
-    <span class="n">maximum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">Xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">maximum</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
-                <span class="n">maximum</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
-                <span class="n">indices</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">indices</span></div>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="amax_0_parallel"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.amax_0_parallel">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span>
-      <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M32_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M64_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">)],</span> <span class="o">**</span><span class="n">parallel</span><span class="p">)</span>   
-<span class="k">def</span> <span class="nf">amax_0_parallel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finds the sign(X[:,abs(X).argmax(0)])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
-    <span class="n">maximum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">Xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">maximum</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
-                <span class="n">maximum</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
-                <span class="n">indices</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">indices</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="amax_1"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.amax_1">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span>
-      <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M32_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M64_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>   
-<span class="k">def</span> <span class="nf">amax_1</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finds the sign(X[abs(X).argmax(1)])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">_max</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">Xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">_max</span><span class="p">:</span>
-                <span class="n">_max</span> <span class="o">=</span> <span class="n">a</span>
-                <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-        <span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-    <span class="k">return</span> <span class="n">indices</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="amax_1_parallel"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.amax_1_parallel">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_32</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M_64</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span>
-      <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M32_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">int8</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">M64_</span><span class="p">,</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">)],</span> <span class="o">**</span><span class="n">parallel</span><span class="p">)</span>   
-<span class="k">def</span> <span class="nf">amax_1_parallel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Finds the sign(X[abs(X).argmax(1)])</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">_max</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">Xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">_max</span><span class="p">:</span>
-                <span class="n">_max</span> <span class="o">=</span> <span class="n">a</span>
-                <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">Xij</span><span class="p">)</span>
-        <span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-    <span class="k">return</span> <span class="n">indices</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="sign_max"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.sign_max">[docs]</a><span class="k">def</span> <span class="nf">sign_max</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    [Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]</span>
-<span class="sd">    Returns the sign of the maximum absolute value of an axis of X.</span>
-
-<span class="sd">    input:      1 argument, 2 optional</span>
-<span class="sd">    ----------------------------------------------------------</span>
-<span class="sd">    X:          Matrix X to be processed. Must be 2D array.</span>
-<span class="sd">    axis:       Default = 0. 0 = column-wise. 1 = row-wise.</span>
-<span class="sd">    n_jobs:     Default = 1. Uses multiple CPUs if n*p &gt; 20,000^2.</span>
-
-<span class="sd">    returns:    sign array of -1,1</span>
-<span class="sd">    ----------------------------------------------------------</span>
-<span class="sd">    &quot;&quot;&quot;</span> 
-    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">amax</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;amax_</span><span class="si">{axis}</span><span class="s2">_parallel&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="n">n_jobs</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">n</span><span class="o">*</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mf">4e8</span><span class="p">)</span> <span class="k">else</span> <span class="n">f</span><span class="s2">&quot;amax_</span><span class="si">{axis}</span><span class="s2">&quot;</span>
-    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">amax</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="svd_flip"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.svd_flip">[docs]</a><span class="k">def</span> <span class="nf">svd_flip</span><span class="p">(</span><span class="n">U</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    [Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]</span>
-<span class="sd">    Flips the signs of U and VT from a SVD or eigendecomposition.</span>
-<span class="sd">    Default opposite to Sklearn&#39;s U decision. HyperLearn uses</span>
-<span class="sd">    the maximum of rows of VT.</span>
-
-<span class="sd">    input:      2 argument, 1 optional</span>
-<span class="sd">    ----------------------------------------------------------</span>
-<span class="sd">    U:          U matrix from SVD</span>
-<span class="sd">    VT:         VT matrix (V transpose) from SVD</span>
-<span class="sd">    U_decision: Default = False. If True, uses max from U.</span>
-
-<span class="sd">    returns:    Nothing. Inplace updates U, VT</span>
-<span class="sd">    ----------------------------------------------------------</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">U_decision</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>
-
-    <span class="k">if</span> <span class="n">U</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">U_decision</span><span class="p">:</span>
-            <span class="n">signs</span> <span class="o">=</span> <span class="n">sign_max</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">signs</span> <span class="o">=</span> <span class="n">sign_max</span><span class="p">(</span><span class="n">VT</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
-        <span class="n">U</span> <span class="o">*=</span> <span class="n">signs</span>
-        <span class="n">VT</span> <span class="o">*=</span> <span class="n">signs</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Eig flip on eigenvectors</span>
-        <span class="n">signs</span> <span class="o">=</span> <span class="n">sign_max</span><span class="p">(</span><span class="n">VT</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span><span class="p">)</span>
-        <span class="n">VT</span> <span class="o">*=</span> <span class="n">signs</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="svd_search"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.svd_search">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">I64</span><span class="p">(</span><span class="n">A32</span><span class="p">,</span> <span class="n">F64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">I64</span><span class="p">(</span><span class="n">A64</span><span class="p">,</span> <span class="n">F64</span><span class="p">,</span> <span class="n">I64</span><span class="p">)],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">svd_search</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Determines the rank of a matrix via the singular values.</span>
-<span class="sd">    (Counts how many are larger than eps.)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">rank</span> <span class="o">=</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span>
-    <span class="k">if</span> <span class="n">S</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
-        <span class="n">rank</span> <span class="o">-=</span> <span class="mi">1</span>
-        <span class="k">while</span> <span class="n">rank</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">S</span><span class="p">[</span><span class="n">rank</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">eps</span><span class="p">:</span> <span class="k">break</span>
-            <span class="n">rank</span> <span class="o">-=</span> <span class="mi">1</span>
-    <span class="n">rank</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">rank</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="svd_condition"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.svd_condition">[docs]</a><span class="k">def</span> <span class="nf">svd_condition</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    [Added 21/11/2018]</span>
-<span class="sd">    Uses Scipy&#39;s SVD condition number calculation to improve pseudoinverse</span>
-<span class="sd">    stability. Uses (1e3, 1e6) * eps(S) * S[0] as the condition number.</span>
-<span class="sd">    Everythimg below cond is set to 0.</span>
-
-<span class="sd">    input:      3 argument, 1 optional</span>
-<span class="sd">    ----------------------------------------------------------</span>
-<span class="sd">    U:          U matrix from SVD</span>
-<span class="sd">    S:          S diagonal array from SVD</span>
-<span class="sd">    VT:         VT matrix (V transpose) from SVD</span>
-<span class="sd">    alpha:      Default = None. Ridge regularization</span>
-
-<span class="sd">    returns:    U, S/(S+alpha), VT updated.</span>
-<span class="sd">    ----------------------------------------------------------</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">eps</span> <span class="o">=</span> <span class="n">epsilon</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="o">*</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="c1"># Binary search O(logn) is not useful</span>
-    <span class="c1"># since most singular values are not going to be 0</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">size</span>
-    <span class="n">rank</span> <span class="o">=</span> <span class="n">svd_search</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">rank</span> <span class="o">!=</span> <span class="n">size</span><span class="p">:</span>
-        <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="p">:</span><span class="n">rank</span><span class="p">],</span> <span class="n">S</span><span class="p">[:</span><span class="n">rank</span><span class="p">],</span> <span class="n">VT</span><span class="p">[:</span><span class="n">rank</span><span class="p">]</span>
-
-    <span class="c1"># Check if alpha needs to be added onto the singular values</span>
-    <span class="n">alphaUpdate</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">is32</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">alpha</span> <span class="o">!=</span> <span class="n">ALPHA_DEFAULT32</span><span class="p">:</span>
-                <span class="n">alphaUpdate</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">alpha</span> <span class="o">!=</span> <span class="n">ALPHA_DEFAULT64</span><span class="p">:</span>
-                <span class="n">alphaUpdate</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="k">if</span> <span class="n">alphaUpdate</span><span class="p">:</span>
-        <span class="n">S</span> <span class="o">/=</span> <span class="p">(</span><span class="n">S</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">alpha</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">S</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">S</span>
-    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="eig_search"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.eig_search">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">A32</span><span class="p">(</span><span class="n">A32</span><span class="p">,</span> <span class="n">F64</span><span class="p">),</span> <span class="n">A64</span><span class="p">(</span><span class="n">A64</span><span class="p">,</span> <span class="n">F64</span><span class="p">)],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">eig_search</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">eps</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Corrects the eigenvalues if they&#39;re smaller than 0.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">W</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="k">break</span>
-        <span class="c1"># else set to condition number</span>
-        <span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eps</span>
-    <span class="k">return</span> <span class="n">W</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="eig_condition"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.eig_condition">[docs]</a><span class="k">def</span> <span class="nf">eig_condition</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">V</span><span class="p">):</span>
-    <span class="c1"># Condition number just in case W[i] &lt;= 0</span>
-    <span class="n">eps</span> <span class="o">=</span> <span class="n">epsilon</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">first</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mf">0.5</span> <span class="c1"># eigenvalues are sorted ascending</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">first</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">eps</span> <span class="o">*=</span> <span class="n">first</span>
-    <span class="n">eps</span> <span class="o">**=</span> <span class="mi">2</span> <span class="c1"># since eigenvalues are squared of singular values</span>
-
-    <span class="n">W</span> <span class="o">=</span> <span class="n">eig_search</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>    
-
-    <span class="c1"># X.H @ V / W**0.5</span>
-    <span class="n">XT</span> <span class="o">=</span> <span class="n">X</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">flags</span><span class="p">[</span><span class="s2">&quot;F_CONTIGUOUS&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
-    
-    <span class="k">if</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">isComplex</span><span class="p">(</span><span class="n">dtypeY</span><span class="p">):</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">blas</span><span class="p">(</span><span class="s2">&quot;gemm&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">XT</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">trans_a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">trans_b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">V</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">conjugate</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">V</span>
-
-    <span class="n">out</span> <span class="o">/=</span> <span class="n">W</span><span class="o">**</span><span class="mf">0.5</span>
-    <span class="k">return</span> <span class="n">W</span><span class="p">,</span> <span class="n">out</span></div>
-
-
-<div class="viewcode-block" id="eigh_search"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.eigh_search">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">bool_</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">A32</span><span class="p">,</span> <span class="n">F64</span><span class="p">),</span> <span class="n">bool_</span><span class="p">[::</span><span class="mi">1</span><span class="p">](</span><span class="n">A64</span><span class="p">,</span> <span class="n">F64</span><span class="p">)],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">eigh_search</span><span class="p">(</span><span class="n">W</span><span class="p">,</span> <span class="n">eps</span><span class="p">):</span>
-    <span class="n">w0</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-
-    <span class="n">last</span> <span class="o">=</span> <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">negative</span> <span class="o">=</span> <span class="p">(</span><span class="n">last</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">w1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">last</span><span class="p">)</span>
-
-    <span class="n">cutoff</span> <span class="o">=</span> <span class="n">w0</span> <span class="k">if</span> <span class="n">w0</span> <span class="o">&gt;</span> <span class="n">w1</span> <span class="k">else</span> <span class="n">w1</span>
-    <span class="n">cutoff</span> <span class="o">*=</span> <span class="n">eps</span>
-    
-    <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
-    
-    <span class="k">if</span> <span class="n">w0</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">:</span>
-        <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">if</span> <span class="n">w1</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">:</span>
-        <span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-    
-    <span class="c1"># Check if abs(W) &lt; eps</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">:</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-            
-    <span class="k">return</span> <span class="n">out</span></div>
-
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">([</span><span class="n">A32</span><span class="p">(</span><span class="n">M32_</span><span class="p">),</span> <span class="n">A64</span><span class="p">(</span><span class="n">M64_</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_row_norm</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">xij</span> <span class="o">*=</span> <span class="n">xij</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="n">xij</span>
-        <span class="n">norm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-    <span class="k">return</span> <span class="n">norm</span>
-
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">([</span><span class="n">A32</span><span class="p">(</span><span class="n">M32_</span><span class="p">),</span> <span class="n">A64</span><span class="p">(</span><span class="n">M64_</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_col_norm</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">xij</span> <span class="o">*=</span> <span class="n">xij</span>
-            <span class="n">norm</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">xij</span>
-    <span class="k">return</span> <span class="n">norm</span>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="normA"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.normA">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">F64</span><span class="p">(</span><span class="n">A32</span><span class="p">),</span> <span class="n">F64</span><span class="p">(</span><span class="n">A64</span><span class="p">)],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">normA</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">xi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">xi</span> <span class="o">*=</span> <span class="n">xi</span>
-        <span class="n">s</span> <span class="o">+=</span> <span class="n">xi</span>
-    <span class="k">return</span> <span class="n">s</span></div>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="col_norm"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.col_norm">[docs]</a><span class="k">def</span> <span class="nf">col_norm</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_col_norm</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">normA</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="row_norm"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.row_norm">[docs]</a><span class="k">def</span> <span class="nf">row_norm</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_row_norm</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">normA</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
-
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">([</span><span class="n">F64</span><span class="p">(</span><span class="n">M32_</span><span class="p">),</span> <span class="n">F64</span><span class="p">(</span><span class="n">M64_</span><span class="p">)],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_frobenius_norm</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
-    <span class="n">norm</span> <span class="o">=</span> <span class="mi">0</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">xij</span> <span class="o">*=</span> <span class="n">xij</span>
-            <span class="n">norm</span> <span class="o">+=</span> <span class="n">xij</span>
-    <span class="k">return</span> <span class="n">norm</span>
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">([</span><span class="n">F64</span><span class="p">(</span><span class="n">M_32</span><span class="p">),</span> <span class="n">F64</span><span class="p">(</span><span class="n">M_64</span><span class="p">)],</span> <span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_frobenius_norm_symmetric</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">norm</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">diag</span> <span class="o">=</span> <span class="mi">0</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
-            <span class="n">xij</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
-            <span class="n">xij</span> <span class="o">*=</span> <span class="n">xij</span>
-            <span class="n">norm</span> <span class="o">+=</span> <span class="n">xij</span>
-
-        <span class="n">xii</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
-        <span class="n">xii</span> <span class="o">*=</span> <span class="n">xii</span>
-        <span class="n">diag</span> <span class="o">+=</span> <span class="n">xii</span>
-    <span class="n">norm</span> <span class="o">*=</span> <span class="mi">2</span>
-    <span class="n">norm</span> <span class="o">+=</span> <span class="n">diag</span>
-    <span class="k">return</span> <span class="n">norm</span>
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="frobenius_norm"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.frobenius_norm">[docs]</a><span class="k">def</span> <span class="nf">frobenius_norm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">symmetric</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Outputs the ||X||_F ^ 2 norm of a matrix. If symmetric,</span>
-<span class="sd">    then computes the norm on 1/2 of the matrix and multiplies</span>
-<span class="sd">    it by 2.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">symmetric</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">_frobenius_norm_symmetric</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_frobenius_norm</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">normA</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="proportion"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.proportion">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">A32</span><span class="p">(</span><span class="n">A32</span><span class="p">),</span> <span class="n">A64</span><span class="p">(</span><span class="n">A64</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">proportion</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
-    <span class="n">X</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">X</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="gram_schmidt"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.gram_schmidt">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">M32_</span><span class="p">(</span><span class="n">M32_</span><span class="p">,</span> <span class="n">I64</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">),</span> <span class="n">M64_</span><span class="p">(</span><span class="n">M64_</span><span class="p">,</span> <span class="n">I64</span><span class="p">[::</span><span class="mi">1</span><span class="p">],</span> <span class="n">I64</span><span class="p">,</span> <span class="n">I64</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">gram_schmidt</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Modified stable Gram Schmidt process.</span>
-<span class="sd">    Gram-Schmidt Orthogonalization</span>
-<span class="sd">    Instructor: Ana Rita Pires (MIT 18.06SC).</span>
-<span class="sd">    Output is Q.T NOT Q. So you must transpose it.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">Q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-
-        <span class="n">x</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">col</span> <span class="o">=</span> <span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="c1"># Q[i] = X[:,P[i]]</span>
-        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-            <span class="n">x</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span>
-        
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-            <span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-            <span class="n">x</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">vdot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">q</span>
-            
-        <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">norm</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span>
-            <span class="n">Q</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">x</span> <span class="o">/=</span> <span class="n">norm</span>
-    <span class="k">return</span> <span class="n">Q</span></div>
-
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_unique_int</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Assumes a is just integers, and returning unique elements</span>
-<span class="sd">    will be much easier. Uses a quick boolean array instead of</span>
-<span class="sd">    a hash table.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">seen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">element</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">curr</span> <span class="o">=</span> <span class="n">seen</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">curr</span><span class="p">:</span>
-            <span class="n">seen</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-            <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c1"># fill up array with uniques</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">seen</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">seen</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">count</span><span class="p">:</span> <span class="k">break</span>
-    <span class="k">return</span> <span class="n">out</span>
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_unique_count</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the counts and unique values of an array a.</span>
-<span class="sd">    [Added 23/12/18]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">maximum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">seen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">maximum</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span><span class="p">)</span>
-    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-    
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">element</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="n">curr</span> <span class="o">=</span> <span class="n">seen</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">curr</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">seen</span><span class="p">[</span><span class="n">element</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="n">unique</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
-    
-    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">seen</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-        <span class="n">curr</span> <span class="o">=</span> <span class="n">seen</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">curr</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">unique</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
-            <span class="n">counts</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">curr</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">count</span><span class="p">:</span> <span class="k">break</span>
-    <span class="k">return</span> <span class="n">unique</span><span class="p">,</span> <span class="n">counts</span>
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_unique_sorted_size</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns how many uniques in a sorted list.</span>
-<span class="sd">    [Added 23/12/18]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">old</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">new</span> <span class="o">!=</span> <span class="n">old</span><span class="p">:</span>
-            <span class="n">size</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="n">old</span> <span class="o">=</span> <span class="n">new</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">size</span>
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_unique_sorted</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns only unique elements in a sorted list.</span>
-<span class="sd">    [Added 23/12/18]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">_unique_sorted_size</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-        
-    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">old</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">old</span>
-    
-    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">length</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">new</span> <span class="o">!=</span> <span class="n">old</span><span class="p">:</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span>
-            <span class="n">old</span> <span class="o">=</span> <span class="n">new</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">length</span><span class="p">:</span> <span class="k">break</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">out</span>
-
-<span class="c1">###</span>
-<span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">gil</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_unique_sorted_count</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns unique elements and their counts in a sorted list.</span>
-<span class="sd">    [Added 23/12/18]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">_unique_sorted_size</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-        
-    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
-    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">old</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">old</span>
-    
-    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">length</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span>
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">:</span>
-        <span class="n">new</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-
-        <span class="c1"># Add 1 to count</span>
-        <span class="n">counts</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">new</span> <span class="o">!=</span> <span class="n">old</span><span class="p">:</span>
-            <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">length</span><span class="p">:</span> <span class="k">break</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">new</span>
-            <span class="n">old</span> <span class="o">=</span> <span class="n">new</span>
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="c1"># Need to update last element since loop forgets it.</span>
-    <span class="n">counts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">counts</span>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="unique_int"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.unique_int">[docs]</a><span class="k">def</span> <span class="nf">unique_int</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">return_counts</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given a list of postive ints, returns the unique</span>
-<span class="sd">    elements accompanied with optional counts.</span>
-<span class="sd">    [Added 23/12/18]</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    -----------</span>
-<span class="sd">    a:              Array of postive ints</span>
-<span class="sd">    return_counts:  Whether to return (unique, counts)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">return_counts</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_unique_count</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">uinteger</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">_unique_int</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
-
-
-<span class="c1">###</span>
-<div class="viewcode-block" id="unique_sorted"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.unique_sorted">[docs]</a><span class="k">def</span> <span class="nf">unique_sorted</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">return_counts</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Given a list of sorted elements, returns the unique</span>
-<span class="sd">    elements accompanied with optional counts.</span>
-<span class="sd">    [Added 23/12/18]</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    -----------</span>
-<span class="sd">    a:              Array of sorted elements</span>
-<span class="sd">    return_counts:  Whether to return (unique, counts)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">return_counts</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_unique_sorted_count</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">_unique_sorted</span><span class="p">(</span><span class="n">a</span><span class="p">)</span></div>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	See reflect(X, n_jobs = N) documentation.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+		<span class="n">Xi</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+			<span class="n">X</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Xi</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">X</span>
+<span class="n">reflect_single</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_reflect</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">reflect_parallel</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_reflect</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="reflect"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.reflect">[docs]</a><span class="k">def</span> <span class="nf">reflect</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 15/10/2018] [Edited 18/10/2018]</span>
+<span class="sd">	Reflects lower triangular of matrix efficiently to upper.</span>
+<span class="sd">	Notice much faster than say X += X.T or naive:</span>
+<span class="sd">		for i in range(n):</span>
+<span class="sd">			for j in range(i, n):</span>
+<span class="sd">				X[i,j] = X[j,i]</span>
+<span class="sd">	In fact, it is much faster to perform vertically:</span>
+<span class="sd">		for i in range(1, n):</span>
+<span class="sd">			Xi = X[i]</span>
+<span class="sd">			for j in range(i):</span>
+<span class="sd">				X[j,i] = Xi[j]</span>
+<span class="sd">	The trick is to notice X[i], which reduces array access.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">X</span> <span class="o">=</span> <span class="n">reflect_parallel</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_jobs</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">reflect_single</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">X</span></div>
+
+
+<div class="viewcode-block" id="addDiagonal"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.addDiagonal">[docs]</a><span class="k">def</span> <span class="nf">addDiagonal</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 11/11/2018]</span>
+<span class="sd">	Add c to diagonal of matrix</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">X</span><span class="o">.</span><span class="n">flat</span><span class="p">[::</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">c</span></div>
+
+<div class="viewcode-block" id="setDiagonal"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.utils.setDiagonal">[docs]</a><span class="k">def</span> <span class="nf">setDiagonal</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 11/11/2018]</span>
+<span class="sd">	Set c to diagonal of matrix</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">X</span><span class="o">.</span><span class="n">flat</span><span class="p">[::</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span></div>
 
 </pre></div>
 
@@ -954,6 +554,7 @@
         <script type="text/javascript" src="../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 
   

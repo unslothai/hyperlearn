@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.solvers &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.solvers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.solvers</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">.linalg</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">_svdCond</span><span class="p">,</span> <span class="n">_float</span><span class="p">,</span> <span class="n">_XTX</span><span class="p">,</span> <span class="n">_XXT</span><span class="p">,</span> <span class="n">fastDot</span>
+<span class="kn">from</span> <span class="nn">.numba</span> <span class="k">import</span> <span class="n">lstsq</span> <span class="k">as</span> <span class="n">_lstsq</span>
+<span class="kn">from</span> <span class="nn">.big_data</span> <span class="k">import</span> <span class="n">LSMR</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">newaxis</span><span class="p">,</span> <span class="n">cumsum</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">hstack</span>
+<span class="kn">from</span> <span class="nn">.big_data.randomized</span> <span class="k">import</span> <span class="n">randomizedSVD</span>
+<span class="kn">from</span> <span class="nn">.big_data.truncated</span> <span class="k">import</span> <span class="n">truncatedEig</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;solve&#39;</span><span class="p">,</span> <span class="s1">&#39;solveCholesky&#39;</span><span class="p">,</span> <span class="s1">&#39;solveSVD&#39;</span><span class="p">,</span> <span class="s1">&#39;solveEig&#39;</span><span class="p">,</span> <span class="s1">&#39;solvePartial&#39;</span><span class="p">,</span> <span class="s1">&#39;lstsq&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;solveTLS&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">condition_limit</span> <span class="o">=</span> <span class="mf">1e8</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">weights</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+			<span class="n">non_negative</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[As of 12/9/2018, an optional non_negative argument is added. Note as accurate as Scipy&#39;s NNLS,</span>
+<span class="sd">	by copies ideas from gradient descent.]</span>
+
+<span class="sd">	[NOTE: as of 12/9/2018, LSMR is default in HyperLearn, replacing the 2nd fastest Cholesky</span>
+<span class="sd">	Solve. LSMR is 2-4 times faster, and uses N less memory]</span>
+
+<span class="sd">	&gt;&gt;&gt; WEIGHTS is an array of Weights for Weighted / Generalized Least Squares [default None]</span>
+<span class="sd">	&gt;&gt;&gt; theta = (XT*W*X)^-1*(XT*W*y)</span>
+
+<span class="sd">	Implements extremely fast least squares LSMR using orthogonalization as seen in Scipy&#39;s LSMR and</span>
+<span class="sd">	https://arxiv.org/abs/1006.0758 [LSMR: An iterative algorithm for sparse least-squares problems]</span>
+<span class="sd">	by David Fong, Michael Saunders.</span>
+
+<span class="sd">	Scipy&#39;s version of LSMR is surprisingly slow, as some slow design factors were used</span>
+<span class="sd">	(ie np.sqrt(1 number) is slower than number**0.5, or min(a,b) is slower than using 1 if statement.)</span>
+
+<span class="sd">	ALPHA is provided for regularization purposes like Ridge Regression.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	This algorithm works well for Sparse Matrices as well, and the time complexity analysis is approx:</span>
+<span class="sd">		X.T @ y   * min(n,p) times + 3 or so O(n) operations</span>
+<span class="sd">		==&gt; O(np)*min(n,p)</span>
+<span class="sd">		==&gt; either min(O(n^2p + n), O(np^2 + n))</span>
+<span class="sd">		*** Note if Weights is present, complexity increases.</span>
+<span class="sd">			Instead of fitting X^T*W*X, fits X^T/sqrt(W)</span>
+<span class="sd">			So, O(np+n) is needed extra.</span>
+
+<span class="sd">	This complexity is much better than Cholesky Solve which is the next fastest in HyperLearn.</span>
+<span class="sd">	Cholesky requires O(np^2) for XT * X, then Cholesky needs an extra 1/3*O(np^2), then inversion</span>
+<span class="sd">	takes another 1/3*(np^2), and finally (XT*y) needs O(np).</span>
+
+<span class="sd">	So Cholesky needs O(5/3np^2 + np) &gt;&gt; min(O(n^2p + n), O(np^2 + n))</span>
+
+<span class="sd">	So by factor analysis, expect LSMR to be approx 2 times faster or so.</span>
+
+<span class="sd">	Memory</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Interestingly, the Space Complexity is even more staggering. LSMR takes only maximum O(np^2) space</span>
+<span class="sd">	for the computation of XT * y + some overhead.</span>
+<span class="sd">		*** Note if Weights is present, and COPY IS TRUE, then memory is DOUBLED.</span>
+<span class="sd">			Hence, try setting COPY to FALSE, memory will not change, and X will return back to its</span>
+<span class="sd">			original state afterwards.</span>
+
+<span class="sd">	Cholesky requires XT * X space, which is already max O(n^2p) [which is huge].</span>
+<span class="sd">	Essentially, Cholesky shines when P is large, but N is small. LSMR is good for large N, medium P</span>
+
+<span class="sd">	Weighted Least Squares</span>
+<span class="sd">	------------------------</span>
+<span class="sd">	Theta_hat = (XT * W * X)^-1 * (XT * y)</span>
+<span class="sd">	In other words in gradient descent / iterative solves solve:</span>
+<span class="sd">		X * sqrt(W) * theta_hat = y * sqrt(W)</span>
+
+<span class="sd">		or: X*sqrt(W)  ==&gt;  y*sqrt(W)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LSMR can only work on single Ys. Try fitting 2 or more models.&quot;</span><span class="p">)</span>
+			<span class="k">return</span>
+
+
+	<span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">weights</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+				<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Weights must be 1 dimensional.&quot;</span><span class="p">)</span>
+				<span class="k">return</span>
+		<span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">**</span><span class="mf">0.5</span>
+		<span class="n">W</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[:,</span><span class="n">newaxis</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
+			<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">*</span><span class="n">W</span>
+			<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">*</span><span class="n">weights</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">X</span> <span class="o">*=</span> <span class="n">W</span>
+			<span class="n">y</span> <span class="o">*=</span> <span class="n">weights</span>
+
+	<span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+
+	<span class="n">good</span> <span class="o">=</span> <span class="kc">False</span>
+	<span class="k">while</span> <span class="ow">not</span> <span class="n">good</span><span class="p">:</span>
+		<span class="n">theta_hat</span><span class="p">,</span> <span class="n">good</span> <span class="o">=</span> <span class="n">LSMR</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span><span class="p">,</span> <span class="n">condition_limit</span> <span class="o">=</span> <span class="n">condition_limit</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span>
+								<span class="n">non_negative</span> <span class="o">=</span> <span class="n">non_negative</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span><span class="p">)</span>
+		<span class="n">alpha</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span> <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">alpha</span><span class="o">*</span><span class="mi">10</span>
+
+	<span class="c1"># Return X back to its original state</span>
+	<span class="k">if</span> <span class="ow">not</span> <span class="n">copy</span> <span class="ow">and</span> <span class="n">weights</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="n">X</span> <span class="o">/=</span> <span class="n">W</span>
+		<span class="n">y</span> <span class="o">/=</span> <span class="n">weights</span>
+
+	<span class="k">return</span> <span class="n">theta_hat</span></div>
+
+	
+
+
+<div class="viewcode-block" id="solveCholesky"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.solveCholesky">[docs]</a><span class="k">def</span> <span class="nf">solveCholesky</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 23/9/2018 added matrix multiplication decisions (faster multiply)</span>
+<span class="sd">	 ie: if (XTX)^1(XTy) or ((XTX)^-1XT)y is faster]</span>
+<span class="sd">	[Edited 20/10/2018 Major update - added LAPACK cholSolve --&gt; 20% faster]</span>
+<span class="sd">	[Edited 30/10/2018 Reduced RAM usage by clearing unused variables]</span>
+
+<span class="sd">	Computes the Least Squares solution to X @ theta = y using Cholesky</span>
+<span class="sd">	Decomposition. This is the default solver in HyperLearn.</span>
+<span class="sd">	</span>
+<span class="sd">	Cholesky Solving is used as the 2nd default solver [as of 12/9/2018, default</span>
+<span class="sd">	has been switched to LSMR (called solve)] in HyperLearn,</span>
+<span class="sd">	as it is super fast and allows regularization. HyperLearn&#39;s</span>
+<span class="sd">	implementation also handles rank deficient and ill-conditioned</span>
+<span class="sd">	matrices perfectly with the help of the limiting behaivour of</span>
+<span class="sd">	adding forced epsilon regularization.</span>
+<span class="sd">	</span>
+<span class="sd">	Optional alpha is used for regularization purposes.</span>
+<span class="sd">	</span>
+<span class="sd">	|  Method   |   Operations    | Factor * np^2 |</span>
+<span class="sd">	|-----------|-----------------|---------------|</span>
+<span class="sd">	| Cholesky  |   1/3 * np^2    |      1/3      |</span>
+<span class="sd">	|    QR     |   p^3/3 + np^2  |   1 - p/3n    |</span>
+<span class="sd">	|    SVD    |   p^3   + np^2  |    1 - p/n    |</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s Cholesky and Triangular Solve given identity matrix. </span>
+<span class="sd">		Speed is OK.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based Cholesky.</span>
+<span class="sd">		If NUMBA is not installed, uses very fast LAPACK functions.</span>
+<span class="sd">		Also, uses very fast LAPACK algorithms for triangular system inverses.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Note that LAPACK&#39;s single precision (float32) solver (strtri) is much more</span>
+<span class="sd">	unstable than double (float64). You might see stability problems if FAST = TRUE.</span>
+<span class="sd">	Set it to FALSE if theres issues.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+	<span class="n">XT</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+	<span class="n">covariance</span> <span class="o">=</span> <span class="n">_XTX</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">_XXT</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span>
+	
+	<span class="n">cho</span> <span class="o">=</span> <span class="n">cholesky</span><span class="p">(</span><span class="n">covariance</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="k">del</span> <span class="n">covariance</span><span class="p">;</span> <span class="n">covariance</span> <span class="o">=</span> <span class="kc">None</span><span class="p">;</span> <span class="c1"># saving memory</span>
+
+
+	<span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="p">:</span>
+		<span class="c1"># Use spotrs solve from LAPACK</span>
+		<span class="k">return</span> <span class="n">cholSolve</span><span class="p">(</span><span class="n">cho</span><span class="p">,</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">inv</span> <span class="o">=</span> <span class="n">invCholesky</span><span class="p">(</span><span class="n">cho</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">fastDot</span><span class="p">(</span><span class="n">XT</span><span class="p">,</span> <span class="n">inv</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+
+	<span class="c1">#return fastDot(inv, XT, y) if n &gt;= p else fastDot(XT, inv, y)</span>
+	
+
+
+
+<div class="viewcode-block" id="solveSVD"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.solveSVD">[docs]</a><span class="k">def</span> <span class="nf">solveSVD</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 6/11/2018 Added n_components for Partial Solving]</span>
+<span class="sd">	Computes the Least Squares solution to X @ theta = y using SVD.</span>
+<span class="sd">	Slow, but most accurate. Specify n_components to reduce overfitting.</span>
+<span class="sd">	Heurestic is 95% of variance is captured, if set to &#39;auto&#39;.</span>
+<span class="sd">	</span>
+<span class="sd">	Optional alpha is used for regularization purposes.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s SVD. PyTorch uses (for now) a NON divide-n-conquer algo.</span>
+<span class="sd">		Submitted report to PyTorch:</span>
+<span class="sd">		https://github.com/pytorch/pytorch/issues/11174</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based SVD.</span>
+<span class="sd">		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Condition number is:</span>
+<span class="sd">		float32 = 1e3 * eps * max(S)</span>
+<span class="sd">		float64 = 1e6 * eps * max(S)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">alpha</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="k">assert</span> <span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+	<span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+	<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">_svdCond</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">n_components</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">n_components</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+			<span class="n">n_components</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_components</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">n_components</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">:</span>
+		<span class="c1"># Notice heuristic of 90% variance explained.</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="n">S</span> <span class="o">/</span> <span class="n">S</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="n">cumsum</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+			<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)):</span>
+				<span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.9</span><span class="p">:</span> <span class="k">break</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">i</span> <span class="o">=</span> <span class="n">n_components</span>
+		<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,:</span><span class="n">i</span><span class="p">],</span> <span class="n">S</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">VT</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+
+	<span class="k">return</span> <span class="n">fastDot</span><span class="p">(</span><span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">S</span><span class="p">,</span>   <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>   <span class="n">y</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="solvePartial"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.solvePartial">[docs]</a><span class="k">def</span> <span class="nf">solvePartial</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 6/11/2018]</span>
+<span class="sd">	Computes the Least Squares solution to X @ theta = y using Randomized SVD.</span>
+<span class="sd">	Much faster than normal SVD solving, and is not prone is overfitting.</span>
+<span class="sd">	</span>
+<span class="sd">	Optional alpha is used for regularization purposes.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">alpha</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span> <span class="k">assert</span> <span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+	<span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+
+	<span class="k">if</span> <span class="n">n_components</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">n_components</span> <span class="o">==</span> <span class="s1">&#39;auto&#39;</span><span class="p">:</span>
+		<span class="c1"># will provide approx sqrt(p) - 1 components.</span>
+		<span class="c1"># A heuristic, so not guaranteed to work.</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span><span class="o">-</span><span class="mi">1</span>
+		<span class="k">if</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">n_components</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_components</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
+
+	<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">randomizedSVD</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">_svdCond</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">fastDot</span><span class="p">(</span><span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">S</span><span class="p">,</span>   <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>   <span class="n">y</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="solveEig"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.solveEig">[docs]</a><span class="k">def</span> <span class="nf">solveEig</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 30/10/2018 Reduced RAM usage by clearing unused variables]</span>
+<span class="sd">	</span>
+<span class="sd">	Computes the Least Squares solution to X @ theta = y using</span>
+<span class="sd">	Eigendecomposition on the covariance matrix XTX or XXT.</span>
+<span class="sd">	Medium speed and accurate, where this lies between</span>
+<span class="sd">	SVD and Cholesky.</span>
+<span class="sd">	</span>
+<span class="sd">	Optional alpha is used for regularization purposes.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s EIGH. PyTorch uses (for now) a non divide-n-conquer algo.</span>
+<span class="sd">		Submitted report to PyTorch:</span>
+<span class="sd">		https://github.com/pytorch/pytorch/issues/11174</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based EIGH.</span>
+<span class="sd">		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.</span>
+<span class="sd">		Note Scipy&#39;s EIGH as of now is NON divide-n-conquer.</span>
+<span class="sd">		Submitted report to Scipy:</span>
+<span class="sd">		https://github.com/scipy/scipy/issues/9212</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Condition number is:</span>
+<span class="sd">		float32 = 1e3 * eps * max(abs(S))</span>
+<span class="sd">		float64 = 1e6 * eps * max(abs(S))</span>
+<span class="sd">		</span>
+<span class="sd">	Alpha is added for regularization purposes. This prevents system</span>
+<span class="sd">	rounding errors and promises better convergence rates.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+	<span class="n">XT</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+	<span class="n">covariance</span> <span class="o">=</span> <span class="n">_XTX</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">_XXT</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span>
+	
+	<span class="n">inv</span> <span class="o">=</span> <span class="n">pinvh</span><span class="p">(</span><span class="n">covariance</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="k">del</span> <span class="n">covariance</span><span class="p">;</span> <span class="n">covariance</span> <span class="o">=</span> <span class="kc">None</span><span class="p">;</span> <span class="c1"># saving memory</span>
+
+	<span class="k">return</span> <span class="n">fastDot</span><span class="p">(</span><span class="n">inv</span><span class="p">,</span> <span class="n">XT</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">fastDot</span><span class="p">(</span><span class="n">XT</span><span class="p">,</span> <span class="n">inv</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="lstsq"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.lstsq">[docs]</a><span class="k">def</span> <span class="nf">lstsq</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Returns normal Least Squares solution using LAPACK and Numba if</span>
+<span class="sd">	installed. PyTorch will default to Cholesky Solve.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">_lstsq</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="solveTLS"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.solvers.solveTLS">[docs]</a><span class="k">def</span> <span class="nf">solveTLS</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;truncated&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 6/11/2018]</span>
+<span class="sd">	Performs Total Least Squares based on the implementation in Wikipedia:</span>
+<span class="sd">	https://en.wikipedia.org/wiki/Total_least_squares.</span>
+<span class="sd">	The naming is rather deceptive, as it doesn&#39;t mean it&#39;ll yield better</span>
+<span class="sd">	results than pure SVD solving.</span>
+<span class="sd">	Normal linear regression assumes Y|X has gaussian noise. TLS assumes this</span>
+<span class="sd">	AND X|Y has noise.</span>
+
+<span class="sd">	Two solvers - full, truncated. Truncated is much much faster, as smallest</span>
+<span class="sd">	eigen component is needed. Full solver uses Eigendecomposition, which is</span>
+<span class="sd">	much much slower, but more accurate.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">_float</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;solveTLS works only on single column Ys.&quot;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="n">Z</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">newaxis</span><span class="p">]))</span>
+
+	<span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
+		<span class="n">__</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
+
+		<span class="n">VXY</span> <span class="o">=</span> <span class="n">V</span><span class="p">[:</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="p">]</span>
+		<span class="n">VYY</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">p</span><span class="p">:,</span> <span class="n">p</span><span class="p">]</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="c1"># Uses truncatedEig</span>
+		<span class="n">V</span> <span class="o">=</span> <span class="n">truncatedEig</span><span class="p">(</span><span class="n">Z</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">which</span> <span class="o">=</span> <span class="s1">&#39;smallest&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+		<span class="n">VXY</span> <span class="o">=</span> <span class="n">V</span><span class="p">[:</span><span class="n">p</span><span class="p">]</span>
+		<span class="n">VYY</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+
+	<span class="n">theta_hat</span> <span class="o">=</span> <span class="o">-</span><span class="n">VXY</span> <span class="o">/</span> <span class="n">VYY</span>
+
+	<span class="k">return</span> <span class="n">theta_hat</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

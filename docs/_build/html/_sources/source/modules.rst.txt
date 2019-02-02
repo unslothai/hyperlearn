@@ -2,6 +2,6 @@ hyperlearn
 ===========
 
 .. toctree::
-   :maxdepth: 20
+   :maxdepth: 100
 
    hyperlearn

@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.big_data.incremental &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.big_data.incremental</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.big_data.incremental</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">vstack</span><span class="p">,</span> <span class="n">newaxis</span><span class="p">,</span> <span class="n">arange</span>
+<span class="kn">from</span> <span class="nn">..linalg</span> <span class="k">import</span> <span class="n">svd</span><span class="p">,</span> <span class="n">eigh</span><span class="p">,</span> <span class="n">eig</span>
+<span class="kn">from</span> <span class="nn">.truncated</span> <span class="k">import</span> <span class="n">truncatedSVD</span><span class="p">,</span> <span class="n">truncatedEigh</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="k">import</span> <span class="n">memoryXTX</span>
+<span class="kn">from</span> <span class="nn">.randomized</span> <span class="k">import</span> <span class="n">randomizedSVD</span><span class="p">,</span> <span class="n">randomizedEig</span>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="k">import</span> <span class="n">PartialWrongShape</span>
+
+
+<span class="k">def</span> <span class="nf">_utilSVD</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">eig</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Batch (nrows, ncols)</span>
+<span class="sd">	S (ncomponents)</span>
+<span class="sd">	VT (rows = ncomponents, cols = ncols)</span>
+<span class="sd">	</span>
+<span class="sd">	Check Batch(ncols) == VT(ncols) to check same number</span>
+<span class="sd">		of columns or else error is provided.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">eig</span><span class="p">:</span> 
+		<span class="n">VT</span><span class="p">,</span> <span class="n">S</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="o">**</span><span class="mf">0.5</span>
+	<span class="n">ncomponents</span><span class="p">,</span> <span class="n">ncols</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">shape</span>
+	<span class="k">if</span> <span class="n">batch</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">ncols</span><span class="p">:</span>
+		<span class="k">raise</span> <span class="n">PartialWrongShape</span><span class="p">()</span>
+
+	<span class="n">data</span> <span class="o">=</span> <span class="n">vstack</span><span class="p">(</span> <span class="p">(</span> <span class="n">S</span><span class="p">[:,</span><span class="n">newaxis</span><span class="p">]</span><span class="o">*</span><span class="n">VT</span> <span class="p">,</span> <span class="n">batch</span> <span class="p">)</span> <span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">VT</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">,</span> <span class="n">memoryXTX</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="partialSVD"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.big_data.incremental.partialSVD">[docs]</a><span class="k">def</span> <span class="nf">partialSVD</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Fits a partial SVD after given old singular values S</span>
+<span class="sd">	and old components VT.</span>
+
+<span class="sd">	Note that VT will be used as the number of old components,</span>
+<span class="sd">	so when calling truncated or randomized, will output a</span>
+<span class="sd">	specific number of eigenvectors and singular values.</span>
+
+<span class="sd">	Checks if new batch&#39;s size matches that of the old VT.</span>
+
+<span class="sd">	Note that PartialSVD has different solvers. Either choose:</span>
+<span class="sd">		1. full</span>
+<span class="sd">			Solves full SVD on the data. This is the most</span>
+<span class="sd">			stable and will guarantee the most robust results.</span>
+<span class="sd">			You can select the number of components to keep</span>
+<span class="sd">			within the model later.</span>
+
+<span class="sd">		2. truncated</span>
+<span class="sd">			This keeps the top K right eigenvectors and top</span>
+<span class="sd">			k right singular values, as determined by</span>
+<span class="sd">			n_components. Note full SVD is not called for the</span>
+<span class="sd">			truncated case, but rather ARPACK is called.</span>
+
+<span class="sd">		3. randomized</span>
+<span class="sd">			Same as truncated, but instead of using ARPACK, uses</span>
+<span class="sd">			randomized SVD.</span>
+
+<span class="sd">	Notice how Batch = U @ S @ VT. However, partialSVD returns</span>
+<span class="sd">	S, VT, and not U. In order to get U, you might consider using</span>
+<span class="sd">	the relation that X = U @ S @ VT, and approximating U by:</span>
+
+<span class="sd">		X = U @ S @ VT</span>
+<span class="sd">		X @ V = U @ S</span>
+<span class="sd">		(X @ V)/S = U</span>
+
+<span class="sd">		So, U = (X @ V)/S, so you can output U from (X @ V)/S</span>
+
+<span class="sd">		You can also get U partially and slowly using reverseU.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">_utilSVD</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">eig</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
+		<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+	<span class="k">elif</span> <span class="n">solver</span> <span class="o">==</span> <span class="s1">&#39;truncated&#39;</span><span class="p">:</span>
+		<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">truncatedSVD</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">randomizedSVD</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">U</span><span class="p">[</span><span class="n">k</span><span class="p">:,:</span><span class="n">k</span><span class="p">],</span> <span class="n">S</span><span class="p">[:</span><span class="n">k</span><span class="p">],</span> <span class="n">VT</span><span class="p">[:</span><span class="n">k</span><span class="p">]</span></div>
+
+
+
+
+<div class="viewcode-block" id="partialEig"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.big_data.incremental.partialEig">[docs]</a><span class="k">def</span> <span class="nf">partialEig</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">ratio</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;full&#39;</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Fits a partial Eigendecomp after given old eigenvalues S2</span>
+<span class="sd">	and old eigenvector components V.</span>
+
+<span class="sd">	Note that V will be used as the number of old components,</span>
+<span class="sd">	so when calling truncated or randomized, will output a</span>
+<span class="sd">	specific number of eigenvectors and eigenvalues.</span>
+
+<span class="sd">	Checks if new batch&#39;s size matches that of the old V.</span>
+
+<span class="sd">	Note that PartialEig has different solvers. Either choose:</span>
+<span class="sd">		1. full</span>
+<span class="sd">			Solves full Eigendecompsition on the data. This is the most</span>
+<span class="sd">			stable and will guarantee the most robust results.</span>
+<span class="sd">			You can select the number of components to keep</span>
+<span class="sd">			within the model later.</span>
+
+<span class="sd">		2. truncated</span>
+<span class="sd">			This keeps the top K right eigenvectors and top</span>
+<span class="sd">			k eigenvalues, as determined by n_components. Note full Eig</span>
+<span class="sd">			is not called for the truncated case, but rather ARPACK is called.</span>
+
+<span class="sd">		3. randomized</span>
+<span class="sd">			Same as truncated, but instead of using ARPACK, uses</span>
+<span class="sd">			randomized Eig.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">data</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">memCheck</span> <span class="o">=</span> <span class="n">_utilSVD</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">eig</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">solver</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">:</span>
+		<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">S2</span><span class="p">,</span> <span class="n">V</span>
+
+	<span class="k">elif</span> <span class="n">solver</span> <span class="o">==</span> <span class="s1">&#39;truncated&#39;</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">memCheck</span><span class="p">:</span>
+			<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">truncatedEigh</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">data</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">__</span><span class="p">,</span> <span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">truncatedSVD</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">tol</span> <span class="o">=</span> <span class="n">tol</span><span class="p">)</span>
+			<span class="n">S2</span><span class="o">**=</span><span class="mi">2</span>
+			<span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">randomizedEig</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span> <span class="n">max_iter</span> <span class="o">=</span> <span class="n">max_iter</span><span class="p">)</span>
+
+	<span class="k">return</span> <span class="n">S2</span><span class="p">[:</span><span class="n">k</span><span class="p">],</span> <span class="n">V</span><span class="p">[:,:</span><span class="n">k</span><span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

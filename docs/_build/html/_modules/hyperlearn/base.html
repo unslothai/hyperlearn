@@ -1,0 +1,429 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.base &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.base</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.base</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">torch</span> <span class="k">import</span> <span class="n">from_numpy</span> <span class="k">as</span> <span class="n">_Tensor</span><span class="p">,</span> <span class="n">einsum</span> <span class="k">as</span> <span class="n">t_einsum</span><span class="p">,</span> \
+				<span class="n">transpose</span> <span class="k">as</span> <span class="n">__transpose</span><span class="p">,</span> <span class="n">Tensor</span> <span class="k">as</span> <span class="n">typeTensor</span><span class="p">,</span> <span class="n">stack</span> <span class="k">as</span> <span class="n">__stack</span><span class="p">,</span> \
+				<span class="n">float32</span><span class="p">,</span> <span class="n">int32</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">wraps</span>    
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">finfo</span> <span class="k">as</span> <span class="n">np_finfo</span><span class="p">,</span> <span class="n">einsum</span> <span class="k">as</span> <span class="n">np_einsum</span><span class="p">,</span> <span class="n">log</span> <span class="k">as</span> <span class="n">np_log</span><span class="p">,</span> <span class="n">array</span> <span class="k">as</span> <span class="n">np_array</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">float32</span> <span class="k">as</span> <span class="n">np_float32</span><span class="p">,</span> <span class="n">float64</span> <span class="k">as</span> <span class="n">np_float64</span><span class="p">,</span> <span class="n">int32</span> <span class="k">as</span> <span class="n">np_int32</span><span class="p">,</span> \
+					<span class="n">int64</span> <span class="k">as</span> <span class="n">np_int64</span><span class="p">,</span> <span class="n">bool_</span> <span class="k">as</span> <span class="n">np_bool</span><span class="p">,</span> <span class="n">uint8</span> <span class="k">as</span> <span class="n">np_uint8</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">,</span> \
+					<span class="nb">round</span> <span class="k">as</span> <span class="n">np_round</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">newaxis</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">ClassifierMixin</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">isclass</span> <span class="k">as</span> <span class="n">isClass</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="k">import</span> <span class="n">matmul</span> <span class="k">as</span> <span class="n">torch_dot</span><span class="p">,</span> <span class="n">diag</span><span class="p">,</span> <span class="n">ones</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">diag</span> <span class="k">as</span> <span class="n">np_diag</span><span class="p">,</span> <span class="n">ones</span> <span class="k">as</span> <span class="n">np_ones</span> <span class="c1"># dot as np_dot</span>
+
+<span class="n">USE_NUMPY_EINSUM</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">PRINT_ALL_WARNINGS</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">USE_GPU</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">ALPHA_DEFAULT</span> <span class="o">=</span> <span class="mf">0.00001</span>
+<span class="n">USE_NUMBA</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">Type Checks</span>
+<span class="sd">Updated 27/8/2018</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">FloatInt</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+<span class="n">ListTuple</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+<span class="n">ArrayType</span> <span class="o">=</span> <span class="p">(</span><span class="n">np_array</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">)</span>
+<span class="n">KeysValues</span> <span class="o">=</span> <span class="p">(</span> <span class="nb">type</span><span class="p">({}</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="nb">type</span><span class="p">({}</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="nb">dict</span> <span class="p">)</span>
+
+<div class="viewcode-block" id="isList"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isList">[docs]</a><span class="k">def</span> <span class="nf">isList</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ListTuple</span></div>
+
+<div class="viewcode-block" id="isArray"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isArray">[docs]</a><span class="k">def</span> <span class="nf">isArray</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ArrayType</span></div>
+
+<div class="viewcode-block" id="isIterable"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isIterable">[docs]</a><span class="k">def</span> <span class="nf">isIterable</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">isArray</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="kc">True</span>
+	<span class="k">return</span> <span class="n">isList</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="isDict"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isDict">[docs]</a><span class="k">def</span> <span class="nf">isDict</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="ow">in</span> <span class="n">KeysValues</span></div>
+
+<div class="viewcode-block" id="array"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.array">[docs]</a><span class="k">def</span> <span class="nf">array</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">isDict</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+		<span class="n">X</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">np_array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tensor"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.Tensor">[docs]</a><span class="k">def</span> <span class="nf">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="ow">is</span> <span class="n">typeTensor</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">X</span>
+	<span class="k">if</span> <span class="n">isDict</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+		<span class="n">X</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">isList</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+		<span class="n">X</span> <span class="o">=</span> <span class="n">np_array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np_bool</span><span class="p">:</span>
+			<span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np_uint8</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">_Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">X</span></div>
+
+<div class="viewcode-block" id="isTensor"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.isTensor">[docs]</a><span class="k">def</span> <span class="nf">isTensor</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="ow">is</span> <span class="n">typeTensor</span></div>
+
+
+<div class="viewcode-block" id="Tensors"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.Tensors">[docs]</a><span class="k">def</span> <span class="nf">Tensors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+	<span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">isTensor</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+			<span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>  <span class="n">x</span>  <span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>  <span class="n">Tensor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="p">)</span>
+	<span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="Numpy"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.Numpy">[docs]</a><span class="k">def</span> <span class="nf">Numpy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+	<span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">if</span> <span class="n">isList</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+		<span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">isTensor</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+			<span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>  <span class="n">x</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>  <span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>  <span class="n">x</span>  <span class="p">)</span>
+	<span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="return_numpy"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.return_numpy">[docs]</a><span class="k">def</span> <span class="nf">return_numpy</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+	<span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">isList</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="k">else</span> <span class="n">args</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="n">Numpy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="return_torch"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.return_torch">[docs]</a><span class="k">def</span> <span class="nf">return_torch</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+	<span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">isList</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="k">else</span> <span class="n">args</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="n">Tensors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">Decorators:</span>
+<span class="sd">	check</span>
+<span class="sd">Updated 31/8/2018</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="check"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.check">[docs]</a><span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+	<span class="nd">@wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+	<span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">USE_GPU</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">isClass</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+				<span class="n">returned</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">*</span><span class="n">Tensors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+			<span class="n">returned</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">Tensors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">return_torch</span><span class="p">(</span><span class="n">returned</span><span class="p">)</span>
+
+		<span class="n">returned</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">return_numpy</span><span class="p">(</span><span class="n">returned</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">wrapper</span></div>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">Matrix Manipulation</span>
+<span class="sd">	&gt;&gt;&gt; Now can specify the backend either GPU or CPU</span>
+<span class="sd">	&gt;&gt;&gt; Note on CPU --&gt; Numpy is considerably faster</span>
+<span class="sd">		when X(n,p) p&gt;&gt;n</span>
+<span class="sd">Updated 30/8/2018</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1">#dot = torch_dot if USE_GPU else np_dot</span>
+
+<div class="viewcode-block" id="T"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.T">[docs]</a><span class="k">def</span> <span class="nf">T</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="n">A</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">X</span>
+	<span class="k">if</span> <span class="n">USE_GPU</span><span class="p">:</span> <span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+	<span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span></div>
+
+<div class="viewcode-block" id="cast"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.cast">[docs]</a><span class="k">def</span> <span class="nf">cast</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">USE_GPU</span><span class="p">:</span> <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span></div>
+
+<span class="c1">#def ravel(X):</span>
+<span class="c1">#	if USE_GPU: return X.unsqueeze(1)</span>
+<span class="c1">#	return X.ravel()</span>
+
+<div class="viewcode-block" id="constant"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.constant">[docs]</a><span class="k">def</span> <span class="nf">constant</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">USE_GPU</span><span class="p">:</span> <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+	<span class="k">return</span> <span class="n">X</span></div>
+
+<div class="viewcode-block" id="eps"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.eps">[docs]</a><span class="k">def</span> <span class="nf">eps</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">np_finfo</span><span class="p">(</span><span class="n">dtype</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">.</span><span class="n">eps</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">np_finfo</span><span class="p">(</span><span class="n">np_float64</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span></div>
+
+<div class="viewcode-block" id="resolution"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.resolution">[docs]</a><span class="k">def</span> <span class="nf">resolution</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">try</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">np_finfo</span><span class="p">(</span><span class="n">dtype</span><span class="p">(</span><span class="n">X</span><span class="p">))</span><span class="o">.</span><span class="n">resolution</span>
+	<span class="k">except</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">np_finfo</span><span class="p">(</span><span class="n">np_float32</span><span class="p">)</span><span class="o">.</span><span class="n">resolution</span></div>
+	
+
+<div class="viewcode-block" id="dtype"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.dtype">[docs]</a><span class="k">def</span> <span class="nf">dtype</span><span class="p">(</span><span class="n">tensor</span><span class="p">):</span>
+	<span class="n">string</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="k">if</span> <span class="s1">&#39;float32&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span> <span class="k">return</span> <span class="n">np_float32</span>
+	<span class="k">elif</span> <span class="s1">&#39;float64&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span> <span class="k">return</span> <span class="n">np_float64</span>
+	<span class="k">elif</span> <span class="s1">&#39;int32&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span> <span class="k">return</span> <span class="n">np_int32</span>
+	<span class="k">elif</span> <span class="s1">&#39;int64&#39;</span> <span class="ow">in</span> <span class="n">string</span><span class="p">:</span> <span class="k">return</span> <span class="n">np_int64</span>
+	<span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">np_float32</span></div>
+	
+
+<div class="viewcode-block" id="stack"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.stack">[docs]</a><span class="k">def</span> <span class="nf">stack</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">isList</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+	<span class="n">toStack</span> <span class="o">=</span> <span class="n">Tensors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">__stack</span><span class="p">(</span><span class="n">toStack</span><span class="p">)</span></div>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">EINSUM, Einstein Notation Summation</span>
+<span class="sd">Updated 28/8/2018</span>
+<span class="sd">------------------------------------------------------------</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="einsum"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.einsum">[docs]</a><span class="k">def</span> <span class="nf">einsum</span><span class="p">(</span><span class="n">notation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">tensor</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">USE_NUMPY_EINSUM</span><span class="p">:</span>
+		<span class="n">args</span> <span class="o">=</span> <span class="n">Numpy</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+		<span class="n">out</span> <span class="o">=</span> <span class="n">np_einsum</span><span class="p">(</span><span class="n">notation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">args</span> <span class="o">=</span> <span class="n">Tensors</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">out</span> <span class="o">=</span> <span class="n">t_einsum</span><span class="p">(</span><span class="n">notation</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="n">out</span> <span class="o">=</span> <span class="n">t_einsum</span><span class="p">(</span><span class="n">notation</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">tensor</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="squareSum"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.squareSum">[docs]</a><span class="k">def</span> <span class="nf">squareSum</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;i,i-&gt;&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ij-&gt;i&#39;</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">X</span> <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="rowSum"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.rowSum">[docs]</a><span class="k">def</span> <span class="nf">rowSum</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">transpose_a</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">Y</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij-&gt;i&#39;</span><span class="p">,</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">transpose_a</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ji,ij-&gt;i&#39;</span><span class="p">,</span> <span class="n">X</span> <span class="p">,</span> <span class="n">Y</span> <span class="p">)</span>
+	<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ij-&gt;i&#39;</span><span class="p">,</span> <span class="n">X</span> <span class="p">,</span> <span class="n">Y</span> <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="diagSum"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.base.diagSum">[docs]</a><span class="k">def</span> <span class="nf">diagSum</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">transpose_a</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="k">if</span> <span class="n">transpose_a</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ji,ij-&gt;&#39;</span><span class="p">,</span> <span class="n">X</span> <span class="p">,</span> <span class="n">Y</span> <span class="p">)</span>
+	<span class="k">return</span> <span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ij-&gt;&#39;</span><span class="p">,</span> <span class="n">X</span> <span class="p">,</span> <span class="n">Y</span> <span class="p">)</span></div>
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

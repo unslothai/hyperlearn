@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.sparse.csr &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.sparse.csr</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.sparse.csr</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="k">import</span> <span class="n">njit</span><span class="p">,</span> <span class="n">prange</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">zeros</span><span class="p">,</span> <span class="nb">sum</span> <span class="k">as</span> <span class="n">_sum</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">hstack</span><span class="p">,</span> <span class="n">searchsorted</span><span class="p">,</span> <span class="n">ndim</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">getDtype</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">CSR Matrix functions.</span>
+<span class="sd">	1. sum [sum_A, sum_0, sum_1]</span>
+<span class="sd">	2. mean [mean_A, mean_0, mean_1]</span>
+<span class="sd">	3. mult [mult_A, mult_0, mult_1]</span>
+<span class="sd">	4. div [div_A, div_0, div_1]</span>
+<span class="sd">	5. add [add_A, add_0, add_1]</span>
+<span class="sd">	6. min [min_A, min_0, min_1]</span>
+<span class="sd">	7. max [max_A, max_0, max_1]</span>
+<span class="sd">	8. diagonal [diagonal, diagonal_add]</span>
+<span class="sd">	9. element [get_element]</span>
+<span class="sd">	10. matmul [mat_vec, matT_vec, mat_mat]</span>
+<span class="sd">	11. _XXT</span>
+<span class="sd">	12. rowSum</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="sum_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.sum_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sum_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">S</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">S</span></div>
+
+
+<div class="viewcode-block" id="sum_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.sum_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sum_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">S</span><span class="p">[</span><span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">S</span></div>
+
+
+<div class="viewcode-block" id="sum_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.sum_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">sum_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">_sum</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+	<span class="k">return</span> <span class="n">S</span></div>
+
+
+<div class="viewcode-block" id="mean_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.mean_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mean_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="n">sum_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">rowIndies</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">S</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mean_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.mean_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mean_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="n">nnz</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nnz</span><span class="p">):</span>
+		<span class="n">j</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">n</span>
+	<span class="k">return</span> <span class="n">A</span></div>
+
+
+<div class="viewcode-block" id="mean_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.mean_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mean_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">_sum</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">])</span>
+		<span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">p</span>
+	<span class="k">return</span> <span class="n">A</span></div>
+
+
+<div class="viewcode-block" id="add_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.add_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">addon</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">addon</span>
+	<span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">addon</span></div>
+
+
+<div class="viewcode-block" id="add_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.add_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">addon</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">j</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">addon</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">addon</span></div>
+	
+
+<div class="viewcode-block" id="add_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.add_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">add_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">addon</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+			<span class="n">V</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">addon</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">addon</span></div>
+
+
+<div class="viewcode-block" id="div_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.div_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">div_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">divisor</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">divisor</span>
+	<span class="k">return</span> <span class="n">V</span></div>
+
+
+<div class="viewcode-block" id="div_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.div_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">div_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">divisor</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">j</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">divisor</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">V</span></div>
+
+
+<div class="viewcode-block" id="div_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.div_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">div_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">divisor</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+			<span class="n">V</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">/=</span> <span class="n">divisor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">V</span></div>
+
+
+<div class="viewcode-block" id="mult_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.mult_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mult_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">mult</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">mult</span>
+	<span class="k">return</span> <span class="n">V</span></div>
+
+
+<div class="viewcode-block" id="mult_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.mult_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mult_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">mult</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">j</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*=</span> <span class="n">mult</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">V</span></div>
+
+
+<div class="viewcode-block" id="mult_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.mult_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">mult_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">mult</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">val</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+			<span class="n">V</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*=</span> <span class="n">mult</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">V</span></div>
+
+
+<div class="viewcode-block" id="min_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.min_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">min_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">M</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">M</span><span class="p">:</span>
+			<span class="n">M</span> <span class="o">=</span> <span class="n">v</span>
+	<span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="min_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.min_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">min_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">coli</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">v</span> <span class="o">&lt;</span> <span class="n">M</span><span class="p">[</span><span class="n">coli</span><span class="p">]:</span>
+			<span class="n">M</span><span class="p">[</span><span class="n">coli</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+	<span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="min_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.min_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">min_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="n">Mi</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">val</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]:</span>
+			<span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">Mi</span><span class="p">:</span>
+				<span class="n">Mi</span> <span class="o">=</span> <span class="n">j</span>
+		<span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mi</span>
+	<span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="max_A"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.max_A">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">max_A</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">M</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="n">M</span><span class="p">:</span>
+			<span class="n">M</span> <span class="o">=</span> <span class="n">v</span>
+	<span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="max_0"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.max_0">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">max_0</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
+		<span class="n">v</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">coli</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="n">M</span><span class="p">[</span><span class="n">coli</span><span class="p">]:</span>
+			<span class="n">M</span><span class="p">[</span><span class="n">coli</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+	<span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="max_1"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.max_1">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">max_1</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="n">Mi</span> <span class="o">=</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">val</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]:</span>
+			<span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="n">Mi</span><span class="p">:</span>
+				<span class="n">Mi</span> <span class="o">=</span> <span class="n">j</span>
+		<span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mi</span>
+	<span class="k">return</span> <span class="n">M</span></div>
+
+
+<div class="viewcode-block" id="diagonal"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.diagonal">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">diagonal</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 10/10/2018] [Edited 13/10/2018]</span>
+<span class="sd">	Extracts the diagonal elements of a CSR Matrix. Note only gets</span>
+<span class="sd">	square diagonal (not off-diagonal). HyperLearn&#39;s algorithm is faster</span>
+<span class="sd">	than Scipy&#39;s, as it uses binary search, whilst Scipy uses Linear Search.</span>
+<span class="sd">	</span>
+<span class="sd">	d = min(n, p)</span>
+<span class="sd">	HyperLearn = O(d log p)</span>
+<span class="sd">	Scipy = O(dp)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+	<span class="n">diag</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="n">partial</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="n">searchsorted</span><span class="p">(</span><span class="n">partial</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+		
+		<span class="c1"># Get only diagonal elements else 0</span>
+		<span class="k">if</span> <span class="n">partial</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+			<span class="n">diag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="n">left</span><span class="o">+</span><span class="n">k</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">diag</span></div>
+
+
+
+<span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">_diagonal_add</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">addon</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 10/10/2018] [Edited 13/10/2018]</span>
+<span class="sd">	HyperLearn&#39;s add diagonal to CSR Matrix is optimized and uses Binary Search.</span>
+<span class="sd">	This algorithm is executed in 4 distinct steps:</span>
+<span class="sd">	</span>
+<span class="sd">	1. Intialise K vector (kinda like Dijkstra&#39;s algorithm)</span>
+<span class="sd">		used to log where the diagonal element is.</span>
+<span class="sd">	2. Use binary search to find the diagonal element.</span>
+<span class="sd">		Scipy&#39;s is linear search, which is slower.</span>
+<span class="sd">	3. Change Val, ColPointer vectors.</span>
+<span class="sd">	4. Change RowIndices vector.</span>
+<span class="sd">	</span>
+<span class="sd">	Steps 1-&gt;4 also are mostly optimized in time complexity.</span>
+<span class="sd">	</span>
+<span class="sd">		d = min(n, p)</span>
+<span class="sd">	1. O(d)</span>
+<span class="sd">	2. O(d log p)</span>
+<span class="sd">	3. O(2 dp)</span>
+<span class="sd">	4. O(n)</span>
+<span class="sd">	</span>
+<span class="sd">	The magic is step 2, where Scipy is O(dp). Likewise, total complexity</span>
+<span class="sd">	is O(d + n + dlogp + dp)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+	<span class="n">A</span> <span class="o">=</span> <span class="n">addon</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="n">V</span> <span class="o">=</span> <span class="n">val</span>
+	<span class="n">C</span> <span class="o">=</span> <span class="n">colPointer</span>
+	<span class="n">R</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">rowIndices</span>
+	
+	<span class="n">extend</span> <span class="o">=</span> <span class="mi">0</span>
+	
+	<span class="n">K</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">minimum</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+		<span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="n">partial</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>
+		<span class="c1"># Get only diagonal elements else 0</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="n">searchsorted</span><span class="p">(</span><span class="n">partial</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+		
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial</span><span class="p">)</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">partial</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+				<span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span> <span class="c1"># neg -1 as we don&#39;t want to mix</span>
+							<span class="c1"># the true extra elements</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+				<span class="n">extend</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">k</span>
+			<span class="n">extend</span> <span class="o">+=</span> <span class="mi">1</span>
+
+	<span class="n">newN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">C</span><span class="p">)</span><span class="o">+</span><span class="n">extend</span>
+	<span class="n">newC</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">newN</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="n">newV</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">newN</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="n">added</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">minimum</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="n">move</span> <span class="o">=</span> <span class="mi">0</span>
+	
+	<span class="c1"># move = go move steps forward</span>
+	<span class="c1"># goes from left --&gt; right</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+		<span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">l</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="n">move</span>
+		<span class="n">r</span> <span class="o">=</span> <span class="n">right</span><span class="o">+</span><span class="n">move</span>
+		<span class="n">m</span> <span class="o">=</span> <span class="n">l</span><span class="o">+</span><span class="n">k</span>
+		<span class="n">lk</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="n">k</span>
+		
+		<span class="n">added</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">move</span>
+		<span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+			<span class="n">newC</span><span class="p">[</span><span class="n">l</span><span class="p">:</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">lk</span><span class="p">]</span>
+			<span class="n">newC</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+			<span class="n">newC</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">lk</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>
+			
+			<span class="n">newV</span><span class="p">[</span><span class="n">l</span><span class="p">:</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">lk</span><span class="p">]</span>
+			<span class="n">newV</span><span class="p">[</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+			<span class="n">newV</span><span class="p">[</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span><span class="n">r</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">lk</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>      
+			<span class="n">move</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">newC</span><span class="p">[</span><span class="n">l</span><span class="p">:</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>
+			<span class="n">newV</span><span class="p">[</span><span class="n">l</span><span class="p">:</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>
+			<span class="n">newV</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span> <span class="c1"># -1 and not + 1 since -k</span>
+		  
+	<span class="c1"># Update rest of matrix if n &gt; size  </span>
+	<span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+	<span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+		<span class="n">newV</span><span class="p">[</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">move</span><span class="p">:]</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]:]</span>
+		<span class="n">newC</span><span class="p">[</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">move</span><span class="p">:]</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]:]</span>
+		<span class="n">added</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="o">=</span> <span class="n">move</span>
+	
+	<span class="c1"># Update rowPointer</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">a</span> <span class="o">=</span> <span class="n">added</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">:</span>
+			<span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="c1"># Handles if n &gt; d --&gt; just pad the rowPointer</span>
+			<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+				<span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span>
+			<span class="k">break</span>
+	<span class="n">R</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span> <span class="c1"># Add to end of rowPointer, since size(n+1)</span>
+	
+	<span class="k">return</span> <span class="n">newV</span><span class="p">,</span> <span class="n">newC</span><span class="p">,</span> <span class="n">R</span>
+
+
+
+<div class="viewcode-block" id="diagonal_add"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.diagonal_add">[docs]</a><span class="k">def</span> <span class="nf">diagonal_add</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">addon</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	See _diagonal_add documentation.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">ndim</span><span class="p">(</span><span class="n">addon</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">+</span><span class="n">addon</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">A</span> <span class="o">=</span> <span class="n">addon</span>
+	<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">==</span> <span class="n">size</span>
+	<span class="n">minimum</span> <span class="o">=</span> <span class="n">minimum</span> <span class="o">=</span> <span class="n">getDtype</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">),</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">uint</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">_diagonal_add</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_element"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.get_element">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_element</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 14/10/2018]</span>
+<span class="sd">	Get A[i,j] element. HyperLearn&#39;s algorithm is O(logp) complexity, which is much</span>
+<span class="sd">	better than Scipy&#39;s O(p) complexity. HyperLearn uses binary search to find the</span>
+<span class="sd">	element.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">assert</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">p</span>
+	<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">select</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">left</span><span class="p">:</span><span class="n">right</span><span class="p">]</span>
+	<span class="n">search</span> <span class="o">=</span> <span class="n">searchsorted</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="n">search</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">select</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">select</span><span class="p">[</span><span class="n">search</span><span class="p">]</span> <span class="o">==</span> <span class="n">j</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">val</span><span class="p">[</span><span class="n">left</span><span class="o">+</span><span class="n">search</span><span class="p">]</span>
+	<span class="k">return</span> <span class="mi">0</span></div>
+
+
+
+<span class="k">def</span> <span class="nf">_mat_vec</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Added [13/10/2018]</span>
+<span class="sd">	X @ y is found. Scipy &amp; HyperLearn has similar speed. Notice, now</span>
+<span class="sd">	HyperLearn can be parallelised! This reduces complexity to approx</span>
+<span class="sd">	O(np/c) where c = no of threads / cores</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">Z</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+			<span class="n">s</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">colPointer</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+		<span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+	<span class="k">return</span> <span class="n">Z</span>
+<span class="n">mat_vec</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_mat_vec</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">mat_vec_parallel</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_mat_vec</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_matT_vec</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Added [13/10/2018]</span>
+<span class="sd">	X.T @ y is found. Notice how instead of converting CSR to CSC matrix, a direct</span>
+<span class="sd">	X.T @ y can be found. Same complexity as mat_vec(X, y). Also, HyperLearn is</span>
+<span class="sd">	parallelized, allowing for O(np/c) complexity.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">Z</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">yi</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+			<span class="n">Z</span><span class="p">[</span><span class="n">colPointer</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">yi</span>
+	<span class="k">return</span> <span class="n">Z</span>
+<span class="n">matT_vec</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_matT_vec</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">matT_vec_parallel</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_matT_vec</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+
+<span class="k">def</span> <span class="nf">_mat_mat</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Added [14/10/2018]</span>
+<span class="sd">	A @ X is found where X is a dense matrix. Mostly the same as Scipy, albeit slightly faster.</span>
+<span class="sd">	The difference is now, HyperLearn is parallelized, which can reduce times by 1/2 or more.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">K</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">Z</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">left</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">right</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		
+		<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+			<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+				<span class="n">s</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="n">colPointer</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">k</span><span class="p">]</span>
+			<span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+	<span class="k">return</span> <span class="n">Z</span>
+<span class="n">mat_mat</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_mat_mat</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">mat_mat_parallel</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_mat_mat</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_matT_mat</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Added [14/10/2018]</span>
+<span class="sd">	A.T @ X is found where X is a dense matrix. Mostly the same as Scipy, albeit slightly faster.</span>
+<span class="sd">	The difference is now, HyperLearn is parallelized, which can reduce times by 1/2 or more.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">K</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">A</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">K</span><span class="p">,</span> <span class="n">p</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="n">zero</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+		<span class="n">Z</span> <span class="o">=</span> <span class="n">zero</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span><span class="n">k</span><span class="p">]</span>
+		
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+			<span class="n">yi</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+			<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]):</span>
+				<span class="n">Z</span><span class="p">[</span><span class="n">colPointer</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">val</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">yi</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+			<span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Z</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+	<span class="k">return</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">matT_mat</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_matT_mat</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">matT_mat_parallel</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">_matT_mat</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+
+
+<div class="viewcode-block" id="XXT_sparse"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.XXT_sparse">[docs]</a><span class="k">def</span> <span class="nf">XXT_sparse</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	See _XXT_sparse documentation.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">D</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+	<span class="n">P</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+		<span class="n">l</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+		<span class="n">r</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+		<span class="n">R</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+		<span class="n">b</span> <span class="o">=</span> <span class="n">l</span>
+		<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">):</span>
+			<span class="n">x</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+			<span class="n">R</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+			<span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
+		
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+			<span class="n">l</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+			<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="n">c</span> <span class="o">=</span> <span class="n">l</span>
+			<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">):</span>
+				<span class="n">z</span> <span class="o">=</span> <span class="n">colPointer</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+				<span class="n">v</span> <span class="o">=</span> <span class="n">R</span><span class="p">[</span><span class="n">z</span><span class="p">]</span>
+				<span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+					<span class="n">s</span> <span class="o">+=</span> <span class="n">v</span><span class="o">*</span><span class="n">val</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
+				<span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+			<span class="n">D</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+	<span class="k">return</span> <span class="n">D</span></div>
+<span class="n">_XXT_sparse_single</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">XXT_sparse</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">_XXT_sparse_parallel</span> <span class="o">=</span> <span class="n">njit</span><span class="p">(</span><span class="n">XXT_sparse</span><span class="p">,</span> <span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parallel</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_XXT</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">n_jobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 16/10/2018]</span>
+<span class="sd">	Computes X @ XT very quickly. Approx 50-60% faster than Sklearn&#39;s version,</span>
+<span class="sd">	as it doesn&#39;t optimize a lot. Note, computes only lower triangular X @ XT,</span>
+<span class="sd">	and disregards diagonal (set to 0)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">XXT</span> <span class="o">=</span> <span class="n">_XXT_sparse_parallel</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_jobs</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">else</span> \
+		<span class="n">_XXT_sparse_single</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">XXT</span>
+
+
+
+<div class="viewcode-block" id="rowSum"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.sparse.csr.rowSum">[docs]</a><span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">rowSum</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">colPointer</span><span class="p">,</span> <span class="n">rowIndices</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 17/10/2018]</span>
+<span class="sd">	Computes rowSum**2 for sparse matrix efficiently, instead of using einsum</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rowIndices</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+	<span class="n">S</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+		<span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">l</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">r</span> <span class="o">=</span> <span class="n">rowIndices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">b</span> <span class="o">=</span> <span class="n">l</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">r</span><span class="o">-</span><span class="n">l</span><span class="p">):</span>
+			<span class="n">Xij</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+			<span class="n">s</span> <span class="o">+=</span> <span class="n">Xij</span><span class="o">*</span><span class="n">Xij</span>
+			<span class="n">b</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+	<span class="k">if</span> <span class="n">norm</span><span class="p">:</span>
+		<span class="n">S</span><span class="o">**=</span><span class="mf">0.5</span>
+	<span class="k">return</span> <span class="n">S</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
