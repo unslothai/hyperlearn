@@ -6,9 +6,9 @@ from setuptools.command.install import install
 from setuptools import find_packages
 import subprocess
 
-from Cython.Build import cythonize
+#from Cython.Build import cythonize
 from numpy import get_include
-from Cython.Compiler import Options
+#from Cython.Compiler import Options
 import os
 
 os.environ['CFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
@@ -57,27 +57,27 @@ https://github.com/danielhanchen/hyperlearn
 #             cwd = "hyperlearn/cython"
 #         )
 
-USE_CYTHON = True
+USE_CYTHON = False
 ext = '.pyx' if USE_CYTHON else '.c'
 
 ext_modules = [
-    Extension("hyperlearn.cython.base", ["hyperlearn/cython/base"+ext]),
-    Extension("hyperlearn.cython.utils", ["hyperlearn/cython/utils"+ext])
+    # Extension("hyperlearn.cython.base", ["hyperlearn/cython/base"+ext]),
+    # Extension("hyperlearn.cython.utils", ["hyperlearn/cython/utils"+ext])
 ]
 
-if USE_CYTHON:
-    ext_modules = cythonize(ext_modules,
-        compiler_directives = {
-            'language_level':3, 
-            'boundscheck':False, 
-            'wraparound':False,
-            'initializedcheck':False, 
-            'cdivision':True,
-            'nonecheck':False,
-        },
-        quiet = True,
-        force = True,
-    )
+# if USE_CYTHON:
+#     ext_modules = cythonize(ext_modules,
+#         compiler_directives = {
+#             'language_level':3, 
+#             'boundscheck':False, 
+#             'wraparound':False,
+#             'initializedcheck':False, 
+#             'cdivision':True,
+#             'nonecheck':False,
+#         },
+#         quiet = True,
+#         force = True,
+#     )
 
 
 ## Contributed by themightyoarfish [6/1/19 Issue 13]
