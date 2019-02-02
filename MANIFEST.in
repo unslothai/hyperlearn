@@ -6,4 +6,3 @@ recursive-exclude * *.pyo
 recursive-exclude * *.orig
 recursive-exclude * hyperlearn_old
 
-prune * docs
