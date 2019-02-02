@@ -11,12 +11,12 @@ from numpy import get_include
 #from Cython.Compiler import Options
 import os
 
-os.environ['CFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
-os.environ['CXXFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
-os.environ['CL'] = '/arch:AVX /arch:AVX2 /arch:SSE2 /arch:SSE /arch:ARMv7VE /arch:VFPv4'
+# os.environ['CFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
+# os.environ['CXXFLAGS'] = '-O3 -march=native -ffast-math -mtune=native -ftree-vectorize'
+# os.environ['CL'] = '/arch:AVX /arch:AVX2 /arch:SSE2 /arch:SSE /arch:ARMv7VE /arch:VFPv4'
 
-Options.docstrings = True
-Options.generate_cleanup_code = True
+# Options.docstrings = True
+# Options.generate_cleanup_code = True
 
 install_requires = [
     'numpy >= 1.13.0',
