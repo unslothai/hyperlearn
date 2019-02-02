@@ -155,21 +155,10 @@
 <span class="kn">from</span> <span class="nn">..cfuncs</span> <span class="k">import</span> <span class="n">uinteger</span>
 
 <span class="c1">###</span>
-<div class="viewcode-block" id="svd"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.numba.funcs.svd">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">Tuple</span><span class="p">((</span><span class="n">M_32</span><span class="p">,</span> <span class="n">A32</span><span class="p">,</span> <span class="n">M_32</span><span class="p">))(</span><span class="n">M_32</span><span class="p">,</span> <span class="n">bool_</span><span class="p">),</span><span class="n">Tuple</span><span class="p">((</span><span class="n">M_64</span><span class="p">,</span> <span class="n">A64</span><span class="p">,</span> <span class="n">M_64</span><span class="p">))(</span><span class="n">M64_</span><span class="p">,</span> <span class="n">bool_</span><span class="p">),</span>
+<div class="viewcode-block" id="svd"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.numba.funcs.svd">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">Tuple</span><span class="p">((</span><span class="n">M_32</span><span class="p">,</span> <span class="n">A32</span><span class="p">,</span> <span class="n">M_32</span><span class="p">))(</span><span class="n">M32_</span><span class="p">,</span> <span class="n">bool_</span><span class="p">),</span><span class="n">Tuple</span><span class="p">((</span><span class="n">M_64</span><span class="p">,</span> <span class="n">A64</span><span class="p">,</span> <span class="n">M_64</span><span class="p">))(</span><span class="n">M64_</span><span class="p">,</span> <span class="n">bool_</span><span class="p">),</span>
       <span class="n">Tuple</span><span class="p">((</span><span class="n">M_32</span><span class="p">,</span> <span class="n">A32</span><span class="p">,</span> <span class="n">M_32</span><span class="p">))(</span><span class="n">M_32</span><span class="p">,</span> <span class="n">bool_</span><span class="p">),</span><span class="n">Tuple</span><span class="p">((</span><span class="n">M_64</span><span class="p">,</span> <span class="n">A64</span><span class="p">,</span> <span class="n">M_64</span><span class="p">))(</span><span class="n">M_64</span><span class="p">,</span> <span class="n">bool_</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span> 
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="n">full_matrices</span><span class="p">)</span></div>
-
-<span class="c1">###</span>
-<span class="c1"># @jit([M32(M32), M64(M64)], **nogil)</span>
-<span class="c1"># def pinv(X): return np.linalg.pinv(X)</span>
-
-<span class="c1">###</span>
-<span class="c1"># @jit([(A32, M32)(M32), (A64, M64)(M64)], **nogil)</span>
-<span class="c1"># def eigh(X): return np.linalg.eigh(X)</span>
-
-<span class="c1"># @jit</span>
-<span class="c1"># def cholesky(X): return np.linalg.cholesky(X)</span>
 
 <span class="c1">###</span>
 <div class="viewcode-block" id="lstsq"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.numba.funcs.lstsq">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">A32</span><span class="p">(</span><span class="n">M32_</span><span class="p">,</span> <span class="n">A32</span><span class="p">),</span> <span class="n">A64</span><span class="p">(</span><span class="n">M64_</span><span class="p">,</span> <span class="n">A64</span><span class="p">)],</span> <span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
@@ -183,20 +172,6 @@
 <div class="viewcode-block" id="norm"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.numba.funcs.norm">[docs]</a><span class="nd">@jit</span><span class="p">([</span><span class="n">F64</span><span class="p">(</span><span class="n">A64</span><span class="p">),</span> <span class="n">F64</span><span class="p">(</span><span class="n">A32</span><span class="p">)])</span>
 <span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">v</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
 
-<span class="c1">###</span>
-<span class="c1"># @njit</span>
-<span class="c1"># def __sign(X): return np.sign(X)</span>
-
-<span class="c1">###</span>
-<span class="c1"># def sign(X):</span>
-<span class="c1">#     S = __sign(X)</span>
-<span class="c1">#     if isComplex(X.dtype):</span>
-<span class="c1">#         return S.real</span>
-<span class="c1">#     return S</span>
-
-<span class="c1">###</span>
-<span class="c1"># @njit</span>
-<span class="c1"># def _sum(X, axis = 0): return np.sum(X, axis)</span>
 
 <span class="c1">###</span>
 <div class="viewcode-block" id="maximum"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.numba.funcs.maximum">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="o">**</span><span class="n">nogil</span><span class="p">)</span>
