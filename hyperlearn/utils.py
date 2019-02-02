@@ -1,768 +1,368 @@
 
-import numpy as np
-from .base import *
-from .numba.types import *
-ALPHA_DEFAULT32 = 1e-3
-ALPHA_DEFAULT64 = 1e-6
+from numpy import uint, newaxis, finfo, float32, float64, zeros
+from .numba import sign, arange
+from numba import njit, prange
+from psutil import virtual_memory
+from .exceptions import FutureExceedsMemory
+from scipy.linalg.blas import dsyrk, ssyrk		# For XTX, XXT
+from scipy.linalg import lapack as _lapack
+from . import numba
+from .base import USE_NUMBA
+
+__all__ = ['lapack','svd_flip', 'eig_flip', '_svdCond', '_eighCond',
+			'memoryXTX', 'memoryCovariance', 'memorySVD', '_float',
+			'traceXTX', 'fastDot', '_XTX', '_XXT',
+			'rowSum', 'rowSum_A','reflect', 
+			'addDiagonal', 'setDiagonal']
+
+_condition = {'f': 1e3, 'd': 1e6}
 
 
-###
-@jit([ (M_32, A32), (M_64, A64) ], **gil)
-def diag_set(X, new):
-    """
-    Sets the diagonal of a square matrix X to new.
-    [Added 5/1/19]
-    """ 
-    for i in range(X.shape[1]): X[i, i] = new[i]
+class lapack():
+	"""
+	[Added 11/11/2018] [Edited 13/11/2018 -> made into a class]
+	[Edited 14/11/2018 -> fixed class]
+	Get a LAPACK function based on the dtype(X). Acts like Scipy.
+	"""
+	def __init__(self, function, fast = True, numba = None):
+		self.function = function
+		self.fast = fast
+		self.f = None
+
+		if numba != None and USE_NUMBA:
+			try: f = eval(f'numba.{function}')
+			except: pass
+			f = eval(f)
+			self.f = f
+
+	def __repr__(self):
+		return f"Calls LAPACK or Numba function {self.function}"
+
+	def __call__(self, *args, **kwargs):
+		if self.f == None:
+			self.f = f"_lapack.d{self.function}"
+			
+			if len(args) == 0:
+				a = next(iter(kwargs.values()))
+			else:
+				a = args[0]
+			
+			if a.dtype == np.float32 and self.fast:
+				self.f = f"_lapack.s{self.function}"
+			self.f = eval(self.f)
+
+		return self.f(*args, **kwargs)
+		
 
 
-###
-def do_until_success(
-    f, epsilon_f, size, overwrite = False, alpha = None, *args, **kwargs):
-    """
-    Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain
-    algorithms to converge via ridge regularization.
-    [Added 15/11/18] [Edited 25/11/18 Fixed Alpha setting, can now run in
-    approx 1 - 2 runs] [Edited 26/11/18 99% rounded accuracy in 1 run]
-    [Edited 14/12/18 Some overwrite errors] [Edited 21/12/18 If see a 0]
+def svd_flip(U, VT, U_decision = True):
+	"""
+	Flips the signs of U and VT for SVD in order to force deterministic output.
 
-    Parameters
-    -----------
-    f:          Function for solver
-    epsilon_f:  How to add epsilon
-    size:       Argument for epsilon_f
-    overwrite:  Whether to overwrite data matrix
-    alpha:      Ridge regularizer - default = 1e-6
-    """
-    if len(args) > 0:
-        X = args[0]
-    else:
-        X = next(iter(kwargs.values()))
+	Follows Sklearn convention by looking at U's maximum in columns
+	as default.
+	"""
+	if U_decision:
+		max_abs_cols = abs(U).argmax(0)
+		signs = sign( U[max_abs_cols, arange(U.shape[1])  ]  )
+	else:
+		# rows of v, columns of u
+		max_abs_rows = abs(VT).argmax(1)
+		signs = sign( VT[  arange(VT.shape[0]) , max_abs_rows] )
 
-    # Default alpha
-    small = X.itemsize < 8
-    default = ALPHA_DEFAULT32 if small else ALPHA_DEFAULT64
-    
-    if alpha is None: alpha = 0
-
-    if overwrite:   alpha = _max(alpha, default)
-    else:           previous = X.diagonal().copy()
-
-    old_alpha = 0
-    error = 1
-    while error != 0:
-        epsilon_f(X, size, alpha - old_alpha, default)
-        #print(X.diagonal())
-        try:
-            out = f(*args, **kwargs)
-            if type(out) is tuple:
-                error = out[-1]
-                if len(out) == 2:
-                    out = out[0]
-                else:
-                    out = out[:-1]
-            else:
-                error = 0
-        except: 
-            pass
-        if error != 0:
-            old_alpha = alpha
-            alpha *= 2
-
-            if alpha == 0:
-                alpha = ALPHA_DEFAULT32 if small else ALPHA_DEFAULT64
-            
-            #print(f"Epsilon Jitter Algorithm Restart with alpha = {alpha}.")
-            if overwrite:
-                #print("Overwriting maybe have issues, please turn it off.")
-                overwrite = False
-
-    if not overwrite:
-        diag_set(X, previous)
-        #epsilon_f(X, size, -alpha)
-    return out
-
-
-###
-@jit([ (M_32, I64, F64, F64), (M_64, I64, F64, F64) ], **gil)
-def add_jitter(X, size, alpha, default):
-    """
-    Epsilon Jitter Algorithm from Modern Big Data Algorithms. Forces certain
-    algorithms to converge via ridge regularization.
-    [Added 15/11/18] [Edited 25/11/18 for floating point errors]
-    [Edited 21/12/18 first pass checks what should be added]
-    """
-    jitter = alpha
-
-    for i in range(size):
-        old = X[i, i]
-        if old == 0 and jitter == 0:
-            jitter = default
-
-        new = old + jitter
-        while new - old < alpha:
-            jitter *= jitter
-            new = old + jitter            
-
-    for i in range(size):
-        X[i, i] += jitter
+	U *= signs
+	VT *= signs[:,newaxis]
+	return U, VT
 
 
 
-### # output only U part. Overwrites LU matrix to save memory.
-@jit([ M32(I64, I64, M_32), M64(I64, I64, M_64) ], **nogil) 
-def triu(n, p, U):
-    tall = (n > p)
-    k = n
+def eig_flip(V):
+	"""
+	Flips the signs of V for Eigendecomposition in order to 
+	force deterministic output.
 
-    if tall:
-        # tall matrix
-        # U get all p rows
-        U = U[:p]
-        k = p
-
-    for i in range(1, k):
-        U[i, :i] = 0
-    return U
+	Follows Sklearn convention by looking at V's maximum in columns
+	as default. This essentially mirrors svd_flip(U_decision = False)
+	"""
+	max_abs_rows = abs(V).argmax(0)
+	signs = sign( V[max_abs_rows, arange(V.shape[1]) ] )
+	V *= signs
+	return V
 
 
 
-### # Output only L part. Overwrites LU matrix to save memory.
-@jit([ Tuple((M32, I64))(I64, I64, M_32), Tuple((M64, I64))(I64, I64, M_64) ], **nogil)  
-def L_process(n, p, L):
-    if p > n:
-        # wide matrix
-        # L get all n rows, but only n columns
-        L = L[:, :n]
-        k = n
-    else:
-        k = p
-
-    # tall / wide matrix
-    for i in range(k):
-        L[i, i+1:] = 0
-        L[i, i] = 1
-    # Set diagonal to 1
-    return L, k
+def _svdCond(U, S, VT, alpha):
+	"""
+	Condition number from Scipy.
+	cond = 1e-3 / 1e-6  * eps * max(S)
+	"""
+	t = S.dtype.char.lower()
+	cond = (S > (_condition[t] * finfo(t).eps * S[0]))
+	rank = cond.sum()
+	
+	S /= (S**2 + alpha)
+	return U[:, :rank], S[:rank], VT[:rank]
 
 
-### # Force triangular matrix U to be invertible using ridge regularization
-@jit([ (M_32, I64, F64, F64), (M_64, I64, F64, F64) ], **nogil)
-def U_process(A, size, alpha, default):
-    jitter = alpha
 
-    for i in range(size):
-        old = A[i, i]
-        if old == 0:
-            if jitter == 0:
-                jitter = default
+def _eighCond(S2, V):
+	"""
+	Condition number from Scipy.
+	cond = 1e-3 / 1e-6  * eps * max(S2)
 
-            new = jitter
-            while old < alpha:
-                jitter *= jitter
-                new = jitter
+	Note that maximum could be either S2[-1] or S2[0]
+	depending on it's absolute magnitude.
+	"""
+	t = S2.dtype.char.lower()
+	absS = abs(S2)
+	maximum = absS[0] if absS[0] >= absS[-1] else absS[-1]
 
-    for i in range(size):
-        if A[i, i] == 0:
-            A[i, i] += jitter
+	cond = (absS > (_condition[t] * finfo(t).eps * maximum) )
+	S2 = S2[cond]
+	
+	return S2, V[:, cond]
 
 
-###
-@jit([ M32_(M32_), M64_(M64_) ], **nogil)
+
+def memoryXTX(X):
+	"""
+	Computes the memory usage for X.T @ X so that error messages
+	can be broadcast without submitting to a memory error.
+	"""
+	free = virtual_memory().free * 0.95
+	byte = 4 if '32' in str(X.dtype) else 8
+	memUsage = X.shape[1]**2 * byte
+
+	return memUsage < free
+
+
+
+def memoryCovariance(X):
+	"""
+	Computes the memory usage for X.T @ X or X @ X.T so that error messages
+	can be broadcast without submitting to a memory error.
+	"""
+	n,p = X.shape
+	free = virtual_memory().free * 0.95
+	byte = 4 if '32' in str(X.dtype) else 8
+	size = p if n > p else n
+	
+	memUsage = size**2 * byte
+
+	if memUsage > free:
+		raise FutureExceedsMemory()
+	return
+
+
+def memorySVD(X):
+	"""
+	Computes the approximate memory usage of SVD(X) [transpose or not].
+	How it's computed:
+		X = U * S * VT
+		U(n,p) * S(p) * VT(p,p)
+		This means RAM usgae is np+p+p^2 approximately.
+	### TODO: Divide N Conquer SVD vs old SVD
+	"""
+	n,p = X.shape
+	if n > p: n,p = p,n
+	free = virtual_memory().free * 0.95
+	byte = 4 if '32' in str(X.dtype) else 8
+
+	U = n*p
+	S = p
+	VT = p*p
+	memUsage = (U+S+VT) * byte
+
+	return memUsage < free
+
+
+
+def _float(data):
+	dtype = str(data.dtype)
+	if 'f' not in dtype:
+		if '64' in dtype:
+			return data.astype(float64)
+		return data.astype(float32)
+	return data
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def traceXTX(X):
+	"""
+	[Edited 18/10/2018]
+	One drawback of truncated algorithms is that they can't output the correct
+	variance explained ratios, since the full eigenvalue decomp needs to be
+	done. However, using linear algebra, trace(XT*X) = sum(eigenvalues).
+
+	So, this function outputs the trace(XT*X) efficiently without computing
+	explicitly XT*X.
+
+	Changes --> now uses Numba which is approx 20% faster.
+	"""
+	n, p = X.shape
+	s = 0
+	for i in range(n):
+		for j in range(p):
+			xij = X[i,j]
+			s += xij*xij
+	return s
+
+
+
+def fastDot(A, B, C):
+	"""
+	[Added 23/9/2018]
+	[Updated 1/10/2018 Error in calculating which is faster]
+	Computes a fast matrix multiplication of 3 matrices.
+	Either performs (A @ B) @ C or A @ (B @ C) depending which is more
+	efficient.
+	"""
+	size = A.shape
+	n = size[0]
+	p = size[1] if len(size) > 1 else 1
+	
+	size = B.shape
+	k = size[1] if len(size) > 1 else 1
+	
+	size = C.shape
+	d = size[1] if len(size) > 1 else 1
+	
+	# Forward (A @ B) @ C
+	# p*k*n + k*d*n = kn(p+d)
+	forward = k*n*(p+d)
+	
+	# Backward A @ (B @ C)
+	# p*d*n + k*d*p = pd(n+k)
+	backward = p*d*(n+k)
+	
+	if forward <= backward:
+		return (A @ B) @ C
+	return A @ (B @ C)
+
+	
+
+def _XTX(XT):
+	"""
+	[Added 30/9/2018]
+	Computes XT @ X much faster than naive XT @ X.
+	Notice XT @ X is symmetric, hence instead of doing the
+	full matrix multiplication XT @ X which takes O(np^2) time,
+	compute only the upper triangular which takes slightly
+	less time and memory.
+	"""
+	if XT.dtype == float64:
+		return dsyrk(1, XT, trans = 0).T
+	return ssyrk(1, XT, trans = 0).T
+
+
+
+def _XXT(XT):
+	"""
+	[Added 30/9/2018]
+	Computes X @ XT much faster than naive X @ XT.
+	Notice X @ XT is symmetric, hence instead of doing the
+	full matrix multiplication X @ XT which takes O(pn^2) time,
+	compute only the upper triangular which takes slightly
+	less time and memory.
+	"""
+	if XT.dtype == float64:
+		return dsyrk(1, XT, trans = 1).T
+	return ssyrk(1, XT, trans = 1).T
+
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def rowSum_0(X, norm = False):
+	"""
+	[Added 17/10/2018]
+	Computes rowSum**2 for dense matrix efficiently, instead of using einsum
+	"""
+	n, p = X.shape
+	S = zeros(n, dtype = X.dtype)
+
+	for i in range(n):
+		s = 0
+		Xi = X[i]
+		for j in range(p):
+			Xij = Xi[j]
+			s += Xij*Xij
+		S[i] = s
+	if norm:
+		S**=0.5
+	return S
+
+
+@njit(fastmath = True, nogil = True, cache = True)
+def rowSum_A(X, norm = False):
+	"""
+	[Added 22/10/2018]
+	Computes rowSum**2 for dense array efficiently, instead of using einsum
+	"""
+	n = len(X)
+	s = 0
+	for i in range(n):
+		s += X[i]**2
+	if norm:
+		s **= 0.5
+	return s
+
+
+def rowSum(X, norm = False):
+	"""
+	[Added 22/10/2018]
+	Combines rowSum for matrices and arrays.
+	"""
+	if len(X.shape) > 1:
+		return rowSum_0(X, norm)
+	return rowSum_A(X, norm)
+
+
 def _reflect(X):
-    n = X.shape[0]
-    for i in range(1, n):
-        for j in range(i):
-            X[j, i] = X[i, j]
-    return X
-###
-@jit([ M32_(M32_), M64_(M64_) ], **parallel)
-def _reflect_parallel(X):
-    n = X.shape[0]
-    for i in prange(1, n):
-        for j in range(i):
-            X[j, i] = X[i, j]
-    return X
-
-###
-def reflect(X):
-    n = X.shape[0]
-    x = X.T if X.flags["F_CONTIGUOUS"] else X
-    f = _reflect_parallel if n > 5000 else _reflect
-    return f(x)
-
-
-###
-@jit([int8[::1](M_32, I64, I64), int8[::1](M_64, I64, I64),
-      int8[::1](M32_, I64, I64), int8[::1](M64_, I64, I64)], **nogil)   
-def amax_0(X, n, p):
-    """
-    Finds the sign(X[:,abs(X).argmax(0)])
-    """
-    indices = np.ones(p, dtype = np.int8)
-    maximum = np.zeros(p, dtype = X.dtype)
-
-    for i in range(n):
-        for j in range(p):
-            Xij = X[i, j]
-            a = abs(Xij)
-            if a > maximum[j]:
-                maximum[j] = a
-                indices[j] = np.sign(Xij)
-    return indices
-
-###
-@jit([int8[::1](M_32, I64, I64), int8[::1](M_64, I64, I64),
-      int8[::1](M32_, I64, I64), int8[::1](M64_, I64, I64)], **parallel)   
-def amax_0_parallel(X, n, p):
-    """
-    Finds the sign(X[:,abs(X).argmax(0)])
-    """
-    indices = np.ones(p, dtype = np.int8)
-    maximum = np.zeros(p, dtype = X.dtype)
-
-    for i in prange(n):
-        for j in range(p):
-            Xij = X[i, j]
-            a = abs(Xij)
-            if a > maximum[j]:
-                maximum[j] = a
-                indices[j] = np.sign(Xij)
-    return indices
-
-
-###
-@jit([int8[::1](M_32, I64, I64), int8[::1](M_64, I64, I64),
-      int8[::1](M32_, I64, I64), int8[::1](M64_, I64, I64)], **nogil)   
-def amax_1(X, n, p):
-    """
-    Finds the sign(X[abs(X).argmax(1)])
-    """
-    indices = np.zeros(n, dtype = np.int8)
-    for i in range(n):
-        _max = 0
-        s = 1
-        for j in range(p):
-            Xij = X[i, j]
-            a = abs(Xij)
-            if a > _max:
-                _max = a
-                s = np.sign(Xij)
-        indices[i] = s
-    return indices
-
-
-###
-@jit([int8[::1](M_32, I64, I64), int8[::1](M_64, I64, I64),
-      int8[::1](M32_, I64, I64), int8[::1](M64_, I64, I64)], **parallel)   
-def amax_1_parallel(X, n, p):
-    """
-    Finds the sign(X[abs(X).argmax(1)])
-    """
-    indices = np.zeros(n, dtype = np.int8)
-    for i in prange(n):
-        _max = 0
-        s = 1
-        for j in range(p):
-            Xij = X[i, j]
-            a = abs(Xij)
-            if a > _max:
-                _max = a
-                s = np.sign(Xij)
-        indices[i] = s
-    return indices
-
-
-###
-def sign_max(X, axis = 0, n_jobs = 1):
-    """
-    [Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]
-    Returns the sign of the maximum absolute value of an axis of X.
-
-    input:      1 argument, 2 optional
-    ----------------------------------------------------------
-    X:          Matrix X to be processed. Must be 2D array.
-    axis:       Default = 0. 0 = column-wise. 1 = row-wise.
-    n_jobs:     Default = 1. Uses multiple CPUs if n*p > 20,000^2.
-
-    returns:    sign array of -1,1
-    ----------------------------------------------------------
-    """ 
-    n, p = X.shape
-    amax = f"amax_{axis}_parallel" if (n_jobs != 1 and n*p > 4e8) else f"amax_{axis}"
-    return eval(amax)(X, n, p)
-
-
-###
-def svd_flip(U = None, VT = None, U_decision = False, n_jobs = 1):
-    """
-    [Added 19/11/2018] [Edited 24/11/2018 Uses NUMBA]
-    Flips the signs of U and VT from a SVD or eigendecomposition.
-    Default opposite to Sklearn's U decision. HyperLearn uses
-    the maximum of rows of VT.
-
-    input:      2 argument, 1 optional
-    ----------------------------------------------------------
-    U:          U matrix from SVD
-    VT:         VT matrix (V transpose) from SVD
-    U_decision: Default = False. If True, uses max from U.
-
-    returns:    Nothing. Inplace updates U, VT
-    ----------------------------------------------------------
-    """
-    if U_decision is None: return
-
-    if U is not None:
-        if U_decision:
-            signs = sign_max(U, 0, n_jobs = n_jobs)
-        else:
-            signs = sign_max(VT, 1, n_jobs = n_jobs)
-        U *= signs
-        VT *= signs[:,np.newaxis]
-    else:
-        # Eig flip on eigenvectors
-        signs = sign_max(VT, 0, n_jobs = n_jobs)
-        VT *= signs
-
-
-###
-@jit([I64(A32, F64, I64), I64(A64, F64, I64)], **gil)
-def svd_search(S, eps, size):
-    """
-    Determines the rank of a matrix via the singular values.
-    (Counts how many are larger than eps.)
-    """
-    rank = size-1
-    if S[rank] < eps:
-        rank -= 1
-        while rank > 0:
-            if S[rank] >= eps: break
-            rank -= 1
-    rank += 1
-    return rank
-
-
-###
-def svd_condition(U, S, VT, alpha = None):
-    """
-    [Added 21/11/2018]
-    Uses Scipy's SVD condition number calculation to improve pseudoinverse
-    stability. Uses (1e3, 1e6) * eps(S) * S[0] as the condition number.
-    Everythimg below cond is set to 0.
-
-    input:      3 argument, 1 optional
-    ----------------------------------------------------------
-    U:          U matrix from SVD
-    S:          S diagonal array from SVD
-    VT:         VT matrix (V transpose) from SVD
-    alpha:      Default = None. Ridge regularization
-
-    returns:    U, S/(S+alpha), VT updated.
-    ----------------------------------------------------------
-    """
-    eps = epsilon(S)*S[0]
-
-    # Binary search O(logn) is not useful
-    # since most singular values are not going to be 0
-    size = S.size
-    rank = svd_search(S, eps, size)
-    if rank != size:
-        U, S, VT = U[:, :rank], S[:rank], VT[:rank]
-
-    # Check if alpha needs to be added onto the singular values
-    alphaUpdate = False
-    if alpha is not None:
-        if is32:
-            if alpha != ALPHA_DEFAULT32:
-                alphaUpdate = True
-        else:
-            if alpha != ALPHA_DEFAULT64:
-                alphaUpdate = True
-
-    if alphaUpdate:
-        S /= (S**2 + alpha)
-    else:
-        S = 1/S
-    return U, S, VT
-
-
-###
-@jit([A32(A32, F64), A64(A64, F64)], **gil)
-def eig_search(W, eps):
-    """
-    Corrects the eigenvalues if they're smaller than 0.
-    """
-    for i in range(W.size):
-        if W[i] > 0: break
-        # else set to condition number
-        W[i] = eps
-    return W
-
-
-###
-def eig_condition(X, W, V):
-    # Condition number just in case W[i] <= 0
-    eps = epsilon(W)
-    if W[-1] >= 0:
-        first = W[-1]**0.5 # eigenvalues are sorted ascending
-    else:
-        first = 0
-    eps *= first
-    eps **= 2 # since eigenvalues are squared of singular values
-
-    W = eig_search(W, eps)    
-
-    # X.H @ V / W**0.5
-    XT = X if X.flags["F_CONTIGUOUS"] else X.T
-    
-    if isComplex(dtype):
-        if isComplex(dtypeY):
-            out = blas("gemm")(a = XT, b = V.T, trans_a = 0, trans_b = 2, alpha = 1)
-        else:
-            out = XT @ V
-        out = np.conjugate(out, out = out)
-    else:
-        out = XT @ V
-
-    out /= W**0.5
-    return W, out
-
-
-@jit([bool_[::1](A32, F64), bool_[::1](A64, F64)], **gil)
-def eigh_search(W, eps):
-    w0 = abs(W[0])
-
-    last = W[-1]
-    negative = (last < 0)
-    w1 = abs(last)
-
-    cutoff = w0 if w0 > w1 else w1
-    cutoff *= eps
-    
-    size = len(W)
-    out = np.ones(size, dtype = np.bool_)
-    
-    if w0 < cutoff:
-        out[0] = False
-    if w1 < cutoff:
-        out[-1] = False
-    
-    # Check if abs(W) < eps
-    for i in range(1, size-1):
-        if abs(W[i]) < cutoff:
-            out[i] = False
-            
-    return out
-
-
-###
-@jit([A32(M32_), A64(M64_)], **nogil)
-def _row_norm(X):
-    n, p = X.shape
-    norm = np.zeros(n, dtype = X.dtype)
-    
-    for i in range(n):
-        s = 0
-        for j in range(p):
-            xij = X[i, j]
-            xij *= xij
-            s += xij
-        norm[i] = s
-    return norm
-
-
-###
-@jit([A32(M32_), A64(M64_)], **nogil)
-def _col_norm(X):
-    n, p = X.shape
-    norm = np.zeros(p, dtype = X.dtype)
-    
-    for i in range(n):
-        for j in range(p):
-            xij = X[i, j]
-            xij *= xij
-            norm[j] += xij
-    return norm
-
-###
-@jit([F64(A32), F64(A64)], **gil)
-def normA(X):
-    s = 0
-    for i in range(X.size):
-        xi = X[i]
-        xi *= xi
-        s += xi
-    return s
-
-###
-def col_norm(X):
-    if len(X.shape) > 1:
-        return _col_norm(X)
-    return normA(X)
-
-###
-def row_norm(X):
-    if len(X.shape) > 1:
-        return _row_norm(X)
-    return normA(X)
-
-
-###
-@jit([F64(M32_), F64(M64_)], **gil)
-def _frobenius_norm(X):
-    n, p = X.shape
-    norm = 0
-    
-    for i in range(n):
-        for j in range(p):
-            xij = X[i, j]
-            xij *= xij
-            norm += xij
-    return norm
-
-###
-@jit([F64(M_32), F64(M_64)], **gil)
-def _frobenius_norm_symmetric(X):
-    n = X.shape[0]
-    norm = 0
-    diag = 0
-    
-    for i in range(n):
-        for j in range(i+1, n):
-            xij = X[i, j]
-            xij *= xij
-            norm += xij
-
-        xii = X[i, i]
-        xii *= xii
-        diag += xii
-    norm *= 2
-    norm += diag
-    return norm
-
-###
-def frobenius_norm(X, symmetric = False):
-    """
-    Outputs the ||X||_F ^ 2 norm of a matrix. If symmetric,
-    then computes the norm on 1/2 of the matrix and multiplies
-    it by 2.
-    """
-    if len(X.shape) > 1:
-        if symmetric:
-            return _frobenius_norm_symmetric(X)
-        return _frobenius_norm(X)
-    return normA(X)
-
-
-###
-@jit([A32(A32), A64(A64)], **nogil)
-def proportion(X):
-    X /= np.sum(X)
-    return X
-
-
-###
-@jit([M32_(M32_, I64[::1], I64, I64), M64_(M64_, I64[::1], I64, I64)], **nogil)
-def gram_schmidt(X, P, n, k):
-    """
-    Modified stable Gram Schmidt process.
-    Gram-Schmidt Orthogonalization
-    Instructor: Ana Rita Pires (MIT 18.06SC).
-    Output is Q.T NOT Q. So you must transpose it.
-    """
-    Q = np.zeros((k, n), dtype = X.dtype)
-    Z = np.zeros(n, dtype = X.dtype)
-
-    for i in range(k):
-
-        x = Q[i]
-        col = P[i]
-        # Q[i] = X[:,P[i]]
-        for a in range(n):
-            x[a] = X[a, col]
-        
-        for j in range(i):
-            q = Q[j]
-            x -= np.vdot(x, q) * q
-            
-        norm = np.linalg.norm(x)
-        if norm == 0:
-            Q[i] = Z
-            Q[i,i] = 1
-        else:
-            x /= norm
-    return Q
-
-
-###
-@jit(**nogil)
-def _unique_int(a):
-    """
-    Assumes a is just integers, and returning unique elements
-    will be much easier. Uses a quick boolean array instead of
-    a hash table.
-    """
-    seen = np.zeros(np.max(a)+1, dtype = np.bool_)
-    count = 0
-    
-    for i in range(a.size):
-        element = a[i]
-        curr = seen[element]
-        if not curr:
-            seen[element] = True
-            count += 1
-
-    out = np.zeros(count, dtype = a.dtype)
-    j = 0
-    # fill up array with uniques
-    for i in range(seen.size):
-        if seen[i]:
-            out[j] = i
-            j += 1
-            if j > count: break
-    return out
-
-###
-@jit(**nogil)
-def _unique_count(a, dtype):
-    """
-    Returns the counts and unique values of an array a.
-    [Added 23/12/18]
-    """
-    maximum = np.max(a) + 1
-    seen = np.zeros(maximum, dtype = dtype)
-    count = 0
-    
-    for i in range(a.size):
-        element = a[i]
-        curr = seen[element]
-        if curr == 0: count += 1
-        seen[element] += 1
-
-    unique = np.zeros(count, dtype = a.dtype)
-    counts = np.zeros(count, dtype = np.uint32)
-    
-    j = 0
-    for i in range(seen.size):
-        curr = seen[i]
-        if curr > 0:
-            unique[j] = i
-            counts[j] = curr
-            j += 1
-            if j > count: break
-    return unique, counts
-
-###
-@jit(**gil)
-def _unique_sorted_size(a):
-    """
-    Returns how many uniques in a sorted list.
-    [Added 23/12/18]
-    """
-    size = 1
-    i = 0
-    old = a[i]
-    i += 1
-    while i < a.size:
-        new = a[i]
-        if new != old:
-            size += 1
-            old = new
-        i += 1
-    return size
-
-###
-@jit(**gil)
-def _unique_sorted(a):
-    """
-    Returns only unique elements in a sorted list.
-    [Added 23/12/18]
-    """
-    size = _unique_sorted_size(a)
-        
-    out = np.zeros(size, dtype = a.dtype)
-    i = 0
-    old = a[i]
-    out[i] = old
-    
-    i += 1
-    j = 1
-    length = a.size
-    while i < length:
-        new = a[i]
-        if new != old:
-            out[j] = new
-            old = new
-            j += 1
-            if j > length: break
-        i += 1
-    return out
-
-###
-@jit(**gil)
-def _unique_sorted_count(a):
-    """
-    Returns unique elements and their counts in a sorted list.
-    [Added 23/12/18]
-    """
-    size = _unique_sorted_size(a)
-        
-    out = np.zeros(size, dtype = a.dtype)
-    counts = np.zeros(size, dtype = np.uint32)
-    i = 0
-    old = a[i]
-    out[i] = old
-    
-    i += 1
-    j = 0
-    length = a.size
-    while i < length:
-        new = a[i]
-
-        # Add 1 to count
-        counts[j] += 1
-        if new != old:
-            j += 1
-            if j > length: break
-            out[j] = new
-            old = new
-        i += 1
-
-    # Need to update last element since loop forgets it.
-    counts[-1] += 1
-    return out, counts
-
-
-###
-def unique_int(a, return_counts = False):
-    """
-    Given a list of postive ints, returns the unique
-    elements accompanied with optional counts.
-    [Added 23/12/18]
-
-    Parameters
-    -----------
-    a:              Array of postive ints
-    return_counts:  Whether to return (unique, counts)
-    """
-    if return_counts:
-        return _unique_count(a, uinteger(a.size))
-    return _unique_int(a)
-
-
-###
-def unique_sorted(a, return_counts = False):
-    """
-    Given a list of sorted elements, returns the unique
-    elements accompanied with optional counts.
-    [Added 23/12/18]
-
-    Parameters
-    -----------
-    a:              Array of sorted elements
-    return_counts:  Whether to return (unique, counts)
-    """
-    if return_counts:
-        return _unique_sorted_count(a)
-    return _unique_sorted(a)
+	"""
+	See reflect(X, n_jobs = N) documentation.
+	"""
+	n = len(X)
+	for i in prange(1, n):
+		Xi = X[i]
+		for j in range(i):
+			X[j, i] = Xi[j]
+	return X
+reflect_single = njit(_reflect, fastmath = True, nogil = True, cache = True)
+reflect_parallel = njit(_reflect, fastmath = True, nogil = True, parallel = True)
+
+
+def reflect(X, n_jobs = 1):
+	"""
+	[Added 15/10/2018] [Edited 18/10/2018]
+	Reflects lower triangular of matrix efficiently to upper.
+	Notice much faster than say X += X.T or naive:
+		for i in range(n):
+			for j in range(i, n):
+				X[i,j] = X[j,i]
+	In fact, it is much faster to perform vertically:
+		for i in range(1, n):
+			Xi = X[i]
+			for j in range(i):
+				X[j,i] = Xi[j]
+	The trick is to notice X[i], which reduces array access.
+	"""
+	X = reflect_parallel(X) if n_jobs != 1 else reflect_single(X)
+	return X
+
+
+def addDiagonal(X, c = 1):
+	"""
+	[Added 11/11/2018]
+	Add c to diagonal of matrix
+	"""
+	n = X.shape[0]
+	X.flat[::n+1] += c
+
+def setDiagonal(X, c = 1):
+	"""
+	[Added 11/11/2018]
+	Set c to diagonal of matrix
+	"""
+	n = X.shape[0]
+	X.flat[::n+1] = c
 

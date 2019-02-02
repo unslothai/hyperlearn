@@ -1,725 +1,573 @@
 
+from scipy.linalg import lu as _lu, qr as _qr
+from . import numba
+from numba import njit
 from .base import *
 from .utils import *
-import scipy.linalg as scipy
-from .cfuncs import *
-from .numba import funcs as numba
+from numpy import float32, float64
 
 
-###
-def dot(A, B, C, message = False):
-    """
-    Implements fast matrix multiplication of 3 matrices X = ABC
-    From left: X = (AB)C. From right: X = A(BC). This function
-    calculates which is faster, and outputs the result.
-    [Added 10/12/18] [Edited 13/12/18 Added left or right statement]
-    [Edited 20/12/18 Uses numba]
-
-    Parameters
-    -----------
-    A:          First matrix
-    B:          Multiplied with 2nd matrix
-    C:          Multiplied with 3rd matrix
-    message:    Default = False. If True, doesn't output result, but
-                outputs TRUE if left to right, else FALSE right to left.
-    Returns
-    -----------
-    (A@B@C or message)
-    """
-    n, a_b = A.shape    # A and B share sizes. Size of A determines
-                        # final number of rows
-    b_c = B.shape[1]
-    c = C.shape[1]      # final columns
-
-    left, right = dot_left_right(n, a_b, b_c, c)
-
-    if message:
-        return left <= right
-
-    if left <= right:
-        return A @ B @ C
-    return A @ (B @ C)
+__all__ = ['cholesky', 'invCholesky', 'pinvCholesky', 'cholSolve',
+			'svd', 'lu', 'qr', 
+			'pinv', 'pinvh', 
+			'eigh', 'pinvEig', 'eig']
 
 
+def cholesky(XTX, alpha = None, fast = True):
+	"""
+	Computes the Cholesky Decompsition of a Hermitian Matrix
+	(Positive Symmetric Matrix) giving a Upper Triangular Matrix.
+	
+	Cholesky Decomposition is used as the default solver in HyperLearn,
+	as it is super fast and allows regularization. HyperLearn's
+	implementation also handles rank deficient and ill-conditioned
+	matrices perfectly with the help of the limiting behaivour of
+	adding forced epsilon regularization.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's Cholesky. Speed is OK.
+	If CPU:
+		Uses Numpy's Fortran C based Cholesky.
+		If NUMBA is not installed, uses very fast LAPACK functions.
+	
+	Stability
+	--------------
+	Alpha is added for regularization purposes. This prevents system
+	rounding errors and promises better convergence rates.
+	"""
+	n,p = XTX.shape;  assert n==p
+	error = 1
+	alpha = ALPHA_DEFAULT if alpha == None else alpha
+	old_alpha = 0
 
-###
-def transpose(X, overwrite = True, dtype = None):
-    """
-    Provides X.T if dtype == float, else X.H (Conjugate transpose)
-    [Added 23/11/18]
+	decomp = lapack("potrf", fast, "cholesky")
 
-    Parameters
-    -----------
-    X :         Matrix to be decomposed. Has to be symmetric.
-    Overwrite:  If overwritten, then inplace operation.
+	while error != 0:
+		if PRINT_ALL_WARNINGS: 
+			print('cholesky Alpha = {}'.format(alpha))
 
-    Returns
-    -----------
-    X.T or X.H: Conjugate Tranpose (X)
-    """
-    if dtype is None:
-        dtype = X.dtype
-    if isComplex(dtype):
-        if overwrite:
-            return np.conjugate(X, out = X).T
-        return X.conj().T
-    return X.T
+		# Add epsilon jitter to diagonal. Note adding
+		# np.eye(p)*alpha is slower and uses p^2 memory
+		# whilst flattening uses only p memory.
+		addDiagonal(XTX, alpha-old_alpha)
+		try:
+			cho = decomp(XTX)
+			if USE_NUMBA: 
+				cho = cho.T
+				error = 0
+			else:
+				cho, error = cho
+		except: pass
+		if error != 0:
+			old_alpha = alpha
+			alpha *= 10
 
-
-###
-def matmul(pattern, X, Y = None):
-    """
-    Using BLAS routines GEMM, SYRK, SYMM, multiplies 2 matrices together
-    assuming X has some special structure or the output is special. Supports
-    symmetric constructions: X.H @ X and X @ X.H; symmetric multiplies:
-    S @ Y.H and Y.H @ S where S is a symmetric matrix; general multiplies:
-    X @ Y and X.H @ Y.
-    [Added 28/11/18 Changed from transpose since it didn't work]
-    [Edited 1/12/18 Added S @ Y] [Edited 17/12/18 Added Y @ S]
-
-    Parameters
-    -----------
-    pattern:    Can include: X.H @ X | X @ X.H | S @ Y.H | 
-                Y.H @ S | X @ Y | X.H @ Y | S @ Y | Y @ S
-    X:          Compulsory left side matrix.
-    Y:          Optional right side matrix.
-
-    Returns
-    -----------
-    out:        Special matrix output according to pattern.
-    """
-    pattern = pattern.upper().replace(' ','')
-    dtypeX = X.dtype
-    XT = X.T
-    n = X.shape[0]
-    isComplex_dtypeX = isComplex(dtypeX)
-    
-    if pattern == "X.H@X":
-        if isComplex_dtypeX:
-            # BLAS SYRK doesn't work
-            out = blas("gemm")(a = XT, b = XT, trans_a = 0, trans_b = 2, alpha = 1)
-            out = np.conjugate(out, out = out)
-        else:
-            # Use BLAS SYRK
-            out = blas("syrk")(a = XT, trans = 0, alpha = 1)
-
-    elif pattern == "X@X.H":
-        if isComplex_dtypeX:
-            # BLAS SYRK doesn't work
-            out = blas("gemm")(a = XT, b = XT, trans_a = 2, trans_b = 0, alpha = 1)
-            out = np.conjugate(out, out = out)
-        else:
-            # Use BLAS SYRK
-            out = blas("syrk")(a = XT, trans = 1, alpha = 1)
-
-    elif pattern == "X.H@Y":
-        if isComplex_dtypeX:
-            dtypeY = Y.dtype
-            if isComplex_dtypeY:
-                out = blas("gemm")(a = XT, b = Y.T, trans_a = 0, trans_b = 2, alpha = 1)
-            else:
-                out = XT @ Y
-            out = np.conjugate(out, out = out)
-        else:
-            out = XT @ Y
-
-    elif pattern == "X@Y":
-        out = X @ Y
-        
-    # Symmetric Multiply
-    # If it's F Contiguous, I assume it's UPPER. If not, it's transposed.
-    elif pattern == "S@Y.H":
-        dtypeY = Y.dtype
-        isComplex_dtypeY = isComplex(dtypeY)
-
-        if isComplex_dtypeY:
-            a = X if X.flags["F_CONTIGUOUS"] else XT
-            # Symmetric doesn't work
-            out = blas("gemm")(a = a, b = Y, trans_b = 2, alpha = 1)
-        else:
-            YT = Y.T
-            if X.flags["F_CONTIGUOUS"]:
-                out = blas("symm")(a = X, b = YT, side = 0, alpha = 1)
-            else:
-                out = blas("symm")(a = XT, b = YT, side = 0, alpha = 1, lower = 1)
-
-    elif pattern == "Y.H@S":
-        dtypeY = Y.dtype
-
-        if isComplex_dtypeY:
-            a = X if X.flags["F_CONTIGUOUS"] else XT
-            # Symmetric doesn't work
-            out = blas("gemm")(a = Y, b = a, trans_a = 2, alpha = 1)
-        else:
-            YT = Y.T
-            if X.flags["F_CONTIGUOUS"]:
-                out = blas("symm")(a = X, b = YT, side = 1, alpha = 1)
-            else:
-                out = blas("symm")(a = XT, b = YT, side = 1, alpha = 1, lower = 1)
-
-    elif pattern == "Y@S":
-        if X.flags["F_CONTIGUOUS"]:
-            out = blas("symm")(a = X, b = Y, side = 1, alpha = 1)
-        else:
-            out = blas("symm")(a = XT, b = Y, side = 1, alpha = 1, lower = 1)
-
-    elif pattern == "S@Y":
-        if X.flags["F_CONTIGUOUS"]:
-            out = blas("symm")(a = X, b = Y, side = 0, alpha = 1)
-        else:
-            out = blas("symm")(a = XT, b = Y, side = 0, alpha = 1, lower = 1)
-
-    else:
-        raise NameError(f"Pattern = {pattern} is not recognised.")
-    return out
+	addDiagonal(XTX, -alpha)
+	return cho
 
 
-###
-@process(square = True, memcheck = "columns")
-def cholesky(X, alpha = None, overwrite = False):
-    """
-    Uses Epsilon Jitter Solver to compute the Cholesky Decomposition
-    until success. Default alpha ridge regularization = 1e-6.
-    [Added 15/11/18] [Edited 16/11/18 Numpy is slower. Uses LAPACK only]
-    [Edited 18/11/18 Uses universal "do_until_success"]
+def cholSolve(A, b, alpha = None):
+	"""
+	[Added 20/10/2018]
+	Faster than direct inverse solve. Finds coefficients in linear regression
+	allowing A @ theta = b.
+	Notice auto adds epsilon jitter if solver fails.
+	"""
+	n,p = A.shape;	assert n == p and b.shape[0] == n
+	error = 1
+	alpha = ALPHA_DEFAULT if alpha is None else alpha
+	old_alpha = 0
 
-    Parameters
-    -----------
-    X :         Matrix to be decomposed. Has to be symmetric.
-    alpha :     Ridge alpha regularization parameter. Default 1e-6
-    overwrite:  Whether to inplace change data.
+	solver = lapack("potrs")
 
-    Returns
-    -----------
-    U :         Upper triangular cholesky factor (U)
-    """
-    decomp = lapack("potrf")
-    U = do_until_success(
-        decomp, add_jitter, X.shape[0], overwrite, alpha, X
-        )
-    return U
+	while error != 0:
+		if PRINT_ALL_WARNINGS: 
+			print('cholSolve Alpha = {}'.format(alpha))
 
+		# Add epsilon jitter to diagonal. Note adding
+		# np.eye(p)*alpha is slower and uses p^2 memory
+		# whilst flattening uses only p memory.
+		addDiagonal(A, alpha-old_alpha)
+		try:
+			coef, error = solver(A, b)
+		except: pass
+		if error != 0:
+			old_alpha = alpha
+			alpha *= 10
 
-###
-@process(square = True, memcheck = "columns")
-def cho_solve(X, rhs, alpha = None):
-    """
-    Given U from a cholesky decompostion and a RHS, find a least squares
-    solution.
-    [Added 15/11/18]
-
-    Parameters
-    -----------
-    X :         Cholesky Factor. Use cholesky first.
-    alpha :     Ridge alpha regularization parameter. Default 1e-6
-    turbo :     Boolean to use float32, rather than more accurate float64.
-
-    Returns
-    -----------
-    U :          Upper triangular cholesky factor (U)
-    """
-    theta = lapack("potrs")(X, rhs)[0]
-    return theta
+	addDiagonal(A, -alpha)
+	return coef
 
 
-###
-@process(square = True, memcheck = "squared")
-def cho_inv(X, turbo = True):
-    """
-    Computes an inverse to the Cholesky Decomposition.
-    [Added 17/11/18]
+def lu(X, L_only = False, U_only = False):
+	"""
+	[Edited 8/11/2018 Changed to LAPACK LU if L/U only wanted]
+	Computes the LU Decomposition of any matrix with pivoting.
+	Provides L only or U only if specified.
 
-    Parameters
-    -----------
-    X :         Upper Triangular Cholesky Factor U. Use cholesky first.
-    turbo :     Boolean to use float32, rather than more accurate float64.
-    
-    Returns
-    -----------
-    inv(U) :     Upper Triangular Inverse(X)
-    """
-    inv = lapack("potri", turbo)(X)
-    return inv[0]
+	Much faster than Scipy if only U/L wanted, and more memory efficient,
+	since data is altered inplace.
+	"""
+	n, p = X.shape
+	if L_only or U_only:
 
-
-###
-@process(memcheck = "full")
-def pinvc(X, alpha = None, turbo = True, overwrite = False):
-    """
-    Returns the Pseudoinverse of the matrix X using Cholesky Decomposition.
-    Fastest pinv(X) possible, and uses the Epsilon Jitter Algorithm to
-    guarantee convergence. Allows Ridge Regularization - default 1e-6.
-    [Added 17/11/18] [Edited 18/11/18 for speed - uses more BLAS]
-    [Edited 23/11/18 Added Complex support]
-
-    Parameters
-    -----------
-    X :         General matrix X.
-    alpha :     Ridge alpha regularization parameter. Default 1e-6
-    turbo :     Boolean to use float32, rather than more accurate float64.
-    overwrite:  Whether to overwrite intermmediate results. Will cause
-                alpha to be increased by a factor of 10.
-
-    Returns
-    -----------    
-    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I if n >= p or X
-                @ pinv(X) = I for p > n.
-    """
-    n, p = X.shape
-    # determine under / over-determined
-    XTX = n > p
-    dtype = X.dtype
-
-    # get covariance or gram matrix
-    U = matmul("X.H @ X", X) if XTX else matmul("X @ X.H", X)
-
-    decomp = lapack("potrf")
-    U = do_until_success(
-        decomp, add_jitter, _min(n,p), overwrite, alpha, U
-        )
-    U = lapack("potri", turbo)(U, overwrite_c = True)[0]
-
-    # if XXT -> XT * (XXT)^-1
-    # if XTX -> (XTX)^-1 * XT
-    inv = matmul("S @ Y.H", U, X) if XTX else matmul("Y.H @ S", U, X)
-    return inv
+		A, P, __ = lapack("getrf")(X)
+		if L_only:
+			A, k = L_process(n, p, A)
+			# inc = -1 means reverse order pivoting
+			A = lapack("laswp")(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
+		else:
+			A = triu_process(n, p, A)
+		return A
+	else:
+		return _lu(X, permute_l = True, check_finite = False)
 
 
-###
-_reflect = reflect
-@process(square = True, memcheck = "full")
-def pinvch(X, alpha = None, turbo = True, overwrite = False, reflect = True):
-    """
-    Returns the inverse of a square Hermitian Matrix using Cholesky 
-    Decomposition. Uses the Epsilon Jitter Algorithm to guarantee convergence. 
-    Allows Ridge Regularization - default 1e-6.
-    [Added 19/11/18]
+@njit(fastmath = True, nogil = True, cache = True)
+def L_process(n, p, L):
+	"""
+	Auxiliary function to modify data in place to only get L from LU decomposition.
+	"""
+	wide = (p > n)
+	k = p
 
-    Parameters
-    -----------
-    X :         Upper Symmetric Matrix X
-    alpha :     Ridge alpha regularization parameter. Default 1e-6
-    turbo :     Boolean to use float32, rather than more accurate float64.
-    overwrite:  Whether to overwrite X inplace with pinvh.
-    reflect:    Output full matrix or 1/2 triangular
+	if wide:
+		# wide matrix
+		# L get all n rows, but only n columns
+		L = L[:, :n]
+		k = n
 
-    Returns
-    -----------    
-    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
-    """
-    decomp = lapack("potrf")
-    U = do_until_success(
-        decomp, add_jitter, X.shape[0], overwrite, alpha, X
-        )
-    U = lapack("potri", turbo)(U, overwrite_c = True)[0]
-
-    return _reflect(U) if reflect else U
+	# tall / wide matrix
+	for i in range(k):
+		li = L[i]
+		li[i+1:] = 0
+		li[i] = 1
+	# Set diagonal to 1
+	return L, k
 
 
-###
-@process(memcheck = {"X":"full", "L_only":"same", "U_only":"same"})
-def lu(X, L_only = False, U_only = False, overwrite = False):
-    """
-    Computes the pivoted LU decomposition of a matrix. Optional to output
-    only L or U components with minimal memory copying.
-    [Added 16/11/18]
+@njit(fastmath = True, nogil = True, cache = True)
+def triu_process(n, p, U):
+	"""
+	Auxiliary function to modify data in place to only get upper triangular
+	part of matrix. Used in QR (get R) and LU (get U) decompositon.
+	"""
+	tall = (n > p)
+	k = n
 
-    Parameters
-    -----------
-    X:          Matrix to be decomposed. Can be retangular.
-    L_only:     Output only L.
-    U_only:     Output only U.
-    overwrite:  Whether to directly alter the original matrix.
+	if tall:
+		# tall matrix
+		# U get all p rows
+		U = U[:p]
+		k = p
 
-    Returns
-    -----------    
-    (L,U) or (L) or (U)
-    """
-    n, p = X.shape
-    if L_only or U_only:
-        A, P, _ = lapack("getrf")(X, overwrite_a = overwrite)
-        if L_only:
-            A, k = L_process(n, p, A)
-            # inc = -1 means reverse order pivoting
-            A = lapack("laswp")(a = A, piv = P, inc = -1, k1 = 0, k2 = k-1, overwrite_a = True)
-        else:
-            # get only upper triangle
-            A = triu(n, p, A)
-        return A
-    else:
-        return scipy.lu(X, permute_l = True, check_finite = False, overwrite_a = overwrite)
+	for i in range(1, k):
+		U[i, :i] = 0
+	return U
 
 
-###
-@process(square = True, memcheck = "same")
-def pinvl(X, alpha = None, turbo = True, overwrite = False):
-    """
-    Computes the pseudoinverse of a square matrix X using LU Decomposition.
-    Notice, it's much faster to use pinvc (Choleksy Inverse).
-    [Added 18/11/18] [Edited 26/11/18 Fixed ridge regularization]
 
-    Parameters
-    -----------
-    X:          Matrix to be decomposed. Must be square.
-    alpha:      Ridge alpha regularization parameter. Default 1e-6
-    turbo:      Boolean to use float32, rather than more accurate float64.
-    overwrite:  Whether to directly alter the original matrix.
-
-    Returns
-    -----------    
-    pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I = X @ pinv(X) 
-    """
-    n, p = X.shape
-    A, P, _ = lapack("getrf")(X, overwrite_a = overwrite)
-
-    inv = lapack("getri")
-    A = do_until_success(
-        inv, U_process, _min(n,p), True, alpha, lu = A, piv = P, overwrite_lu = True
-        ) 
-    # overwrite shouldnt matter in first go
-    return A
-
-
-###
-@process(memcheck = {"X":"full", "Q_only":"same", "R_only":"same"})
 def qr(X, Q_only = False, R_only = False, overwrite = False):
-    """
-    Computes the reduced economic QR Decomposition of a matrix. Optional
-    to output only Q or R.
-    [Added 16/11/18] [Edited 28/11/18 Complex support]
+	"""
+	[Edited 8/11/2018 Added Q, R only parameters. Faster than Numba]
+	[Edited 9/11/2018 Made R only more memory efficient (no data copying)]
+	Computes the reduced QR Decomposition of any matrix.
+	Uses optimized NUMBA QR if avaliable else use's Scipy's
+	version.
 
-    Parameters
-    -----------
-    X:          Matrix to be decomposed. Can be retangular.
-    Q_only:     Output only Q.
-    R_only:     Output only R.
-    overwrite:  Whether to directly alter the original matrix.
+	Provides Q or R only if specified, and is must faster + more memory
+	efficient since data is changed inplace.
+	"""
+	if Q_only or R_only:
+		# Compute R
+		n, p = X.shape
+		R, tau, __, __ = lapack("geqrf")(X, overwrite_a = overwrite)
 
-    Returns
-    -----------    
-    (Q,R) or (Q) or (R)
-    """
-    dtype = X.dtype
+		if Q_only:
+			if p > n:
+				R = R[:, :n]
+			# Compute Q
+			Q, __, __ = lapack("orgqr")(R, tau, overwrite_a = True)
+			return Q
+		else:
+			# Do nothing, as R is already computed.
+			R = triu_process(n, p, R)
+			return R
 
-    if Q_only or R_only:
-        n, p = X.shape
-        R, tau, _, _ = lapack("geqrf")(X, overwrite_a = overwrite)
-
-        if Q_only:
-            if p > n:
-                R = R[:, :n]
-            # Compute Q
-            if isComplex(dtype):
-                Q, _, _ = lapack("ungqr")(R, tau, overwrite_a = True)
-            else:
-                Q, _, _ = lapack("orgqr")(R, tau, overwrite_a = True)
-            return Q
-        else:
-            # get only upper triangle
-            R = triu(n, p, R)
-            return R
-
-    return numba.qr(X)
+	if USE_NUMBA: return numba.qr(X)
+	return _qr(X, mode = 'economic', check_finite = False, overwrite_a = overwrite)
 
 
-###
-@process(memcheck = "extended")
-def svd(X, U_decision = False, n_jobs = 1, conjugate = True, overwrite = False):
-    """
-    Computes the Singular Value Decomposition of a general matrix providing
-    X = U S VT. Notice VT (V transpose) is returned, and not V.
-    Also, by default, the signs of U and VT are swapped so that VT has the
-    sign of the maximum item as positive.
 
-    HyperLearn's SVD is optimized dramatically due to the findings made in
-    Modern Big Data Algorithms. If p/n >= 0.001, then GESDD is used. Else,
-    GESVD is used. Also, svd(XT) is used if it's faster, bringing the complexity
-    to O( min(np^2, n^2p) ).
-    [Added 19/11/18] [Edited 23/11/18 Added Complex support]
-    
-    Parameters
-    -----------
-    X:          Matrix to be decomposed. General matrix.
-    U_decision: Default = False. If True, uses max from U. If None. don't flip.
-    n_jobs:     Whether to use more >= 1 CPU
-    conjugate:  Whether to inplace conjugate but inplace return original.
-    overwrite:  Whether to conjugate transpose inplace.
+def invCholesky(X, fast = False):
+	"""
+	Computes the Inverse of a Hermitian Matrix
+	(Positive Symmetric Matrix) after provided with Cholesky's
+	Lower Triangular Matrix.
+	
+	This is used in conjunction in solveCholesky, where the
+	inverse of the covariance matrix is needed.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's Triangular Solve given identity matrix. Speed is OK.
+	If CPU:
+		Uses very fast LAPACK algorithms for triangular system inverses.
+	
+	Stability
+	--------------
+	Note that LAPACK's single precision (float32) solver (strtri) is much more
+	unstable than double (float64). So, default strtri is OFF.
+	However, speeds are reduced by 50%.
+	"""
+	assert X.shape[0] == X.shape[1]
+	choInv = lapack("trtri", fast)(X)[0]
 
-    Returns
-    -----------    
-    U:          Orthogonal Left Eigenvectors
-    S:          Descending Singular Values
-    VT:         Orthogonal Right Eigenvectors
-    """
-    n, p = X.shape
-    dtype = X.dtype
-    ifTranspose = p > n # p > n
-    isComplex_dtype = isComplex(dtype)
+	return choInv @ choInv.T
 
-    if ifTranspose: 
-        X = transpose(X, conjugate, dtype)
-        U_decision = not U_decision
-        n, p = X.shape
-    byte = X.itemsize
+	
 
-    gesdd, gesvd = svd_lwork(isComplex_dtype, byte, n, p)
-    free = available_memory()
-    if gesdd > free:
-        if gesvd > free:
-            raise MemoryError(f"GESVD requires {gesvd} MB, but {free} MB is free, "
-    f"so an extra {gesvd-free} MB is required.")
-        gesdd = False
-    else:
-        gesdd = True
-
-    # Use GESDD from Numba or GESVD from LAPACK
-    ratio = p/n
-    # From Modern Big Data Algorithms -> GESVD better if matrix is very skinny
-    if ratio >= 0.001:
-        if overwrite:
-            U, S, VT, _ = lapack("gesdd")(X, full_matrices = False, overwrite_a = overwrite)
-        else:
-            U, S, VT = numba.svd(X, full_matrices = False)
-    else:
-        U, S, VT, _ = lapack("gesvd")(X, full_matrices = False, overwrite_a  = overwrite)
-        
-    # Return original X if X.H
-    if not overwrite and conjugate and isComplex_dtype:
-        transpose(X, True, dtype);
-    
-    # Flip if svd(X.T) was performed.
-    if ifTranspose:
-        U, VT = transpose(VT, True, dtype), transpose(U, True, dtype)
-
-    # In place flips sign according to max(abs(VT))
-    svd_flip(U, VT, U_decision = U_decision, n_jobs = n_jobs)
-
-    return U, S, VT
+def pinvCholesky(X, alpha = None, fast = False):
+	"""
+	Computes the approximate pseudoinverse of any matrix using Cholesky Decomposition
+	This means X @ pinv(X) approx = eye(n).
+	
+	Note that this is super fast, and will be used in HyperLearn as the default
+	pseudoinverse solver for any matrix. Care is taken to make the algorithm
+	converge, and this is done via forced epsilon regularization.
+	
+	HyperLearn's implementation also handles rank deficient and ill-conditioned
+	matrices perfectly with the help of the limiting behaivour of
+	adding forced epsilon regularization.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's Cholesky. Speed is OK.
+	If CPU:
+		Uses Numpy's Fortran C based Cholesky.
+		If NUMBA is not installed, uses very fast LAPACK functions.
+	
+	Stability
+	--------------
+	Alpha is added for regularization purposes. This prevents system
+	rounding errors and promises better convergence rates.
+	"""
+	n,p = X.shape
+	XT = X.T
+	memoryCovariance(X)
+	covariance = _XTX(XT) if n >= p else _XXT(XT)
+	
+	cho = cholesky(covariance, alpha = alpha, fast = fast)
+	inv = invCholesky(cho, fast = fast)
+	
+	return inv @ XT if n >= p else XT @ inv
 
 
-###
-@process(memcheck = "extended")
-def pinv(X, alpha = None, overwrite = False):
-    """
-    Returns the inverse of a general Matrix using SVD. Uses the Epsilon Jitter 
-    Algorithm to guarantee convergence. Allows Ridge Regularization - default 1e-6.
-    [Added 21/11/18] [Edited 23/11/18 Added Complex support]
 
-    Parameters
-    -----------
-    X:          Upper Triangular Cholesky Factor U. Use cholesky.
-    alpha:      Ridge alpha regularization parameter. Default 1e-6.
-    overwrite:  Whether to directly alter the original matrix.
+def svd(X, fast = True, U_decision = False, transpose = True):
+	"""
+	[Edited 9/11/2018 --> Modern Big Data Algorithms p/n ratio check]
+	Computes the Singular Value Decomposition of any matrix.
+	So, X = U * S @ VT. Note will compute svd(X.T) if p > n.
+	Should be 99% same result. This means this implementation's
+	time complexity is O[ min(np^2, n^2p) ]
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's SVD. PyTorch uses (for now) a NON divide-n-conquer algo.
+		Submitted report to PyTorch:
+		https://github.com/pytorch/pytorch/issues/11174
+	If CPU:
+		Uses Numpy's Fortran C based SVD.
+		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.
+	If Transpose:
+		Will compute if possible svd(X.T) instead of svd(X) if p > n.
+		Default setting is TRUE to maintain speed.
+	
+	Stability
+	--------------
+	SVD_Flip is used for deterministic output. Does NOT follow Sklearn convention.
+	This flips the signs of U and VT, using VT_based decision.
+	"""
+	transpose = True if (transpose and X.shape[1] > X.shape[0]) else False
+	X = _float(X)
+	if transpose: 
+		X, U_decision = X.T, not U_decision
 
-    Returns
-    -----------    
-    pinv(X):    Pseudoinverse of X. Allows pinv(X) @ X = I.
-    """
-    dtype = X.dtype
-    U, S, VT = svd(X, U_decision = None, overwrite = overwrite)
-    U, _S, VT = svd_condition(U, S, VT, alpha)
-    return (transpose(VT, True, dtype) * _S) @ transpose(U, True, dtype)
-
-
-###
-@process(square = True, memcheck = "extra")
-def eigh(X, U_decision = False, alpha = None, svd = False, n_jobs = 1, overwrite = False):
-    """
-    Returns sorted eigenvalues and eigenvectors from large to small of
-    a symmetric square matrix X. Follows SVD convention. Also flips
-    signs of eigenvectors using svd_flip. Uses the Epsilon Jitter 
-    Algorithm to guarantee convergence. Allows Ridge Regularization
-    default 1e-6.
-    [Added 21/11/18] [Edited 24/11/18 Added Complex Support, Eigh alpha
-    set to 0 since Eigh errors are rare.]
-
-    Parameters
-    -----------
-    X:          Symmetric Square Matrix.
-    U_decision: Always set to False. Can choose None for no swapping.
-    alpha:      Ridge alpha regularization parameter. Default 1e-6.
-    svd:        Returns sqrt(W) and V.T
-    n_jobs:     Whether to use more >= 1 CPU
-    overwrite:  Whether to directly alter the original matrix.
-
-    Returns
-    -----------    
-    W:          Eigenvalues
-    V:          Eigenvectors
-    """
-    n = X.shape[0]
-    byte = X.itemsize
-    dtype = X.dtype
-    isComplex_dtype = isComplex(dtype)
-
-    evd, evr = eigh_lwork(isComplex_dtype, byte, n, n)
-   
-    free = available_memory()
-    if evd > free:
-        if evr > free:
-            raise MemoryError(f"SYEVR requires {evr} MB, but {free} MB is free, "
-    f"so an extra {evr-free} MB is required.")
-        evd = False
-    else:
-        evd = True
-    
-    # From Modern Big Data Algorithms: SYEVD mostly faster than SYEVR
-    # contradicts MKL's findings
-    if evd:
-        decomp = lapack("heevd") if isComplex_dtype else lapack("syevd")
-        W, V = do_until_success(
-            decomp, add_jitter, n, overwrite, None, 
-            a = X, lower = 0, overwrite_a = overwrite)
-    else:
-        decomp = lapack("heevr") if isComplex_dtype else lapack("syevr")
-        W, V = do_until_success(
-            decomp, add_jitter, n, overwrite, None, 
-            a = X, uplo = "U", overwrite_a = overwrite)
-
-    # if svd -> return V.T and sqrt(S)
-    if svd:
-        W = eig_search(W, 0)
-
-    if U_decision is not None:
-        W, V = W[::-1], V[:,::-1]
-
-    if svd:
-        W **= 0.5
-        V = transpose(V, True, dtype)
-
-    # return with SVD convention: sort eigenvalues
-    svd_flip(None, V, U_decision = U_decision, n_jobs = n_jobs)
-
-    return W, V
+	n, p = X.shape
+	ratio = p/n
+	#### TO DO: If memory usage exceeds LWORK, use GESVD
+	if ratio >= 0.001:
+		if USE_NUMBA:
+			U, S, VT = numba.svd(X)
+		else:
+			#### TO DO: If memory usage exceeds LWORK, use GESVD
+			U, S, VT, __ = lapack("gesdd", fast)(X, full_matrices = False)
+	else:
+		U, S, VT = lapack("gesvd", fast)(X, full_matrices = False)
+		
+	U, VT = svd_flip(U, VT, U_decision = U_decision)
+	
+	if transpose:
+		return VT.T, S, U.T
+	return U, S, VT
+		
 
 
-###
+def pinv(X, alpha = None, fast = True):
+	"""
+	Computes the pseudoinverse of any matrix.
+	This means X @ pinv(X) = eye(n).
+	
+	Optional alpha is used for regularization purposes.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's SVD. PyTorch uses (for now) a NON divide-n-conquer algo.
+		Submitted report to PyTorch:
+		https://github.com/pytorch/pytorch/issues/11174
+	If CPU:
+		Uses Numpy's Fortran C based SVD.
+		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.
+	
+	Stability
+	--------------
+	Condition number is:
+		float32 = 1e3 * eps * max(S)
+		float64 = 1e6 * eps * max(S)
+	"""
+	if alpha is not None: assert alpha >= 0
+	alpha = 0 if alpha is None else alpha
+	
+	U, S, VT = svd(X, fast = fast)
+	U, S, VT = _svdCond(U, S, VT, alpha)
+	return (VT.T * S) @ U.T
+	
+
+
+def eigh(XTX, alpha = None, fast = True, svd = False, positive = False, qr = False):
+	"""
+	Computes the Eigendecomposition of a Hermitian Matrix
+	(Positive Symmetric Matrix).
+	
+	Note: Slips eigenvalues / eigenvectors with MAX first.
+	Scipy convention is MIN first, but MAX first is SVD convention.
+	
+	Uses the fact that the matrix is special, and so time
+	complexity is approximately reduced by 1/2 or more when
+	compared to full SVD.
+
+	If POSITIVE is True, then all negative eigenvalues will be set
+	to zero, and return value will be VT and not V.
+
+	If SVD is True, then eigenvalues will be square rooted as well.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's EIGH. PyTorch uses (for now) a non divide-n-conquer algo.
+	If CPU:
+		Uses Numpy's Fortran C based EIGH.
+		If NUMBA is not installed, uses very fast divide-n-conqeur LAPACK functions.
+		Note Scipy's EIGH as of now is NON divide-n-conquer.
+		Submitted report to Scipy:
+		https://github.com/scipy/scipy/issues/9212
+		
+	Stability
+	--------------
+	Alpha is added for regularization purposes. This prevents system
+	rounding errors and promises better convergence rates.
+
+	Also uses eig_flip to flip the signs of the eigenvectors
+	to ensure deterministic output.
+	"""
+	n,p = XTX.shape
+	assert n == p
+	error = 1
+	alpha = ALPHA_DEFAULT if alpha is None else alpha
+	old_alpha = 0
+	
+	decomp = lapack("syevd", fast, "eigh") if not qr else lapack("syevr", fast) 
+
+	while error != 0:
+		if PRINT_ALL_WARNINGS: 
+			print('eigh Alpha = {}'.format(alpha))
+
+		# Add epsilon jitter to diagonal. Note adding
+		# np.eye(p)*alpha is slower and uses p^2 memory
+		# whilst flattening uses only p memory.
+		addDiagonal(XTX, alpha-old_alpha)
+		try:
+			output = decomp(XTX)
+			if USE_NUMBA: 
+				S2, V = output
+				error = 0
+			else: 
+				S2, V, error = output
+		except: pass
+		if error != 0:
+			old_alpha = alpha
+			alpha *= 10
+
+	addDiagonal(XTX, -alpha)
+	S2, V = S2[::-1], eig_flip(V[:,::-1])
+
+	if svd or positive: 
+		S2[S2 < 0] = 0.0
+		V = V.T
+	if svd:
+		S2 **= 0.5
+	return S2, V
+
+
 _svd = svd
-@process(memcheck = "extra")
-def eig(
-    X, U_decision = False, alpha = None, turbo = True, svd = False, 
-    n_jobs = 1, conjugate = True, overwrite = False, use_svd = False):
-    """
-    Returns sorted eigenvalues and eigenvectors from large to small of
-    a general matrix X. Follows SVD convention. Also flips signs of 
-    eigenvectors using svd_flip. Uses the Epsilon Jitter 
-    Algorithm to guarantee convergence. Allows Ridge Regularization
-    default 1e-6.
+def eig(X, alpha = None, fast = True, U_decision = False, svd = False, stable = False):
+	"""
+	[Edited 8/11/2018 Made QR-SVD even faster --> changed to n >= p from n >= 5/3p]
+	Computes the Eigendecomposition of any matrix using either
+	QR then SVD or just SVD. This produces much more stable solutions 
+	that pure eigh(covariance), and thus will be necessary in some cases.
 
-    According to [`Matrix Computations, Third Edition, G. Holub and C. 
-    Van Loan, Chapter 5, section 5.4.4, pp 252-253.`], QR is better if
-    n >= 5/3p. In Modern Big Data Algorithms, I find QR is better for
-    all n > p.
-    [Added 21/11/18] [Edited 22/11/18 with turbo -> approximate
-    eigendecomposition when p >> n] [Edited 24/11/18 Added Complex Support]
+	If STABLE is True, then EIGH will be bypassed, and instead SVD or QR/SVD
+	will be used instead. This is to guarantee stability, since EIGH
+	uses epsilon jitter along the diagonal of the covariance matrix.
+	
+	Speed
+	--------------
+	If n >= 5/3 * p:
+		Uses QR followed by SVD noticing that U is not needed.
+		This means Q @ U is not required, reducing work.
 
-    Parameters
-    -----------
-    X:          General Matrix.
-    U_decision: Always set to False. Can choose None for no swapping.
-    alpha:      Ridge alpha regularization parameter. Default 1e-6.
-    turbo:      If True, if p >> n, then will output approximate eigenvectors
-                where V = (X.T @ U) / sqrt(W)
-    svd:        Returns sqrt(W) and V.T
-    n_jobs:     Whether to use more >= 1 CPU
-    conjugate:  Whether to inplace conjugate but inplace return original.
-    overwrite:  Whether to conjugate transpose inplace.
-    use_svd:    Use SVD instead of EIGH (slower, but more robust)
+		Note Sklearn's Incremental PCA was used for the constant
+		5/3 [`Matrix Computations, Third Edition, G. Holub and C. 
+		Van Loan, Chapter 5, section 5.4.4, pp 252-253.`]
 
-    Returns
-    -----------
-    W:          Eigenvalues
-    V:          Eigenvectors
-    """
-    n, p = X.shape
-    byte = X.itemsize
-    dtype = X.dtype
-    isComplex_dtype = isComplex(dtype)
+	Else If n >= p:
+		SVD is used, as QR would be slower.
 
-    # check memory usage
-    free = available_memory()
-    evd, evr = eigh_lwork(isComplex_dtype, byte, n, p)
-    eigh_work = _min(evd, evr)
+	Else If n <= p:
+		SVD Transpose is used svd(X.T)
 
-    if eigh_work > free:
-        use_svd = True
-        # check SVD since less memory usage
-        # notice since QR used, upper triangular
-        MIN = _min(n, p)
-        gesdd, gesvd = svd_lwork(isComplex_dtype, byte, MIN, p)
-        gesddT, gesvdT = svd_lwork(isComplex_dtype, byte, p, MIN) # also check transpose
-        svd_work = min(gesdd, gesvd, eigh_work, gesddT, gesvdT)
+	If stable is False:
+		Eigh is used or SVD depending on the memory requirement.
+		
+	Stability
+	--------------
+	Eig is the most stable Eigendecomposition in HyperLearn. It
+	surpasses the stability of Eigh, as no epsilon jitter is added,
+	unless specified when stable = False.
+	"""
+	n,p = X.shape
+	memCheck = memoryXTX(X)
 
-        if svd_work > free:
-            raise MemoryError(f"EIG requires {svd_work} MB, but {free} MB is free, "
-    f"so an extra {svd_work-free} MB is required.")
-
-    if not use_svd:
-        # From Modern Big Data Algorithms for p >= 1.1n
-        if turbo and p >= 1.1*n:
-            # Form XXT
-            cov = matmul("X @ X.H", X)
-            W, V = eigh(cov, U_decision = None, overwrite = True) # overwrite doesn't matter
-
-            W, V = eig_condition(X, W, V)
-        else:
-        # Form XTX
-            cov = matmul("X.H @ X", X)
-            W, V = eigh(cov, U_decision = None, overwrite = True)
-        W, V = W[::-1], V[:,::-1]
-        
-    else:
-        _, W, V = _svd( qr(X, R_only = True), U_decision = None, overwrite = True)
-        if svd:
-            return W, V
-        W **= 2
-        V = transpose(V, True, dtype)
-
-    # revert matrix X back
-    if not overwrite and conjugate and isComplex(dtype):
-        transpose(X, True, dtype);
-
-    # if svd -> return V.T and sqrt(S)
-    if svd:
-        W = eig_search(W, 0)
-
-        W **= 0.5
-        V = transpose(V, True, dtype)
-
-    # return with SVD convention: flip signs
-    svd_flip(None, V, U_decision = U_decision, n_jobs = n_jobs)
-
-    return W, V
+	# Note when p >= n, EIGH will return incorrect results, and hence HyperLearn
+	# will default to SVD or QR/SVD
+	if stable or not memCheck or p > n:
+		# From Daniel Han-Chen's Modern Big Data Algorithms --> if n is larger
+		# than p, then use QR. Old is >= 5/3*p.
+		if n >= p:
+			# Q, R = qr(X)
+			# U, S, VT = svd(R)
+			# S, VT is kept.
+			__, S, V = _svd( qr(X, R_only = True), fast = fast, U_decision = U_decision)
+		else:
+			# Force turn on transpose:
+			# either computes svd(X) or svd(X.T)
+			# whichever is faster. [p >= n --> svd(X.T)]
+			__, S, V = _svd(X, transpose = True, fast = fast, U_decision = U_decision)
+		if not svd:
+			S **= 2
+			V = V.T
+	else:
+		S, V = eigh(_XTX(X.T), fast = fast, alpha = alpha)
+		if svd:
+			S **= 0.5
+			V = V.T
+			
+	return S, V
 
 
-###
-@process(square = True, memcheck = "full")
-def pinvh(X, alpha = None, turbo = True, overwrite = False, reflect = True):
-    """
-    Returns the inverse of a square Hermitian Matrix using Eigendecomposition. 
-    Uses the Epsilon Jitter Algorithm to guarantee convergence. 
-    Allows Ridge Regularization - default 1e-6.
-    [Added 19/11/18]
 
-    Parameters
-    -----------
-    X :         Upper Symmetric Matrix X
-    alpha :     Ridge alpha regularization parameter. Default 1e-6
-    turbo :     Boolean to use float32, rather than more accurate float64.
-    overwrite:  Whether to overwrite X inplace with pinvh.
-    reflect:    Output full matrix or 1/2 triangular
+	
+def pinvh(XTX, alpha = None, fast = True):
+	"""
+	Computes the pseudoinverse of a Hermitian Matrix
+	(Positive Symmetric Matrix) using Eigendecomposition.
+	
+	Uses the fact that the matrix is special, and so time
+	complexity is approximately reduced by 1/2 or more when
+	compared to full SVD.
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's EIGH. PyTorch uses (for now) a non divide-n-conquer algo.
+	If CPU:
+		Uses Numpy's Fortran C based EIGH.
+		If NUMBA is not installed, uses very fast divide-n-conqeur LAPACK functions.
+		Note Scipy's EIGH as of now is NON divide-n-conquer.
+		Submitted report to Scipy:
+		https://github.com/scipy/scipy/issues/9212
+	
+	Stability
+	--------------
+	Condition number is:
+		float32 = 1e3 * eps * max(abs(S))
+		float64 = 1e6 * eps * max(abs(S))
+		
+	Alpha is added for regularization purposes. This prevents system
+	rounding errors and promises better convergence rates.
+	"""
+	assert XTX.shape[0] == XTX.shape[1]
 
-    Returns
-    -----------    
-    pinv(X) :   Pseudoinverse of X. Allows pinv(X) @ X = I.
-    """
-    W, V = eigh(X, U_decision = None, alpha = alpha, overwrite = overwrite)
-    
-    eps = epsilon(W)
-    above_cutoff = eigh_search(W, eps)
-    _W = 1.0 / W[above_cutoff]
-    V = V[:, above_cutoff]
+	S2, V = eigh(XTX, alpha = alpha, fast = fast)
+	S2, V = _eighCond(S2, V)
+	return (V / S2) @ V.T
 
-    inv = V * _W @ transpose(V)
-    return inv
 
+
+def pinvEig(X, alpha = None, fast = True):
+	"""
+	Computes the approximate pseudoinverse of any matrix X
+	using Eigendecomposition on the covariance matrix XTX or XXT
+	
+	Uses a special trick where:
+		If n >= p: X^-1 approx = (XT @ X)^-1 @ XT
+		If n < p:  X^-1 approx = XT @ (X @ XT)^-1
+	
+	Speed
+	--------------
+	If USE_GPU:
+		Uses PyTorch's EIGH. PyTorch uses (for now) a non divide-n-conquer algo.
+	If CPU:
+		Uses Numpy's Fortran C based EIGH.
+		If NUMBA is not installed, uses very fast divide-n-conqeur LAPACK functions.
+		Note Scipy's EIGH as of now is NON divide-n-conquer.
+		Submitted report to Scipy:
+		https://github.com/scipy/scipy/issues/9212
+	
+	Stability
+	--------------
+	Condition number is:
+		float32 = 1e3 * eps * max(abs(S))
+		float64 = 1e6 * eps * max(abs(S))
+		
+	Alpha is added for regularization purposes. This prevents system
+	rounding errors and promises better convergence rates.
+	"""
+	n,p = X.shape
+	XT = X.T
+	memoryCovariance(X)
+	covariance = _XTX(XT) if n >= p else _XXT(XT)
+	
+	S2, V = eigh(covariance, alpha = alpha, fast = fast)
+	S2, V = _eighCond(S2, V)
+	inv = (V / S2) @ V.T
+
+	return inv @ XT if n >= p else XT @ inv
