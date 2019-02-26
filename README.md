@@ -7,6 +7,8 @@ I'm recruiting for people who want to change the world! Do the quiz @ https://da
 
 *HyperLearn is what drives Umbra's AI engines. It is open source to everyone, everywhere, and we hope humanity can rise to the stars.*
 
+[Notice - I will be updating the package monthly or bi-weekly due to other commitments]
+
 ---
 
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/></a>
