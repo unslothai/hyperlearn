@@ -1,3 +1,4 @@
+***[Due to the time taken @ uni, work + hell breaking loose in my life, since things have calmed down a bit, will continue commiting!!!]
 
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/Umbra Header.png" alt="drawing" width="400"/></a>
 
