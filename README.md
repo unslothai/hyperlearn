@@ -16,15 +16,6 @@ I'm recruiting for people who want to change the world! Do the quiz @ https://da
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/></a>
 https://hyperlearn.readthedocs.io/en/latest/index.html
 
-***IMPOPRTANT***
-**This package is to be used only for the following purposes:**
-
-1. Not for Profit usage (eg: Red Cross, NASA, NOAA usage)
-2. Research Usage (eg: Universities)
-3. Non Commercial Personal usage (eg: hackathons)
-Commercial usage is strictly prohibted, unless express writing is given to danielhanchen@gmail.com
-[As of 2020, HyperLearn's license has been changed to BSD 3]
-
 *Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
 
 ![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
