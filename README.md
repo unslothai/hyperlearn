@@ -23,6 +23,7 @@ https://hyperlearn.readthedocs.io/en/latest/index.html
 2. Research Usage (eg: Universities)
 3. Non Commercial Personal usage (eg: hackathons)
 Commercial usage is strictly prohibted, unless express writing is given to danielhanchen@gmail.com
+[As of 2020, HyperLearn's license has been changed to BSD 3]
 
 *Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
 
@@ -128,11 +129,12 @@ Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
         * Latent Semantic Indexing LSI (NLP)
         * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
 ---
-On Licensing:
-HyperLearn is under a GNU v3 License. This means:
+~~On Licensing:~~
+~~HyperLearn is under a GNU v3 License. This means:~~
 1. Commercial use is restricted. Only software with 0 cost can be released. Ie: no closed source versions are allowed.
 2. Using HyperLearn must entail all of the code being avaliable to everyone who uses your public software.
 3. HyperLearn is intended for academic, research and personal purposes. Any explicit commercialisation of the algorithms and anything inside HyperLearn is strictly prohibited.
 
 HyperLearn promotes a free and just world. Hence, it is free to everyone, except for those who wish to commercialise on top of HyperLearn.
 Ongoing documentation: https://hyperlearn.readthedocs.io/en/latest/index.html
+[As of 2020, HyperLearn's license has been changed to BSD 3]
