@@ -51,7 +51,7 @@ Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
 2. SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
 
 ---
-#### Help is really needed! Email me or message me @ danielhanchen@gmail.com!
+#### Help is really needed! Message me!
 ---
 # Key Methodologies and Aims
 #### 1. [Embarrassingly Parallel For Loops](#1)
