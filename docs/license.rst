@@ -682,4 +682,4 @@ Public License instead of this License.  But first, please read
 
 Contact
 ===============
-Please email danielhanchen@gmail.com for licensing questions.
+Please email me for licensing questions.
