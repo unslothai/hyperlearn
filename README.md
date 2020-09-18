@@ -3,10 +3,6 @@
 
 <a href="github.com/danielhanchen/hyperlearn/"><img src="Images/Umbra Header.png" alt="drawing" width="400"/></a>
 
-*Regardless of where you are, Umbra allows you to solve humanity's most pressing issues, including poverty, crime and climate change. By indexing public data with Artificial Intelligence, Umbra aims to create the world's first public simulation of Planet Earth.*
-
-I'm recruiting for people who want to change the world! Do the quiz @ https://daniel3112.typeform.com/to/K84Qu0 :) I'll be waiting.
-
 *HyperLearn is what drives Umbra's AI engines. It is open source to everyone, everywhere, and we hope humanity can rise to the stars.*
 
 [Notice - I will be updating the package monthly or bi-weekly due to other commitments]
