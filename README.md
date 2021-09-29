@@ -2,11 +2,13 @@
 <h1 align="center">Moonshot Hyperlearn</h1>
 <h3 align="center">Slow predictions impact important decisions</h3>
 <p align="center">HyperLearn aims to make Machine Learning algorithms run in at least 50% of their original time. Algorithms from Linear Regression to Principal Component Analysis are optimized by using LAPACK, BLAS, and parallelized through Numba.</p>
+<p align="center">Moonshot's mission is to predict the future of everything quickly by making JARVIS a reality!</p>
 
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 
 ----
 <h3> Hyperlearn's algorithms has been featured in 5 research papers! </h3>
+<h4> Microsoft, UW, UC Berkeley, Greece, NVIDIA </h4>
 
 * **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
 * **University of Washington**: Ariel Rokem, Kendrick Kay. Fractional ridge regression: a fast, interpretable reparameterization of ridge regression https://arxiv.org/abs/2005.03220
@@ -16,6 +18,7 @@
 
 ----
 <h3> Hyperlearn has been incorporated into 4 organizations and repositories! </h3>
+<h4> Facebook's Pytorch, Scipy, NVIDIA, UNSW </h4>
 
 * **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
 * **Scipy**: EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
