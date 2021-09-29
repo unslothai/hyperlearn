@@ -6,20 +6,31 @@
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 
 ----
-<h3> Hyperlearn has been featured in 5 research papers! </h3>
+<h3> Hyperlearn's algorithms has been featured in 5 research papers! </h3>
 
 * **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
 * **University of Washington**: Ariel Rokem, Kendrick Kay. Fractional ridge regression: a fast, interpretable reparameterization of ridge regression https://arxiv.org/abs/2005.03220
+* **UC Berkeley** David Chan. GPU Accelerated T-Distributed Stochastic Neighbor Embedding https://digitalassets.lib.berkeley.edu/techreports/ucb/incoming/EECS-2020-89.pdf
 * **National Center for Scientific Research 'Demokritos', Greece**: Christos Platias, Georgios Petasis. A Comparison of Machine Learning Methods for Data Imputation https://dl.acm.org/doi/10.1145/3411408.3411465
-* **UNSW** Abdussalam et al. Large-scale Sku-level Product Detection In Social Media Images And Sales Performance https://www.abstractsonline.com/pp8/#!/9305/presentation/465
-* **UNSW** Adam et al. ZikaHack: A digital disease detection competition https://aclanthology.org/W17-5806/
+* **NVIDIA**: Raschka et al. RAPIDS: Machine Learning in Python: Main developments and technology trends in data science, machine learning, and artificial intelligence https://arxiv.org/abs/2002.04803
 
 ----
-<h3> Hyperlearn has been incorporated into 3 organizations and repositories! </h3>
+<h3> Hyperlearn has been incorporated into 4 organizations and repositories! </h3>
 
 * **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
 * **Scipy**: EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
 * **NVIDIA**: Accelerating TSNE with GPUs: From hours to seconds https://medium.com/rapids-ai/tsne-with-gpus-hours-to-seconds-9d9c17c941db
+* **NVIDIA**: RAPIDS Development Team. RAPIDS: Collection of Libraries for End to End GPU Data Science https://rapids.ai
+* **UNSW** Abdussalam et al. Large-scale Sku-level Product Detection In Social Media Images And Sales Performance https://www.abstractsonline.com/pp8/#!/9305/presentation/465
+
+----
+
+<h3> During Hyperlearn's development, bugs and issues were notified to GCC! </h3>
+
+* GCC 10 ignoring function __attribute__ optimize for all x86 since r11-1019 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=96535
+* Vector Extensions aligned(1) not generating unaligned loads/stores https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98317
+* GCC >= 6 cannot inline _mm_cmp_ps on SSE targets https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98387
+* GCC 10.2 AVX512 Mask regression from GCC 9 https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98348
 
 ----
 
