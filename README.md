@@ -1,33 +1,51 @@
-*[Due to the time taken @ uni, work + hell breaking loose in my life, since things have calmed down a bit, will continue commiting!!!]*
-*[By the way, I'm still looking for new contributors! Please help make HyperLearn no1!!]*
+<a href="" style="text-align: center"><img src="Images/just moonshot reound logo.png" alt="Moonshot Logo" align="center"/></a>
+<h1 align="center">Moonshot Hyperlearn</h1>
+<h3 align="center">Slow predictions impact important decisions</h3>
+<p align="center">HyperLearn aims to make Machine Learning algorithms run in at least 50% of their original time. Algorithms from Linear Regression to Principal Component Analysis are optimized by using LAPACK, BLAS, and parallelized through Numba.</p>
 
-<a href="github.com/danielhanchen/hyperlearn/"><img src="Images/Umbra Header.png" alt="drawing" width="400"/></a>
+<a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 
-*HyperLearn is what drives Umbra's AI engines. It is open source to everyone, everywhere, and we hope humanity can rise to the stars.*
+----
+<h3> Hyperlearn has been featured in 5 research papers! </h3>
 
-[Notice - I will be updating the package monthly or bi-weekly due to other commitments]
+* **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
+* **University of Washington**: Ariel Rokem, Kendrick Kay. Fractional ridge regression: a fast, interpretable reparameterization of ridge regression https://arxiv.org/abs/2005.03220
+* **National Center for Scientific Research 'Demokritos', Greece**: Christos Platias, Georgios Petasis. A Comparison of Machine Learning Methods for Data Imputation https://dl.acm.org/doi/10.1145/3411408.3411465
+* **UNSW** Abdussalam et al. Large-scale Sku-level Product Detection In Social Media Images And Sales Performance https://www.abstractsonline.com/pp8/#!/9305/presentation/465
+* **UNSW** Adam et al. ZikaHack: A digital disease detection competition https://aclanthology.org/W17-5806/
 
----
+----
+<h3> Hyperlearn has been incorporated into 3 organizations and repositories! </h3>
 
-<a href="github.com/danielhanchen/hyperlearn/"><img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/></a>
-https://hyperlearn.readthedocs.io/en/latest/index.html
+* **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
+* **Scipy**: EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
+* **NVIDIA**: Accelerating TSNE with GPUs: From hours to seconds https://medium.com/rapids-ai/tsne-with-gpus-hours-to-seconds-9d9c17c941db
 
-*Faster, Leaner GPU Sklearn, Statsmodels written in PyTorch*
+----
 
-![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=popout-square)
-![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg?style=popout-square)
-
-
-**50%+ Faster, 50%+ less RAM usage, GPU support re-written Sklearn, Statsmodels combo with new novel algorithms.**
+<a href="" style="text-align: center"><img src="Images/Packages_Used_long.png" alt="Packages Used" align="center"/></a>
 
 HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
-HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax (model.confidence_interval_) Ongoing documentation: https://hyperlearn.readthedocs.io/en/latest/index.html
+HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax.
 
-I'm also writing a mini book! A sneak peak:
-<img src="Images/SVD.png" alt="drawing" width="600"/>
+Some key current achievements of HyperLearn:
+
+* 70% less time to fit Least Squares / Linear Regression than sklearn + 50% less memory usage
+* 50% less time to fit Non Negative Matrix Factorization than sklearn due to new parallelized algo
+* 40% faster full Euclidean / Cosine distance algorithms
+* 50% less time LSMR iterative least squares
+* New Reconstruction SVD - use SVD to impute missing data! Has .fit AND .transform. Approx 30% better than mean imputation
+* 50% faster Sparse Matrix operations - parallelized
+* RandomizedSVD is now 20 - 30% faster
+
+
+I also published a mini 50 page book called "Modern Big Data Algorithm"!
+
+<a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">Modern Big Data Algorithms PDF</p></a>
+
+<a href="" style="text-align: center"><img src="Images/SVD.png" alt="Modern Big Data Algorithms" align="center"/></a>
 ---
 
-<img src="Images/Packages_Used_long.png" alt="drawing" width="800"/>
 
 ### Comparison of Speed / Memory
 
@@ -40,11 +58,8 @@ I'm also writing a mini book! A sneak peak:
 Time(s) is Fit + Predict. RAM(mb) = max( RAM(Fit), RAM(Predict) )
  
 I've also added some preliminary results for N = 5000, P = 6000
-<img src="Images/Preliminary Results N=5000 P=6000.png" alt="drawing" width="500"/>
 
-Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
-1. EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
-2. SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
+<img src="Images/Preliminary Results N=5000 P=6000.png" alt="drawing" width="500"/>
 
 ---
 #### Help is really needed! Message me!
@@ -104,17 +119,8 @@ Since timings are not good, I have submitted 2 bug reports to Scipy + PyTorch:
 ---
 # Goals & Development Schedule
 
-### Will Focus on & why:
+Hyperlearn will be revamped in the following months to become Moonshot GreenAI with over an extra 150 optimized algorithms! Stay tuned!!
 
-#### 1. Singular Value Decomposition & QR Decomposition
-    * SVD/QR is the backbone for many algorithms including:
-        * Linear & Ridge Regression (Regression)
-        * Statistical Inference for Regression methods (Inference)
-        * Principal Component Analysis (Dimensionality Reduction)
-        * Linear & Quadratic Discriminant Analysis (Classification & Dimensionality Reduction)
-        * Pseudoinverse, Truncated SVD (Linear Algebra)
-        * Latent Semantic Indexing LSI (NLP)
-        * (new methods) Correlation Regression, FGLS, Outlier Tolerant Regression, Generalized MICE, Splines (Regression)
 ---
 ~~On Licensing:~~
 ~~HyperLearn is under a GNU v3 License. This means:~~
