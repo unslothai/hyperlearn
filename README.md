@@ -1,18 +1,18 @@
 <a href="" style="text-align: center"><img src="Images/Longer Moonshot logo.png" alt="Moonshot Logo" align="center"/></a>
-<p align="center">Moonshot's mission is to predict the future of everything quickly by making JARVIS a reality!</p>
-<h3 align="center">Hyperlearn - Slow predictions impact important decisions</h3>
+<h3 align="center">Hyperlearn - Slow predictions impact the most important decisions</h3>
 
 <p align="center">
   <img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
 </p>
-<h4 align="center">[GIF] Sneak peek into 2022 Features!</h4>
 
-<p align="center">HyperLearn aims to make Machine Learning algorithms run in at least 50% of their original time. Algorithms from Linear Regression to Principal Component Analysis are optimized by using LAPACK, BLAS, and parallelized through Numba.</p>
+<h3 align="center">Moonshot's mission is to predict the future of everything quickly and make JARVIS a reality!</h3>
+
+<h4 align="center">Waiting hours for a future prediction is unacceptable. You would rather wait for the future to come. Hyperlearn aims to make machine learning faster and greener, and is the backbone of Moonshot Earth's simulation engine.</h4>
 
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 
 ----
-<h3> Hyperlearn's algorithms has been featured in 5 research papers! </h3>
+<h3> Hyperlearn's algorithms, methods and repo has been featured in 5 research papers! </h3>
 <h4> Microsoft, UW, UC Berkeley, Greece, NVIDIA </h4>
 
 * **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
@@ -22,7 +22,7 @@
 * **NVIDIA**: Raschka et al. RAPIDS: Machine Learning in Python: Main developments and technology trends in data science, machine learning, and artificial intelligence https://arxiv.org/abs/2002.04803
 
 ----
-<h3> Hyperlearn has been incorporated into 4 organizations and repositories! </h3>
+<h3> Hyperlearn's methods and algorithms have been incorporated into 4 organizations and repositories! </h3>
 <h4> Facebook's Pytorch, Scipy, NVIDIA, UNSW </h4>
 
 * **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
@@ -44,7 +44,7 @@
 
 <a href="" style="text-align: center"><img src="Images/Packages_Used_long.png" alt="Packages Used" align="center"/></a>
 
-HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, and mirrors (mostly) Scikit Learn.
+HyperLearn is written completely in PyTorch, NoGil Numba, Numpy, Pandas, Scipy & LAPACK, C++, C, Python, Cython and Assembly, and mirrors (mostly) Scikit Learn.
 HyperLearn also has statistical inference measures embedded, and can be called just like Scikit Learn's syntax.
 
 Some key current achievements of HyperLearn:
@@ -56,6 +56,18 @@ Some key current achievements of HyperLearn:
 * New Reconstruction SVD - use SVD to impute missing data! Has .fit AND .transform. Approx 30% better than mean imputation
 * 50% faster Sparse Matrix operations - parallelized
 * RandomizedSVD is now 20 - 30% faster
+
+Around mid 2022, Hyperlearn will evolve to GreenAI and aims to incorporate:
+* New Paratrooper optimizer - fastest SGD variant combining Lookahead, Learning Rate Range Finder, and more!
+* 30% faster Matrix Multiplication on CPUs
+* Software Support for brain floating point (bfloat16) on nearly all hardware
+* Easy compilation on old and new CPU hardware (x86, ARM)
+* 100x faster regular expressions
+* 50% faster and 50% less memory usage for assembly kernel accelerated methods
+* Fast and parallelized New York Times scraper
+* Fast and parallelized NYSE Announcements scraper
+* Fast and parallelized FRED scraper
+* Fast and parallelized Yahoo Finance scraper
 
 
 I also published a mini 50 page book called "Modern Big Data Algorithm"!
