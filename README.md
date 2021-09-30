@@ -2,11 +2,10 @@
 <p align="center">Moonshot's mission is to predict the future of everything quickly by making JARVIS a reality!</p>
 <h3 align="center">Hyperlearn - Slow predictions impact important decisions</h3>
 
-<h4 align="center">[GIF] Sneak peek into 2022 Features!</h4>
-
 <p align="center">
   <img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
 </p>
+<h4 align="center">[GIF] Sneak peek into 2022 Features!</h4>
 
 <p align="center">HyperLearn aims to make Machine Learning algorithms run in at least 50% of their original time. Algorithms from Linear Regression to Principal Component Analysis are optimized by using LAPACK, BLAS, and parallelized through Numba.</p>
 
