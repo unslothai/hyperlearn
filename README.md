@@ -1,16 +1,16 @@
-<a href="" style="text-align: center"><img src="Images/just moonshot reound logo.png" alt="Moonshot Logo" align="center"/></a>
-<h1 align="center">Moonshot Hyperlearn</h1>
-<h3 align="center">Slow predictions impact important decisions</h3>
-<a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
+<a href="" style="text-align: center"><img src="Images/Longer Moonshot logo.png" alt="Moonshot Logo" align="center"/></a>
+<p align="center">Moonshot's mission is to predict the future of everything quickly by making JARVIS a reality!</p>
+<h3 align="center">Hyperlearn - Slow predictions impact important decisions</h3>
 
-<h4 align="center">Sneak peek into 2022 Features!</h4>
+<h4 align="center">[GIF] Sneak peek into 2022 Features!</h4>
 
 <p align="center">
   <img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
 </p>
 
 <p align="center">HyperLearn aims to make Machine Learning algorithms run in at least 50% of their original time. Algorithms from Linear Regression to Principal Component Analysis are optimized by using LAPACK, BLAS, and parallelized through Numba.</p>
-<p align="center">Moonshot's mission is to predict the future of everything quickly by making JARVIS a reality!</p>
+
+<a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 
 ----
 <h3> Hyperlearn's algorithms has been featured in 5 research papers! </h3>
