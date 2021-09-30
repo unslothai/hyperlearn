@@ -1,6 +1,10 @@
 <a href="" style="text-align: center"><img src="Images/Longer Moonshot logo.png" alt="Moonshot Logo" align="center"/></a>
 <h3 align="center">Hyperlearn - Slow predictions impact the most important decisions</h3>
 
+<p align="center"><i>
+Hyperlearn is under construction! A stable package will be reuploaded mid 2022! Stay tuned!
+</i></p>
+
 <p align="center">
   <img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
 </p>
