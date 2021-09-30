@@ -1,8 +1,0 @@
-
-include LICENSE CODE_OF_CONDUCT.md README.md requirements.txt CONTRIBUTING.md
-recursive-exclude * __pycache__
-recursive-exclude * *.pyc
-recursive-exclude * *.pyo
-recursive-exclude * *.orig
-recursive-exclude * hyperlearn_old
-
