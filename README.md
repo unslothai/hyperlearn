@@ -27,11 +27,11 @@ Waiting hours for a future prediction is unacceptable. You would rather wait for
 
 <h4 align="center"><i>
 I was on hiatus in late 2018 to early 2020 since I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster and various other ML algos faster! From 2020 to now, I've been working on Moonshot with my brother, so I didn't have too much time to maintain Hyperlearn! But things been catching up so a polished version will be published mid next year!!
-<i></h4>
+</i></h4>
 
 ----
 <h3> Hyperlearn's algorithms, methods and repo has been featured or mentioned in 5 research papers! </h3>
-<h4> Microsoft, UW, UC Berkeley, Greece, NVIDIA </h4>
+<h4><i> Microsoft, UW, UC Berkeley, Greece, NVIDIA </i></h4>
 
 * **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
 * **University of Washington**: Ariel Rokem, Kendrick Kay. Fractional ridge regression: a fast, interpretable reparameterization of ridge regression https://arxiv.org/abs/2005.03220
@@ -41,7 +41,7 @@ I was on hiatus in late 2018 to early 2020 since I was at NVIDIA helping make GP
 
 ----
 <h3> Hyperlearn's methods and algorithms have been incorporated into 5 organizations and repositories! </h3>
-<h4> Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW </h4>
+<h4><i> Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW </i></h4>
 
 * **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
 * **Scipy**: EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
@@ -171,12 +171,6 @@ I've also added some preliminary results for N = 5000, P = 6000
 Hyperlearn will be revamped in the following months to become Moonshot GreenAI with over an extra 150 optimized algorithms! Stay tuned!!
 
 ---
-~~On Licensing:~~
-~~HyperLearn is under a GNU v3 License. This means:~~
-1. Commercial use is restricted. Only software with 0 cost can be released. Ie: no closed source versions are allowed.
-2. Using HyperLearn must entail all of the code being avaliable to everyone who uses your public software.
-3. HyperLearn is intended for academic, research and personal purposes. Any explicit commercialisation of the algorithms and anything inside HyperLearn is strictly prohibited.
-
-HyperLearn promotes a free and just world. Hence, it is free to everyone, except for those who wish to commercialise on top of HyperLearn.
-Ongoing documentation: https://hyperlearn.readthedocs.io/en/latest/index.html
-[As of 2020, HyperLearn's license has been changed to BSD 3]
+# Extra License Terms
+1. Hyperlearn is intended for academic, research and personal purposes only. Any explicit commercialisation of the algorithms, methods and anything inside Hyperlearn is strictly prohibited unless explicit notice is given to Daniel Han-Chen. The usage must also be approved by Daniel Han-Chen.
+2. Hyperlearn uses the BSD 3 License now (previously GNU v3). However, as stated, commercialisation on top of Hyperlearn must be first approved by Daniel Han-Chen.
