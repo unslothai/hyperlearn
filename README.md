@@ -22,7 +22,7 @@ Moonshot's mission is to predict the future of everything quickly and make JARVI
 Waiting hours for a future prediction is unacceptable. You would rather wait for the future to come. Hyperlearn aims to make machine learning faster and greener, and is the backbone of Moonshot Earth's simulation engine.
 </h4>
 
-<a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under construction)</p></a>
+<a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 
 <h4 align="center"><i>
