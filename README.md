@@ -12,11 +12,9 @@ Hyperlearn - Slow predictions impact the most important decisions
 Moonshot's mission is to predict the future of everything quickly and make JARVIS a reality
 </h3>
 
-<p align="center">
-<i>
-[NOTE] Hyperlearn is under construction! A stable package will be reuploaded mid 2022! Stay tuned!
-</i>
-</p>
+```diff
+! Hyperlearn is under construction! A stable package will be reuploaded mid 2022! Stay tuned!
+```
 
 <h4 align="center">
 Waiting hours for a future prediction is unacceptable. You would rather wait for the future to come. Hyperlearn aims to make machine learning faster and greener, and is the backbone of Moonshot Earth's simulation engine.
