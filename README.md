@@ -22,6 +22,7 @@ Waiting hours for a future prediction is unacceptable. You would rather wait for
 
 <a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
+<a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">50 Page Modern Big Data Algorithms PDF</p></a>
 
 <h4 align="center"><i>
 I was on hiatus in late 2018 to early 2020 since I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster and various other ML algos faster! From 2020 to now, I've been working on Moonshot with my brother, so I didn't have too much time to maintain Hyperlearn! But things been catching up so a polished version will be published mid next year!!
