@@ -7,9 +7,8 @@
 </p>
 
 <h3 align="center">
-Hyperlearn - Slow predictions impact the most important decisions
-<br>
-Moonshot's mission is to predict the future of everything quickly and make JARVIS a reality
+Moonshot's mission is to predict the future of everything quickly and make JARVIS a reality.
+We want to democratize AI and make AI useful to everyone.
 </h3>
 
 ```diff
