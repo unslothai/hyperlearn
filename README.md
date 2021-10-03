@@ -29,7 +29,10 @@ I was on hiatus in late 2018 to early 2020 since I was at NVIDIA helping make GP
 
 ----
 <h3> Hyperlearn's algorithms, methods and repo has been featured or mentioned in 5 research papers! </h3>
-<h4><i> Microsoft, UW, UC Berkeley, Greece, NVIDIA </i></h4>
+
+```diff
++ Microsoft, UW, UC Berkeley, Greece, NVIDIA
+```
 
 * **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
 * **University of Washington**: Ariel Rokem, Kendrick Kay. Fractional ridge regression: a fast, interpretable reparameterization of ridge regression https://arxiv.org/abs/2005.03220
@@ -39,7 +42,10 @@ I was on hiatus in late 2018 to early 2020 since I was at NVIDIA helping make GP
 
 ----
 <h3> Hyperlearn's methods and algorithms have been incorporated into 5 organizations and repositories! </h3>
-<h4><i> Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW </i></h4>
+
+```diff
++ Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW
+```
 
 * **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
 * **Scipy**: EIGH very very slow --> suggesting an easy fix #9212 https://github.com/scipy/scipy/issues/9212
