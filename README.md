@@ -173,6 +173,8 @@ I've also added some preliminary results for N = 5000, P = 6000
 # Goals & Development Schedule
 
 Hyperlearn will be revamped in the following months to become Moonshot GreenAI with over an extra 150 optimized algorithms! Stay tuned!!
+Also you made it this far! If you want to join Moonshot, complete the secretive quiz!
+<a href="https://daniel3112.typeform.com/to/K84Qu0" style="text-align: center"><p align="center">Join Moonshot!</p></a>
 
 ---
 # Extra License Terms
