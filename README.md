@@ -2,13 +2,10 @@
 <img src="Images/Longer Moonshot logo.png" alt="Moonshot Logo" align="center"/>
 </a>
 
-<p align="center">
-<img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
-</p>
-
 <h3 align="center">
-Moonshot's mission is to predict the future of everything quickly and make JARVIS a reality.
-We want to democratize AI and make AI useful to everyone.
+Our mission is to simulate the future to help you plan your next step.
+ 
+We're building a full Earth simulation to predict the future of everything and make JARVIS a reality.
 </h3>
 
 ```diff
@@ -16,8 +13,15 @@ We want to democratize AI and make AI useful to everyone.
 ```
 
 <h4 align="center">
-Waiting hours for a future prediction is unacceptable. You would rather wait for the future to come. Hyperlearn aims to make machine learning faster and greener, and is the backbone of Moonshot Earth's simulation engine.
+Would you wait 1 second for a Google search? Maybe. How about a 5 hour prediction? Clearly not. Hyperlearn aims to make machine learning faster and greener, and is the backbone of Moonshot Earth's simulation engine.
 </h4>
+
+<h3 align="center">
+What's new in Hyperlearn 2022!
+</h3>
+<p align="center">
+<img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
+</p>
 
 <a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
