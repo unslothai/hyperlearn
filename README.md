@@ -1,6 +1,14 @@
-![ask the impossible](https://user-images.githubusercontent.com/23090290/137423702-40f09580-ff2f-4da7-8538-25fa5982cf76.png)
+<p align="center">
+<img src="https://github.com/danielhanchen/hyperlearn/raw/master/Images/Longer%20Moonshot%20logo.png" alt="animated" />
+</p>
 
-
+<h3 align="center">
+What's new in Hyperlearn 2022!
+</h3>
+<p align="center">
+<img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
+</p>
+ 
 <h3 align="center">
 We're building a full Earth simulation to predict the future of everything and make JARVIS reality.
 <br>
@@ -23,13 +31,6 @@ Hyperlearn makes Moonshot run fast and makes ML algos faster and use less memory
 ```diff
 ! Hyperlearn is under construction! A stable package will be reuploaded mid 2022! Stay tuned!
 ```
-
-<h3 align="center">
-What's new in Hyperlearn 2022!
-</h3>
-<p align="center">
-<img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
-</p>
 
 <a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
@@ -192,3 +193,5 @@ Also you made it this far! If you want to join Moonshot, complete the secretive 
 # Extra License Terms
 1. Hyperlearn is intended for academic, research and personal purposes only. Any explicit commercialisation of the algorithms, methods and anything inside Hyperlearn is strictly prohibited unless explicit notice is given to Daniel Han-Chen. The usage must also be approved by Daniel Han-Chen.
 2. Hyperlearn uses the BSD 3 License now (previously GNU v3). However, as stated, commercialisation on top of Hyperlearn must be first approved by Daniel Han-Chen.
+
+![ask the impossible](https://user-images.githubusercontent.com/23090290/137488056-bcb66498-4961-42ac-a7c3-0c7a457ef337.png)
