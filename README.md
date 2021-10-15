@@ -1,20 +1,28 @@
-<a href="" style="text-align: center">
-<img src="Images/Longer Moonshot logo.png" alt="Moonshot Logo" align="center"/>
-</a>
+![ask the impossible](https://user-images.githubusercontent.com/23090290/137423702-40f09580-ff2f-4da7-8538-25fa5982cf76.png)
+
 
 <h3 align="center">
-Our mission is to simulate the future to help you plan your next step.
- 
-We're building a full Earth simulation to predict the future of everything and make JARVIS a reality.
+We're building a full Earth simulation to predict the future of everything and make JARVIS reality.
+<br>
+Ask complex questions you never thought possible like
+<br>
+<br>
+How long will I live?
+<br>
+When will the market next crash?
+<br>
+How will climate change affect me?
+<hr>
+Hyperlearn
+<br>
+Would you wait a second for a Google search? How about 5 hours for a prediction?
+<br>
+Hyperlearn makes Moonshot run fast and makes ML algos faster and use less memory.
 </h3>
 
 ```diff
 ! Hyperlearn is under construction! A stable package will be reuploaded mid 2022! Stay tuned!
 ```
-
-<h4 align="center">
-Would you wait 1 second for a Google search? Maybe. How about a 5 hour prediction? Clearly not. Hyperlearn aims to make machine learning faster and greener, and is the backbone of Moonshot Earth's simulation engine.
-</h4>
 
 <h3 align="center">
 What's new in Hyperlearn 2022!
@@ -28,7 +36,7 @@ What's new in Hyperlearn 2022!
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">50 Page Modern Big Data Algorithms PDF</p></a>
 
 <h4 align="center"><i>
-I was on hiatus in late 2018 to early 2020 since I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster and various other ML algos faster! From 2020 to now, I've been working on Moonshot with my brother, so I didn't have too much time to maintain Hyperlearn! But things been catching up so a polished version will be published mid next year!!
+In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster, and others faster. Since then, I have 50+ fast algos, but didn't have time to update Hyperlearn since Moonshot was priority one! I'll be updating Hyperlearn mid 2022!
 </i></h4>
 
 ----
