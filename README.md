@@ -47,7 +47,7 @@ In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated H
 + Microsoft, UW, UC Berkeley, Greece, NVIDIA
 ```
 
-* **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable https://arxiv.org/abs/1906.03822
+* **Microsoft**: Yu et al. Making Classical Machine Learning Pipelines Differentiable http://learningsys.org/nips18/assets/papers/45CameraReadySubmissionfinetune.pdf
 * **University of Washington**: Ariel Rokem, Kendrick Kay. Fractional ridge regression: a fast, interpretable reparameterization of ridge regression https://arxiv.org/abs/2005.03220
 * **National Center for Scientific Research 'Demokritos', Greece**: Christos Platias, Georgios Petasis. A Comparison of Machine Learning Methods for Data Imputation https://dl.acm.org/doi/10.1145/3411408.3411465
 * **UC Berkeley** David Chan. GPU Accelerated T-Distributed Stochastic Neighbor Embedding https://digitalassets.lib.berkeley.edu/techreports/ucb/incoming/EECS-2020-89.pdf _(Incorporated Hyperlearn methods into NVIDIA RAPIDS TSNE)_
