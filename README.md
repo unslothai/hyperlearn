@@ -2,6 +2,13 @@
 <img src="https://github.com/danielhanchen/hyperlearn/raw/master/Images/Longer%20Moonshot%20logo.png" alt="animated" />
 </p>
 
+<h2 align="center">
+I'm looking to revive this package - if you want to collab on fast algorithms - msg me!!
+</h2>
+<h3 align="center">
+Currently package is unstable - I'm moving things around. I'll fully update it once completed!
+</h3>
+
 <h3 align="center">
 What's new in Hyperlearn 2022!
 </h3>
