@@ -1,7 +1,9 @@
-<p align="center">
-<img src="https://github.com/danielhanchen/hyperlearn/raw/master/Images/Longer%20Moonshot%20logo.png" alt="animated" />
-</p>
-
+<h1 align="center">
+Hyperlearn
+</h1>
+<h4 align="center">
+2-2000x faster algos, 50% less memory usage, works on all hardware - new and old.
+</h4>
 <h2 align="center">
 I'm looking to revive this package - if you want to collab on fast algorithms - msg me!!
 </h2>
