@@ -12,7 +12,7 @@ Currently package is unstable - I'm moving things around. I'll fully update it o
 </h3>
 
 <h3 align="center">
-What's new in Hyperlearn 2022!
+What's going to be in Hyperlearn 2022!
 </h3>
 <p align="center">
 <img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
