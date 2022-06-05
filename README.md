@@ -5,12 +5,9 @@ Hyperlearn
 2-2000x faster algos, 50% less memory usage, works on all hardware - new and old.
 </h4>
 <h2 align="center">
-I'm looking to revive this package - if you want to collab on fast algorithms - msg me!!
+If you want to collab on fast algorithms - msg me!!
 Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/QPaNysgA
 </h2>
-<h3 align="center">
-Currently package is unstable - I'm moving things around. I'll fully update it once completed!
-</h3>
 
 <h3 align="center">
 What's going to be in Hyperlearn 2022!
