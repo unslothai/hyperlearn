@@ -179,5 +179,4 @@ Also you made it this far! If you want to join Moonshot, complete the secretive 
 
 ---
 # Extra License Terms
-1. Hyperlearn is intended for academic, research and personal purposes only. Any explicit commercialisation of the algorithms, methods and anything inside Hyperlearn is strictly prohibited unless explicit notice is given to Daniel Han-Chen. The usage must also be approved by Daniel Han-Chen.
-2. Hyperlearn uses the BSD 3 License now (previously GNU v3). However, as stated, commercialisation on top of Hyperlearn must be first approved by Daniel Han-Chen.
+1. The AGPLv3 license is adopted.
