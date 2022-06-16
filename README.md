@@ -1,12 +1,12 @@
-<h1 align="center">
-Hyperlearn
-</h1>
+
+<img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/>
+
 <h4 align="center">
 2-2000x faster algos, 50% less memory usage, works on all hardware - new and old.
 </h4>
 <h2 align="center">
 If you want to collab on fast algorithms - msg me!!
-Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/QPaNysgA
+Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/7kbpQqMU
 </h2>
 
 <h3 align="center">
@@ -179,4 +179,4 @@ Also you made it this far! If you want to join Moonshot, complete the secretive 
 
 ---
 # Extra License Terms
-1. The AGPLv3 license is adopted.
+1. The Apache 2.0 license is adopted.
