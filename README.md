@@ -18,7 +18,7 @@ What's going to be in Hyperlearn 2022!
 </p>
  
 ```diff
-! Hyperlearn is under construction! A stable package will be reuploaded sometime 2022! Stay tuned!
+! Hyperlearn is under construction! A brand new stable package will be uploaded sometime in 2022! Stay tuned!
 ```
 
 <a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
@@ -26,7 +26,7 @@ What's going to be in Hyperlearn 2022!
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">50 Page Modern Big Data Algorithms PDF</p></a>
 
 <h4 align="center"><i>
-In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster, and others faster. Since then, I have 50+ fast algos, but didn't have time to update Hyperlearn since Moonshot was priority one! I'll be updating Hyperlearn mid 2022!
+In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster, and others faster. Since then, I have 50+ fast algos, but didn't have time to update Hyperlearn since Moonshot was priority one! I'll be updating Hyperlearn late 2022!
 </i></h4>
 
 ----
