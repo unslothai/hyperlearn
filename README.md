@@ -11,7 +11,7 @@ Join our Discord server on making AI faster, or if you just wanna chat about AI!
 </h2>
 
 <h3 align="center">
-What's going to be in Hyperlearn 2022!
+What's 2022 and 2023 going to look like for Hyperlearn!
 </h3>
 <p align="center">
 <img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
