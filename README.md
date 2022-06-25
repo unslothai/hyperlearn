@@ -18,7 +18,7 @@ What's going to be in Hyperlearn 2022!
 </p>
  
 ```diff
-! Hyperlearn is under construction! A brand new stable package will be uploaded sometime in 2022! Stay tuned!
+! Hyperlearn is under construction! A brand new stable package will be uploaded in 2022! Stay tuned!
 ```
 
 <a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
@@ -43,7 +43,7 @@ In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated H
 * **NVIDIA**: Raschka et al. RAPIDS: Machine Learning in Python: Main developments and technology trends in data science, machine learning, and artificial intelligence https://arxiv.org/abs/2002.04803 _(Incorporated Hyperlearn methods into NVIDIA RAPIDS TSNE)_
 
 ----
-<h3> Hyperlearn's methods and algorithms have been incorporated into 5 organizations and repositories! </h3>
+<h3> Hyperlearn's methods and algorithms have been incorporated into more than 5 organizations and repositories! </h3>
 
 ```diff
 + Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW
