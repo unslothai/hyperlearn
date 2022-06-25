@@ -6,8 +6,8 @@
 2-2000x faster algos, 50% less memory usage, works on all hardware - new and old.
 </h4>
 <h2 align="center">
-If you want to collab on fast algorithms - msg me!!
-Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/7kbpQqMU
+If you want to collab on fast algorithms - msg me!
+Join our Discord server to help us make AI faster! https://discord.gg/7kbpQqMU
 </h2>
 
 <h3 align="center">
