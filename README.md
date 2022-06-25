@@ -94,7 +94,7 @@ Around mid 2022, Hyperlearn will evolve to GreenAI and aims to incorporate:
 * Fast and parallelized Yahoo Finance scraper
 
 
-I also published a mini 50 page book called "Modern Big Data Algorithm"!
+I also published a mini 50 page book titled "Modern Big Data Algorithm".
 
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">Modern Big Data Algorithms PDF</p></a>
 
