@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to HyperLearn! &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="hyperlearn" href="source/modules.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to HyperLearn!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-hyperlearn">
+<h1>Welcome to HyperLearn!<a class="headerlink" href="#welcome-to-hyperlearn" title="Permalink to this headline">¶</a></h1>
+<p>HyperLearn aims to make Machine Learning algorithms run in at least 50% of their original time. Algorithms from Linear Regression to Principal Component Analysis are optimized by using LAPACK, BLAS, and parallelized through Numba.</p>
+<p>Some key current achievements of HyperLearn:</p>
+<ol class="arabic simple">
+<li>70% less time to fit Least Squares / Linear Regression than sklearn + 50% less memory usage</li>
+<li>50% less time to fit Non Negative Matrix Factorization than sklearn due to new parallelized algo</li>
+<li>40% faster full Euclidean / Cosine distance algorithms</li>
+<li>50% less time LSMR iterative least squares</li>
+<li>New Reconstruction SVD - use SVD to impute missing data! Has .fit AND .transform. Approx 30% better than mean imputation</li>
+<li>50% faster Sparse Matrix operations - parallelized</li>
+<li>RandomizedSVD is now 20 - 30% faster</li>
+</ol>
+<div class="section" id="example-code">
+<h2>Example code<a class="headerlink" href="#example-code" title="Permalink to this headline">¶</a></h2>
+<p>Singular Value Decomposition</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">hyperlearn</span> <span class="kn">as</span> <span class="nn">hl</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">hl</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pseudoinverse of a matrix using Cholesky Decomposition</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hyperlearn.linalg</span> <span class="kn">import</span> <span class="n">pinvc</span>
+<span class="n">inv</span> <span class="o">=</span> <span class="n">pinvc</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># check if pinv(X) * X = identity</span>
+<span class="n">check</span> <span class="o">=</span> <span class="n">inv</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>QR Decomposition wanting only Q matrix</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hyperlearn</span> <span class="kn">import</span> <span class="n">linalg</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Q_only</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># check if Q == Q from full QR</span>
+<span class="n">q</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">hyperlearn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/hyperlearn.html">hyperlearn package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.base">hyperlearn.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.linalg">hyperlearn.linalg module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.utils">hyperlearn.utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.random">hyperlearn.random module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.exceptions">hyperlearn.exceptions module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#hyperlearn-multiprocessing-module">hyperlearn.multiprocessing module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.numba">hyperlearn.numba module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.solvers">hyperlearn.solvers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.stats">hyperlearn.stats module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.big_data.base">hyperlearn.big_data.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.big_data.incremental">hyperlearn.big_data.incremental module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.big_data.lsmr">hyperlearn.big_data.lsmr module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.big_data.randomized">hyperlearn.big_data.randomized module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.big_data.truncated">hyperlearn.big_data.truncated module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.decomposition.base">hyperlearn.decomposition.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#hyperlearn-decomposition-nmf-module">hyperlearn.decomposition.NMF module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.decomposition.PCA">hyperlearn.decomposition.PCA module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#id9">hyperlearn.decomposition.PCA module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#hyperlearn-discriminant-analysis-base-module">hyperlearn.discriminant_analysis.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#hyperlearn-discriminant-analysis-qda-module">hyperlearn.discriminant_analysis.QDA module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.impute.SVDImpute">hyperlearn.impute.SVDImpute module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.metrics.cosine">hyperlearn.metrics.cosine module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.metrics.euclidean">hyperlearn.metrics.euclidean module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.metrics.pairwise">hyperlearn.metrics.pairwise module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.sparse.base">hyperlearn.sparse.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.sparse.csr">hyperlearn.sparse.csr module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn.sparse.tcsr">hyperlearn.sparse.tcsr module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/hyperlearn.html#module-hyperlearn">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">hyperlearn.base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="base.html#example-code">Example code:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linalg.html">hyperlearn.linalg</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linalg.html#matrix-decompositions">Matrix Decompositions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linalg.html#eigenvalue-problems">Eigenvalue Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linalg.html#matrix-inversion">Matrix Inversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#preamble">Preamble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html#terms-and-conditions">TERMS AND CONDITIONS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="directory">
+<h1>Directory<a class="headerlink" href="#directory" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="source/modules.html" class="btn btn-neutral float-right" title="hyperlearn" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

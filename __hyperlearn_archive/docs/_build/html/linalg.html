@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.linalg &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="hyperlearn.base" href="base.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">hyperlearn.base</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hyperlearn.linalg</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#matrix-decompositions">Matrix Decompositions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#eigenvalue-problems">Eigenvalue Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#matrix-inversion">Matrix Inversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>hyperlearn.linalg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/linalg.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hyperlearn-linalg">
+<h1>hyperlearn.linalg<a class="headerlink" href="#hyperlearn-linalg" title="Permalink to this headline">¶</a></h1>
+<p>The linalg module contains all mathematical methods, decompositions and mirrors both Numpy’s linalg and Scipy’s linalg modules. HyperLearn’s modules are all optimized and I also showcase some novel new algorithms.</p>
+<div class="section" id="matrix-decompositions">
+<h2>Matrix Decompositions<a class="headerlink" href="#matrix-decompositions" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="35%" />
+<col width="19%" />
+<col width="17%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Cholesky Decomposition</td>
+<td>cholesky(X, [alpha])</td>
+<td>:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>X=UsigmaV^T</td>
+<td>Symmetric Square</td>
+</tr>
+<tr class="row-even"><td>LU Decomposition</td>
+<td>lu(X, [L_only, U_only, overwrite])</td>
+<td>X = L &#64; U</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-odd"><td>Singular Value Decomposition</td>
+<td>svd(X, [U_decision, overwrite])</td>
+<td>X = U * S &#64; V.T</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-even"><td>QR Decomposition</td>
+<td>qr(X, [Q_only, R_only, overwrite])</td>
+<td>X = Q &#64; R</td>
+<td>Any Matrix</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="eigenvalue-problems">
+<h2>Eigenvalue Problems<a class="headerlink" href="#eigenvalue-problems" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="37%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Symmetric EigenDecomposition</td>
+<td>eigh(X, [alpha, svd, overwrite])</td>
+<td>X = V * L &#64; V^-1</td>
+<td>Symmetric Square</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="matrix-inversion">
+<h2>Matrix Inversion<a class="headerlink" href="#matrix-inversion" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="37%" />
+<col width="16%" />
+<col width="18%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Cholesky Inverse</td>
+<td>cho_inv(X, [turbo])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Symmetric Square</td>
+</tr>
+<tr class="row-even"><td>Pseudoinverse (Cholesky)</td>
+<td>pinvc(X, [alpha, turbo])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-odd"><td>Symmetric Pseudoinverse</td>
+<td>pinvh(X, [alpha, turbo, n_jobs])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Symmetric Square</td>
+</tr>
+<tr class="row-even"><td>Pseudoinverse (SVD)</td>
+<td>pinv(X, [alpha, overwrite])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Any Matrix</td>
+</tr>
+<tr class="row-odd"><td>Pseudoinverse (LU Decomp)</td>
+<td>pinvl(X, [alpha, turbo, overwrite])</td>
+<td>inv(X) &#64; X = I</td>
+<td>Square Matrix</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="base.html" class="btn btn-neutral" title="hyperlearn.base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

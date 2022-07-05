@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.impute.SVDImpute &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.impute.SVDImpute</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.impute.SVDImpute</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">nanmean</span><span class="p">,</span> <span class="n">nanstd</span><span class="p">,</span> <span class="n">log1p</span><span class="p">,</span> <span class="n">isnan</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">nanmin</span><span class="p">,</span> <span class="n">nan</span>
+<span class="kn">from</span> <span class="nn">..numba</span> <span class="k">import</span> <span class="n">minimum</span>
+<span class="kn">from</span> <span class="nn">..linalg</span> <span class="k">import</span> <span class="n">eig</span>
+<span class="kn">from</span> <span class="nn">..big_data.randomized</span> <span class="k">import</span> <span class="n">randomizedEig</span>
+<span class="kn">from</span> <span class="nn">..big_data.incremental</span> <span class="k">import</span> <span class="n">partialSVD</span>
+
+
+<div class="viewcode-block" id="fit"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.impute.SVDImpute.fit">[docs]</a><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">standardise</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 31/10/2018] [Edited 2/11/2018 Fixed SVDImpute]</span>
+
+<span class="sd">	Fits a SVD onto the training data by projecting it to a lower space after</span>
+<span class="sd">	being intially filled with column means. By default, n_components is</span>
+<span class="sd">	determined automatically using log(p+1). Setting too low or too high mirrors</span>
+<span class="sd">	mean imputation, and deletes the purpose of SVD imputation.</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">	1. S 	singular values</span>
+<span class="sd">	2. VT 	eigenvectors</span>
+<span class="sd">	+ mean, std, mins</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_components</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">else</span> <span class="n">n_components</span>        
+	<span class="k">if</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="k">if</span> <span class="n">k</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="p">:</span> <span class="n">k</span> <span class="o">=</span> <span class="n">p</span>
+
+	<span class="n">C</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">X</span>
+	<span class="n">mask</span> <span class="o">=</span> <span class="n">isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">standardise</span><span class="p">:</span>
+		<span class="n">mean</span> <span class="o">=</span> <span class="n">nanmean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">std</span> <span class="o">=</span> <span class="n">nanstd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">mins</span> <span class="o">=</span> <span class="n">nanmin</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">std</span><span class="p">[</span><span class="n">std</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+		<span class="n">C</span> <span class="o">-=</span> <span class="n">mean</span>
+		<span class="n">C</span> <span class="o">/=</span> <span class="n">std</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">mins</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+	<span class="n">C</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+	<span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">randomizedEig</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+	<span class="n">S</span> <span class="o">**=</span> <span class="mf">0.5</span>
+	<span class="n">VT</span> <span class="o">=</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span>
+
+	<span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+		<span class="n">C</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">nan</span>
+		<span class="k">if</span> <span class="n">standardise</span><span class="p">:</span>
+			<span class="n">C</span> <span class="o">*=</span> <span class="n">std</span>
+			<span class="n">C</span> <span class="o">+=</span> <span class="n">mean</span>
+	<span class="k">return</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">mins</span><span class="p">,</span> <span class="n">standardise</span></div>
+
+
+<div class="viewcode-block" id="transform"><a class="viewcode-back" href="../../../source/hyperlearn.html#hyperlearn.impute.SVDImpute.transform">[docs]</a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">mins</span><span class="p">,</span> <span class="n">standardise</span><span class="p">,</span> <span class="n">copy</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 31/10/2018] [Edited 2/11/2018 FIxed SVDImpute]</span>
+
+<span class="sd">	The fundamental advantage of HyperLearn&#39;s SVD imputation is that a .transform</span>
+<span class="sd">	method is provided. I do not require seeing the whole matrix for imputation,</span>
+<span class="sd">	and can calculate SVD incrementally via the Incremental Module.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">D</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="n">copy</span> <span class="k">else</span> <span class="n">X</span>
+	<span class="n">mask</span> <span class="o">=</span> <span class="n">isnan</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="n">standardise</span><span class="p">:</span>
+		<span class="n">D</span> <span class="o">-=</span> <span class="n">mean</span>
+		<span class="n">D</span> <span class="o">/=</span> <span class="n">std</span>
+	<span class="n">D</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+	
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">partialSVD</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">solver</span> <span class="o">=</span> <span class="s1">&#39;randomized&#39;</span><span class="p">)</span>
+	<span class="n">reconstruction</span> <span class="o">=</span> <span class="n">U</span> <span class="o">*</span> <span class="n">S</span> <span class="o">@</span> <span class="n">VT</span>
+	<span class="n">D</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">reconstruction</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+
+	<span class="k">if</span> <span class="n">standardise</span><span class="p">:</span>
+		<span class="n">D</span> <span class="o">*=</span> <span class="n">std</span>
+		<span class="n">D</span> <span class="o">+=</span> <span class="n">mean</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+			<span class="n">min_</span> <span class="o">=</span> <span class="n">mins</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+			<span class="n">what</span> <span class="o">=</span> <span class="n">D</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span>
+			<span class="n">what</span><span class="p">[</span><span class="n">what</span> <span class="o">&lt;</span> <span class="n">min_</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_</span>
+
+	<span class="k">if</span> <span class="n">copy</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+		<span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">nan</span>
+		<span class="k">if</span> <span class="n">standardise</span><span class="p">:</span>
+			<span class="n">X</span> <span class="o">*=</span> <span class="n">std</span>
+			<span class="n">X</span> <span class="o">+=</span> <span class="n">mean</span>
+	<span class="k">return</span> <span class="n">D</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

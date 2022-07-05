@@ -1,0 +1,776 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>hyperlearn.linalg &mdash; HyperLearn 1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> HyperLearn
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../source/modules.html">hyperlearn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../base.html">hyperlearn.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linalg.html">hyperlearn.linalg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html#contact">Contact</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">HyperLearn</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>hyperlearn.linalg</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for hyperlearn.linalg</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="k">import</span> <span class="n">lu</span> <span class="k">as</span> <span class="n">_lu</span><span class="p">,</span> <span class="n">qr</span> <span class="k">as</span> <span class="n">_qr</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">numba</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="k">import</span> <span class="n">njit</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">float32</span><span class="p">,</span> <span class="n">float64</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span> <span class="s1">&#39;invCholesky&#39;</span><span class="p">,</span> <span class="s1">&#39;pinvCholesky&#39;</span><span class="p">,</span> <span class="s1">&#39;cholSolve&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;svd&#39;</span><span class="p">,</span> <span class="s1">&#39;lu&#39;</span><span class="p">,</span> <span class="s1">&#39;qr&#39;</span><span class="p">,</span> 
+			<span class="s1">&#39;pinv&#39;</span><span class="p">,</span> <span class="s1">&#39;pinvh&#39;</span><span class="p">,</span> 
+			<span class="s1">&#39;eigh&#39;</span><span class="p">,</span> <span class="s1">&#39;pinvEig&#39;</span><span class="p">,</span> <span class="s1">&#39;eig&#39;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="cholesky"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cholesky">[docs]</a><span class="k">def</span> <span class="nf">cholesky</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the Cholesky Decompsition of a Hermitian Matrix</span>
+<span class="sd">	(Positive Symmetric Matrix) giving a Upper Triangular Matrix.</span>
+<span class="sd">	</span>
+<span class="sd">	Cholesky Decomposition is used as the default solver in HyperLearn,</span>
+<span class="sd">	as it is super fast and allows regularization. HyperLearn&#39;s</span>
+<span class="sd">	implementation also handles rank deficient and ill-conditioned</span>
+<span class="sd">	matrices perfectly with the help of the limiting behaivour of</span>
+<span class="sd">	adding forced epsilon regularization.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s Cholesky. Speed is OK.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based Cholesky.</span>
+<span class="sd">		If NUMBA is not installed, uses very fast LAPACK functions.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Alpha is added for regularization purposes. This prevents system</span>
+<span class="sd">	rounding errors and promises better convergence rates.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">XTX</span><span class="o">.</span><span class="n">shape</span><span class="p">;</span>  <span class="k">assert</span> <span class="n">n</span><span class="o">==</span><span class="n">p</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="n">alpha</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span> <span class="k">if</span> <span class="n">alpha</span> <span class="o">==</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+	<span class="n">old_alpha</span> <span class="o">=</span> <span class="mi">0</span>
+
+	<span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrf&quot;</span><span class="p">,</span> <span class="n">fast</span><span class="p">,</span> <span class="s2">&quot;cholesky&quot;</span><span class="p">)</span>
+
+	<span class="k">while</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">PRINT_ALL_WARNINGS</span><span class="p">:</span> 
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cholesky Alpha = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+		<span class="c1"># Add epsilon jitter to diagonal. Note adding</span>
+		<span class="c1"># np.eye(p)*alpha is slower and uses p^2 memory</span>
+		<span class="c1"># whilst flattening uses only p memory.</span>
+		<span class="n">addDiagonal</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="n">alpha</span><span class="o">-</span><span class="n">old_alpha</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">cho</span> <span class="o">=</span> <span class="n">decomp</span><span class="p">(</span><span class="n">XTX</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">USE_NUMBA</span><span class="p">:</span> 
+				<span class="n">cho</span> <span class="o">=</span> <span class="n">cho</span><span class="o">.</span><span class="n">T</span>
+				<span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">cho</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">cho</span>
+		<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+		<span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">old_alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+			<span class="n">alpha</span> <span class="o">*=</span> <span class="mi">10</span>
+
+	<span class="n">addDiagonal</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">cho</span></div>
+
+
+<div class="viewcode-block" id="cholSolve"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.cholSolve">[docs]</a><span class="k">def</span> <span class="nf">cholSolve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Added 20/10/2018]</span>
+<span class="sd">	Faster than direct inverse solve. Finds coefficients in linear regression</span>
+<span class="sd">	allowing A @ theta = b.</span>
+<span class="sd">	Notice auto adds epsilon jitter if solver fails.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">;</span>	<span class="k">assert</span> <span class="n">n</span> <span class="o">==</span> <span class="n">p</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">n</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="n">alpha</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span> <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+	<span class="n">old_alpha</span> <span class="o">=</span> <span class="mi">0</span>
+
+	<span class="n">solver</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;potrs&quot;</span><span class="p">)</span>
+
+	<span class="k">while</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">PRINT_ALL_WARNINGS</span><span class="p">:</span> 
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;cholSolve Alpha = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+		<span class="c1"># Add epsilon jitter to diagonal. Note adding</span>
+		<span class="c1"># np.eye(p)*alpha is slower and uses p^2 memory</span>
+		<span class="c1"># whilst flattening uses only p memory.</span>
+		<span class="n">addDiagonal</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">alpha</span><span class="o">-</span><span class="n">old_alpha</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">coef</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">solver</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+		<span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">old_alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+			<span class="n">alpha</span> <span class="o">*=</span> <span class="mi">10</span>
+
+	<span class="n">addDiagonal</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">coef</span></div>
+
+
+<div class="viewcode-block" id="lu"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.lu">[docs]</a><span class="k">def</span> <span class="nf">lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">L_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">U_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 8/11/2018 Changed to LAPACK LU if L/U only wanted]</span>
+<span class="sd">	Computes the LU Decomposition of any matrix with pivoting.</span>
+<span class="sd">	Provides L only or U only if specified.</span>
+
+<span class="sd">	Much faster than Scipy if only U/L wanted, and more memory efficient,</span>
+<span class="sd">	since data is altered inplace.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="k">if</span> <span class="n">L_only</span> <span class="ow">or</span> <span class="n">U_only</span><span class="p">:</span>
+
+		<span class="n">A</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;getrf&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">L_only</span><span class="p">:</span>
+			<span class="n">A</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">L_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+			<span class="c1"># inc = -1 means reverse order pivoting</span>
+			<span class="n">A</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;laswp&quot;</span><span class="p">)(</span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">,</span> <span class="n">piv</span> <span class="o">=</span> <span class="n">P</span><span class="p">,</span> <span class="n">inc</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">k1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k2</span> <span class="o">=</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">A</span> <span class="o">=</span> <span class="n">triu_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">A</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">_lu</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">permute_l</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">check_finite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span></div>
+
+
+<span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">L_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">L</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Auxiliary function to modify data in place to only get L from LU decomposition.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">wide</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">)</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="n">p</span>
+
+	<span class="k">if</span> <span class="n">wide</span><span class="p">:</span>
+		<span class="c1"># wide matrix</span>
+		<span class="c1"># L get all n rows, but only n columns</span>
+		<span class="n">L</span> <span class="o">=</span> <span class="n">L</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n</span><span class="p">]</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="n">n</span>
+
+	<span class="c1"># tall / wide matrix</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+		<span class="n">li</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+		<span class="n">li</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">li</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="c1"># Set diagonal to 1</span>
+	<span class="k">return</span> <span class="n">L</span><span class="p">,</span> <span class="n">k</span>
+
+
+<span class="nd">@njit</span><span class="p">(</span><span class="n">fastmath</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">nogil</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">cache</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">triu_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">U</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Auxiliary function to modify data in place to only get upper triangular</span>
+<span class="sd">	part of matrix. Used in QR (get R) and LU (get U) decompositon.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">tall</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="n">p</span><span class="p">)</span>
+	<span class="n">k</span> <span class="o">=</span> <span class="n">n</span>
+
+	<span class="k">if</span> <span class="n">tall</span><span class="p">:</span>
+		<span class="c1"># tall matrix</span>
+		<span class="c1"># U get all p rows</span>
+		<span class="n">U</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:</span><span class="n">p</span><span class="p">]</span>
+		<span class="n">k</span> <span class="o">=</span> <span class="n">p</span>
+
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+		<span class="n">U</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="k">return</span> <span class="n">U</span>
+
+
+
+<div class="viewcode-block" id="qr"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.qr">[docs]</a><span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Q_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">R_only</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 8/11/2018 Added Q, R only parameters. Faster than Numba]</span>
+<span class="sd">	[Edited 9/11/2018 Made R only more memory efficient (no data copying)]</span>
+<span class="sd">	Computes the reduced QR Decomposition of any matrix.</span>
+<span class="sd">	Uses optimized NUMBA QR if avaliable else use&#39;s Scipy&#39;s</span>
+<span class="sd">	version.</span>
+
+<span class="sd">	Provides Q or R only if specified, and is must faster + more memory</span>
+<span class="sd">	efficient since data is changed inplace.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">Q_only</span> <span class="ow">or</span> <span class="n">R_only</span><span class="p">:</span>
+		<span class="c1"># Compute R</span>
+		<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+		<span class="n">R</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;geqrf&quot;</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">Q_only</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+				<span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n</span><span class="p">]</span>
+			<span class="c1"># Compute Q</span>
+			<span class="n">Q</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;orgqr&quot;</span><span class="p">)(</span><span class="n">R</span><span class="p">,</span> <span class="n">tau</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">Q</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="c1"># Do nothing, as R is already computed.</span>
+			<span class="n">R</span> <span class="o">=</span> <span class="n">triu_process</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">R</span>
+
+	<span class="k">if</span> <span class="n">USE_NUMBA</span><span class="p">:</span> <span class="k">return</span> <span class="n">numba</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">_qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;economic&#39;</span><span class="p">,</span> <span class="n">check_finite</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">overwrite_a</span> <span class="o">=</span> <span class="n">overwrite</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="invCholesky"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.invCholesky">[docs]</a><span class="k">def</span> <span class="nf">invCholesky</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the Inverse of a Hermitian Matrix</span>
+<span class="sd">	(Positive Symmetric Matrix) after provided with Cholesky&#39;s</span>
+<span class="sd">	Lower Triangular Matrix.</span>
+<span class="sd">	</span>
+<span class="sd">	This is used in conjunction in solveCholesky, where the</span>
+<span class="sd">	inverse of the covariance matrix is needed.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s Triangular Solve given identity matrix. Speed is OK.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses very fast LAPACK algorithms for triangular system inverses.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Note that LAPACK&#39;s single precision (float32) solver (strtri) is much more</span>
+<span class="sd">	unstable than double (float64). So, default strtri is OFF.</span>
+<span class="sd">	However, speeds are reduced by 50%.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="n">choInv</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;trtri&quot;</span><span class="p">,</span> <span class="n">fast</span><span class="p">)(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+	<span class="k">return</span> <span class="n">choInv</span> <span class="o">@</span> <span class="n">choInv</span><span class="o">.</span><span class="n">T</span></div>
+
+	
+
+<div class="viewcode-block" id="pinvCholesky"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvCholesky">[docs]</a><span class="k">def</span> <span class="nf">pinvCholesky</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the approximate pseudoinverse of any matrix using Cholesky Decomposition</span>
+<span class="sd">	This means X @ pinv(X) approx = eye(n).</span>
+<span class="sd">	</span>
+<span class="sd">	Note that this is super fast, and will be used in HyperLearn as the default</span>
+<span class="sd">	pseudoinverse solver for any matrix. Care is taken to make the algorithm</span>
+<span class="sd">	converge, and this is done via forced epsilon regularization.</span>
+<span class="sd">	</span>
+<span class="sd">	HyperLearn&#39;s implementation also handles rank deficient and ill-conditioned</span>
+<span class="sd">	matrices perfectly with the help of the limiting behaivour of</span>
+<span class="sd">	adding forced epsilon regularization.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s Cholesky. Speed is OK.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based Cholesky.</span>
+<span class="sd">		If NUMBA is not installed, uses very fast LAPACK functions.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Alpha is added for regularization purposes. This prevents system</span>
+<span class="sd">	rounding errors and promises better convergence rates.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">XT</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+	<span class="n">memoryCovariance</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="n">covariance</span> <span class="o">=</span> <span class="n">_XTX</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">_XXT</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span>
+	
+	<span class="n">cho</span> <span class="o">=</span> <span class="n">cholesky</span><span class="p">(</span><span class="n">covariance</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="n">inv</span> <span class="o">=</span> <span class="n">invCholesky</span><span class="p">(</span><span class="n">cho</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	
+	<span class="k">return</span> <span class="n">inv</span> <span class="o">@</span> <span class="n">XT</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">inv</span></div>
+
+
+
+<div class="viewcode-block" id="svd"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.svd">[docs]</a><span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">transpose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 9/11/2018 --&gt; Modern Big Data Algorithms p/n ratio check]</span>
+<span class="sd">	Computes the Singular Value Decomposition of any matrix.</span>
+<span class="sd">	So, X = U * S @ VT. Note will compute svd(X.T) if p &gt; n.</span>
+<span class="sd">	Should be 99% same result. This means this implementation&#39;s</span>
+<span class="sd">	time complexity is O[ min(np^2, n^2p) ]</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s SVD. PyTorch uses (for now) a NON divide-n-conquer algo.</span>
+<span class="sd">		Submitted report to PyTorch:</span>
+<span class="sd">		https://github.com/pytorch/pytorch/issues/11174</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based SVD.</span>
+<span class="sd">		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.</span>
+<span class="sd">	If Transpose:</span>
+<span class="sd">		Will compute if possible svd(X.T) instead of svd(X) if p &gt; n.</span>
+<span class="sd">		Default setting is TRUE to maintain speed.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	SVD_Flip is used for deterministic output. Does NOT follow Sklearn convention.</span>
+<span class="sd">	This flips the signs of U and VT, using VT_based decision.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">transpose</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="p">(</span><span class="n">transpose</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">else</span> <span class="kc">False</span>
+	<span class="n">X</span> <span class="o">=</span> <span class="n">_float</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">transpose</span><span class="p">:</span> 
+		<span class="n">X</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="ow">not</span> <span class="n">U_decision</span>
+
+	<span class="n">n</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">ratio</span> <span class="o">=</span> <span class="n">p</span><span class="o">/</span><span class="n">n</span>
+	<span class="c1">#### TO DO: If memory usage exceeds LWORK, use GESVD</span>
+	<span class="k">if</span> <span class="n">ratio</span> <span class="o">&gt;=</span> <span class="mf">0.001</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">USE_NUMBA</span><span class="p">:</span>
+			<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="c1">#### TO DO: If memory usage exceeds LWORK, use GESVD</span>
+			<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;gesdd&quot;</span><span class="p">,</span> <span class="n">fast</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;gesvd&quot;</span><span class="p">,</span> <span class="n">fast</span><span class="p">)(</span><span class="n">X</span><span class="p">,</span> <span class="n">full_matrices</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+		
+	<span class="n">U</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd_flip</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">)</span>
+	
+	<span class="k">if</span> <span class="n">transpose</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">VT</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span></div>
+		
+
+
+<div class="viewcode-block" id="pinv"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinv">[docs]</a><span class="k">def</span> <span class="nf">pinv</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the pseudoinverse of any matrix.</span>
+<span class="sd">	This means X @ pinv(X) = eye(n).</span>
+<span class="sd">	</span>
+<span class="sd">	Optional alpha is used for regularization purposes.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s SVD. PyTorch uses (for now) a NON divide-n-conquer algo.</span>
+<span class="sd">		Submitted report to PyTorch:</span>
+<span class="sd">		https://github.com/pytorch/pytorch/issues/11174</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based SVD.</span>
+<span class="sd">		If NUMBA is not installed, uses divide-n-conqeur LAPACK functions.</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Condition number is:</span>
+<span class="sd">		float32 = 1e3 * eps * max(S)</span>
+<span class="sd">		float64 = 1e6 * eps * max(S)</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="k">assert</span> <span class="n">alpha</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+	<span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+	
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">_svdCond</span><span class="p">(</span><span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">VT</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">S</span><span class="p">)</span> <span class="o">@</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span></div>
+	
+
+
+<div class="viewcode-block" id="eigh"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.eigh">[docs]</a><span class="k">def</span> <span class="nf">eigh</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">positive</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the Eigendecomposition of a Hermitian Matrix</span>
+<span class="sd">	(Positive Symmetric Matrix).</span>
+<span class="sd">	</span>
+<span class="sd">	Note: Slips eigenvalues / eigenvectors with MAX first.</span>
+<span class="sd">	Scipy convention is MIN first, but MAX first is SVD convention.</span>
+<span class="sd">	</span>
+<span class="sd">	Uses the fact that the matrix is special, and so time</span>
+<span class="sd">	complexity is approximately reduced by 1/2 or more when</span>
+<span class="sd">	compared to full SVD.</span>
+
+<span class="sd">	If POSITIVE is True, then all negative eigenvalues will be set</span>
+<span class="sd">	to zero, and return value will be VT and not V.</span>
+
+<span class="sd">	If SVD is True, then eigenvalues will be square rooted as well.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s EIGH. PyTorch uses (for now) a non divide-n-conquer algo.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based EIGH.</span>
+<span class="sd">		If NUMBA is not installed, uses very fast divide-n-conqeur LAPACK functions.</span>
+<span class="sd">		Note Scipy&#39;s EIGH as of now is NON divide-n-conquer.</span>
+<span class="sd">		Submitted report to Scipy:</span>
+<span class="sd">		https://github.com/scipy/scipy/issues/9212</span>
+<span class="sd">		</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Alpha is added for regularization purposes. This prevents system</span>
+<span class="sd">	rounding errors and promises better convergence rates.</span>
+
+<span class="sd">	Also uses eig_flip to flip the signs of the eigenvectors</span>
+<span class="sd">	to ensure deterministic output.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">XTX</span><span class="o">.</span><span class="n">shape</span>
+	<span class="k">assert</span> <span class="n">n</span> <span class="o">==</span> <span class="n">p</span>
+	<span class="n">error</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="n">alpha</span> <span class="o">=</span> <span class="n">ALPHA_DEFAULT</span> <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">alpha</span>
+	<span class="n">old_alpha</span> <span class="o">=</span> <span class="mi">0</span>
+	
+	<span class="n">decomp</span> <span class="o">=</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;syevd&quot;</span><span class="p">,</span> <span class="n">fast</span><span class="p">,</span> <span class="s2">&quot;eigh&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">qr</span> <span class="k">else</span> <span class="n">lapack</span><span class="p">(</span><span class="s2">&quot;syevr&quot;</span><span class="p">,</span> <span class="n">fast</span><span class="p">)</span> 
+
+	<span class="k">while</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+		<span class="k">if</span> <span class="n">PRINT_ALL_WARNINGS</span><span class="p">:</span> 
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;eigh Alpha = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span>
+
+		<span class="c1"># Add epsilon jitter to diagonal. Note adding</span>
+		<span class="c1"># np.eye(p)*alpha is slower and uses p^2 memory</span>
+		<span class="c1"># whilst flattening uses only p memory.</span>
+		<span class="n">addDiagonal</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="n">alpha</span><span class="o">-</span><span class="n">old_alpha</span><span class="p">)</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="n">output</span> <span class="o">=</span> <span class="n">decomp</span><span class="p">(</span><span class="n">XTX</span><span class="p">)</span>
+			<span class="k">if</span> <span class="n">USE_NUMBA</span><span class="p">:</span> 
+				<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">output</span>
+				<span class="n">error</span> <span class="o">=</span> <span class="mi">0</span>
+			<span class="k">else</span><span class="p">:</span> 
+				<span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="n">output</span>
+		<span class="k">except</span><span class="p">:</span> <span class="k">pass</span>
+		<span class="k">if</span> <span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">old_alpha</span> <span class="o">=</span> <span class="n">alpha</span>
+			<span class="n">alpha</span> <span class="o">*=</span> <span class="mi">10</span>
+
+	<span class="n">addDiagonal</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+	<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">S2</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">eig_flip</span><span class="p">(</span><span class="n">V</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+	<span class="k">if</span> <span class="n">svd</span> <span class="ow">or</span> <span class="n">positive</span><span class="p">:</span> 
+		<span class="n">S2</span><span class="p">[</span><span class="n">S2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+		<span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">if</span> <span class="n">svd</span><span class="p">:</span>
+		<span class="n">S2</span> <span class="o">**=</span> <span class="mf">0.5</span>
+	<span class="k">return</span> <span class="n">S2</span><span class="p">,</span> <span class="n">V</span></div>
+
+
+<span class="n">_svd</span> <span class="o">=</span> <span class="n">svd</span>
+<div class="viewcode-block" id="eig"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.eig">[docs]</a><span class="k">def</span> <span class="nf">eig</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">svd</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">stable</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	[Edited 8/11/2018 Made QR-SVD even faster --&gt; changed to n &gt;= p from n &gt;= 5/3p]</span>
+<span class="sd">	Computes the Eigendecomposition of any matrix using either</span>
+<span class="sd">	QR then SVD or just SVD. This produces much more stable solutions </span>
+<span class="sd">	that pure eigh(covariance), and thus will be necessary in some cases.</span>
+
+<span class="sd">	If STABLE is True, then EIGH will be bypassed, and instead SVD or QR/SVD</span>
+<span class="sd">	will be used instead. This is to guarantee stability, since EIGH</span>
+<span class="sd">	uses epsilon jitter along the diagonal of the covariance matrix.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If n &gt;= 5/3 * p:</span>
+<span class="sd">		Uses QR followed by SVD noticing that U is not needed.</span>
+<span class="sd">		This means Q @ U is not required, reducing work.</span>
+
+<span class="sd">		Note Sklearn&#39;s Incremental PCA was used for the constant</span>
+<span class="sd">		5/3 [`Matrix Computations, Third Edition, G. Holub and C. </span>
+<span class="sd">		Van Loan, Chapter 5, section 5.4.4, pp 252-253.`]</span>
+
+<span class="sd">	Else If n &gt;= p:</span>
+<span class="sd">		SVD is used, as QR would be slower.</span>
+
+<span class="sd">	Else If n &lt;= p:</span>
+<span class="sd">		SVD Transpose is used svd(X.T)</span>
+
+<span class="sd">	If stable is False:</span>
+<span class="sd">		Eigh is used or SVD depending on the memory requirement.</span>
+<span class="sd">		</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Eig is the most stable Eigendecomposition in HyperLearn. It</span>
+<span class="sd">	surpasses the stability of Eigh, as no epsilon jitter is added,</span>
+<span class="sd">	unless specified when stable = False.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">memCheck</span> <span class="o">=</span> <span class="n">memoryXTX</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+	<span class="c1"># Note when p &gt;= n, EIGH will return incorrect results, and hence HyperLearn</span>
+	<span class="c1"># will default to SVD or QR/SVD</span>
+	<span class="k">if</span> <span class="n">stable</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">memCheck</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+		<span class="c1"># From Daniel Han-Chen&#39;s Modern Big Data Algorithms --&gt; if n is larger</span>
+		<span class="c1"># than p, then use QR. Old is &gt;= 5/3*p.</span>
+		<span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span><span class="p">:</span>
+			<span class="c1"># Q, R = qr(X)</span>
+			<span class="c1"># U, S, VT = svd(R)</span>
+			<span class="c1"># S, VT is kept.</span>
+			<span class="n">__</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">_svd</span><span class="p">(</span> <span class="n">qr</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">R_only</span> <span class="o">=</span> <span class="kc">True</span><span class="p">),</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="c1"># Force turn on transpose:</span>
+			<span class="c1"># either computes svd(X) or svd(X.T)</span>
+			<span class="c1"># whichever is faster. [p &gt;= n --&gt; svd(X.T)]</span>
+			<span class="n">__</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">_svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">transpose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">,</span> <span class="n">U_decision</span> <span class="o">=</span> <span class="n">U_decision</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">svd</span><span class="p">:</span>
+			<span class="n">S</span> <span class="o">**=</span> <span class="mi">2</span>
+			<span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">_XTX</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">svd</span><span class="p">:</span>
+			<span class="n">S</span> <span class="o">**=</span> <span class="mf">0.5</span>
+			<span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span>
+			
+	<span class="k">return</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span></div>
+
+
+
+	
+<div class="viewcode-block" id="pinvh"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvh">[docs]</a><span class="k">def</span> <span class="nf">pinvh</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the pseudoinverse of a Hermitian Matrix</span>
+<span class="sd">	(Positive Symmetric Matrix) using Eigendecomposition.</span>
+<span class="sd">	</span>
+<span class="sd">	Uses the fact that the matrix is special, and so time</span>
+<span class="sd">	complexity is approximately reduced by 1/2 or more when</span>
+<span class="sd">	compared to full SVD.</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s EIGH. PyTorch uses (for now) a non divide-n-conquer algo.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based EIGH.</span>
+<span class="sd">		If NUMBA is not installed, uses very fast divide-n-conqeur LAPACK functions.</span>
+<span class="sd">		Note Scipy&#39;s EIGH as of now is NON divide-n-conquer.</span>
+<span class="sd">		Submitted report to Scipy:</span>
+<span class="sd">		https://github.com/scipy/scipy/issues/9212</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Condition number is:</span>
+<span class="sd">		float32 = 1e3 * eps * max(abs(S))</span>
+<span class="sd">		float64 = 1e6 * eps * max(abs(S))</span>
+<span class="sd">		</span>
+<span class="sd">	Alpha is added for regularization purposes. This prevents system</span>
+<span class="sd">	rounding errors and promises better convergence rates.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">assert</span> <span class="n">XTX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">XTX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+	<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">XTX</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">_eighCond</span><span class="p">(</span><span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+	<span class="k">return</span> <span class="p">(</span><span class="n">V</span> <span class="o">/</span> <span class="n">S2</span><span class="p">)</span> <span class="o">@</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span></div>
+
+
+
+<div class="viewcode-block" id="pinvEig"><a class="viewcode-back" href="../../source/hyperlearn.html#hyperlearn.linalg.pinvEig">[docs]</a><span class="k">def</span> <span class="nf">pinvEig</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the approximate pseudoinverse of any matrix X</span>
+<span class="sd">	using Eigendecomposition on the covariance matrix XTX or XXT</span>
+<span class="sd">	</span>
+<span class="sd">	Uses a special trick where:</span>
+<span class="sd">		If n &gt;= p: X^-1 approx = (XT @ X)^-1 @ XT</span>
+<span class="sd">		If n &lt; p:  X^-1 approx = XT @ (X @ XT)^-1</span>
+<span class="sd">	</span>
+<span class="sd">	Speed</span>
+<span class="sd">	--------------</span>
+<span class="sd">	If USE_GPU:</span>
+<span class="sd">		Uses PyTorch&#39;s EIGH. PyTorch uses (for now) a non divide-n-conquer algo.</span>
+<span class="sd">	If CPU:</span>
+<span class="sd">		Uses Numpy&#39;s Fortran C based EIGH.</span>
+<span class="sd">		If NUMBA is not installed, uses very fast divide-n-conqeur LAPACK functions.</span>
+<span class="sd">		Note Scipy&#39;s EIGH as of now is NON divide-n-conquer.</span>
+<span class="sd">		Submitted report to Scipy:</span>
+<span class="sd">		https://github.com/scipy/scipy/issues/9212</span>
+<span class="sd">	</span>
+<span class="sd">	Stability</span>
+<span class="sd">	--------------</span>
+<span class="sd">	Condition number is:</span>
+<span class="sd">		float32 = 1e3 * eps * max(abs(S))</span>
+<span class="sd">		float64 = 1e6 * eps * max(abs(S))</span>
+<span class="sd">		</span>
+<span class="sd">	Alpha is added for regularization purposes. This prevents system</span>
+<span class="sd">	rounding errors and promises better convergence rates.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="n">n</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+	<span class="n">XT</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span>
+	<span class="n">memoryCovariance</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+	<span class="n">covariance</span> <span class="o">=</span> <span class="n">_XTX</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">_XXT</span><span class="p">(</span><span class="n">XT</span><span class="p">)</span>
+	
+	<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">covariance</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="p">)</span>
+	<span class="n">S2</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">_eighCond</span><span class="p">(</span><span class="n">S2</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+	<span class="n">inv</span> <span class="o">=</span> <span class="p">(</span><span class="n">V</span> <span class="o">/</span> <span class="n">S2</span><span class="p">)</span> <span class="o">@</span> <span class="n">V</span><span class="o">.</span><span class="n">T</span>
+
+	<span class="k">return</span> <span class="n">inv</span> <span class="o">@</span> <span class="n">XT</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="n">p</span> <span class="k">else</span> <span class="n">XT</span> <span class="o">@</span> <span class="n">inv</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Daniel Han-Chen
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

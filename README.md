@@ -21,7 +21,7 @@ What's going to be in Hyperlearn 2022!
 ! Hyperlearn is under construction! A stable package will be reuploaded sometime 2022! Stay tuned!
 ```
 
-<a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website (under SEVERE construction)</p></a>
+<a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website</p></a>
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">50 Page Modern Big Data Algorithms PDF</p></a>
 
