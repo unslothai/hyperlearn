@@ -7,7 +7,7 @@
 </h4>
 <h2 align="center">
 If you want to collab on fast algorithms - msg me!!
-Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/7kbpQqMU
+Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/nrjaMb6w
 </h2>
 
 <h3 align="center">
@@ -18,7 +18,7 @@ What's going to be in Hyperlearn 2022!
 </p>
  
 ```diff
-! Hyperlearn is under construction! A stable package will be reuploaded sometime 2022! Stay tuned!
+! Hyperlearn is under construction! A brand new stable package will be uploaded sometime in 2022! Stay tuned!
 ```
 
 <a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website</p></a>
@@ -26,7 +26,7 @@ What's going to be in Hyperlearn 2022!
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">50 Page Modern Big Data Algorithms PDF</p></a>
 
 <h4 align="center"><i>
-In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster, and others faster. Since then, I have 50+ fast algos, but didn't have time to update Hyperlearn since Moonshot was priority one! I'll be updating Hyperlearn mid 2022!
+In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated Hyperlearn's methods to make TSNE 2000x faster, and others faster. Since then, I have 50+ fast algos, but didn't have time to update Hyperlearn since Moonshot was priority one! I'll be updating Hyperlearn late 2022!
 </i></h4>
 
 ----
@@ -43,10 +43,10 @@ In 2018-2020, I was at NVIDIA helping make GPU ML algos faster! I incorporated H
 * **NVIDIA**: Raschka et al. RAPIDS: Machine Learning in Python: Main developments and technology trends in data science, machine learning, and artificial intelligence https://arxiv.org/abs/2002.04803 _(Incorporated Hyperlearn methods into NVIDIA RAPIDS TSNE)_
 
 ----
-<h3> Hyperlearn's methods and algorithms have been incorporated into 5 organizations and repositories! </h3>
+<h3> Hyperlearn's methods and algorithms have been incorporated into more than 6 organizations and repositories! </h3>
 
 ```diff
-+ Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW
++ NASA + Facebook's Pytorch, Scipy, Cupy, NVIDIA, UNSW
 ```
 
 * **Facebook's Pytorch**: SVD very very slow and GELS gives nans, -inf #11174 https://github.com/pytorch/pytorch/issues/11174
@@ -94,7 +94,7 @@ Around mid 2022, Hyperlearn will evolve to GreenAI and aims to incorporate:
 * Fast and parallelized Yahoo Finance scraper
 
 
-I also published a mini 50 page book called "Modern Big Data Algorithm"!
+I also published a mini 50 page book titled "Modern Big Data Algorithm".
 
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">Modern Big Data Algorithms PDF</p></a>
 
@@ -147,7 +147,7 @@ I've also added some preliminary results for N = 5000, P = 6000
 ### 3. Why is Statsmodels sometimes unbearably slow?
   * Confidence, Prediction Intervals, Hypothesis Tests & Goodness of Fit tests for linear models are optimized.
   * Using Einstein Notation & Hadamard Products where possible.
-  * Computing only what is necessary to compute (Diagonal of matrix and not entire matrix).
+  * Computing only what is neccessary to compute (Diagonal of matrix and not entire matrix).
   * Fixing the flaws of Statsmodels on notation, speed, memory issues and storage of variables.
 
 <a id='4'></a>
