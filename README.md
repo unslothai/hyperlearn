@@ -1,7 +1,8 @@
+<br>
 <p align="center">
-<img src="Images/HyperLearn_Logo.png" alt="drawing" width="300"/>
+<img src="https://i.imgur.com/A8OA2vw.png" alt="drawing" width="500"/>
 </p>
-
+<br>
 <h4 align="center">
 2-2000x faster algos, 50% less memory usage, works on all hardware - new and old.
 </h4>
