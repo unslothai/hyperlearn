@@ -10,18 +10,7 @@ If you want to collab on fast algorithms - msg me!!
 Join our Discord server on making AI faster, or if you just wanna chat about AI!! https://discord.gg/k8AtkZqNwr
 </h2>
 
-<h3 align="center">
-What's going to be in Hyperlearn 2022!
-</h3>
-<p align="center">
-<img src="https://github.com/danielhanchen/hyperlearn/blob/master/Images/Moonshot%20Demo.gif" alt="animated" />
-</p>
- 
-```diff
-! Hyperlearn is under construction! A brand new stable package will be uploaded sometime in 2022! Stay tuned!
-```
-
-<a href="http://moonshotai.org/" style="text-align: center"><p align="center">Moonshot Website</p></a>
+<a href="https://www.moonshotai.org/" style="text-align: center"><p align="center">Visit our website: www.moonshotai.org</p></a>
 <a href="https://hyperlearn.readthedocs.io/en/latest/index.html" style="text-align: center"><p align="center">Documentation</p></a>
 <a href="https://drive.google.com/file/d/18fxyBiPE0G4e5yixAj5S--YL_pgTh3Vo/view?usp=sharing" style="text-align: center"><p align="center">50 Page Modern Big Data Algorithms PDF</p></a>
 
